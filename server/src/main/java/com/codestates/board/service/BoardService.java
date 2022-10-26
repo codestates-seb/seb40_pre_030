@@ -37,9 +37,9 @@ public class BoardService {
     }
 
     // 특정 질문 출력
-    public Board findPost(long boardId) {
+    public Board findPost(long postId) {
 
-        return findVerifiedBoard(boardId);
+        return findVerifiedBoard(postId);
     }
 
     // 질문 전체 목록 출력

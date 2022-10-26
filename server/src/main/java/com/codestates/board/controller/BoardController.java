@@ -49,10 +49,10 @@ public class BoardController {
     }
 
     // 특정 질문 출력
-    @GetMapping("/{board-id}")
-    public ResponseEntity getBoard(@PathVariable("board-id") @Positive long boardId) {
+    @GetMapping("/{post-id}")
+    public ResponseEntity getBoard(@PathVariable("post-id") @Positive long postId) {
 
-        Board response = boardService.findPost(boardId);
+        Board response = boardService.findPost(postId);
 
         return new ResponseEntity<>(response, HttpStatus.OK);
     }
