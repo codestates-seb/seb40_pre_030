@@ -1,7 +1,7 @@
 import { useState } from "react"
 
 import { HeaderWrapper } from "./style"
-import { HeaderCont, HeaderNav, SearchBar } from "./headercotents";
+import { HeaderCont, HeaderNav, Logo, SearchBar } from "./headercotents";
 
 const Header = () => {
   const [logged, SetLogged] = useState(true);
@@ -9,6 +9,7 @@ const Header = () => {
   return(
     <HeaderWrapper>
       <nav>
+        <Logo />
         <HeaderNav logged={logged} />
         <SearchBar />
         <HeaderCont logged={logged} />
