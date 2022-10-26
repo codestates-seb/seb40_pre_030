@@ -17,7 +17,7 @@ color: ${({ navbg }) =>
   navbg ? 'black' : 'gray'
 };
 font-size: ${({ navbg }) => 
-  navbg ? 'black' : 'gray'
+  navbg ? 'black' : 'gray' 
 };
 
 &:hover{
