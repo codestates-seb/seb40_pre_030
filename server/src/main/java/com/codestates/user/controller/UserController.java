@@ -1,7 +1,8 @@
 package com.codestates.user.controller;
 
-import com.codestates.user.dto.SingleResponseDto;
+//import com.codestates.user.dto.SingleResponseDto;
 import com.codestates.user.dto.UserPostDto;
+import com.codestates.user.dto.UserResponseDto;
 import com.codestates.user.entity.User;
 import com.codestates.user.mapper.UserMapper;
 import com.codestates.user.service.UserService;
@@ -10,6 +11,8 @@ import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.validation.annotation.Validated;
 import org.springframework.web.bind.annotation.*;
+
+import javax.validation.Valid;
 import javax.validation.constraints.Positive;
 
 @RestController
@@ -26,14 +29,13 @@ public class UserController {
         this.mapper = mapper;
     }
 
-    @PostMapping("/")
-    public ResponseEntity postUser(UserPostDto userPostDto){
+    @PostMapping("/signup")
+    public ResponseEntity postUser(@Valid @RequestBody UserPostDto userPostDto){
 
         User user = mapper.userPostToUser(userPostDto);
-        userService.createUser(user);
+        User postUser = userService.createUser(user);
 
-        return new ResponseEntity<>(
-                new SingleResponseDto<>(mapper.useToUserResponseDto(user)),HttpStatus.OK);
+        return new ResponseEntity<>(mapper.useToUserResponseDto(postUser),HttpStatus.CREATED);
     }
 
     @GetMapping("/{user-id}")
@@ -41,8 +43,7 @@ public class UserController {
 
         User user = userService.findUser(userId);
 
-        return new ResponseEntity<>(
-                new SingleResponseDto<>(mapper.useToUserResponseDto(user)) ,HttpStatus.OK);
+        return new ResponseEntity<>((mapper.useToUserResponseDto(user)) ,HttpStatus.OK);
     }
 
 //    사이드바 Users 구현시
@@ -65,3 +66,4 @@ public class UserController {
     }
 
 }
+
