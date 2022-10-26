@@ -1,9 +1,9 @@
 package com.codestates.user.service;
 
-import com.codestates.user.repository.UserRepository;
 import com.codestates.user.entity.User;
-import com.codestates.user.exception.BusinessLoginException;
-import com.codestates.user.exception.ExceptionCode;
+import com.codestates.user.repository.UserRepository;
+//import com.codestates.user.exception.BusinessLoginException;
+//import com.codestates.user.exception.ExceptionCode;
 import org.springframework.stereotype.Service;
 
 
@@ -19,7 +19,7 @@ public class UserService {
     }
 
     public User createUser(User user){
-
+        verifyExistsEmail(user.getEmail());
         return userRepository.save(user);
     }
 
@@ -51,9 +51,10 @@ public class UserService {
 
         Optional<User> optionalUser =
                 userRepository.findById(userId);
+
         User findUser =
                 optionalUser.orElseThrow(() ->
-                        new BusinessLoginException(ExceptionCode.USER_NOT_FOUND));
+                        new IllegalStateException("존재하지 않는 ID 입니다. "));
 
         return findUser;
     }
@@ -62,6 +63,6 @@ public class UserService {
         Optional<User> user =  userRepository.findByEmail(email);
 
         if(user.isPresent())
-            throw new BusinessLoginException(ExceptionCode.USER_EXISTS);
+            throw new IllegalStateException("중복된 Email 입니다.");
         }
     }
