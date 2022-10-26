@@ -5,6 +5,7 @@ import styled from "styled-components";
 const StyledVote = styled.div`
   font-size: 1.7rem;
   color: gray;
+  margin: 0 20px 0 20px;
   display: flex;
   flex-direction: column;
   align-items: center;
