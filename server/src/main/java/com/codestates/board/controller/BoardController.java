@@ -37,10 +37,10 @@ public class BoardController {
 
     // 질문 수정
     @PatchMapping("/{post_id}/edit")
-    public ResponseEntity patchBoard(@PathVariable("post_id") @Positive long boardId,
+    public ResponseEntity patchBoard(@PathVariable("post_id") @Positive long postId,
                                      @Valid @RequestBody BoardDto.Patch requestBody) {
 
-        requestBody.setBoardId(boardId);
+        requestBody.setBoardId(postId);
         Board board = mapper.boardPatchDtoToBoard(requestBody);
         Board updateBoard = boardService.updateBoard(board);
         BoardDto.Response response = mapper.boardToBoardResponse(updateBoard);
@@ -71,9 +71,9 @@ public class BoardController {
 
     // 질문 삭제
     @DeleteMapping("{post_id}")
-    public ResponseEntity deleteBoard(@PathVariable("post_id") long boardId) {
+    public ResponseEntity deleteBoard(@PathVariable("post_id") long postId) {
 
-        boardService.deleteBoard(boardId);
+        boardService.deleteBoard(postId);
 
         return new ResponseEntity<>(HttpStatus.NO_CONTENT);
     }
