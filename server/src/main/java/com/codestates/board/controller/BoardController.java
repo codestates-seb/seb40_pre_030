@@ -48,12 +48,21 @@ public class BoardController {
         return new ResponseEntity<>(response, HttpStatus.OK);
     }
 
+    // 특정 질문 출력
+    @GetMapping("/{board-id}")
+    public ResponseEntity getBoard(@PathVariable("board-id") @Positive long boardId) {
+
+        Board response = boardService.findPost(boardId);
+
+        return new ResponseEntity<>(response, HttpStatus.OK);
+    }
+
     // 질문 전체 목록 출력
     @GetMapping
-    public ResponseEntity getBoard(@Positive @RequestParam int page,
-                                   @Positive @RequestParam int size) {
+    public ResponseEntity getBoards(@Positive @RequestParam int page,
+                                    @Positive @RequestParam int size) {
 
-        Page<Board> boards = boardService.findposts(page - 1, size);
+        Page<Board> boards = boardService.findPosts(page - 1, size);
         List<Board> boardList = boards.getContent();
         List<BoardDto.Response> responses = mapper.boardsToBoardResponse(boardList);
 

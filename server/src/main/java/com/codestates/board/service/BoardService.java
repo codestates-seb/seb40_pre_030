@@ -36,8 +36,14 @@ public class BoardService {
         return boardRepository.save(findBoard);
     }
 
+    // 특정 질문 출력
+    public Board findPost(long boardId) {
+
+        return findVerifiedBoard(boardId);
+    }
+
     // 질문 전체 목록 출력
-    public Page<Board> findposts(int page, int size) {
+    public Page<Board> findPosts(int page, int size) {
 
         return boardRepository.findAll(PageRequest.of(page, size, Sort.by("boardId").descending()));
     }
