@@ -10,26 +10,26 @@ import javax.persistence.*;
 @Getter
 @Setter
 @Entity
+@Table(name = "users")
 public class User {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long userId;
 
-    @Column(length = 20,nullable = false,updatable = false,unique = true)
-    private String name;
-
-    @Column(length = 15,nullable = false,updatable = false)
-    private String password;
-
-    @Column(nullable = false,updatable = false)
+    @Column
     private String email;
 
-    private String states;
+    @Column
+    private String name;
+
+    @Column
+    private String password;
+
 
     @Enumerated(EnumType.STRING)
     @Column(length = 20, nullable = false)
-    private UserStatus userStatus;
+    private UserStatus userStatus = UserStatus.USER_ACTIVE;
 
 //    보류
 //    @OneToMany(mappedBy = "user")
