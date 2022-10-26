@@ -111,6 +111,6 @@ StackOverFlow site clone<br>
 | 💄 :lipstick: | design | CSS 등 사용자 UI 디자인 변경 |
 | 💡 :bulb: | comment | 필요한 주석 추가 및 변경 |
 | 🚚 :truck: | rename | 파일 혹은 폴더명을 수정하거나 옮기는 작업만인 경우 |
-| 🔥 :fire: | remove | 파일을 삭제하는 작업만 수행한 경우 |
+| 🔥 :fire: | remove | 파일을 삭제하는 작업만 수행한 경우 | 
 | 💥 :boom: | !BREAKING CHANGE | 커다란 API 변경의 경우 |
 | 🚑️ :ambulance: | !HOTFIX | 급하게 치명적인 버그를 고쳐야 하는 경우 |
