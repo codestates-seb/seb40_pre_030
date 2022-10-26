@@ -4,7 +4,7 @@ import { useState } from "react"
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faMagnifyingGlass, faInbox, faTrophy, faFileCircleQuestion, faBars } from "@fortawesome/free-solid-svg-icons";
 import {faStackOverflow} from "@fortawesome/free-brands-svg-icons"
-import Atag from "./atag";
+import Atag from "./Atag";
 
 const headerNav = {
   'false': ['About', 'Products', 'For Teams'], 
