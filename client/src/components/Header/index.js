@@ -5,7 +5,7 @@ import { HeaderCont, HeaderNav, SearchBar } from "./headercotents";
 
 const Header = () => {
   const [logged, SetLogged] = useState(true);
-  
+
   return(
     <HeaderWrapper>
       <nav>
