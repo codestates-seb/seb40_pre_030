@@ -2,6 +2,8 @@ package com.codestates.board.service;
 
 import com.codestates.board.entity.Board;
 import com.codestates.board.repository.BoardRepository;
+import com.codestates.exception.BusinessLogicException;
+import com.codestates.exception.ExceptionCode;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageRequest;
 import org.springframework.data.domain.Sort;
@@ -38,7 +40,6 @@ public class BoardService {
 
     // 특정 질문 출력
     public Board findPost(long postId) {
-
         return findVerifiedBoard(postId);
     }
 
@@ -57,9 +58,9 @@ public class BoardService {
 
     // 질문이 존재하는지 검증
     public Board findVerifiedBoard(long boardId) {
-
         Optional<Board> optionalBoard = boardRepository.findById(boardId);
-        Board findPost = optionalBoard.orElseThrow(() -> new RuntimeException("QUESTION_NOT_FOUND"));
+        Board findPost = optionalBoard.orElseThrow(() ->
+                new BusinessLogicException(ExceptionCode.QUESTION_NOT_FOUND));
 
         return findPost;
     }

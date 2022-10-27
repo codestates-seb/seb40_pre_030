@@ -1,38 +1,38 @@
 import styled from "styled-components";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faPen, faCommentAlt } from "@fortawesome/free-solid-svg-icons";
-import Button from "./Button";
-const AsideWrap = styled.div`
+
+const SideWrap = styled.div`
   width: 300px;
   float: right;
-  margin: 0 50px 0 15px;
-  .asideTop {
+  margin-right: 50px;
+  .SideTop {
     background-color: #fef6df;
     border: 1px solid #f1e1b6;
     margin-bottom: 20px;
-    .asideheader {
+    .Sideheader {
       border-top: 1px solid #f1e1b6;
       background-color: #fcf1d1;
       font-size: 15px;
       font-weight: bold;
     }
-    .asidecontent {
+    .Sidecontent {
       padding: 5px;
       font-size: 12px;
     }
   }
-  .asideBottom {
+  .SideBottom {
     border: 1px solid #e1e4e6;
-    .asideBottomhead {
+    .SideBottomhead {
       padding: 12px;
       border-bottom: 1px solid #e1e4e6;
 
       background-color: ${(props) => props.theme.headerBg};
     }
-    .asideBotWrap {
+    .SideBotWrap {
       border: 1px solid #e1e4e6;
       padding: 12px;
-      .asidebottitle {
+      .Sidebottitle {
         display: flex;
         flex-direction: row;
         align-items: center;
@@ -42,14 +42,14 @@ const AsideWrap = styled.div`
     }
   }
 `;
-const Aside = () => {
+const Sidebar = () => {
   return (
     <>
-      <AsideWrap>
-        <div className="asideTop">
-          <ul className="asideul">
-            <li className="asideheader asidecontent">The Overflow Blog</li>
-            <li className="asidecontent">
+      <SideWrap>
+        <div className="SideTop">
+          <ul className="Sideul">
+            <li className="Sideheader Sidecontent">The Overflow Blog</li>
+            <li className="Sidecontent">
               <div>
                 {" "}
                 <span>
@@ -61,7 +61,7 @@ const Aside = () => {
                 </a>
               </div>
             </li>
-            <li className="asidecontent">
+            <li className="Sidecontent">
               <div>
                 {" "}
                 <span>
@@ -72,8 +72,8 @@ const Aside = () => {
                 </a>
               </div>
             </li>
-            <li className="asideheader asidecontent">Featured on Meta</li>
-            <li className="asidecontent">
+            <li className="Sideheader Sidecontent">Featured on Meta</li>
+            <li className="Sidecontent">
               <div>
                 <span>
                   <FontAwesomeIcon icon={faCommentAlt} />
@@ -83,7 +83,7 @@ const Aside = () => {
                 </a>
               </div>
             </li>
-            <li className="asidecontent">
+            <li className="Sidecontent">
               <div>
                 <span>
                   <FontAwesomeIcon icon={faCommentAlt} />
@@ -93,7 +93,7 @@ const Aside = () => {
                 </a>
               </div>
             </li>
-            <li className="asidecontent">
+            <li className="Sidecontent">
               <div>
                 <span>
                   <FontAwesomeIcon icon={faCommentAlt} />
@@ -103,7 +103,7 @@ const Aside = () => {
                 </a>
               </div>
             </li>
-            <li className="asidecontent">
+            <li className="Sidecontent">
               {" "}
               <div>
                 <span>
@@ -114,8 +114,8 @@ const Aside = () => {
                 </a>
               </div>
             </li>
-            <li className="asideheader asidecontent">Hot Meta Posts</li>
-            <li className="asidecontent">
+            <li className="Sideheader Sidecontent">Hot Meta Posts</li>
+            <li className="Sidecontent">
               <div>
                 <span>9 </span>
                 <a href="https://meta.stackoverflow.com/questions/421007/should-i-edit-questions-to-tidy-code-snippets?cb=1">
@@ -125,80 +125,56 @@ const Aside = () => {
             </li>
           </ul>
         </div>
-        <div className="asideBottom">
-          <div className="asideBottomhead">Collectives</div>
-          <div className="asideBotWrap">
-            <div className="asidebottitle">
-              <div className="asideimg">
+        <div className="SideBottom">
+          <div className="SideBottomhead">Collectives</div>
+          <div className="SideBotWrap">
+            <div className="Sidebottitle">
+              <div className="Sideimg">
                 <img src="https://user-images.githubusercontent.com/107850055/197710729-3110e35f-2fca-4811-a9a3-2fa45cb57c59.png" />
               </div>
               <div>Google Cloud</div>
-              <div className="asidebtn">
-                <Button
-                  bgcolor="transparent"
-                  border={(props) => {
-                    return props.theme.blueFont + " solid 1px";
-                  }}
-                  font={(props) => props.theme.blueFont}
-                >
-                  Join
-                </Button>
+              <div className="Sidebtn">
+                <button>Join</button>
               </div>
             </div>
-            <span className="asideBotCon">
+            <span className="SideBotCon">
               Google Cloud provides organizations with leading infrastructure,
               platform capabilities...
             </span>
           </div>
-          <div className="asideBotWrap">
-            <div className="asidebottitle">
-              <div className="asideimg">
+          <div className="SideBotWrap">
+            <div className="Sidebottitle">
+              <div className="Sideimg">
                 <img src="https://user-images.githubusercontent.com/107850055/197701251-e450a62e-dc1f-4bab-a5bd-afd7ef642ab9.png" />
               </div>
               <div>Twilio</div>
-              <div className="asidebtn">
-                <Button
-                  bgcolor="transparent"
-                  border={(props) => {
-                    return props.theme.blueFont + " solid 1px";
-                  }}
-                  font={(props) => props.theme.blueFont}
-                >
-                  Join
-                </Button>
+              <div className="Sidebtn">
+                <button>Join</button>
               </div>
             </div>
-            <span className="asideBotCon">
+            <span className="SideBotCon">
               Twilio has democratized channels like voice, text, chat, video,
               and email by virtualizing the...
             </span>
           </div>
-          <div className="asideBotWrap">
-            <div className="asidebottitle">
-              <div className="asideimg">
+          <div className="SideBotWrap">
+            <div className="Sidebottitle">
+              <div className="Sideimg">
                 <img src="https://user-images.githubusercontent.com/107850055/197701256-2fddfddc-78c7-4f22-9e02-ff245c822213.png"></img>
               </div>
               <div>WSO2</div>
-              <div className="asidebtn">
-                <Button
-                  bgcolor="transparent"
-                  border={(props) => {
-                    return props.theme.blueFont + " solid 1px";
-                  }}
-                  font={(props) => props.theme.blueFont}
-                >
-                  Join
-                </Button>
+              <div className="Sidebtn">
+                <button>Join</button>
               </div>
             </div>
-            <span className="asideBotCon">
+            <span className="SideBotCon">
               WSO2 solutions give enterprises the flexibility to deploy
               applications and services on-...
             </span>
           </div>
         </div>
-      </AsideWrap>
+      </SideWrap>
     </>
   );
 };
-export default Aside;
+export default Sidebar;
