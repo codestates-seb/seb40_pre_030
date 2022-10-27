@@ -1,6 +1,6 @@
 import styled from "styled-components";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
-import { faMessage } from "@fortawesome/free-solid-svg-icons";
+import { faMessage, faTags, faTrophy } from "@fortawesome/free-solid-svg-icons";
 
 const TextBody = styled.div`
   display: flex;
@@ -38,8 +38,14 @@ const SignBody = () => {
         Get unstuck — ask a question
       </SubInfo>
       <SubInfo>Unlock new privileges like voting and commenting</SubInfo>
-      <SubInfo>Save your favorite tags, filters, and jobs</SubInfo>
-      <SubInfo>Earn reputation and badges</SubInfo>
+      <SubInfo>
+        <FontAwesomeIcon icon={faTags} />
+        Save your favorite tags, filters, and jobs
+      </SubInfo>
+      <SubInfo>
+        <FontAwesomeIcon icon={faTrophy} />
+        Earn reputation and badges
+      </SubInfo>
       <SubInfo>
         <span className="Sublink">
           Collaborate and share knowledge with a private group for FREE.

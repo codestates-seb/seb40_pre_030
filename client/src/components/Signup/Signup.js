@@ -2,13 +2,17 @@ import styled from "styled-components";
 import { useState } from "react";
 import SignBody from "./SignBody";
 import Thirdparty from "../Login/Thirdparty";
+import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
+import { faCheck } from "@fortawesome/free-solid-svg-icons";
 
 const Backgtoundsign = styled.div`
   background-color: rgba(232, 232, 232, 1);
-  height: 70rem;
+  height: 100vh;
   display: flex;
   justify-content: center;
   align-items: center;
+
+  overflow-y: scroll;
 
   .signupContent {
     width: 75%;
@@ -25,7 +29,7 @@ const Backgtoundsign = styled.div`
 
 const Signform = styled.form`
   border-radius: 10px;
-  margin-top: 0px;
+
   width: 19rem;
   height: 100%;
   background-color: white;
@@ -59,8 +63,26 @@ const Signform = styled.form`
 
   .box {
     width: 16rem;
-    height: 12rem;
-    background-color: gray;
+    height: 10rem;
+    background-color: rgba(232, 232, 232, 1);
+    display: flex;
+    justify-content: center;
+    align-items: center;
+  }
+  .mini-box {
+    width: 10rem;
+    height: 9rem;
+    background-color: #f5f5f5;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+  }
+
+  .checkbox-big {
+    width: 1.5rem;
+    height: 1.5rem;
+
+    transition: all 1s;
   }
 
   .checkbox {
@@ -70,6 +92,12 @@ const Signform = styled.form`
   span {
     color: gray;
     font-size: 0.8rem;
+    margin: 5px;
+  }
+
+  .change-box {
+    width: 1rem;
+    height: 1rem;
   }
 `;
 
@@ -79,7 +107,7 @@ const ClickButton = styled.button`
   background-color: rgba(51, 160, 255, 1);
   border: 1px solid rgba(51, 160, 255, 1);
   border-radius: 5px;
-  margin: 0.7rem 0px 1rem 0px;
+  margin: 0.5rem 0px 1rem 0px;
   color: white;
 `;
 
@@ -121,22 +149,24 @@ const Signup = () => {
                 least 1 letter and 1 number.
               </span>
 
-              <div className="box"></div>
+              <div className="box">
+                <div className="mini-box">
+                  {ischeck ? (
+                    <FontAwesomeIcon icon={faCheck} />
+                  ) : (
+                    <button
+                      className="change-box"
+                      onClick={checkHandler}
+                    ></button>
+                  )}
+                  <div>I'm not a robot</div>
+                </div>
+              </div>
               <div>
-                <input type="checkbox" className="checkbox"></input>
+                <input type="checkbox" className="checkbox-big"></input>
                 Opt-in to receive occasional product updates, user research
                 invitations, company announcements, and digests.
               </div>
-              <br />
-              {/* <label htmlFor="confirm_password">
-                Confirm Password <br />
-                <input
-                  id="confirm_password"
-                  name="confirmPassword"
-                  type="password"
-                />
-              </label> */}
-              <br />
               <ClickButton type="submit">Sign up</ClickButton>
               <span>
                 By clicking “Sign up”, you agree to our terms of service,
@@ -144,6 +174,8 @@ const Signup = () => {
               </span>
             </div>
           </Signform>
+          <div>Already have an account? Log in</div>
+          <div>Are you an employer? Sign up on Talent </div>
         </div>
       </div>
     </Backgtoundsign>

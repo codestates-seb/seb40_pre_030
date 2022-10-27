@@ -8,9 +8,9 @@ function App() {
     <>
       <GlobalStyle />
       <div className="App">
-        <Main />
-        {/* <Header /> */}
-        {/* <Signup /> */}
+        {/* <Main /> */}
+        <Header />
+        <Signup />
       </div>
     </>
   );
