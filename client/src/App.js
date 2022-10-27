@@ -1,18 +1,13 @@
 import { GlobalStyle } from ".";
-import Header from "./components/Header";
-import Signup from "./components/Signup/Signup";
-
-
-
+import Main from "./pages/Main";
 
 function App() {
   return (
     <>
       <GlobalStyle />
-      <div className="App"></div>
-      <Header />
-     <Signup />
-      
+      <div className="App">
+        <Main />
+      </div>
     </>
   );
 }

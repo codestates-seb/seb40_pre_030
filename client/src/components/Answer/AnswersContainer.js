@@ -1,7 +1,12 @@
 import styled from "styled-components";
 import Answer from "./Answer";
 
-const StyledAnswersContainer = styled.div``;
+const StyledAnswersContainer = styled.div`
+  .answers-container-title {
+    font-size: 1.5em;
+    margin-left: 20px;
+  }
+`;
 
 const AnswersContainer = () => {
   return (
