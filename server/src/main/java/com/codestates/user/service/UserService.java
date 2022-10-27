@@ -1,12 +1,13 @@
 package com.codestates.user.service;
 
+import com.codestates.auth.utils.CustomAuthorityUtils;
 import com.codestates.user.entity.User;
 import com.codestates.user.repository.UserRepository;
-//import com.codestates.user.exception.BusinessLoginException;
-//import com.codestates.user.exception.ExceptionCode;
+import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 
 
+import java.util.List;
 import java.util.Optional;
 
 @Service
@@ -14,12 +15,24 @@ public class UserService {
 
     private final UserRepository userRepository;
 
-    public UserService(UserRepository userRepository) {
+    private final PasswordEncoder passwordEncoder;
+    private final CustomAuthorityUtils authorityUtils;
+
+    public UserService(UserRepository userRepository, PasswordEncoder passwordEncoder, CustomAuthorityUtils authorityUtils) {
         this.userRepository = userRepository;
+        this.passwordEncoder = passwordEncoder;
+        this.authorityUtils = authorityUtils;
     }
 
     public User createUser(User user){
         verifyExistsEmail(user.getEmail());
+
+        String encryptedPassword = passwordEncoder.encode(user.getPassword());
+        user.setPassword(encryptedPassword);
+
+        List<String> roles = authorityUtils.createRoles(user.getEmail());
+        user.setRoles(roles);
+
         return userRepository.save(user);
     }
 
