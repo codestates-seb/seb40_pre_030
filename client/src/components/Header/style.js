@@ -1,24 +1,24 @@
-import styled from 'styled-components'
+import styled from "styled-components";
 
 export const HeaderWrapper = styled.div`
   width: 100%;
   display: flex;
   justify-content: center;
   align-items: center;
-  nav{
+  nav {
     width: 80%;
     display: flex;
     justify-content: center;
     align-items: center;
-    .nav_item{
+    .nav_item {
       margin-right: 1rem;
     }
-    a{
+    a {
       color: black;
-      text-decoration : none;
+      text-decoration: none;
       border-radius: 1000px;
       border: none;
-      :hover{
+      :hover {
         background-color: red;
       }
     }
@@ -28,7 +28,7 @@ export const HeaderWrapper = styled.div`
       align-items: center;
       justify-content: center;
       position: relative;
-      border: 1px solid black
+      border: 1px solid black;
     }
     input {
       padding-left: 1rem;
@@ -43,4 +43,4 @@ export const HeaderWrapper = styled.div`
       background-color: white;
     }
   }
-`
+`;
