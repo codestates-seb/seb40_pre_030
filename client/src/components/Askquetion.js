@@ -6,7 +6,7 @@ import "@toast-ui/editor/dist/toastui-editor.css";
 import { Editor } from "@toast-ui/react-editor";
 
 const Main = styled.main`
-height:100vh;
+height:100%;
 background-color:#F1F2F3;
 .Mainsection{
     width: 100vw;
@@ -57,6 +57,7 @@ background-color:#F1F2F3;
             border-radius:2px;
             color:#fff;
             margin-top:15px;
+            padding:20px;
         }
         .AskSection{
             width:100%;
@@ -67,24 +68,19 @@ background-color:#F1F2F3;
             font-size:18px;
             .Forminput{
                 width:100%;
-                height:10px; 
-                font-size:15px;
+            
+                font-size:18px;
                 margin-top:10px;
                 margin-bottom:15px;
             }
-            .Forminput2{
-                width:100%;
-                height:300px; 
-                font-size:15px;
-                margin-top:10px;
-                margin-bottom:15px;
-            }
+           
         }
     }
     .Aside{
-        width:280px;
-       
-       
+        width:300px;
+        display: flex;
+        flex-flow: column nowrap;
+        row-gap: 30px;
         font-size:10px;
         margin-left:15px;
        
@@ -92,7 +88,8 @@ background-color:#F1F2F3;
             box-shadow: grey 0px 0px 3px;
             border-radius: 3px;
             margin-bottom:20px;
-            row-gap: 30px;
+            background-color:#fff;
+          
         }
     
       
@@ -101,16 +98,16 @@ background-color:#F1F2F3;
             font-size:10px;
         }
         .AsideTopic{
-            font-size:10px;
+            font-size:13px;
             border-bottom:1px solid #E4E6E8;
-     
             padding-bottom:5px;   
         .TopicBtn{
         border:none;
-        background-color:#F1F2F3;;
-        font-size:15px;
+        background-color:#fff;
+        font-size:13px;
         margin-top:5px;
         font-weight:bold;
+        padding:10px;
         }
       
            }
@@ -121,10 +118,11 @@ background-color:#F1F2F3;
         }
    .AsideTitle{
     background-color:#F8F9F9;
-    font-size:17px;
-    padding:5px;
+    font-size:19px;
+    padding:15px;
     margin-bottom:5px;
     border-bottom:1px solid #E4E6E8;
+    font-weight:bold;
 
 }.AsideTopicWrap{
    
@@ -134,9 +132,10 @@ background-color:#F1F2F3;
 border:none;
 width:100%;
     background-color:#F1F2F3;;
-    font-size:14px;
+    font-size:16px;
     box-shadow: grey 0px 0px 3px;
     border-radius: 3px;
+    padding:15px;
    
 }   
     }
@@ -153,7 +152,7 @@ const Askquetion = () => {
   const handleChangeInput = () => {
     SetAskBody(textRef.current.getInstance().getMarkdown());
   };
-  console.log(AskBody);
+
   return (
     <>
       <Main>
@@ -289,20 +288,6 @@ const Askquetion = () => {
                       Have a non-programming question?{" "}
                     </button>
                     <span></span>
-                  </div>
-                  <div>
-                    <div className="AsideTopicWrap">
-                      {/* <div >
-                <a href="https://superuser.com/help/on-topic"  >Summarize the ploblem</a> </div>
-                <p class="sc-kIZKsT hJazSU">Troubleshooting hardware and software issues</p>
-                <div  className='AsideTopic'>
-                <a href="https://softwareengineering.stackexchange.com/" className='asidea'>Describe what you`ve tried</a><FontAwesomeIcon icon={faAngleUp}/> </div>
-                <p class="sc-kIZKsT hJazSU">For software development methods and process questions</p>
-                <div className='AsideTopic2'>
-                <a href="https://hardwarerecs.stackexchange.com/help/on-topic"className='asidea' >Show some code</a><FontAwesomeIcon icon={faAngleUp}/> 
-                <p class="sc-kIZKsT hJazSU">Software recommendations Ask questions about the site on <a href="https://meta.stackoverflow.com/" class="sc-chKnlQ cKCfGf">meta</a></p>
-                </div> */}
-                    </div>
                   </div>
                 </div>
                 <div>
