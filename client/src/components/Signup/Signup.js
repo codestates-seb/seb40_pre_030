@@ -116,9 +116,12 @@ const Signup = () => {
     email: "",
     username: "",
     password: "",
-    confirmPassword: "",
   });
   const [ischeck, setIscheck] = useState(false);
+  const [errorMessage, setErrorMessage] = useState("");
+
+  const emailRegEx =
+    /^[A-Za-z0-9]([-_.]?[A-Za-z0-9])*@[A-Za-z0-9]([-_.]?[A-Za-z0-9])*\.[A-Za-z]{2,3}$/i;
 
   const checkHandler = () => {
     setIscheck(!ischeck);
@@ -139,10 +142,12 @@ const Signup = () => {
               <label htmlFor="email">
                 Email <br />
                 <input id="email" name="email" type="email" />
+                {errorMessage === "" ? null : { errorMessage }}
               </label>
               <label htmlFor="password">
                 Password <br />
                 <input id="password" name="password" type="password" />
+                {errorMessage === "" ? null : { errorMessage }}
               </label>
               <span>
                 Passwords must contain at least eight characters, including at
