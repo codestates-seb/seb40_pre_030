@@ -112,6 +112,7 @@ const ClickButton = styled.button`
 `;
 
 const Signup = () => {
+  //이메일 유효성 검사 아직 x...n
   const [userInfo, setuserInfo] = useState({
     email: "",
     username: "",
