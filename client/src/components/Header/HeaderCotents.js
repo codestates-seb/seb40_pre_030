@@ -2,8 +2,9 @@
 import { useState } from "react"
 
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
-import { faMagnifyingGlass } from "@fortawesome/free-solid-svg-icons";
-import Atag from "./atag";
+import { faMagnifyingGlass, faInbox, faTrophy, faFileCircleQuestion, faBars } from "@fortawesome/free-solid-svg-icons";
+import {faStackOverflow} from "@fortawesome/free-brands-svg-icons"
+import Atag from "./Atag";
 
 const headerNav = {
   'false': ['About', 'Products', 'For Teams'], 
@@ -12,15 +13,27 @@ const headerNav = {
 
 const contents = {
   'false': ['Log in', 'Sign up'], 
-  'true': ['Profile', 'Inbox', 'Achievements', 'HowTo', 'Hamburger']
+  'true': ['Profile', faInbox, faTrophy, faFileCircleQuestion, faBars]
 }
+
+export const Logo = () => {
+  return(
+    <>
+      <div className="nav_item">
+        <a href="http://localhost:3000/"><FontAwesomeIcon icon={faStackOverflow}/>stackoverflow</a>
+      </div>
+    </>
+
+  )
+}
+
 
 export const HeaderNav = ({logged}) => {
   return(
     <>
       {headerNav[logged].map((el, idx) => (
         <div className="nav_item" key={idx}>
-          <Atag name={el} />
+          <Atag name={el} logged={logged}/>
         </div>
       ))}
     </>
@@ -48,7 +61,7 @@ export const HeaderCont = ({logged}) => {
     <>
       {contents[logged].map((el, idx) => (
         <div className="nav_item" key={idx}>
-          <Atag name={el} />
+          <Atag name={el} logged={logged} />
         </div>
       ))}
     </>
