@@ -37,10 +37,10 @@ public class BoardController {
 
     // 질문 수정
     @PatchMapping("/{post_id}/edit")
-    public ResponseEntity patchBoard(@PathVariable("post_id") @Positive long boardId,
+    public ResponseEntity patchBoard(@PathVariable("post_id") @Positive long postId,
                                      @Valid @RequestBody BoardDto.Patch requestBody) {
 
-        requestBody.setBoardId(boardId);
+        requestBody.setBoardId(postId);
         Board board = mapper.boardPatchDtoToBoard(requestBody);
         Board updateBoard = boardService.updateBoard(board);
         BoardDto.Response response = mapper.boardToBoardResponse(updateBoard);
@@ -48,12 +48,21 @@ public class BoardController {
         return new ResponseEntity<>(response, HttpStatus.OK);
     }
 
+    // 특정 질문 출력
+    @GetMapping("/{post-id}")
+    public ResponseEntity getBoard(@PathVariable("post-id") @Positive long postId) {
+
+        Board response = boardService.findPost(postId);
+
+        return new ResponseEntity<>(response, HttpStatus.OK);
+    }
+
     // 질문 전체 목록 출력
     @GetMapping
-    public ResponseEntity getBoard(@Positive @RequestParam int page,
-                                   @Positive @RequestParam int size) {
+    public ResponseEntity getBoards(@Positive @RequestParam int page,
+                                    @Positive @RequestParam int size) {
 
-        Page<Board> boards = boardService.findposts(page - 1, size);
+        Page<Board> boards = boardService.findPosts(page - 1, size);
         List<Board> boardList = boards.getContent();
         List<BoardDto.Response> responses = mapper.boardsToBoardResponse(boardList);
 
@@ -62,9 +71,9 @@ public class BoardController {
 
     // 질문 삭제
     @DeleteMapping("{post_id}")
-    public ResponseEntity deleteBoard(@PathVariable("post_id") long boardId) {
+    public ResponseEntity deleteBoard(@PathVariable("post_id") long postId) {
 
-        boardService.deleteBoard(boardId);
+        boardService.deleteBoard(postId);
 
         return new ResponseEntity<>(HttpStatus.NO_CONTENT);
     }
