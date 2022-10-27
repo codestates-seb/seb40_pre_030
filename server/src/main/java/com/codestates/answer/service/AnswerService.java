@@ -1,6 +1,8 @@
 package com.codestates.answer.service;
 import com.codestates.answer.entity.Answer;
 import com.codestates.answer.repository.AnswerRepository;
+import com.codestates.exception.BusinessLogicException;
+import com.codestates.exception.ExceptionCode;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
@@ -12,9 +14,11 @@ public class AnswerService {
     public AnswerService(AnswerRepository answerRepository){
         this.answerRepository = answerRepository;
     }
+    // 답변 생성
     public Answer createAnswer(Answer answer){
         return answerRepository.save(answer);
     }
+    // 답변 수정
     public Answer updateAnswer(Answer answer){
         Answer findAnswer = findVerifiedAnswer(answer.getAnswerId());
         Optional.ofNullable(answer.getAnswerBody())
@@ -26,9 +30,11 @@ public class AnswerService {
         return findVerifiedAnswer(answerId);
     }
      **/
+    // 답변 전체 보기
     public List<Answer> findAnswers(){
         return (List<Answer>) answerRepository.findAll();
     }
+    // 답변 삭제
     public void deleteAnswer(long answerId){
         Answer findAnswer = findVerifiedAnswer(answerId);
         answerRepository.delete(findAnswer);
@@ -36,7 +42,7 @@ public class AnswerService {
     public Answer findVerifiedAnswer(long answerId){
         Optional<Answer> optionalAnswer = answerRepository.findById(answerId);
         Answer findAnswer = optionalAnswer.orElseThrow(() ->
-                new RuntimeException("ANSWER_NOT_FOUND"));
+                new BusinessLogicException(ExceptionCode.ANSWER_NOT_FOUND));
         return findAnswer;
     }
 }
