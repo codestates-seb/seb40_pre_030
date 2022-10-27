@@ -27,8 +27,6 @@ background-color:#F1F2F3;
         margin-left:25px;
     }
 }
-   
-}
 .MainWrap{
     display:flex;
     flex-flow: row nowrap;
