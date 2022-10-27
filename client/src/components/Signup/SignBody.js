@@ -7,8 +7,9 @@ const TextBody = styled.div`
   flex-direction: column;
   height: 100%;
   width: 50%;
-  justify-content: center;
+  justify-content: flex-start;
   align-items: flex-start;
+  margin-top: 17rem;
 `;
 
 const SubTitle = styled.div`
