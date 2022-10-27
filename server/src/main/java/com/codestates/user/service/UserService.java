@@ -1,5 +1,7 @@
 package com.codestates.user.service;
 
+import com.codestates.exception.BusinessLogicException;
+import com.codestates.exception.ExceptionCode;
 import com.codestates.user.entity.User;
 import com.codestates.user.repository.UserRepository;
 //import com.codestates.user.exception.BusinessLoginException;
@@ -17,7 +19,7 @@ public class UserService {
     public UserService(UserRepository userRepository) {
         this.userRepository = userRepository;
     }
-
+    // 회원 생성
     public User createUser(User user){
         verifyExistsEmail(user.getEmail());
         return userRepository.save(user);
@@ -28,6 +30,7 @@ public class UserService {
 //        return userRepository.save(user);
 //    }
 
+    //회원 조회
     public User findUser(long userId){
 
         return findVerifiedUser(userId);
@@ -38,7 +41,7 @@ public class UserService {
 //                Sort.by("userId").descending()));
 //    }
 
-
+    // 회원 삭제
     public void deleteUser(long userId){
 
         User findUser = findVerifiedUser(userId);
@@ -54,8 +57,7 @@ public class UserService {
 
         User findUser =
                 optionalUser.orElseThrow(() ->
-                        new IllegalStateException("존재하지 않는 ID 입니다. "));
-
+                        new BusinessLogicException(ExceptionCode.USER_NOT_FOUND));
         return findUser;
     }
 
