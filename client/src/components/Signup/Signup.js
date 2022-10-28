@@ -3,34 +3,46 @@ import { useState } from "react";
 import SignBody from "./SignBody";
 
 const Backgtoundsign = styled.div`
-  background-color: rgba(232, 232, 232, 1);
-  height: 70rem;
+  background-color: #F1F2F3;
+ height:100vh;
   display: flex;
   justify-content: center;
   align-items: center;
 
   .signupContent {
-    width: 75%;
-    background-color: red;
-    height: 90%;
-    display: flex;
+        display: flex;
     flex-direction: row;
-    align-items: flex-end;
+    align-items: center;
     justify-content: center;
   }
 `;
 
 const Signform = styled.form`
   border-radius: 10px;
-  width: 40%;
-  height: 100%;
   background-color: white;
-  display: flex;
-  justify-content: center;
-  align-items: center;
-  flex-direction: column;
-  flex-wrap: wrap;
   box-shadow: rgba(0, 0, 0, 0.24) 0px 3px 8px;
+  font-size:18px;
+  padding:25px;
+  margin-left:20px;
+  .UserinfoWrap{
+    width:100%;
+    padding:5px;
+  margin-top:15px;
+  }
+.SignupInput{
+  width:250px;
+  padding:5px;
+  margin-top:15px;
+}
+  .SignUpbtn{
+    width:100%;
+    padding:15px;
+    font-size:18px;
+    background-color:#0A95FF;
+    border:none;
+    color:#fff;
+   
+  }
 `;
 
 const Signup = () => {
@@ -46,33 +58,42 @@ const Signup = () => {
       <div className="signupContent">
         <SignBody />
         <Signform>
-          <label htmlFor="user-id">
+          <div className='UserinfoWrap'>
+          <label className='Userlabel' htmlFor="user-id">
             Display Name <br />
-            <input id="user-id" name="username" type="text" />
-          </label>
+            <input className='SignupInput' id="user-id" name="username" type="text" />
+          </label>   </div>
+          <div className='UserinfoWrap'>
+
           <label htmlFor="email">
             Email <br />
-            <input id="email" name="email" type="email" />
-          </label>
+            <input className='SignupInput' id="email" name="email" type="email" />
+          </label></div>
+          <div className='UserinfoWrap'>
+
           <label htmlFor="password">
             Password <br />
-            <input id="password" name="password" type="password" />
-          </label>
+            <input className='SignupInput' id="password" name="password" type="password" />
+          </label></div>
+       
           {/* <span>
             Passwords must contain at least eight characters, including at least
             1 letter and 1 number.
           </span> */}
-          <br />
+        
+          <div className='UserinfoWrap'>
           <label htmlFor="confirm_password">
             Confirm Password <br />
             <input
+            className='SignupInput'
               id="confirm_password"
               name="confirmPassword"
               type="password"
             />
-          </label>
+          </label></div>
+       
           <br />
-          <button type="submit">Register</button>
+          <button className='SignUpbtn' type="submit">Sign Up</button>
         </Signform>
       </div>
     </Backgtoundsign>
