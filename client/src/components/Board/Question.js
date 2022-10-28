@@ -3,7 +3,7 @@ import AnswerBox from "./AnswerBox";
 import Tag from "./Tag";
 
 const StyledQuestion = styled.li`
-  padding: 0.8rem;
+  padding: 1.2rem;
   display: flex;
   border-bottom: lightgray solid 1px;
   :first-child {
@@ -15,46 +15,84 @@ const StyledQuestion = styled.li`
     display: flex;
     flex-direction: column;
     align-items: flex-end;
-    gap: 0.3em;
+    gap: 0.8em;
   }
   .question-summary-stats-item {
     width: 100%;
     height: fit-content;
+    font-weight: 500;
     text-align: end;
+    color: ${(props) => props.theme.grayFont};
+    :first-child {
+      color: black;
+    }
   }
   .question-content {
     margin-left: 0.8rem;
+  }
+  .question-content-title {
+    font-size: 1.1rem;
+    color: ${(props) => props.theme.blueFont};
+    font-weight: 500;
+    margin-bottom: 0.3rem;
+    line-height: 1.2rem;
+  }
+  .question-content-body {
+    font-size: 0.8rem;
+    line-height: 1.2rem;
   }
   .tags-container {
     margin: 0.5rem 0;
   }
   .user-card-minimal {
+    font-size: 13px;
     margin-top: 1em;
     display: flex;
     justify-content: end;
+    align-items: center;
   }
   .user-card-minimal-avatar {
     width: 16px;
+    height: 16px;
+    margin-right: 5px;
+  }
+  .user-nickname {
+    color: ${(props) => props.theme.blueFont};
+    margin-right: 3px;
+  }
+  .asked-time {
+    color: ${(props) => props.theme.grayFont};
   }
 `;
 
 const Question = ({ key }) => {
+  const questionItem = {
+    votes: 0,
+    answers: 3,
+    views: 3,
+    title: "A class pointer does not name a type",
+    body: 'I have 3 C++ files: Main.cpp #include "FileA.h" FileA.h #include "FileB.h" class FileA{ private: FileB* b; }; FileB.h class FileB{ private: FileA* A; ...',
+    photoURL: "https://i.stack.imgur.com/56OT9.jpg?s=32&g=1",
+    nickName: "Kyle G",
+    createdAt: "2 mins ago",
+  };
+
   return (
     <StyledQuestion className="Question" key={key}>
       <div className="question-summary-stats">
-        <p className="question-summary-stats-item">{"0"} votes</p>
-        <AnswerBox answerCount={3} />
-        <div className="question-summary-stats-item">{"3"} views</div>
+        <p className="question-summary-stats-item">
+          {questionItem.votes} votes
+        </p>
+        <AnswerBox answerCount={questionItem.answers} />
+        <div className="question-summary-stats-item">
+          {questionItem.views} views
+        </div>
       </div>
       <div className="question-content">
-        <h2 className="question-content-title">
-          {"A class pointer does not name a type"}
-        </h2>
+        <h2 className="question-content-title">{questionItem.title}</h2>
         <div className="question-content-body">
           {/* 특정 글자수 이상은 말줄임표로 대체 */}
-          {
-            'I have 3 C++ files: Main.cpp #include "FileA.h" FileA.h #include "FileB.h" class FileA{ private: FileB* b; }; FileB.h class FileB{ private: FileA* A; ...'
-          }
+          {questionItem.body}
         </div>
         <div className="tags-container">
           <Tag value="reactjs" />
@@ -65,12 +103,11 @@ const Question = ({ key }) => {
         <div className="user-card-minimal">
           <img
             className="user-card-minimal-avatar"
-            src="https://i.stack.imgur.com/56OT9.jpg?s=32&g=1"
+            src={questionItem.photoURL}
             alt=""
           />
-          <div>
-            {"Kyle G"} asked {"2 mins ago"}
-          </div>
+          <div className="user-nickname">{questionItem.nickName}</div>
+          <div className="asked-time">asked {questionItem.createdAt}</div>
         </div>
       </div>
     </StyledQuestion>

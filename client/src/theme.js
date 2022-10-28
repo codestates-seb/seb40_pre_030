@@ -7,9 +7,9 @@ export const theme = {
   highlightBlueTag: "#3172C6",
   lightBlueTag: "#E3ECF3",
   selectedGreenTag: "#406E48",
-  blueFont: "#4E99F8",
+  blueFont: "#0074cc",
   asideLightYellow: "#FCF7E4",
   asideDeepYellow: "#FAF3D8",
-  grayFont: "#53595F",
+  grayFont: "#6a737c",
   selectedTab: "#f1f2f3",
 };
