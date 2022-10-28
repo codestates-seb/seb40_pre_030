@@ -1,25 +1,42 @@
 package com.codestates.user.service;
 
+import com.codestates.auth.utils.CustomAuthorityUtils;
+import com.codestates.exception.BusinessLogicException;
+import com.codestates.exception.ExceptionCode;
 import com.codestates.user.entity.User;
 import com.codestates.user.repository.UserRepository;
-//import com.codestates.user.exception.BusinessLoginException;
-//import com.codestates.user.exception.ExceptionCode;
+import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 
 
+import java.util.List;
 import java.util.Optional;
 
 @Service
+@Transactional
 public class UserService {
 
     private final UserRepository userRepository;
 
-    public UserService(UserRepository userRepository) {
-        this.userRepository = userRepository;
-    }
+    private final PasswordEncoder passwordEncoder;
+    private final CustomAuthorityUtils authorityUtils;
 
+    public UserService(UserRepository userRepository, PasswordEncoder passwordEncoder, CustomAuthorityUtils authorityUtils) {
+        this.userRepository = userRepository;
+        this.passwordEncoder = passwordEncoder;
+        this.authorityUtils = authorityUtils;
+    }
+    // 회원 생성
     public User createUser(User user){
         verifyExistsEmail(user.getEmail());
+
+        String encryptedPassword = passwordEncoder.encode(user.getPassword());
+        user.setPassword(encryptedPassword);
+
+        List<String> roles = authorityUtils.createRoles(user.getEmail());
+        user.setRoles(roles);
+
         return userRepository.save(user);
     }
 
@@ -28,9 +45,14 @@ public class UserService {
 //        return userRepository.save(user);
 //    }
 
+    //회원 조회
+    @Transactional(readOnly = true)
     public User findUser(long userId){
 
-        return findVerifiedUser(userId);
+        User findUser = findVerifiedUser(userId);
+        findUser.setCreatedAt(findUser.getCreatedAt());
+
+        return findUser;
     }
 //    사이드 바 유저 버튼 활성시
 //    public Page<User> findUsers(int page, int size) {
@@ -38,7 +60,7 @@ public class UserService {
 //                Sort.by("userId").descending()));
 //    }
 
-
+    // 회원 삭제
     public void deleteUser(long userId){
 
         User findUser = findVerifiedUser(userId);
@@ -47,6 +69,7 @@ public class UserService {
 
     }
 
+    @Transactional(readOnly = true)
     public User findVerifiedUser(long userId){
 
         Optional<User> optionalUser =
@@ -54,11 +77,11 @@ public class UserService {
 
         User findUser =
                 optionalUser.orElseThrow(() ->
-                        new IllegalStateException("존재하지 않는 ID 입니다. "));
-
+                        new BusinessLogicException(ExceptionCode.USER_NOT_FOUND));
         return findUser;
     }
 
+    @Transactional(readOnly = true)
     private void verifyExistsEmail(String email){
         Optional<User> user =  userRepository.findByEmail(email);
 

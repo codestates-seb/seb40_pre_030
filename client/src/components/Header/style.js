@@ -1,24 +1,33 @@
-import styled from 'styled-components'
+import styled from "styled-components";
 
 export const HeaderWrapper = styled.div`
   width: 100%;
   display: flex;
   justify-content: center;
   align-items: center;
-  nav{
-    width: 80%;
+  background-color: ${(props) => props.theme.headerBg};
+  height: 50px;
+  nav {
+    width: 90%;
+    margin: 0 auto;
     display: flex;
-    justify-content: center;
     align-items: center;
-    .nav_item{
-      margin-right: 1rem;
+    .nav_item {
+      width: 150px;
+      height: 30px;
+      background-image: ${(props) => props.theme.sprites};
+      background-position: 0 -500px;
+      padding: 0 8px;
     }
-    a{
+    a {
       color: black;
-      text-decoration : none;
+      text-decoration: none;
       border-radius: 1000px;
       border: none;
-      :hover{
+      padding: 6px 12px;
+      margin: 2px;
+      font-size: 0.8em;
+      :hover {
         background-color: red;
       }
     }
@@ -28,7 +37,10 @@ export const HeaderWrapper = styled.div`
       align-items: center;
       justify-content: center;
       position: relative;
-      border: 1px solid black
+      border: 1px solid black;
+      padding: 7px 9px;
+      flex-grow: 1;
+      margin: 0 8px;
     }
     input {
       padding-left: 1rem;
@@ -43,4 +55,4 @@ export const HeaderWrapper = styled.div`
       background-color: white;
     }
   }
-`
+`;
