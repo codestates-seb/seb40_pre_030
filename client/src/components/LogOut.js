@@ -1,13 +1,14 @@
 import { useState } from "react";
+import { Link } from "react-router-dom";
 import styled from "styled-components";
 
 import Atag from "./Header/Atag";
-import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
-import { faGear } from "@fortawesome/free-solid-svg-icons";
-import {
-  faStackExchange,
-  faStackOverflow,
-} from "@fortawesome/free-brands-svg-icons";
+// import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
+// import { faGear } from "@fortawesome/free-solid-svg-icons";
+// import {
+//   faStackExchange,
+//   faStackOverflow,
+// } from "@fortawesome/free-brands-svg-icons";
 import ButtonTag from "./Header/ButtonTag";
 /*
          <img
@@ -101,7 +102,9 @@ const LogOut = () => {
           <input type="checkbox" onClick={onClick} />
           Log out on all devices
           <div className="decider">
-            <ButtonTag name="Log out" />
+            <Link to="/">
+              <ButtonTag name="Log out" />
+            </Link>
             <Atag name="Cancel" link="http://localhost:3000/" />
           </div>
           <div className="hint">

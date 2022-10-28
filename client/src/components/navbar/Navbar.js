@@ -7,6 +7,7 @@ import {
   faCertificate,
   faCircleInfo,
 } from "@fortawesome/free-solid-svg-icons";
+import { Link } from "react-router-dom";
 // import { useNavigate } from "react-router-dom";
 
 const ChangeLi = styled.li`

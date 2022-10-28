@@ -6,138 +6,131 @@ import "@toast-ui/editor/dist/toastui-editor.css";
 import { Editor } from "@toast-ui/react-editor";
 
 const Main = styled.main`
-height:100%;
-background-color:#F1F2F3;
-.Mainsection{
+  width: 100vw;
+  height: 100vh;
+  margin: auto;
+  background-color: #f1f2f3;
+  .Mainsection {
     width: 100vw;
     display: flex;
     flex-flow: row nowrap;
     justify-content: center;
-    margin:auto;
-}
-.Askheader{
-    width:100%;
-    height:100px;
-    font-size:30px;
-    display:flex;
-    justify-content:left;
-    align-items:center;
-      background-image: url(https://cdn.sstatic.net/Img/ask/background.svg?v=c56910988bdf);
-    background-position: right bottom ;
+    margin: auto;
+  }
+  .Askheader {
+    width: 100%;
+    height: 100px;
+    font-size: 30px;
+    display: flex;
+    justify-content: left;
+    align-items: center;
+    background-image: url(https://cdn.sstatic.net/Img/ask/background.svg?v=c56910988bdf);
+    background-position: right bottom;
     background-repeat: no-repeat;
-    
-    .AskheadTitle{
-        margin-left:25px;
-    }
-}
-.MainWrap{
-    display:flex;
-        flex-flow: row nowrap;
-        column-gap: 50px;
-       
-   
-    .Askform{
-        display: flex;
-        flex-flow: column;
-        flex: 1 1 auto;
-        .Formtitle{
-            font-weight:bold;
-         
-        }
-        .EditorWrap{
-            margin-top:15px;
-            margin-bottom:15px;
-        }
-        .Submitbtn{
-            font-size:15px;
-            background-color:#0A95FF;
-            border:none;
-            border-radius:2px;
-            color:#fff;
-            margin-top:15px;
-            padding:20px;
-        }
-        .AskSection{
-            width:100%;
-            background-color: white;
-            padding: 20px;
-            box-shadow: grey 0px 0px 3px;
-            border-radius: 3px;
-            font-size:18px;
-            .Forminput{
-                width:100%;
-            
-                font-size:18px;
-                margin-top:10px;
-                margin-bottom:15px;
-            }
-           
-        }
-    }
-    .Aside{
-        width:300px;
-        display: flex;
-        flex-flow: column nowrap;
-        row-gap: 30px;
-        font-size:10px;
-        margin-left:15px;
-       
-        .Asidewrap{
-            box-shadow: grey 0px 0px 3px;
-            border-radius: 3px;
-            margin-bottom:20px;
-            background-color:#fff;
-          
-        }
-    
-      
-        .Asidep{
-            padding:5px;
-            font-size:10px;
-        }
-        .AsideTopic{
-            font-size:13px;
-            border-bottom:1px solid #E4E6E8;
-            padding-bottom:5px;   
-        .TopicBtn{
-        border:none;
-        background-color:#fff;
-        font-size:13px;
-        margin-top:5px;
-        font-weight:bold;
-        padding:10px;
-        }
-      
-           }
-           .AsideSlide{
-            padding:5px;
-            font-size:15px;
-           
-        }
-   .AsideTitle{
-    background-color:#F8F9F9;
-    font-size:19px;
-    padding:15px;
-    margin-bottom:5px;
-    border-bottom:1px solid #E4E6E8;
-    font-weight:bold;
 
-}.AsideTopicWrap{
-   
-    padding:5px;
-}
-.TopicBtn2{
-border:none;
-width:100%;
-    background-color:#F1F2F3;;
-    font-size:16px;
-    box-shadow: grey 0px 0px 3px;
-    border-radius: 3px;
-    padding:15px;
-   
-}   
+    .AskheadTitle {
+      margin-left: 25px;
     }
-}
+  }
+  .MainWrap {
+    display: flex;
+    flex-flow: row nowrap;
+    column-gap: 50px;
+
+    .Askform {
+      display: flex;
+      flex-flow: column;
+      flex: 1 1 auto;
+      .Formtitle {
+        font-weight: bold;
+      }
+      .EditorWrap {
+        margin-top: 15px;
+        margin-bottom: 15px;
+      }
+      .Submitbtn {
+        font-size: 15px;
+        background-color: #0a95ff;
+        border: none;
+        border-radius: 2px;
+        color: #fff;
+        margin-top: 15px;
+        padding: 20px;
+      }
+      .AskSection {
+        width: 100%;
+        background-color: white;
+        padding: 20px;
+        box-shadow: grey 0px 0px 3px;
+        border-radius: 3px;
+        font-size: 18px;
+        .Forminput {
+          width: 100%;
+
+          font-size: 18px;
+          margin-top: 10px;
+          margin-bottom: 15px;
+        }
+      }
+    }
+    .Aside {
+      width: 300px;
+      display: flex;
+      flex-flow: column nowrap;
+      row-gap: 30px;
+      font-size: 10px;
+      margin-left: 15px;
+
+      .Asidewrap {
+        box-shadow: grey 0px 0px 3px;
+        border-radius: 3px;
+        margin-bottom: 20px;
+        background-color: #fff;
+      }
+
+      .Asidep {
+        padding: 5px;
+        font-size: 10px;
+      }
+      .AsideTopic {
+        font-size: 13px;
+        border-bottom: 1px solid #e4e6e8;
+        padding-bottom: 5px;
+        .TopicBtn {
+          border: none;
+          background-color: #fff;
+          font-size: 13px;
+          margin-top: 5px;
+          font-weight: bold;
+          padding: 10px;
+        }
+      }
+      .AsideSlide {
+        padding: 5px;
+        font-size: 15px;
+      }
+      .AsideTitle {
+        background-color: #f8f9f9;
+        font-size: 17px;
+        padding: 5px;
+        margin-bottom: 5px;
+        border-bottom: 1px solid #e4e6e8;
+        font-weight: bold;
+      }
+      .AsideTopicWrap {
+        padding: 5px;
+      }
+      .TopicBtn2 {
+        border: none;
+        width: 100%;
+        background-color: #f1f2f3;
+        font-size: 16px;
+        box-shadow: grey 0px 0px 3px;
+        border-radius: 3px;
+        padding: 15px;
+      }
+    }
+  }
 `;
 const Askquetion = () => {
   const [AskTitle, SetAskTitle] = useState("");

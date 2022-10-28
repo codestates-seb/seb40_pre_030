@@ -6,6 +6,7 @@ import {
   faArrowDownWideShort,
   faCaretDown,
 } from "@fortawesome/free-solid-svg-icons";
+import { Link } from "react-router-dom";
 
 const StyledQuestionsContainer = styled.div`
   width: 100%;
@@ -64,14 +65,17 @@ const QuestionsContainer = () => {
     <StyledQuestionsContainer className="QuestionsContainer">
       <div className="questions-header">
         <h1 className="board-title">All Questions</h1>
-        <Button
-          bgcolor={(props) => props.theme.buttonBlue}
-          font="white"
-          border="none"
-          fontSize="15px"
-        >
-          Ask Question
-        </Button>
+
+        <Link to="/ask">
+          <Button
+            bgcolor={(props) => props.theme.buttonBlue}
+            font="white"
+            border="none"
+            fontSize="15px"
+          >
+            Ask Question
+          </Button>
+        </Link>
       </div>
       <div className="questions-nav-wrapper">
         <div className="questions-count"> {"23,136,393"} questions</div>

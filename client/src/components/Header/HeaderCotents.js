@@ -10,6 +10,7 @@ import {
   faBars,
 } from "@fortawesome/free-solid-svg-icons";
 import Atag from "./Atag";
+import { Link } from "react-router-dom";
 
 const headerNav = {
   false: ["About", "Products", "For Teams"],
@@ -22,7 +23,11 @@ const contents = {
 };
 
 export const Logo = () => {
-  return <div className="nav_item"></div>;
+  return (
+    <Link to="/">
+      <div className="nav_item"></div>
+    </Link>
+  );
 };
 
 export const HeaderNav = ({ logged }) => {
@@ -37,7 +42,7 @@ export const HeaderNav = ({ logged }) => {
   );
 };
 
-export const SearchBar = () => {
+export const SearchBar = ({ placeHolderText }) => {
   const [searchText, setSearchText] = useState("");
   const handleChange = (e) => setSearchText(e.target.value);
 
@@ -46,7 +51,7 @@ export const SearchBar = () => {
       <FontAwesomeIcon icon={faMagnifyingGlass} />
       <input
         className="search-bar"
-        placeholder="Search..."
+        placeholder={placeHolderText ? placeHolderText : "Search..."}
         value={searchText}
         onChange={handleChange}
       />
@@ -59,9 +64,38 @@ export const HeaderCont = ({ logged }) => {
     <>
       {contents[logged].map((el, idx) => (
         <div key={idx}>
-          <Atag name={el} logged={logged} />
+          {el === "Log in" ? (
+            <Link to="/users/login">
+              <Atag name={el} logged={logged} />
+            </Link>
+          ) : el === "Sign up" ? (
+            <Link to="users/signup">
+              <Atag name={el} logged={logged} />
+            </Link>
+          ) : el === faBars ? (
+            <Link to="users/logout">
+              <Atag name={el} logged={logged} />
+            </Link>
+          ) : (
+            <Atag name={el} logged={logged} />
+          )}
         </div>
       ))}
     </>
   );
 };
+
+// {
+//   el === "Log in" ? (
+//     <Link to="/users/login">
+//       <Atag name={el} logged={logged} />
+//     </Link>
+//   ) : null;
+// }
+// {
+//   el === "Sign up" ? (
+//     <Link to="users/signup">
+//       <Atag name={el} logged={logged} />
+//     </Link>
+//   ) : null;
+// }
