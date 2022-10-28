@@ -8,6 +8,7 @@ import lombok.Setter;
 
 
 import javax.persistence.*;
+import java.time.LocalDateTime;
 
 @NoArgsConstructor
 @Getter
@@ -21,6 +22,12 @@ public class Answer {
 
     private String answerBody;
 
+    @Column(nullable = false)
+    private LocalDateTime createdAt = LocalDateTime.now();
+
+    @Column(nullable = false, name = "LAST_MODIFIED_AT")
+    private LocalDateTime modifiedAt = LocalDateTime.now();
+
     @ManyToOne
     @JoinColumn(name = "USER_ID")
     private User user;
@@ -28,4 +35,7 @@ public class Answer {
     @ManyToOne
     @JoinColumn(name = "BOARD_ID")
     private Board board;
+
+    @Column
+    private int voteCount;
 }
