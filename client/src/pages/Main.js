@@ -1,5 +1,5 @@
 import styled from "styled-components";
-import Aside from "../components/Aside";
+import Sidebar from "../components/Sidebar";
 import QuestionsContainer from "../components/Board/QuestionsContainer";
 import Navbar from "../components/navbar/Navbar";
 
@@ -15,11 +15,9 @@ const StyledMain = styled.div`
 const Main = () => {
   return (
     <StyledMain>
-      <div className="main-container">
-        <Navbar />
-        <QuestionsContainer />
-        <Aside />
-      </div>
+      <Navbar />
+      <QuestionsContainer />
+      <Sidebar />
     </StyledMain>
   );
 };
