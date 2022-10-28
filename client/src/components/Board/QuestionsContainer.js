@@ -3,6 +3,7 @@ import Button from "../Button";
 import Question from "./Question";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faArrowDownWideShort } from "@fortawesome/free-solid-svg-icons";
+import { Link } from "react-router-dom";
 
 const StyledQuestionsContainer = styled.div`
   max-width: 800px;
@@ -53,13 +54,16 @@ const QuestionsContainer = () => {
     <StyledQuestionsContainer className="QuestionsContainer">
       <div className="questions-header">
         <h1 className="board-title">All Questions</h1>
-        <Button
-          bgcolor={(props) => props.theme.buttonBlue}
-          font="white"
-          border="none"
-        >
-          Ask Question
-        </Button>
+
+        <Link to="/ask">
+          <Button
+            bgcolor={(props) => props.theme.buttonBlue}
+            font="white"
+            border="none"
+          >
+            Ask Question
+          </Button>
+        </Link>
       </div>
       <div className="questions-nav-wrapper">
         <div className="questions-count"> {"23,136,393"} questions</div>
