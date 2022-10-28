@@ -1,4 +1,5 @@
 import styled from "styled-components";
+import AnswerBox from "./AnswerBox";
 import Tag from "./Tag";
 
 const StyledQuestion = styled.li`
@@ -13,6 +14,7 @@ const StyledQuestion = styled.li`
     font-size: 0.8rem;
     display: flex;
     flex-direction: column;
+    align-items: flex-end;
     gap: 0.3em;
   }
   .question-summary-stats-item {
@@ -41,8 +43,9 @@ const Question = ({ key }) => {
     <StyledQuestion className="Question" key={key}>
       <div className="question-summary-stats">
         <p className="question-summary-stats-item">{"0"} votes</p>
+        <AnswerBox answerCount={1} />
         <p className="question-summary-stats-item">{"0"} answers</p>
-        <div className="question-summary-stats-item">{"3"} votes</div>
+        <div className="question-summary-stats-item">{"3"} views</div>
       </div>
       <div className="question-content">
         <h2 className="question-content-title">
