@@ -26,7 +26,6 @@ const NavTitle = styled.div`
 
 const NavContainer = styled.div`
   /* position: fixed; */
-  width: 20%;
   color: gray;
   padding-top: 24px;
   border-right: lightgray solid 1px;
