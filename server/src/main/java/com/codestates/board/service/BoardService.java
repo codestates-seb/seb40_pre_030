@@ -4,6 +4,7 @@ import com.codestates.board.entity.Board;
 import com.codestates.board.repository.BoardRepository;
 import com.codestates.exception.BusinessLogicException;
 import com.codestates.exception.ExceptionCode;
+import com.codestates.user.entity.User;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageRequest;
 import org.springframework.data.domain.Sort;
@@ -43,7 +44,9 @@ public class BoardService {
     // 특정 질문 출력
     @Transactional(readOnly = true)
     public Board findPost(long postId) {
-        return findVerifiedBoard(postId);
+        Board findPost = findVerifiedBoard(postId);
+        findPost.setCreatedAt(findPost.getCreatedAt());
+        return findPost;
     }
 
     // 질문 전체 목록 출력

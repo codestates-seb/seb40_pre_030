@@ -7,7 +7,9 @@ const StyledAnswer = styled.li`
   border-bottom: lightgray solid 1px;
   margin-top: 30px;
   display: grid;
+
   .answer-body {
+    width: 100%;
     grid-column: 2/3;
   }
   .UserCard {

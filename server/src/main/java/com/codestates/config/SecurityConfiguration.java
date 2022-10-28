@@ -1,6 +1,8 @@
 package com.codestates.config;
 
 import com.codestates.auth.filter.JwtAuthenticationFilter;
+import com.codestates.auth.handler.UserAuthenticationFailureHandler;
+import com.codestates.auth.handler.UserAuthenticationSuccessHandler;
 import com.codestates.auth.jwt.JwtTokenizer;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
@@ -71,8 +73,9 @@ public class SecurityConfiguration {
             AuthenticationManager authenticationManager = builder.getSharedObject(AuthenticationManager.class);
 
             JwtAuthenticationFilter jwtAuthenticationFilter = new JwtAuthenticationFilter(authenticationManager, jwtTokenizer);
-            jwtAuthenticationFilter.setFilterProcessesUrl("/users/login");
-
+            jwtAuthenticationFilter.setFilterProcessesUrl("/users/login"); // 디폴트 request URL
+            jwtAuthenticationFilter.setAuthenticationSuccessHandler(new UserAuthenticationSuccessHandler());
+            jwtAuthenticationFilter.setAuthenticationFailureHandler(new UserAuthenticationFailureHandler());
             builder.addFilter(jwtAuthenticationFilter);
         }
     }
