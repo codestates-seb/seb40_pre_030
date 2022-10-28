@@ -1,7 +1,7 @@
 import styled from "styled-components";
-import Sidebar from "../components/Sidebar";
 import QuestionsContainer from "../components/Board/QuestionsContainer";
 import Navbar from "../components/navbar/Navbar";
+import Sidebar from "../components/Sidebar";
 
 const StyledMain = styled.div`
   display: flex;
