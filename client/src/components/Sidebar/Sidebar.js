@@ -5,7 +5,7 @@ import Collectives from "./Collectives";
 const SideWrap = styled.div`
   width: 300px;
   float: right;
-  margin-right: 50px;
+  margin: 0 30px;
 `;
 const Sidebar = () => {
   return (
