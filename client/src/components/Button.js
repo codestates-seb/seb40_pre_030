@@ -7,6 +7,7 @@ const Button = styled.button`
   border: ${(props) => props.border || "none"};
   border-radius: 3px;
   padding: 0.8em;
+  height: fit-content;
 `;
 
 export default Button;

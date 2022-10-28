@@ -5,7 +5,8 @@ import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faArrowDownWideShort } from "@fortawesome/free-solid-svg-icons";
 
 const StyledQuestionsContainer = styled.div`
-  max-width: 800px;
+  width: 100%;
+  min-width: 40rem;
   .questions-header {
     box-sizing: border-box;
     width: 100%;
