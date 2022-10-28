@@ -8,6 +8,7 @@ import {
   faStackExchange,
   faStackOverflow,
 } from "@fortawesome/free-brands-svg-icons";
+import ButtonTag from "./Header/ButtonTag";
 /*
          <img
               src="https://cdn.sstatic.net/Sites/askubuntu/Img/apple-touch-icon@2.png?v=c492c9229955"
@@ -42,12 +43,13 @@ const LogOutWrap = styled.div`
   flex-direction: column;
   justify-content: center;
   align-items: center;
-  width: 30%;
-  height: 40%;
+  max-width: 25%;
 `;
 
 const OutForm = styled.form`
-  border: 1px solid gray;
+  /* border: 1px solid gray; */
+  box-shadow: 0 10px 24px hsla(0, 0%, 0%, 0.05),
+    0 20px 48px hsla(0, 0%, 0%, 0.05), 0 1px 4px hsla(0, 0%, 0%, 0.1);
   margin-top: 1rem;
   padding: 1rem;
   ul {
@@ -99,7 +101,7 @@ const LogOut = () => {
           <input type="checkbox" onClick={onClick} />
           Log out on all devices
           <div className="decider">
-            <button>Log out</button>
+            <ButtonTag name="Log out" />
             <Atag name="Cancel" link="http://localhost:3000/" />
           </div>
           <div className="hint">
