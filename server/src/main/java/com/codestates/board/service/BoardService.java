@@ -8,10 +8,12 @@ import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageRequest;
 import org.springframework.data.domain.Sort;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 
 import java.util.Optional;
 
 @Service
+@Transactional
 public class BoardService {
 
     private final BoardRepository boardRepository;
@@ -39,11 +41,13 @@ public class BoardService {
     }
 
     // 특정 질문 출력
+    @Transactional(readOnly = true)
     public Board findPost(long postId) {
         return findVerifiedBoard(postId);
     }
 
     // 질문 전체 목록 출력
+    @Transactional(readOnly = true)
     public Page<Board> findPosts(int page, int size) {
 
         return boardRepository.findAll(PageRequest.of(page, size, Sort.by("boardId").descending()));
@@ -57,6 +61,7 @@ public class BoardService {
     }
 
     // 질문이 존재하는지 검증
+    @Transactional(readOnly = true)
     public Board findVerifiedBoard(long boardId) {
         Optional<Board> optionalBoard = boardRepository.findById(boardId);
         Board findPost = optionalBoard.orElseThrow(() ->

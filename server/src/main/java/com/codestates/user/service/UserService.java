@@ -7,12 +7,14 @@ import com.codestates.user.entity.User;
 import com.codestates.user.repository.UserRepository;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 
 
 import java.util.List;
 import java.util.Optional;
 
 @Service
+@Transactional
 public class UserService {
 
     private final UserRepository userRepository;
@@ -44,6 +46,7 @@ public class UserService {
 //    }
 
     //회원 조회
+    @Transactional(readOnly = true)
     public User findUser(long userId){
 
         return findVerifiedUser(userId);
@@ -63,6 +66,7 @@ public class UserService {
 
     }
 
+    @Transactional(readOnly = true)
     public User findVerifiedUser(long userId){
 
         Optional<User> optionalUser =
@@ -74,6 +78,7 @@ public class UserService {
         return findUser;
     }
 
+    @Transactional(readOnly = true)
     private void verifyExistsEmail(String email){
         Optional<User> user =  userRepository.findByEmail(email);
 

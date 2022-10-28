@@ -4,11 +4,13 @@ import com.codestates.answer.repository.AnswerRepository;
 import com.codestates.exception.BusinessLogicException;
 import com.codestates.exception.ExceptionCode;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 
 import java.util.List;
 import java.util.Optional;
 
 @Service
+@Transactional
 public class AnswerService {
     private AnswerRepository answerRepository;
     public AnswerService(AnswerRepository answerRepository){
@@ -31,6 +33,7 @@ public class AnswerService {
     }
      **/
     // 답변 전체 보기
+    @Transactional(readOnly = true)
     public List<Answer> findAnswers(){
         return (List<Answer>) answerRepository.findAll();
     }
@@ -39,6 +42,7 @@ public class AnswerService {
         Answer findAnswer = findVerifiedAnswer(answerId);
         answerRepository.delete(findAnswer);
     }
+    @Transactional(readOnly = true)
     public Answer findVerifiedAnswer(long answerId){
         Optional<Answer> optionalAnswer = answerRepository.findById(answerId);
         Answer findAnswer = optionalAnswer.orElseThrow(() ->
