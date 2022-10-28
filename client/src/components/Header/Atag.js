@@ -1,16 +1,15 @@
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import styled from "styled-components";
 
-// 상위를 a tag에서 div로 변경
-const ATagWrap = styled.div`
-  color: hsl(206, 85%, 57.5%);
+const ATagnWrap = styled.a`
+  color: white;
   border: none;
   padding: 0.4rem;
 `;
 
 const Atag = ({ name, link, logged, isContent, isHover }) => {
   return (
-    <ATagWrap>
+    <ATagnWrap>
       {logged === true ? (
         name === "Products" ? (
           <a href={link}>{name}</a>
@@ -22,7 +21,7 @@ const Atag = ({ name, link, logged, isContent, isHover }) => {
       ) : (
         <a href={link}>{name}</a>
       )}
-    </ATagWrap>
+    </ATagnWrap>
   );
 };
 export default Atag;

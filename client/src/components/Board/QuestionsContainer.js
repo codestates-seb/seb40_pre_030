@@ -2,22 +2,26 @@ import styled from "styled-components";
 import Button from "../Button";
 import Question from "./Question";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
-import { faArrowDownWideShort } from "@fortawesome/free-solid-svg-icons";
+import {
+  faArrowDownWideShort,
+  faCaretDown,
+} from "@fortawesome/free-solid-svg-icons";
 import { Link } from "react-router-dom";
 
 const StyledQuestionsContainer = styled.div`
-  max-width: 800px;
+  width: 100%;
+  min-width: 40rem;
   .questions-header {
     box-sizing: border-box;
-    width: 100%;
     padding-left: 0.8rem;
-    margin: 1rem 0;
+    margin: 1.4rem 0 2rem 1rem;
     display: flex;
     justify-content: space-between;
   }
   .board-title {
-    font-size: 1.5rem;
-    font-weight: 600;
+    font-size: 1.8rem;
+    font-weight: 500;
+    margin-top: 7px;
   }
   .questions-nav-wrapper {
     box-sizing: border-box;
@@ -25,6 +29,10 @@ const StyledQuestionsContainer = styled.div`
     padding-bottom: 0.5rem;
     display: flex;
     justify-content: space-between;
+  }
+  .questions-count {
+    font-size: 1.2rem;
+    margin-left: 1rem;
   }
   .questions-filtering-buttons {
     display: flex;
@@ -47,6 +55,9 @@ const StyledQuestionsContainer = styled.div`
       border-right: none;
     }
   }
+  .icon {
+    margin: 0 5px;
+  }
 `;
 
 const QuestionsContainer = () => {
@@ -60,6 +71,7 @@ const QuestionsContainer = () => {
             bgcolor={(props) => props.theme.buttonBlue}
             font="white"
             border="none"
+            fontSize="15px"
           >
             Ask Question
           </Button>
@@ -73,7 +85,10 @@ const QuestionsContainer = () => {
             <button className="questions-tab">Active</button>
             <button className="questions-tab">Bounted{"283"}</button>
             <button className="questions-tab">Unanswered</button>
-            <button className="questions-tab">More</button>
+            <button className="questions-tab">
+              More
+              <FontAwesomeIcon className="icon" icon={faCaretDown} />
+            </button>
           </nav>
           <Button
             bgcolor={(props) => props.theme.lightBlueTag}
@@ -82,7 +97,7 @@ const QuestionsContainer = () => {
               return props.theme.blueFont + " solid 1px";
             }}
           >
-            <FontAwesomeIcon icon={faArrowDownWideShort} />
+            <FontAwesomeIcon className="icon" icon={faArrowDownWideShort} />
             Filter
           </Button>
         </div>
