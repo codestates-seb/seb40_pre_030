@@ -6,8 +6,8 @@ const Footerbox = styled.div`
   display: flex;
   flex-direction: row;
   justify-content: center;
-
   color: white;
+  grid-column: 1/4;
 
   .box-1 {
     margin: 1rem;

@@ -11,80 +11,112 @@ import { Link } from "react-router-dom";
 // import { useNavigate } from "react-router-dom";
 
 const ChangeLi = styled.li`
-  background: ${({ navbg }) => (navbg ? "lightgray" : "white")};
   box-sizing: border-box;
-  border-right: solid 10px ${({ navbg }) => (navbg ? "orange" : "white")};
-  color: ${({ navbg }) => (navbg ? "black" : "gray")};
-
+  height: 40px;
+  font-size: 15px;
+  font-weight: ${(props) => (props.idx === props.currentTab ? 800 : 600)};
+  color: ${(props) => (props.idx === props.currentTab ? "black" : "gray")};
+  background: ${(props) =>
+    props.idx === props.currentTab ? props.theme.selectedTab : "white"};
+  border-right: ${(props) =>
+    props.idx === props.currentTab
+      ? props.theme.highlightOrange + " solid 4px"
+      : "none"};
+  margin-bottom: 10px;
+  padding-left: 10px;
+  display: grid;
+  align-items: center;
+  grid-template-columns: 1.3em auto;
   &:hover {
     color: black;
   }
+  div {
+    grid-column: 2/3;
+  }
 `;
 
+const ChangeList = ({ icon, text, iconStyle, idx, currentTab, onClick }) => {
+  return (
+    <ChangeLi currentTab={currentTab} idx={idx} onClick={onClick}>
+      {icon && <FontAwesomeIcon icon={icon} style={iconStyle} />}
+      <div>{text}</div>
+    </ChangeLi>
+  );
+};
+
 const NavTitle = styled.div`
-  margin: 10px;
+  margin: 0 10px 17px 10px;
+  display: flex;
+  justify-content: space-between;
 `;
 
 const NavContainer = styled.div`
   /* position: fixed; */
-  width: 20%;
+  min-width: 185px;
   color: gray;
   padding-top: 24px;
   border-right: lightgray solid 1px;
+  margin-left: 30px;
+  justify-self: end;
+  .nav-area {
+    margin-bottom: 40px;
+  }
 `;
 
 const Navbar = () => {
-  // const navigate = useNavigate();
-  const [navbg, setnavbg] = useState(false);
-  const [tab, setTab] = useState("");
+  const [currentTab, setCurrentTab] = useState();
 
-  console.log(tab);
-
-  const Onclickevent = (e) => {
-    setnavbg(!navbg);
+  const publicTab = [
+    { icon: faEarthAmericas, text: "Question" },
+    { icon: null, text: "Tags" },
+    { icon: null, text: "Users" },
+    { icon: null, text: "Companies" },
+  ];
+  const onTabClick = (id) => {
+    setCurrentTab(id);
   };
-  //     navigate("/main");
-  // }
 
   return (
     <NavContainer className="Navbar">
       <nav>
         <ol>
-          <NavTitle>Home</NavTitle>
-          <NavTitle>
-            PUBLIC
+          <div className="nav-area">
+            <NavTitle>Home</NavTitle>
+          </div>
+          <div className="nav-area">
+            <NavTitle>PUBLIC</NavTitle>
             <ul>
-              <Link to="/">
-                <ChangeLi navbg={navbg} onClick={Onclickevent}>
-                  <FontAwesomeIcon icon={faEarthAmericas} />
-                  Questions
-                </ChangeLi>
-              </Link>
-              <Link to="/tags">
-                <ChangeLi navbg={navbg} onClick={Onclickevent}>
-                  Tags
-                </ChangeLi>
-              </Link>
-              <Link to="/users">
-                <ChangeLi onClick={Onclickevent}>Users</ChangeLi>
-              </Link>
-              <ChangeLi onClick={Onclickevent}>Companies</ChangeLi>
-            </ul>
-          </NavTitle>
-          <NavTitle>
-            COLLECTIVES
-            <FontAwesomeIcon icon={faCircleInfo} />
-            <ul>
-              <ChangeLi>
-                <FontAwesomeIcon
-                  icon={faCertificate}
-                  style={{ color: "orange" }}
+              {publicTab.map((el, idx) => (
+                <ChangeList
+                  key={idx}
+                  icon={el.icon}
+                  text={el.text}
+                  idx={idx}
+                  currentTab={currentTab}
+                  onClick={() => onTabClick(idx)}
                 />
-                Explore Collectives
-              </ChangeLi>
+              ))}
             </ul>
-          </NavTitle>
-          <NavTitle>TEAMS</NavTitle>
+          </div>
+          <div className="nav-area">
+            <NavTitle>
+              <div>COLLECTIVES</div>
+              <FontAwesomeIcon icon={faCircleInfo} />
+            </NavTitle>
+            <ul>
+              <ChangeList
+                icon={faCertificate}
+                text={"Explore Collectives"}
+                iconStyle={{ color: "orange" }}
+                idx={5}
+                currentTab={currentTab}
+                onClick={() => onTabClick(5)}
+              />
+            </ul>
+          </div>
+          <div className="nav-area">
+            <NavTitle>TEAMS</NavTitle>
+          </div>
         </ol>
       </nav>
     </NavContainer>
