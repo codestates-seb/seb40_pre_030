@@ -1,8 +1,11 @@
 import styled from "styled-components";
+import Button from "../Button";
 import Question from "./Question";
+import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
+import { faArrowDownWideShort } from "@fortawesome/free-solid-svg-icons";
 
 const StyledQuestionsContainer = styled.div`
-  width: 100%;
+  max-width: 800px;
   .questions-header {
     box-sizing: border-box;
     width: 100%;
@@ -50,7 +53,13 @@ const QuestionsContainer = () => {
     <StyledQuestionsContainer className="QuestionsContainer">
       <div className="questions-header">
         <h1 className="board-title">All Questions</h1>
-        <button>Ask Question</button>
+        <Button
+          bgcolor={(props) => props.theme.buttonBlue}
+          font="white"
+          border="none"
+        >
+          Ask Question
+        </Button>
       </div>
       <div className="questions-nav-wrapper">
         <div className="questions-count"> {"23,136,393"} questions</div>
@@ -62,7 +71,16 @@ const QuestionsContainer = () => {
             <button className="questions-tab">Unanswered</button>
             <button className="questions-tab">More</button>
           </nav>
-          <button className="questions-filter-button">filter</button>
+          <Button
+            bgcolor={(props) => props.theme.lightBlueTag}
+            font={(props) => props.theme.blueFont}
+            border={(props) => {
+              return props.theme.blueFont + " solid 1px";
+            }}
+          >
+            <FontAwesomeIcon icon={faArrowDownWideShort} />
+            Filter
+          </Button>
         </div>
       </div>
       <ul className="questions-container">
