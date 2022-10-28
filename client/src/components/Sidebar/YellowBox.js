@@ -81,9 +81,9 @@ const listContents = {
   ],
 };
 
-const ListContent = ({ listContent, idx }) => {
+const ListContent = ({ listContent, id }) => {
   return (
-    <li className="Sidecontent" key={idx}>
+    <li className="Sidecontent" key={id}>
       <div className="list-item">
         <span className="icon-wrapper">
           <FontAwesomeIcon className="icon" icon={listContent.icon} />
@@ -100,11 +100,11 @@ const YellowBox = () => {
       <ul className="Sideul">
         <li className="Sideheader">The Overflow Blog</li>
         {listContents.faPen.map((el, idx) => (
-          <ListContent listContent={el} idx={idx} />
+          <ListContent listContent={el} key={idx} />
         ))}
         <li className="Sideheader">Featured on Meta</li>
         {listContents.faCommentAlt.map((el, idx) => (
-          <ListContent listContent={el} idx={idx} />
+          <ListContent listContent={el} key={idx + 2} />
         ))}
         <li className="Sideheader">Hot Meta Posts</li>
         <li className="Sidecontent">

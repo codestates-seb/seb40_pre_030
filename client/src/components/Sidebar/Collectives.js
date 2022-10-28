@@ -56,9 +56,9 @@ const serviceCompanies = [
   },
 ];
 
-const Service = ({ company, idx }) => {
+const Service = ({ company }) => {
   return (
-    <div className="SideBotWrap" key={idx}>
+    <div className="SideBotWrap">
       <div className="service">
         <div className="service-company">
           <img className="company-image" src={company.src} alt="" />
@@ -82,7 +82,7 @@ const Collectives = () => {
     <StyledDiv className="SideBottom">
       <div className="SideBottomhead">Collectives</div>
       {serviceCompanies.map((el, idx) => (
-        <Service company={el} idx={idx} />
+        <Service company={el} key={idx} />
       ))}
     </StyledDiv>
   );
