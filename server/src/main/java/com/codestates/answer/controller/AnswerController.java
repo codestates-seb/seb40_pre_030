@@ -31,20 +31,25 @@ public class AnswerController {
     }
 
     // 답변 생성
-    @PostMapping
-    public ResponseEntity postAnswer(@Valid @RequestBody AnswerPostDto answerPostDto){
+    @PostMapping("/{board-id}")
+    public ResponseEntity postAnswer(@PathVariable("board-id") @Positive long boardId,
+                                     @Valid @RequestBody AnswerPostDto answerPostDto){
+
+        answerPostDto.setBoardId(boardId);
         Answer answer = mapper.answerPostDtoToAnswer(answerPostDto);
         Answer response = answerService.createAnswer(answer);
         return new ResponseEntity<>(mapper.answerToAnswerResponseDto(response), HttpStatus.CREATED);
     }
+
     // 답변 수정
-    @PatchMapping("/{answer-id}/edit")
+    @PatchMapping("{post-id}/{answer-id}/edit")
     public ResponseEntity patchAnswer(@PathVariable("answer-id") @Positive long answerId,
                                       @Valid @RequestBody AnswerPatchDto answerPatchDto){
         answerPatchDto.setAnswerId(answerId);
         Answer response = answerService.updateAnswer(mapper.answerPatchDtoToAnswer(answerPatchDto));
         return new ResponseEntity<>(mapper.answerToAnswerResponseDto(response), HttpStatus.OK);
     }
+
     /**
     // 답변 조회
     @GetMapping("/{answer-id}")
@@ -64,6 +69,7 @@ public class AnswerController {
                         .collect(Collectors.toList());
         return new ResponseEntity<>(response, HttpStatus.OK);
     }
+
     // 답변 삭제
     @DeleteMapping("/{answer-id}")
     public ResponseEntity deleteAnswer(@PathVariable("answer-id") @Positive long answerId){
