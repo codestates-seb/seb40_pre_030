@@ -7,6 +7,7 @@ import {
   faCertificate,
   faCircleInfo,
 } from "@fortawesome/free-solid-svg-icons";
+import { Link } from "react-router-dom";
 // import { useNavigate } from "react-router-dom";
 
 const ChangeLi = styled.li`
@@ -35,8 +36,11 @@ const NavContainer = styled.div`
 const Navbar = () => {
   // const navigate = useNavigate();
   const [navbg, setnavbg] = useState(false);
+  const [tab, setTab] = useState("");
 
-  const Onclickevent = () => {
+  console.log(tab);
+
+  const Onclickevent = (e) => {
     setnavbg(!navbg);
   };
   //     navigate("/main");
@@ -50,13 +54,21 @@ const Navbar = () => {
           <NavTitle>
             PUBLIC
             <ul>
-              <ChangeLi navbg={navbg} onClick={Onclickevent}>
-                <FontAwesomeIcon icon={faEarthAmericas} />
-                Questions
-              </ChangeLi>
-              <ChangeLi>Tags</ChangeLi>
-              <ChangeLi>Users</ChangeLi>
-              <ChangeLi>Companies</ChangeLi>
+              <Link to="/">
+                <ChangeLi navbg={navbg} onClick={Onclickevent}>
+                  <FontAwesomeIcon icon={faEarthAmericas} />
+                  Questions
+                </ChangeLi>
+              </Link>
+              <Link to="/tags">
+                <ChangeLi navbg={navbg} onClick={Onclickevent}>
+                  Tags
+                </ChangeLi>
+              </Link>
+              <Link to="/users">
+                <ChangeLi onClick={Onclickevent}>Users</ChangeLi>
+              </Link>
+              <ChangeLi onClick={Onclickevent}>Companies</ChangeLi>
             </ul>
           </NavTitle>
           <NavTitle>
