@@ -43,8 +43,7 @@ const Question = ({ key }) => {
     <StyledQuestion className="Question" key={key}>
       <div className="question-summary-stats">
         <p className="question-summary-stats-item">{"0"} votes</p>
-        <AnswerBox answerCount={1} />
-        <p className="question-summary-stats-item">{"0"} answers</p>
+        <AnswerBox answerCount={3} />
         <div className="question-summary-stats-item">{"3"} views</div>
       </div>
       <div className="question-content">
