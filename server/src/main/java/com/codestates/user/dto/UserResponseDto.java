@@ -1,11 +1,9 @@
 package com.codestates.user.dto;
 
-import com.codestates.user.entity.User;
-import com.codestates.user.entity.User;
-import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Getter;
 
+import java.time.LocalDateTime;
 
 @Getter
 @Builder
@@ -13,11 +11,16 @@ public class UserResponseDto {
 
     private long userId;
     private String email;
-    private String name;
+    private String nickName;
     private String password;
+    private String photoURL;
+    private LocalDateTime createdAt;
+
+/*
     private User.UserStatus userStatus;
 
     public String getUserStatus(){
         return userStatus.getStatus();
     }
+*/
 }
