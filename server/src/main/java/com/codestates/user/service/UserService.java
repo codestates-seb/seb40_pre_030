@@ -49,7 +49,10 @@ public class UserService {
     @Transactional(readOnly = true)
     public User findUser(long userId){
 
-        return findVerifiedUser(userId);
+        User findUser = findVerifiedUser(userId);
+        findUser.setCreatedAt(findUser.getCreatedAt());
+
+        return findUser;
     }
 //    사이드 바 유저 버튼 활성시
 //    public Page<User> findUsers(int page, int size) {
