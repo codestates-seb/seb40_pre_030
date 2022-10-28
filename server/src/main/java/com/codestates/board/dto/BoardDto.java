@@ -28,8 +28,14 @@ public class BoardDto {
     public static class Patch {
 
         private long boardId;
+
+        @NotBlank
         private String title;
+
+        @NotBlank
         private String body;
+
+        private String photoURL;
     }
 
     @Getter
@@ -42,6 +48,5 @@ public class BoardDto {
         private String nickName;
         private String photoURL;
         private int voteCount;
-        private long totalCount;
     }
 }

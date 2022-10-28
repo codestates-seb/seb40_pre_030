@@ -37,6 +37,7 @@ public class BoardService {
 
         Optional.ofNullable(board.getTitle()).ifPresent(title -> findBoard.setTitle(title));
         Optional.ofNullable(board.getBody()).ifPresent(body -> findBoard.setBody(body));
+        Optional.ofNullable(board.getPhotoURL()).ifPresent(photo -> findBoard.setPhotoURL(photo));
 
         return boardRepository.save(findBoard);
     }
