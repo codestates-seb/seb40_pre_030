@@ -1,10 +1,14 @@
 package com.codestates.user.entity;
 
+import com.codestates.answer.entity.Answer;
+import com.codestates.board.entity.Board;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
 
 import javax.persistence.*;
+import java.util.ArrayList;
+import java.util.List;
 
 @NoArgsConstructor
 @Getter
@@ -26,17 +30,18 @@ public class User {
     @Column
     private String password;
 
+    @ElementCollection(fetch = FetchType.EAGER)
+    private List<String> roles = new ArrayList<>();
 
     @Enumerated(EnumType.STRING)
     @Column(length = 20, nullable = false)
     private UserStatus userStatus = UserStatus.USER_ACTIVE;
 
-//    보류
-//    @OneToMany(mappedBy = "user")
-//    private List<Question> question = new ArrayList<>();
+    @OneToMany(mappedBy = "user")
+    private List<Board> question = new ArrayList<>();
 
-//    @OneToMany(mappedBy = "user")
-//    private List<Answer> answer = new ArrayList<>();
+    @OneToMany(mappedBy = "user")
+    private List<Answer> answer = new ArrayList<>();
 
     public enum UserStatus{
         USER_ACTIVE("활동중"),

@@ -7,7 +7,7 @@ const Header = () => {
   const [logged, SetLogged] = useState(false);
 
   return (
-    <HeaderWrapper>
+    <HeaderWrapper className="Header">
       <nav>
         <Logo />
         <HeaderNav logged={logged} />
