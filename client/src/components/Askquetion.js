@@ -145,6 +145,7 @@ const Askquetion = () => {
   const [AskTitle, SetAskTitle] = useState("");
   const [AskBody, SetAskBody] = useState("");
   const textRef = useRef("");
+  
   const AskTitleChange = (event) => {
     SetAskTitle(event.target.value);
   };
