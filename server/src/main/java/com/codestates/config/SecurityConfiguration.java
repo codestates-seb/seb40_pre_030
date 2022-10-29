@@ -2,6 +2,8 @@ package com.codestates.config;
 
 import com.codestates.auth.filter.JwtAuthenticationFilter;
 import com.codestates.auth.filter.JwtVerificationFilter;
+import com.codestates.auth.handler.UserAccessDeniedHandler;
+import com.codestates.auth.handler.UserAuthenticationEntryPoint;
 import com.codestates.auth.handler.UserAuthenticationFailureHandler;
 import com.codestates.auth.handler.UserAuthenticationSuccessHandler;
 import com.codestates.auth.jwt.JwtTokenizer;
@@ -47,13 +49,17 @@ public class SecurityConfiguration {
                 .and()
                 .formLogin().disable()
                 .httpBasic().disable()
+                .exceptionHandling()
+                .authenticationEntryPoint(new UserAuthenticationEntryPoint())
+                .accessDeniedHandler(new UserAccessDeniedHandler())
+                .and()
                 .apply(new CustomFilterConfigurer())
                 .and()
                 .authorizeRequests(authorize -> authorize
                         .antMatchers(HttpMethod.POST, "/*/signup").permitAll() // 회원 가입
                         .antMatchers(HttpMethod.GET, "/users/**").hasAnyRole("USER", "ADMIN") // 회원 조회
                         .antMatchers(HttpMethod.DELETE, "/*/users").hasRole("USER") // 회원 삭제
-                        .antMatchers(HttpMethod.POST, "/*/ask").hasRole("USER") // 질문 등록
+                        .antMatchers(HttpMethod.POST, "/ask").hasRole("USER") // 질문 등록
                         .antMatchers(HttpMethod.PATCH, "/*/edit").hasRole("USER") // 질문 편집
                         .antMatchers(HttpMethod.POST, "/*/answer/**").hasRole("USER") // 답변 생성
                         .antMatchers(HttpMethod.PATCH, "/*/**/**/edit").hasRole("USER") // 답변 수정
