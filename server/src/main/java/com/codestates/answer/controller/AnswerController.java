@@ -1,5 +1,6 @@
 package com.codestates.answer.controller;
 
+import com.codestates.answer.dto.AnswerDto;
 import com.codestates.answer.dto.AnswerPatchDto;
 import com.codestates.answer.dto.AnswerPostDto;
 import com.codestates.answer.dto.AnswerResponseDto;
@@ -7,6 +8,7 @@ import com.codestates.answer.entity.Answer;
 import com.codestates.answer.mapper.AnswerMapper;
 import com.codestates.answer.service.AnswerService;
 import lombok.extern.slf4j.Slf4j;
+import org.springframework.data.domain.Page;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.validation.annotation.Validated;
@@ -33,40 +35,42 @@ public class AnswerController {
     // 답변 생성
     @PostMapping("/{board-id}")
     public ResponseEntity postAnswer(@PathVariable("board-id") @Positive long boardId,
-                                     @Valid @RequestBody AnswerPostDto answerPostDto){
+                                     @Valid @RequestBody AnswerDto.Post requestBody){
+        requestBody.setBoardId(boardId);
+        Answer answer = mapper.answerPostDtoToAnswer(requestBody);
+        Answer createAnswer = answerService.createAnswer(answer);
+        AnswerDto.Response response = mapper.answerToAnswerResponse(createAnswer);
 
-        answerPostDto.setBoardId(boardId);
-        Answer answer = mapper.answerPostDtoToAnswer(answerPostDto);
-        Answer response = answerService.createAnswer(answer);
-        return new ResponseEntity<>(mapper.answerToAnswerResponseDto(response), HttpStatus.CREATED);
+        return new ResponseEntity<>(response, HttpStatus.CREATED);
     }
 
     // 답변 수정
     @PatchMapping("{post-id}/{answer-id}/edit")
     public ResponseEntity patchAnswer(@PathVariable("answer-id") @Positive long answerId,
-                                      @Valid @RequestBody AnswerPatchDto answerPatchDto){
-        answerPatchDto.setAnswerId(answerId);
-        Answer response = answerService.updateAnswer(mapper.answerPatchDtoToAnswer(answerPatchDto));
-        return new ResponseEntity<>(mapper.answerToAnswerResponseDto(response), HttpStatus.OK);
+                                      @Valid @RequestBody AnswerDto.Patch requestBody){
+        requestBody.setAnswerId(answerId);
+        Answer answer = mapper.answerPatchDtoToAnswer(requestBody);
+        Answer updateAnswer = answerService.updateAnswer(answer);
+        AnswerDto.Response response = mapper.answerToAnswerResponse(updateAnswer);
+        return new ResponseEntity<>(response, HttpStatus.OK);
     }
 
     /**
-    // 답변 조회
-    @GetMapping("/{answer-id}")
-    public ResponseEntity getAnswer(@PathVariable("answer-id") @Positive long answerId){
-        Answer answer = answerService.findAnswer(answerId);
-        return new ResponseEntity<>(mapper.answerToAnswerResponseDto(answer), HttpStatus.OK);
-    }
-    **/
+     // 답변 조회
+     @GetMapping("/{answer-id}")
+     public ResponseEntity getAnswer(@PathVariable("answer-id") @Positive long answerId){
+     Answer answer = answerService.findAnswer(answerId);
+     return new ResponseEntity<>(mapper.answerToAnswerResponseDto(answer), HttpStatus.OK);
+     }
+     **/
 
     // 답변 전체 조회
     @GetMapping
-    public ResponseEntity getAnswers(){
-        List<Answer> answers = answerService.findAnswers();
-        List<AnswerResponseDto> response =
-                answers.stream()
-                        .map(answer -> mapper.answerToAnswerResponseDto(answer))
-                        .collect(Collectors.toList());
+    public ResponseEntity getAnswers(@Positive @RequestParam int page,
+                                     @Positive @RequestParam int size){
+        Page<Answer> answers = answerService.findAnswers(page - 1, size);
+        List<Answer> answerList = answers.getContent();
+        List<AnswerDto.Response> response = mapper.answersToAnswerResponse(answerList);
         return new ResponseEntity<>(response, HttpStatus.OK);
     }
 
@@ -75,6 +79,6 @@ public class AnswerController {
     public ResponseEntity deleteAnswer(@PathVariable("answer-id") @Positive long answerId){
 
         answerService.deleteAnswer(answerId);
-        return new ResponseEntity(HttpStatus.NO_CONTENT);
+        return new ResponseEntity<>(HttpStatus.NO_CONTENT);
     }
 }
