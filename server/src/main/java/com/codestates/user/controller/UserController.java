@@ -1,6 +1,7 @@
 package com.codestates.user.controller;
 
 //import com.codestates.user.dto.SingleResponseDto;
+import com.codestates.user.dto.UserDto;
 import com.codestates.user.dto.UserPostDto;
 import com.codestates.user.dto.UserResponseDto;
 import com.codestates.user.entity.User;
@@ -28,22 +29,23 @@ public class UserController {
         this.userService = userService;
         this.mapper = mapper;
     }
-
+    // 회원 생성
     @PostMapping("/signup")
-    public ResponseEntity postUser(@Valid @RequestBody UserPostDto userPostDto){
+    public ResponseEntity postUser(@Valid @RequestBody UserDto.Post requestBody){
 
-        User user = mapper.userPostToUser(userPostDto);
-        User postUser = userService.createUser(user);
+        User user = mapper.userPostDtoToUser(requestBody);
+        User createUser = userService.createUser(user);
+        UserDto.Response response = mapper.userToUserResponse(createUser);
 
-        return new ResponseEntity<>(mapper.useToUserResponseDto(postUser),HttpStatus.CREATED);
+        return new ResponseEntity<>(response, HttpStatus.CREATED);
     }
-
+    //특정 회원 조회
     @GetMapping("/{user-id}")
     public ResponseEntity getUser(@PathVariable("user-id") @Positive long userId){
 
-        User user = userService.findUser(userId);
+        User response = userService.findUser(userId);
 
-        return new ResponseEntity<>((mapper.useToUserResponseDto(user)) ,HttpStatus.OK);
+        return new ResponseEntity<>(response ,HttpStatus.OK);
     }
 
 //    사이드바 Users 구현시

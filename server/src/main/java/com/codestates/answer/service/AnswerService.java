@@ -3,6 +3,9 @@ import com.codestates.answer.entity.Answer;
 import com.codestates.answer.repository.AnswerRepository;
 import com.codestates.exception.BusinessLogicException;
 import com.codestates.exception.ExceptionCode;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.PageRequest;
+import org.springframework.data.domain.Sort;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
@@ -33,15 +36,15 @@ public class AnswerService {
     }
 
     /**
-    public Answer findAnswer(long answerId){
-        return findVerifiedAnswer(answerId);
-    }
+     public Answer findAnswer(long answerId){
+     return findVerifiedAnswer(answerId);
+     }
      **/
 
     // 답변 전체 보기
     @Transactional(readOnly = true)
-    public List<Answer> findAnswers(){
-        return (List<Answer>) answerRepository.findAll();
+    public Page<Answer> findAnswers(int page, int size){
+        return answerRepository.findAll(PageRequest.of(page, size, Sort.by("answerId").descending()));
     }
 
     // 답변 삭제
