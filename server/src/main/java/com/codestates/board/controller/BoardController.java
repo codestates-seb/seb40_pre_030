@@ -48,7 +48,7 @@ public class BoardController {
         return new ResponseEntity<>(response, HttpStatus.OK);
     }
 
-    // 특정 질문 출력
+    // 특정 질문 조회
     @GetMapping("/{post-id}")
     public ResponseEntity getBoard(@PathVariable("post-id") @Positive long postId) {
 
@@ -57,7 +57,7 @@ public class BoardController {
         return new ResponseEntity<>(response, HttpStatus.OK);
     }
 
-    // 질문 전체 목록 출력
+    // 질문 전체 목록 조회
     @GetMapping
     public ResponseEntity getBoards(@Positive @RequestParam int page,
                                     @Positive @RequestParam int size) {
