@@ -32,7 +32,7 @@ public class Board {
     private User user;
 
     @Column
-    private String nickName;
+    private String nickName = "Ayaan";
 
     @Column
     private String title;

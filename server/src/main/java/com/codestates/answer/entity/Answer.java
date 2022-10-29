@@ -20,6 +20,8 @@ public class Answer {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long answerId;
 
+    private Long boardId;
+
     private String answerBody;
 
     @Column(nullable = false)
@@ -28,12 +30,16 @@ public class Answer {
     @Column(nullable = false, name = "LAST_MODIFIED_AT")
     private LocalDateTime modifiedAt = LocalDateTime.now();
 
+    private String nickName = "Ayaan";
+
+    private String photoURL;
+
     @ManyToOne
     @JoinColumn(name = "USER_ID")
     private User user;
 
     @ManyToOne
-    @JoinColumn(name = "BOARD_ID")
+    @JoinColumn(name = "BOARD")
     private Board board;
 
     @Column
