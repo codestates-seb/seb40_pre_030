@@ -1,12 +1,12 @@
 package com.codestates.answer.controller;
 
 import com.codestates.answer.dto.AnswerDto;
-import com.codestates.answer.dto.AnswerPatchDto;
-import com.codestates.answer.dto.AnswerPostDto;
-import com.codestates.answer.dto.AnswerResponseDto;
 import com.codestates.answer.entity.Answer;
 import com.codestates.answer.mapper.AnswerMapper;
 import com.codestates.answer.service.AnswerService;
+import com.codestates.board.entity.Board;
+import com.codestates.user.entity.User;
+import com.codestates.user.service.UserService;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.data.domain.Page;
 import org.springframework.http.HttpStatus;
@@ -16,8 +16,8 @@ import org.springframework.web.bind.annotation.*;
 
 import javax.validation.Valid;
 import javax.validation.constraints.Positive;
+import java.security.Principal;
 import java.util.List;
-import java.util.stream.Collectors;
 
 @RestController
 @RequestMapping("/answers")
@@ -25,19 +25,29 @@ import java.util.stream.Collectors;
 @Slf4j
 public class AnswerController {
     private final AnswerService answerService;
+    private final UserService userService;
     private final AnswerMapper mapper;
 
-    public AnswerController(AnswerService answerService, AnswerMapper mapper){
+    public AnswerController(AnswerService answerService, UserService userService, AnswerMapper mapper) {
         this.answerService = answerService;
+        this.userService = userService;
         this.mapper = mapper;
     }
 
     // 답변 생성
     @PostMapping("/{board-id}")
-    public ResponseEntity postAnswer(@PathVariable("board-id") @Positive long boardId,
+    public ResponseEntity postAnswer(Principal principal,
+                                     @PathVariable("board-id") @Positive long boardId,
                                      @Valid @RequestBody AnswerDto.Post requestBody){
+
+        User user = userService.findVerifiedUserEmail(principal.getName());
+        requestBody.setUser(user);
         requestBody.setBoardId(boardId);
+
         Answer answer = mapper.answerPostDtoToAnswer(requestBody);
+        Board board = answerService.findVerifiedboard(boardId);
+        board.addAnswer(answer);
+
         Answer createAnswer = answerService.createAnswer(answer);
         AnswerDto.Response response = mapper.answerToAnswerResponse(createAnswer);
 

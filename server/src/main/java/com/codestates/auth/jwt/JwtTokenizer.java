@@ -66,6 +66,7 @@ public class JwtTokenizer {
                 .compact();
     }
 
+    // 검증 후 Claims 반환
     public Jws<Claims> getClaims(String jws, String base64EncodedSecretKey) {
 
         Key key = getKeyFromBase64EncodedKey(base64EncodedSecretKey);
@@ -77,7 +78,7 @@ public class JwtTokenizer {
         return claims;
     }
 
-    // JWT 검증
+    // JWT 단순 검증
     public void verifySignature(String jws, String base64EncodedSecretKey) {
 
         Key key = getKeyFromBase64EncodedKey(base64EncodedSecretKey);

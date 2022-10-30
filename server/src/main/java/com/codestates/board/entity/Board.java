@@ -4,6 +4,7 @@ import com.codestates.answer.entity.Answer;
 import com.codestates.user.entity.User;
 import lombok.Getter;
 import lombok.Setter;
+import org.hibernate.validator.constraints.URL;
 
 import javax.persistence.*;
 import java.time.LocalDateTime;
@@ -18,6 +19,7 @@ public class Board {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long boardId;
 
+    @URL
     @Column
     private String photoURL;
 
@@ -31,8 +33,12 @@ public class Board {
     @JoinColumn(name = "USER_ID")
     private User user;
 
+    public void setUser(User user) {
+        this.user = user;
+    }
+
     @Column
-    private String nickName = "Ayaan";
+    private String nickName;
 
     @Column
     private String title;
@@ -43,7 +49,13 @@ public class Board {
     @Column// 일단 해놓음
     private int voteCount;
 
-    @OneToMany(mappedBy = "board")
+    @OneToMany(mappedBy = "board", cascade = CascadeType.PERSIST)
     private List<Answer> answer = new ArrayList<>();
 
+    public void addAnswer(Answer answer) {
+        this.answer.add(answer);
+        if (answer.getBoard() != this) {
+            answer.addBoard(this);
+        }
+    }
 }

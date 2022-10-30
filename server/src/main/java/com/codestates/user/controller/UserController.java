@@ -1,9 +1,6 @@
 package com.codestates.user.controller;
 
-//import com.codestates.user.dto.SingleResponseDto;
 import com.codestates.user.dto.UserDto;
-import com.codestates.user.dto.UserPostDto;
-import com.codestates.user.dto.UserResponseDto;
 import com.codestates.user.entity.User;
 import com.codestates.user.mapper.UserMapper;
 import com.codestates.user.service.UserService;

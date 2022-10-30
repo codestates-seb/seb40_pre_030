@@ -82,6 +82,15 @@ public class UserService {
     }
 
     @Transactional(readOnly = true)
+    public User findVerifiedUserEmail(String email){
+
+        Optional<User> optionalUser = userRepository.findByEmail(email);
+        User findUser = optionalUser.orElseThrow(() -> new BusinessLogicException(ExceptionCode.USER_NOT_FOUND));
+
+        return findUser;
+    }
+
+    @Transactional(readOnly = true)
     private void verifyExistsEmail(String email){
         Optional<User> user =  userRepository.findByEmail(email);
 
