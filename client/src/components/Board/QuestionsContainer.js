@@ -7,6 +7,8 @@ import {
   faCaretDown,
 } from "@fortawesome/free-solid-svg-icons";
 import { Link } from "react-router-dom";
+import { dummyQuestions } from "./dummyData";
+import Pagination from "./Pagination";
 
 const StyledQuestionsContainer = styled.div`
   width: 100%;
@@ -103,9 +105,11 @@ const QuestionsContainer = () => {
         </div>
       </div>
       <ul className="questions-container">
-        <Question />
-        <Question />
-        <Question />
+        {dummyQuestions.map((v, idx) => {
+          if (idx <= 20) return <Question key={v.postId} questionItem={v} />;
+          return null;
+        })}
+        <Pagination />
       </ul>
     </StyledQuestionsContainer>
   );
