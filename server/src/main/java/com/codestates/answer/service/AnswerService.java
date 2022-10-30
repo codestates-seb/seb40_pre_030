@@ -1,6 +1,8 @@
 package com.codestates.answer.service;
 import com.codestates.answer.entity.Answer;
 import com.codestates.answer.repository.AnswerRepository;
+import com.codestates.board.entity.Board;
+import com.codestates.board.repository.BoardRepository;
 import com.codestates.exception.BusinessLogicException;
 import com.codestates.exception.ExceptionCode;
 import org.springframework.data.domain.Page;
@@ -17,9 +19,11 @@ import java.util.Optional;
 public class AnswerService {
 
     private AnswerRepository answerRepository;
+    private BoardRepository boardRepository;
 
-    public AnswerService(AnswerRepository answerRepository){
+    public AnswerService(AnswerRepository answerRepository, BoardRepository boardRepository) {
         this.answerRepository = answerRepository;
+        this.boardRepository = boardRepository;
     }
 
     // 답변 생성
@@ -59,5 +63,13 @@ public class AnswerService {
         Answer findAnswer = optionalAnswer.orElseThrow(() ->
                 new BusinessLogicException(ExceptionCode.ANSWER_NOT_FOUND));
         return findAnswer;
+    }
+
+    @Transactional(readOnly = true)
+    public Board findVerifiedboard(long boardId){
+        Optional<Board> optionalboard = boardRepository.findById(boardId);
+        Board findBoard = optionalboard.orElseThrow(() ->
+                new BusinessLogicException(ExceptionCode.ANSWER_NOT_FOUND)); // BOARD_NOT_FOUND 추가해야 함
+        return findBoard;
     }
 }

@@ -1,7 +1,5 @@
 package com.codestates.user.entity;
 
-import com.codestates.answer.entity.Answer;
-import com.codestates.board.entity.Board;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
@@ -43,12 +41,6 @@ public class User {
     @Enumerated(EnumType.STRING)
     @Column(length = 20, nullable = false)
     private UserStatus userStatus = UserStatus.USER_ACTIVE;
-
-    @OneToMany(mappedBy = "user")
-    private List<Board> question = new ArrayList<>();
-
-    @OneToMany(mappedBy = "user")
-    private List<Answer> answer = new ArrayList<>();
 
     public enum UserStatus{
         USER_ACTIVE("활동중"),

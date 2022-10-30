@@ -4,6 +4,8 @@ import com.codestates.board.dto.BoardDto;
 import com.codestates.board.entity.Board;
 import com.codestates.board.mapper.BoardMapper;
 import com.codestates.board.service.BoardService;
+import com.codestates.user.entity.User;
+import com.codestates.user.service.UserService;
 import org.springframework.data.domain.Page;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -11,23 +13,29 @@ import org.springframework.web.bind.annotation.*;
 
 import javax.validation.Valid;
 import javax.validation.constraints.Positive;
+import java.security.Principal;
 import java.util.List;
 
 @RestController
 public class BoardController {
 
     private final BoardService boardService;
+    private final UserService userService;
     private final BoardMapper mapper;
 
-    public BoardController(BoardService boardService, BoardMapper mapper) {
+    public BoardController(BoardService boardService, UserService userService, BoardMapper mapper) {
         this.boardService = boardService;
+        this.userService = userService;
         this.mapper = mapper;
     }
 
     // 질문 생성
     @PostMapping("/ask")
-    public ResponseEntity postBoard(@Valid @RequestBody BoardDto.Post requestBody) {
+    public ResponseEntity postBoard(Principal principal,
+                                    @Valid @RequestBody BoardDto.Post requestBody) {
 
+        User user = userService.findVerifiedUserEmail(principal.getName());
+        requestBody.setUser(user);
         Board board = mapper.boardPostDtoToBoard(requestBody);
         Board createBoard = boardService.createBoard(board);
         BoardDto.Response response = mapper.boardToBoardResponse(createBoard);
@@ -52,7 +60,8 @@ public class BoardController {
     @GetMapping("/{post-id}")
     public ResponseEntity getBoard(@PathVariable("post-id") @Positive long postId) {
 
-        Board response = boardService.findPost(postId);
+        Board board = boardService.findPost(postId);
+        BoardDto.Response response = mapper.boardToBoardResponse(board);
 
         return new ResponseEntity<>(response, HttpStatus.OK);
     }
