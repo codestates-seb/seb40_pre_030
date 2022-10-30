@@ -1,9 +1,8 @@
 import styled from "styled-components";
 import Answer from "./Answer";
-
+import AnswerCreate from "./AnswerCreate";
 const StyledAnswersContainer = styled.div`
   .answers-container-title {
-    width: 100%;
     font-size: 1.5em;
     margin-left: 50px;
     padding: 20px;
@@ -21,6 +20,7 @@ const AnswersContainer = () => {
         <Answer />
         <Answer />
         <Answer />
+        <AnswerCreate />
       </ul>
     </StyledAnswersContainer>
   );

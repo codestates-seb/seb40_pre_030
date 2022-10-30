@@ -9,7 +9,6 @@ const StyledAnswer = styled.li`
   display: grid;
 
   .answer-body {
-    width: 100%;
     grid-column: 2/3;
   }
   .UserCard {
