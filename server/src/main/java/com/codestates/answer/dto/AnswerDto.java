@@ -43,10 +43,10 @@ public class AnswerDto {
     public static class Response{
         private long answerId;
         private String answerBody;
+        private String nickName;
         private LocalDateTime createdAt;
         private LocalDateTime modifiedAt;
         private String photoURL;
-        private String nickName;
         private int voteCount;
     }
 }

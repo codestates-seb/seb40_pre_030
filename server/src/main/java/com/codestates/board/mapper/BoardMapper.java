@@ -16,18 +16,22 @@ public interface BoardMapper {
 //    BoardDto.Response boardToBoardResponse(Board board);
     List<BoardDto.Response> boardsToBoardResponse(List<Board> boards);
 
-    default BoardDto.Response boardToBoardResponse(Board board) {
+    default BoardDto.Response boardToBoardResponse(Board requestBody) {
+
+        if ( requestBody == null ) {
+            return null;
+        }
 
         BoardDto.Response boardResponse = new BoardDto.Response();
-        boardResponse.setCreatedAt(board.getCreatedAt());
-        boardResponse.setModifiedAt(board.getModifiedAt());
-        boardResponse.setTitle(board.getTitle());
-        boardResponse.setBody(board.getBody());
-        boardResponse.setNickName(board.getNickName());
-        boardResponse.setPhotoURL(board.getPhotoURL());
-        boardResponse.setVoteCount(board.getVoteCount());
+        boardResponse.setTitle(requestBody.getTitle());
+        boardResponse.setBody(requestBody.getBody());
+        boardResponse.setNickName(requestBody.getUser().getNickName());
+        boardResponse.setCreatedAt(requestBody.getCreatedAt());
+        boardResponse.setModifiedAt(requestBody.getModifiedAt());
+        boardResponse.setPhotoURL(requestBody.getPhotoURL());
+        boardResponse.setVoteCount(requestBody.getVoteCount());
 
-        List<Answer> answers = board.getAnswer();
+        List<Answer> answers = requestBody.getAnswer();
         boardResponse.setAnswer(answersToAnswerResponse(answers));
 
         return boardResponse;
@@ -35,13 +39,21 @@ public interface BoardMapper {
 
     default List<AnswerDto.Response> answersToAnswerResponse(List<Answer> answers) {
 
+        if ( answers == null ) {
+            return null;
+        }
+
         return answers
                 .stream()
                 .map(answer -> AnswerDto.Response
                         .builder()
                         .answerId(answer.getAnswerId())
                         .answerBody(answer.getAnswerBody())
+                        .nickName(answer.getUser().getNickName())
+                        .createdAt(answer.getCreatedAt())
                         .modifiedAt(answer.getModifiedAt())
+                        .voteCount(answer.getVoteCount())
+                        .photoURL(answer.getPhotoURL())
                         .build())
                 .collect(Collectors.toList());
     }

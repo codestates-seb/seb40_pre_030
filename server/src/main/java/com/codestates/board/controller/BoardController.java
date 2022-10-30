@@ -60,7 +60,8 @@ public class BoardController {
     @GetMapping("/{post-id}")
     public ResponseEntity getBoard(@PathVariable("post-id") @Positive long postId) {
 
-        Board response = boardService.findPost(postId);
+        Board board = boardService.findPost(postId);
+        BoardDto.Response response = mapper.boardToBoardResponse(board);
 
         return new ResponseEntity<>(response, HttpStatus.OK);
     }
