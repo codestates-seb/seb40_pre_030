@@ -3,9 +3,9 @@ import { Editor } from "@toast-ui/react-editor";
 import styled from "styled-components";
 
 const Createform = styled.div`
-  width: 95%;
   margin: auto;
   float: right;
+  padding: 10px;
   .AnswerCreatetitle {
     margin-top: 30px;
     margin-bottom: 30px;
