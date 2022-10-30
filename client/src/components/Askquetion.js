@@ -4,10 +4,30 @@ import { faAngleUp, faAngleDown } from "@fortawesome/free-solid-svg-icons";
 import { useState, useRef, useEffect } from "react";
 import "@toast-ui/editor/dist/toastui-editor.css";
 import { Editor } from "@toast-ui/react-editor";
+import { faDAndD } from "@fortawesome/free-brands-svg-icons";
+const Accordiondata = [
+  {
+    id: 1,
+    title: "Summarize the problem",
+    content:
+      " Include details about your goal　 Describe expected and actual　　　　results Include any error messages",
+  },
+  {
+    id: 2,
+    title: "  Describe what you`ve tried",
+    content:
+      "Show what you’ve tried and tell us what you found(on this site or elsewhere) and why it didn’t meet your needs. You can get better answers when you provide research.",
+  },
+  {
+    id: 3,
+    title: "Show some code",
+    content:
+      " When appropriate, share the minimum amount of code others need to reproduce your problem (also called a minimum, reproducible example)",
+  },
+];
 
 const Main = styled.main`
   width: 100vw;
-  height: 100vh;
   margin: auto;
   background-color: #f1f2f3;
   .Mainsection {
@@ -136,12 +156,23 @@ const Askquetion = () => {
   const [AskTitle, SetAskTitle] = useState("");
   const [AskBody, SetAskBody] = useState("");
   const textRef = useRef("");
+  const [TitleId, SetTitleId] = useState(0);
   const AskTitleChange = (event) => {
     SetAskTitle(event.target.value);
   };
 
   const handleChangeInput = () => {
     SetAskBody(textRef.current.getInstance().getMarkdown());
+  };
+  const TitleClick = (id) => {
+    if (id === TitleId) {
+      SetTitleId(0);
+    } else {
+      SetTitleId(id);
+    }
+    //변수는 id넘
+
+    console.log(TitleId);
   };
 
   return (
@@ -220,55 +251,23 @@ const Askquetion = () => {
                         </p>
                       </div>
                       <ol>
-                        <li>
-                          <div className="AsideTopic">
-                            <button className="TopicBtn">
-                              Summarize the problem
-                            </button>
-                            <span></span>
-                            <FontAwesomeIcon icon={faAngleUp} />{" "}
-                          </div>
-                          <div className="AsideSlide">
-                            <ul>
-                              <li>1. Include details about your goal</li>
-                              <li>2. Describe expected and actual</li>
-                              <li>3. results Include any error messages</li>
-                            </ul>
-                          </div>
-                        </li>
-                        <li>
-                          <div className="AsideTopic">
-                            <button className="TopicBtn">
-                              Describe what you`ve tried
-                            </button>
-                            <span>
-                              <FontAwesomeIcon icon={faAngleUp} />{" "}
-                            </span>
-                          </div>
-                          <div className="AsideSlide">
-                            <p>
-                              Show what you’ve tried and tell us what you found
-                              (on this site or elsewhere) and why it didn’t meet
-                              your needs. You can get better answers when you
-                              provide research.
-                            </p>
-                          </div>
-                        </li>
-                        <li>
-                          <div className="AsideTopic">
-                            <button className="TopicBtn">Show some code</button>
-                            <span>
-                              <FontAwesomeIcon icon={faAngleUp} />{" "}
-                            </span>
-                          </div>
-                          <div className="AsideSlide">
-                            <p>
-                              When appropriate, share the minimum amount of code
-                              others need to reproduce your problem (also called
-                              a minimum, reproducible example)
-                            </p>
-                          </div>
-                        </li>
+                        {Accordiondata.map((items) => {
+                          return (
+                            <li>
+                              <div className="AsideTopic">
+                                <button
+                                  className="TopicBtn"
+                                  onClick={() => TitleClick(items.id)}
+                                >
+                                  {items.title}
+                                </button>
+                              </div>
+                              <div className="AsideSlide">
+                                {TitleId === items.id ? items.content : ""}
+                              </div>
+                            </li>
+                          );
+                        })}
                       </ol>
                     </div>
                   </div>
