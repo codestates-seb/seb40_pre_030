@@ -6,6 +6,9 @@ const StyledPagination = styled.div`
   display: flex;
   justify-content: space-between;
   margin: 4rem 2rem 7rem 2rem;
+  .dotdotdot {
+    margin-right: 0.3rem;
+  }
 `;
 
 const PageButton = styled.button`
@@ -14,7 +17,7 @@ const PageButton = styled.button`
     props.selected === props.buttonId ? props.theme.highlightOrange : "white"};
   border: ${(props) =>
     props.selected === props.buttonId
-      ? "none"
+      ? props.theme.highlightOrange + " solid 1px"
       : props.theme.grayFont + " solid 1px"};
   color: ${(props) => (props.selected === props.buttonId ? "white" : "black")};
   border-radius: 3px;
@@ -44,18 +47,45 @@ const Pagination = () => {
   return (
     <StyledPagination className="Pagination">
       <div className="pages">
-        <PageButton buttonId="prev">Prev</PageButton>
-        ...
-        {pages.map((v) => (
-          <Link to={"/?page=" + v} key={v}>
-            <PageButton selected={currentPage} buttonId={v}>
-              {v}
-            </PageButton>
-          </Link>
-        ))}
-        ...
+        {currentPage > 4 && (
+          <>
+            <Link to={"/?page=" + (currentPage - 1)}>
+              <PageButton buttonId="prev">Prev</PageButton>
+            </Link>
+            <Link to="/?page=1">
+              <PageButton buttonId={1}>1</PageButton>
+            </Link>
+            <span className="dotdotdot">...</span>
+          </>
+        )}
+        {pages.map((v) => {
+          if (currentPage < 5 && v < 6) {
+            return (
+              <Link to={"/?page=" + v} key={v}>
+                <PageButton selected={currentPage} buttonId={v}>
+                  {v}
+                </PageButton>
+              </Link>
+            );
+          } else if (
+            currentPage >= 5 &&
+            v >= currentPage - 2 &&
+            v <= currentPage + 2
+          ) {
+            return (
+              <Link to={"/?page=" + v} key={v}>
+                <PageButton selected={currentPage} buttonId={v}>
+                  {v}
+                </PageButton>
+              </Link>
+            );
+          }
+        })}
+        <span className="dotdotdot">...</span>
         <PageButton buttonId="prev">{/* last page number */}1234</PageButton>
-        <PageButton buttonId="next">Next</PageButton>
+        <Link to={"/?page=" + (currentPage + 1)}>
+          <PageButton buttonId="next">Next</PageButton>
+        </Link>
       </div>
       <div className="page-size">
         {pageSizes.map((v) => (
@@ -73,5 +103,6 @@ const Pagination = () => {
 
 export default Pagination;
 
-// 4페이지까지는 [prev] 버튼 없음
-// 5페이지부터는 [prev] [1] ... 과 함께 현재 페이지가 3번째 버튼이 됨
+// {4페이지}까지는 [prev] 버튼 없음
+// {5페이지}부터 {마지막페이지 - 5페이지}까지 [prev] [1] ... 과 함께 현재 페이지가 3번째 버튼이 됨
+// {마지막 페이지 - 4페이지} 까지는 [next] 버튼 없음
