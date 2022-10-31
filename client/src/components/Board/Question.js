@@ -1,3 +1,4 @@
+import { Link } from "react-router-dom";
 import styled from "styled-components";
 import AnswerBox from "./AnswerBox";
 import Tag from "./Tag";
@@ -29,6 +30,9 @@ const StyledQuestion = styled.li`
   }
   .question-content {
     margin-left: 0.8rem;
+  }
+  .toQuestion {
+    text-decoration: none;
   }
   .question-content-title {
     font-size: 1.1rem;
@@ -65,20 +69,9 @@ const StyledQuestion = styled.li`
   }
 `;
 
-const Question = ({ key }) => {
-  const questionItem = {
-    votes: 0,
-    answers: 3,
-    views: 3,
-    title: "A class pointer does not name a type",
-    body: 'I have 3 C++ files: Main.cpp #include "FileA.h" FileA.h #include "FileB.h" class FileA{ private: FileB* b; }; FileB.h class FileB{ private: FileA* A; ...',
-    photoURL: "https://i.stack.imgur.com/56OT9.jpg?s=32&g=1",
-    nickName: "Kyle G",
-    createdAt: "2 mins ago",
-  };
-
+const Question = ({ questionItem }) => {
   return (
-    <StyledQuestion className="Question" key={key}>
+    <StyledQuestion className="Question">
       <div className="question-summary-stats">
         <p className="question-summary-stats-item">
           {questionItem.votes} votes
@@ -89,7 +82,9 @@ const Question = ({ key }) => {
         </div>
       </div>
       <div className="question-content">
-        <h2 className="question-content-title">{questionItem.title}</h2>
+        <Link className="toQuestion" to={"/question/" + questionItem.postId}>
+          <h2 className="question-content-title">{questionItem.title}</h2>
+        </Link>
         <div className="question-content-body">
           {/* 특정 글자수 이상은 말줄임표로 대체 */}
           {questionItem.body}
