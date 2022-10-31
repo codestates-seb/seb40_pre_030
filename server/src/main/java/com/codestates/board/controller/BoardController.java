@@ -56,6 +56,23 @@ public class BoardController {
         return new ResponseEntity<>(response, HttpStatus.OK);
     }
 
+    // 질문 투표 +1
+    @PatchMapping("/{board_id}/voteUp")
+    public ResponseEntity voteBoardUp(@PathVariable("board_id") @Positive long boardId){
+        Board votedBoardUp = boardService.voteBoardUp(boardId);
+        BoardDto.Response response = mapper.boardToBoardResponse(votedBoardUp);
+
+        return new ResponseEntity<>(response, HttpStatus.OK);
+    }
+    // 질문 투표 -1
+    @PatchMapping("/{board_id}/voteDown")
+    public ResponseEntity voteBoardDown(@PathVariable("board_id") @Positive long boardId){
+        Board votedBoardDown = boardService.voteBoardDown(boardId);
+        BoardDto.Response response = mapper.boardToBoardResponse(votedBoardDown);
+
+        return new ResponseEntity<>(response, HttpStatus.OK);
+    }
+
     // 특정 질문 조회
     @GetMapping("/{post-id}")
     public ResponseEntity getBoard(@PathVariable("post-id") @Positive long postId) {

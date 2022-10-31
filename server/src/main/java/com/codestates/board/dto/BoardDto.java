@@ -47,4 +47,9 @@ public class BoardDto {
         private int voteCount;
         private List<AnswerDto.Response> answer;
     }
+
+    @Getter
+    public static class BoardVote{
+        private int voteCount;
+    }
 }
