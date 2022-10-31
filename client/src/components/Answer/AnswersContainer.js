@@ -4,7 +4,6 @@ import AnswerCreate from "./AnswerCreate";
 const StyledAnswersContainer = styled.div`
   .answers-container-title {
     font-size: 1.5em;
-    margin-left: 50px;
     padding: 20px;
     color: #3d4044;
   }

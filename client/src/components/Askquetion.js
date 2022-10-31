@@ -5,6 +5,7 @@ import { useState, useRef, useEffect } from "react";
 import "@toast-ui/editor/dist/toastui-editor.css";
 import { Editor } from "@toast-ui/react-editor";
 import { faDAndD } from "@fortawesome/free-brands-svg-icons";
+import axios from "axios";
 const Accordiondata = [
   {
     id: 1,
@@ -191,7 +192,18 @@ const Askquetion = () => {
   const TitleOnClick2 = () => {
     SetTitleOn2(!TitleOn2);
   };
-
+  const loginRequestHandler = () => {
+    axios
+      .post("https://localhost:4000/ask", { AskTitle, AskBody })
+      .then((res) => {
+        window.location.reload();
+      })
+      .catch((err) => {
+        if (err.response.status === 401) {
+          console.log(err.response.data);
+        }
+      });
+  };
   return (
     <>
       <Main>
