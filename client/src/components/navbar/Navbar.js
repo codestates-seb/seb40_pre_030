@@ -63,7 +63,7 @@ const NavContainer = styled.div`
   }
 `;
 
-const Navbar = () => {
+const Navbar = ({ seTabtIndex }) => {
   const [currentTab, setCurrentTab] = useState();
 
   const publicTab = [
@@ -74,6 +74,7 @@ const Navbar = () => {
   ];
   const onTabClick = (id) => {
     setCurrentTab(id);
+    seTabtIndex(id);
   };
 
   return (
