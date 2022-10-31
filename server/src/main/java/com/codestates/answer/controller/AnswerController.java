@@ -43,6 +43,7 @@ public class AnswerController {
         User user = userService.findVerifiedUserEmail(principal.getName());
         requestBody.setUser(user);
         requestBody.setBoardId(boardId);
+        requestBody.setNickName(user.getNickName());
 
         Answer answer = mapper.answerPostDtoToAnswer(requestBody);
         Board board = answerService.findVerifiedboard(boardId);

@@ -28,7 +28,6 @@ public interface BoardMapper {
         boardResponse.setNickName(requestBody.getUser().getNickName());
         boardResponse.setCreatedAt(requestBody.getCreatedAt());
         boardResponse.setModifiedAt(requestBody.getModifiedAt());
-        boardResponse.setPhotoURL(requestBody.getPhotoURL());
         boardResponse.setVoteCount(requestBody.getVoteCount());
 
         List<Answer> answers = requestBody.getAnswer();
@@ -53,7 +52,6 @@ public interface BoardMapper {
                         .createdAt(answer.getCreatedAt())
                         .modifiedAt(answer.getModifiedAt())
                         .voteCount(answer.getVoteCount())
-                        .photoURL(answer.getPhotoURL())
                         .build())
                 .collect(Collectors.toList());
     }

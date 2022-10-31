@@ -2,6 +2,7 @@ package com.codestates.user.dto;
 
 import lombok.Builder;
 import lombok.Getter;
+import lombok.NoArgsConstructor;
 import lombok.Setter;
 import org.hibernate.validator.constraints.URL;
 
@@ -27,13 +28,13 @@ public class UserDto {
         private String photoURL;
     }
 
-    @Getter
-    @Builder
+    @Getter @Setter
+    @NoArgsConstructor
     public static class Response{
         private long userId;
         private String email;
         private String nickName;
-        private String password;
+//        private String password;
         private String photoURL;
         private LocalDateTime createdAt;
 

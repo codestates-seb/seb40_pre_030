@@ -1,6 +1,5 @@
 package com.codestates.board.dto;
 
-
 import com.codestates.answer.dto.AnswerDto;
 import com.codestates.user.entity.User;
 import lombok.Getter;
@@ -17,8 +16,6 @@ public class BoardDto {
     public static class Post {
 
         private User user;
-
-        private String photoURL;
 
         @NotBlank
         private String title;
@@ -37,8 +34,6 @@ public class BoardDto {
 
         @NotBlank
         private String body;
-
-        private String photoURL;
     }
 
     @Getter @Setter
@@ -49,7 +44,6 @@ public class BoardDto {
         private String title;
         private String body;
         private String nickName;
-        private String photoURL;
         private int voteCount;
         private List<AnswerDto.Response> answer;
     }
