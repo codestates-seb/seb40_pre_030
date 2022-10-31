@@ -3,7 +3,6 @@ import Sidebar from "../components/Sidebar/Sidebar";
 import QuestionsContainer from "../components/Board/QuestionsContainer";
 import Navbar from "../components/navbar/Navbar";
 
-import { Route, Routes } from "react-router-dom";
 import Tag from "./Tag";
 import Footer from "../components/Footer";
 import { useState } from "react";
