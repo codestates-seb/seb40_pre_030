@@ -7,7 +7,6 @@ import {
   faCertificate,
   faCircleInfo,
 } from "@fortawesome/free-solid-svg-icons";
-import { Link } from "react-router-dom";
 // import { useNavigate } from "react-router-dom";
 
 const ChangeLi = styled.li`
@@ -63,7 +62,7 @@ const NavContainer = styled.div`
   }
 `;
 
-const Navbar = () => {
+const Navbar = ({ seTabtIndex }) => {
   const [currentTab, setCurrentTab] = useState();
 
   const publicTab = [
@@ -74,6 +73,7 @@ const Navbar = () => {
   ];
   const onTabClick = (id) => {
     setCurrentTab(id);
+    seTabtIndex(id);
   };
 
   return (

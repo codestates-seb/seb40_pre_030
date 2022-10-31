@@ -1,27 +1,28 @@
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import styled from "styled-components";
 
-const ATagnWrap = styled.a`
-  color: white;
+// 상위를 a tag에서 div로 변경
+const ATagWrap = styled.div`
+  color: hsl(206, 85%, 57.5%);
   border: none;
   padding: 0.4rem;
 `;
 
 const Atag = ({ name, link, logged, isContent, isHover }) => {
   return (
-    <ATagnWrap>
+    <ATagWrap>
       {logged === true ? (
         name === "Products" ? (
-          <a href={link}>{name}</a>
+          <div>{name}</div> // 다른 테그로 변경 필요
         ) : (
-          <a href={link}>
+          <div>
             <FontAwesomeIcon icon={name} />
-          </a>
+          </div>
         )
       ) : (
-        <a href={link}>{name}</a>
+        <div>{name}</div>
       )}
-    </ATagnWrap>
+    </ATagWrap>
   );
 };
 export default Atag;
