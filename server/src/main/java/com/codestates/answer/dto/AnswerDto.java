@@ -43,4 +43,9 @@ public class AnswerDto {
         private LocalDateTime modifiedAt;
         private int voteCount;
     }
+
+    @Getter
+    public static class AnswerVote{
+        private int voteCount;
+    }
 }
