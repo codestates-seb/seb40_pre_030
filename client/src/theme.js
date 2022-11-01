@@ -13,4 +13,5 @@ export const theme = {
   asideDeepYellow: "#FAF3D8",
   grayFont: "#6a737c",
   selectedTab: "#f1f2f3",
+  searchBarBorder: "#babfc4",
 };
