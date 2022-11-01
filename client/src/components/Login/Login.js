@@ -121,7 +121,7 @@ const Login = () => {
   };
 
   const StateChange = () => {
-    setLoginState(!loginState);
+    setLoginState(!loginInfo);
   };
 
   const handleSubmit = (e) => {
@@ -162,10 +162,10 @@ const Login = () => {
         //   localStorage.setItem("REFRESH_TOKEN", response.data.refreshToken);
         // }
         // setLoginState(true);
-
+        setLoginInfo(response.data);
         setLoginState(true);
         // const loginStatus = true;
-        // console.log(response.data);
+        console.log(response.data);
         // localStorage.setItem("loginState", loginState);
         // localStorage.setItem("loginStatus", loginStatus);
         axios.defaults.headers.common["Authorization"] = `${accessToken}`;

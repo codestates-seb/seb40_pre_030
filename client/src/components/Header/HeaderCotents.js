@@ -62,7 +62,6 @@ export const SearchBar = ({ placeHolderText }) => {
 };
 
 export const HeaderCont = ({ logged }) => {
-  const user = useRecoilValue(loginStatus);
   return (
     <>
       {contents[logged].map((el, idx) => (
