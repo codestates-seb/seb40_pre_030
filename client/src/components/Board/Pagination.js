@@ -1,6 +1,8 @@
 import { useEffect, useState } from "react";
-import { Link, useLocation } from "react-router-dom";
+import { Link, Navigate, useLocation } from "react-router-dom";
 import styled from "styled-components";
+import axios from "axios";
+import { BASE_URL } from "../../util/api";
 
 const StyledPagination = styled.div`
   display: flex;
@@ -25,79 +27,86 @@ const PageButton = styled.button`
   margin-right: 0.3rem;
 `;
 
-const Pagination = () => {
-  const [currentPage, setCurrentPage] = useState(1);
-  const [currentSize, setCurrentSize] = useState(15);
+const LinkButton = ({ linkTo, buttonContent, selected, buttonId }) => {
+  return (
+    <Link to={linkTo}>
+      <PageButton buttonId={buttonId || buttonContent} selected={selected}>
+        {buttonContent}
+      </PageButton>
+    </Link>
+  );
+};
+
+const Pagination = ({ currentPage, currentSize }) => {
   const pages = [1, 2, 3, 4, 5, 6, 7, 8, 9, 10];
   const pageSizes = [15, 30, 50];
-  const pageNow = useLocation().search; // 현재 페이지 또는 페이지 사이즈
-
-  useEffect(() => {
-    const num = pageNow.slice(pageNow.indexOf("=") + 1);
-    if (pageNow.includes("page")) setCurrentPage(Number(num));
-    else if (pageNow.includes("size")) {
-      setCurrentSize(Number(num));
-      setCurrentPage(1);
-    }
-  }, [pageNow]);
-
-  console.log("currentPage ", currentPage);
-  console.log("currentSize ", currentSize);
 
   return (
-    <StyledPagination className="Pagination">
-      <div className="pages">
-        {currentPage > 4 && (
-          <>
-            <Link to={"/?page=" + (currentPage - 1)}>
-              <PageButton buttonId="prev">Prev</PageButton>
-            </Link>
-            <Link to="/?page=1">
-              <PageButton buttonId={1}>1</PageButton>
-            </Link>
+    <>
+      {currentPage && currentSize && (
+        <StyledPagination className="Pagination">
+          <div className="pages">
+            {currentPage > 4 && (
+              <>
+                <LinkButton
+                  linkTo={"/?page=" + (currentPage - 1)}
+                  buttonContent="Prev"
+                />
+                <LinkButton linkTo="/?page=1" buttonContent={1} />
+                <span className="dotdotdot">...</span>
+              </>
+            )}
+            {pages.map((v) => {
+              if (currentPage < 5 && v < 6) {
+                return (
+                  <LinkButton
+                    linkTo={"/?page=" + v}
+                    selected={currentPage}
+                    buttonContent={v}
+                    key={v}
+                  />
+                );
+              } else if (
+                currentPage >= 5 &&
+                v >= currentPage - 2 &&
+                v <= currentPage + 2
+              ) {
+                return (
+                  <LinkButton
+                    linkTo={"/?page=" + v}
+                    selected={currentPage}
+                    buttonContent={v}
+                    key={v}
+                  />
+                );
+              }
+            })}
             <span className="dotdotdot">...</span>
-          </>
-        )}
-        {pages.map((v) => {
-          if (currentPage < 5 && v < 6) {
-            return (
-              <Link to={"/?page=" + v} key={v}>
-                <PageButton selected={currentPage} buttonId={v}>
-                  {v}
-                </PageButton>
-              </Link>
-            );
-          } else if (
-            currentPage >= 5 &&
-            v >= currentPage - 2 &&
-            v <= currentPage + 2
-          ) {
-            return (
-              <Link to={"/?page=" + v} key={v}>
-                <PageButton selected={currentPage} buttonId={v}>
-                  {v}
-                </PageButton>
-              </Link>
-            );
-          }
-        })}
-        <span className="dotdotdot">...</span>
-        <PageButton buttonId="prev">{/* last page number */}1234</PageButton>
-        <Link to={"/?page=" + (currentPage + 1)}>
-          <PageButton buttonId="next">Next</PageButton>
-        </Link>
-      </div>
-      <div className="page-size">
-        {pageSizes.map((v) => (
-          <Link to={"/?size=" + v} key={v}>
-            <PageButton selected={"size" + currentSize} buttonId={"size" + v}>
-              {v}
+            {/* 마지막 페이지 설정 관련 서버 작업 후 진행 예정 */}
+            <PageButton buttonId="1234">
+              {/* last page number */}1234
             </PageButton>
-          </Link>
-        ))}
-        per page
-      </div>
-    </StyledPagination>
+            <LinkButton
+              linkTo={"/?page=" + (currentPage + 1)}
+              buttonContent="Next"
+            />
+          </div>
+          <div className="page-size">
+            {pageSizes.map((v) => (
+              <LinkButton
+                linkTo={"/?size=" + v}
+                key={v}
+                selected={"size" + currentSize}
+                buttonId={"size" + v}
+                buttonContent={v}
+              />
+            ))}
+            per page
+          </div>
+        </StyledPagination>
+      )}
+      {(!currentPage || !currentSize) && <Navigate to="/?page=1" />}
+    </>
   );
 };
 

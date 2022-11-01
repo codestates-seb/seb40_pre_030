@@ -6,9 +6,11 @@ import {
   faArrowDownWideShort,
   faCaretDown,
 } from "@fortawesome/free-solid-svg-icons";
-import { Link } from "react-router-dom";
-import { dummyQuestions } from "./dummyData";
+import { Link, useLocation } from "react-router-dom";
 import Pagination from "./Pagination";
+import { useEffect, useState } from "react";
+import axios from "axios";
+import { BASE_URL } from "../../util/api";
 
 const StyledQuestionsContainer = styled.div`
   width: 100%;
@@ -63,6 +65,39 @@ const StyledQuestionsContainer = styled.div`
 `;
 
 const QuestionsContainer = () => {
+  const [currentPage, setCurrentPage] = useState(1);
+  const [currentSize, setCurrentSize] = useState(15);
+  const [listData, setListData] = useState();
+  const pageNow = useLocation().search; // 현재 페이지 또는 페이지 사이즈
+  useEffect(() => {
+    const num = pageNow.slice(pageNow.indexOf("=") + 1);
+    if (pageNow.includes("page")) setCurrentPage(Number(num));
+    else if (pageNow.includes("size")) {
+      setCurrentSize(Number(num));
+      setCurrentPage(1);
+    }
+  }, [pageNow]);
+
+  useEffect(() => {
+    if (!currentPage || !currentSize) {
+      setCurrentPage(1);
+      setCurrentSize(15);
+    }
+    return async () => {
+      axios.defaults.withCredentials = true;
+      axios
+        .get(`${BASE_URL}?page=${currentPage}&size=${currentSize}`, {
+          headers: {
+            "ngrok-skip-browser-warning": "skip",
+          },
+        })
+        .then((res) => {
+          const { data } = res;
+          setListData(data);
+        });
+    };
+  }, [currentPage, currentSize]);
+
   return (
     <StyledQuestionsContainer className="QuestionsContainer">
       <div className="questions-header">
@@ -105,11 +140,11 @@ const QuestionsContainer = () => {
         </div>
       </div>
       <ul className="questions-container">
-        {dummyQuestions.map((v, idx) => {
-          if (idx <= 20) return <Question key={v.postId} questionItem={v} />;
-          return null;
-        })}
-        <Pagination />
+        {listData &&
+          listData.map((v, idx) => (
+            <Question key={v.postId} questionItem={v} />
+          ))}
+        <Pagination currentPage={currentPage} currentSize={currentSize} />
       </ul>
     </StyledQuestionsContainer>
   );
