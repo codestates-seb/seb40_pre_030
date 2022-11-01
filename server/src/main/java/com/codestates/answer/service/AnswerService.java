@@ -39,6 +39,20 @@ public class AnswerService {
         return answerRepository.save(findAnswer);
     }
 
+    // 답변 투표 +1
+    public Answer voteAnswerUp(long answerId){
+        Answer findAnswer = findVerifiedAnswer(answerId);
+        findAnswer.setVoteCount(findAnswer.getVoteCount() + 1);
+        Answer updateAnswer = answerRepository.save(findAnswer);
+        return updateAnswer;
+    }
+    // 답변 투표 -1
+    public Answer voteAnswerDown(long answerId){
+        Answer findAnswer = findVerifiedAnswer(answerId);
+        findAnswer.setVoteCount(findAnswer.getVoteCount() - 1);
+        Answer updateAnswer = answerRepository.save(findAnswer);
+        return updateAnswer;
+    }
     /**
      public Answer findAnswer(long answerId){
      return findVerifiedAnswer(answerId);
@@ -66,10 +80,10 @@ public class AnswerService {
     }
 
     @Transactional(readOnly = true)
-    public Board findVerifiedboard(long boardId){
-        Optional<Board> optionalboard = boardRepository.findById(boardId);
-        Board findBoard = optionalboard.orElseThrow(() ->
-                new BusinessLogicException(ExceptionCode.ANSWER_NOT_FOUND)); // BOARD_NOT_FOUND 추가해야 함
+    public Board findVerifiedBoard(long boardId){
+        Optional<Board> optionalBoard = boardRepository.findById(boardId);
+        Board findBoard = optionalBoard.orElseThrow(() ->
+                new BusinessLogicException(ExceptionCode.BOARD_NOT_FOUND));
         return findBoard;
     }
 }

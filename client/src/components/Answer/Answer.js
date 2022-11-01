@@ -18,19 +18,20 @@ const StyledAnswer = styled.li`
   }
 `;
 
-const Answer = () => {
+const Answer = ({ AnswerData }) => {
+  console.log(AnswerData);
   return (
     <StyledAnswer className="Answer">
       <div className="answer-body">
-        <Vote voteCount={1353} />
+        <Vote />
         <Markdown />
       </div>
       <div className="UserCard">
         <UserCard
           answer
-          createdAt="Mar 6, 2011 at 12:43"
+          createdAt=""
           photoURL="https://www.gravatar.com/avatar/37d008229a56f1f8cb7a017644f9554d?s=64&d=identicon&r=PG"
-          displayName="Matt Price"
+          displayName=""
         />
       </div>
     </StyledAnswer>

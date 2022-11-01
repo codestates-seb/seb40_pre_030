@@ -20,5 +20,8 @@ public class UserAuthenticationSuccessHandler implements AuthenticationSuccessHa
                                         Authentication authentication) throws IOException, ServletException {
 
         log.info("# Authenticated successfully!");
+
+        response.getWriter().write("# Authenticated successfully!\n");
+        response.getWriter().write("email: " + authentication.getName());
     }
 }

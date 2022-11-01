@@ -46,7 +46,7 @@ public class AnswerController {
         requestBody.setNickName(user.getNickName());
 
         Answer answer = mapper.answerPostDtoToAnswer(requestBody);
-        Board board = answerService.findVerifiedboard(boardId);
+        Board board = answerService.findVerifiedBoard(boardId);
         board.addAnswer(answer);
 
         Answer createAnswer = answerService.createAnswer(answer);
@@ -65,7 +65,23 @@ public class AnswerController {
         AnswerDto.Response response = mapper.answerToAnswerResponse(updateAnswer);
         return new ResponseEntity<>(response, HttpStatus.OK);
     }
+    // 답변 투표 +1
+    @PatchMapping("/{board-id}/{answer-id}/voteUp")
+    public ResponseEntity voteAnswerUp(@PathVariable("answer-id") @Positive long answerId){
+        Answer votedAnswerUp = answerService.voteAnswerUp(answerId);
+        AnswerDto.Response response = mapper.answerToAnswerResponse(votedAnswerUp);
 
+        return new ResponseEntity<>(response, HttpStatus.OK);
+    }
+
+    // 답변 투표 -1
+    @PatchMapping("/{board-id}/{answer-id}/voteDown")
+    public ResponseEntity voteAnswerDown(@PathVariable("answer-id") @Positive long answerId){
+        Answer votedAnswerDown = answerService.voteAnswerDown(answerId);
+        AnswerDto.Response response = mapper.answerToAnswerResponse(votedAnswerDown);
+
+        return new ResponseEntity<>(response, HttpStatus.OK);
+    }
     /**
      // 답변 조회
      @GetMapping("/{answer-id}")
