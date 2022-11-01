@@ -149,13 +149,20 @@ const Login = () => {
       },
     })
       .then((response) => {
+        console.log(response);
         const accessToken = response.headers.authorization;
+        const refreshToken = response.headers.Refresh;
         localStorage.setItem("accessToken", accessToken);
-        setLoginState(true);
+        localStorage.setItem("refreshToken", refreshToken);
+        if (response.data.refreshToken) {
+          localStorage.setItem("REFRESH_TOKEN", response.data.refreshToken);
+        }
         setLoginInfo(response.data);
-
+        setLoginState(true);
+        const loginStatus = true;
         console.log(response.data);
-        localStorage.setItem("loginStatus", loginStatus);
+        localStorage.setItem("loginState", loginState);
+        // localStorage.setItem("loginStatus", loginStatus);
         axios.defaults.headers.common["Authorization"] = `${accessToken}`;
         navigate("/");
       })
