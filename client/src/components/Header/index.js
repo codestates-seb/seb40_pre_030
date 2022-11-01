@@ -1,5 +1,5 @@
-import { useState } from "react";
-
+import { isLogged } from "../../atoms/atoms";
+import { useRecoilState } from "recoil";
 import { HeaderWrapper } from "./style";
 import { HeaderCont, HeaderNav, Logo, SearchBar } from "./HeaderCotents";
 import { useRecoilState } from "recoil";
@@ -7,6 +7,7 @@ import { useRecoilState } from "recoil";
 import { loginStatus } from "../../util/atom.js";
 
 const Header = () => {
+  // const [logged, setLogged] = useRecoilState(isLogged);
   // const [logged, SetLogged] = useState(false);
   const [logged, SetLogged] = useRecoilState(loginStatus);
   console.log(logged);

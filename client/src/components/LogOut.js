@@ -1,47 +1,21 @@
 import { useState } from "react";
-import { Link } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
 import styled from "styled-components";
-import { loginInfo, loginStatus } from "../util/atom";
 import { useRecoilState } from "recoil";
-import Atag from "./Header/Atag";
-import { useNavigate } from "react-router-dom";
-// import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
-// import { faGear } from "@fortawesome/free-solid-svg-icons";
-// import {
-//   faStackExchange,
-//   faStackOverflow,
-// } from "@fortawesome/free-brands-svg-icons";
-import ButtonTag from "./Header/ButtonTag";
-/*
-         <img
-              src="https://cdn.sstatic.net/Sites/askubuntu/Img/apple-touch-icon@2.png?v=c492c9229955"
-              alt="askubuntu"
-            />
-            <a href="https://askubuntu.com/">askbuntu.com</a>
-            <img
-              src="https://www.geol.umd.edu/styles/academicons-192/svg/mathoverflow.svg"
-              alt="mathoverflow"
-            />
-            <a href="https://mathoverflow.net/">mathoverflow.com</a>
-            <img
-              src="https://cdn.iconscout.com/icon/free/png-256/serverfault-3521702-2945146.png"
-              alt="serverfault"
-            />
-            <a href="https://serverfault.com/">serverfault.com</a>
-            <FontAwesomeIcon icon={faGear} />
-            <a href="https://stackapps.com/">stackapps.com</a>
-            <FontAwesomeIcon icon={faStackExchange} />
-            <a href="https://stackexchange.com/">stackexchange.com</a>
-            <FontAwesomeIcon icon={faStackOverflow} />
-            <a href="https://stackoverflow.com/">stackoverflow.com</a>
-            <img
-              src="http://cdn.onlinewebfonts.com/svg/img_436007.png"
-              alt="superuser"
-            />
-            <a href="https://superuser.com/">superuser.com</a>
-*/
 
-const LogOutWrap = styled.div`
+import Atag from "./Header/Atag";
+import ButtonTag from "./Header/ButtonTag";
+import { isLogged, loggedUserAtom } from "../atoms/atoms";
+import { useSingup, useLogin } from "../hooks/customServHook";
+
+const Wrapper = styled.div`
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  height: 100vh;
+`;
+
+const Contents = styled.div`
   display: flex;
   flex-direction: column;
   justify-content: center;
@@ -84,25 +58,24 @@ const siteFile = [
   ["superuser.com", "https://superuser.com/"],
 ];
 const LogOut = () => {
-  // const [checkForAll, setCheckForAll] = useState(false);
-  const [checkForAll, setCheckForAll] = useRecoilState(loginStatus);
-  const [userinfo, setuserInfo] = useRecoilState(loginInfo);
   const navigate = useNavigate();
-  const onClick = (e) => {
+  const [checkForAll, setCheckForAll] = useState(false);
+  const [logged, setLogged] = useRecoilState(isLogged);
+  const [user, setUser] = useRecoilState(loggedUserAtom);
+  setUser(useLogin());
+  console.log("user", user);
+  console.log("logged", logged);
+
+  const onClickCheck = (e) => setCheckForAll(!checkForAll);
+  const onLogoutClick = (e) => {
     e.preventDefault();
-    const accessToken = "";
-    localStorage.setItem("accessToken", accessToken);
-    const username = "";
-    localStorage.setItem("username", username);
-    setuserInfo(null);
-    setCheckForAll(!checkForAll);
+    setLogged(!logged);
     navigate("/");
   };
-  console.log(checkForAll);
 
   return (
-    <>
-      <LogOutWrap>
+    <Wrapper>
+      <Contents>
         <div>
           Clicking “Log out” will log you out of the following domains on this
           device:
@@ -113,12 +86,10 @@ const LogOut = () => {
               <Atag key={idx} name={el[0]} link={el[1]} />
             ))}
           </ul>
-          <input type="checkbox" onClick={onClick} />
+          <input type="checkbox" onClick={onClickCheck} />
           Log out on all devices
           <div className="decider">
-            <Link to="/">
-              <ButtonTag name="Log out" />
-            </Link>
+            <ButtonTag name="Log out" onClick={onLogoutClick} />
             <Atag name="Cancel" link="http://localhost:3000/" />
           </div>
           <div className="hint">
@@ -128,8 +99,8 @@ const LogOut = () => {
             </span>
           </div>
         </OutForm>
-      </LogOutWrap>
-    </>
+      </Contents>
+    </Wrapper>
   );
 };
 
