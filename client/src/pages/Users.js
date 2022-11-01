@@ -1,6 +1,7 @@
 import styled from "styled-components";
 import Atag from "../components/Header/Atag";
 import { SearchBar } from "../components/Header/HeaderCotents";
+import Navbar from "../components/navbar/Navbar";
 import { UserProfile } from "../components/UserProfile";
 
 const userDummy = [
@@ -77,41 +78,49 @@ const FilterBox = styled.button`
   }
 `;
 
+const StyledDiv = styled.div`
+  display: grid;
+  grid-template-columns: auto 80%;
+`;
+
 export default function Users() {
   return (
-    <UserMain>
-      <h1>Users</h1>
-      <div className="filterbox">
-        <div>
-          <SearchBar placeHolderText="Filter by user" />
-        </div>
-        <div className="filterbtn">
-          <FilterBox>Reputation</FilterBox>
-          <FilterBox>New users</FilterBox>
-          <FilterBox>Voters</FilterBox>
-          <FilterBox>Editors</FilterBox>
-          <FilterBox>Moderators</FilterBox>
-        </div>
-      </div>
-      <div>
-        <div>reputation</div>
-      </div>
-      <UserListsWrap>
-        {userDummy.map((el, idx) => (
-          <div className="profile" key={idx}>
-            <div className="userImg">
-              <img src={el.photoURL} alt="profile" />
-            </div>
-            <div className="userInfo">
-              <a href="/">{el.nickName}</a>
-              <div>{el.postCount}</div>
-              {el.userTag.map((ele, i) => (
-                <a href="/">{ele}</a>
-              ))}
-            </div>
+    <StyledDiv>
+      <Navbar />
+      <UserMain>
+        <h1>Users</h1>
+        <div className="filterbox">
+          <div>
+            <SearchBar placeHolderText="Filter by user" />
           </div>
-        ))}
-      </UserListsWrap>
-    </UserMain>
+          <div className="filterbtn">
+            <FilterBox>Reputation</FilterBox>
+            <FilterBox>New users</FilterBox>
+            <FilterBox>Voters</FilterBox>
+            <FilterBox>Editors</FilterBox>
+            <FilterBox>Moderators</FilterBox>
+          </div>
+        </div>
+        <div>
+          <div>reputation</div>
+        </div>
+        <UserListsWrap>
+          {userDummy.map((el, idx) => (
+            <div className="profile" key={idx}>
+              <div className="userImg">
+                <img src={el.photoURL} alt="profile" />
+              </div>
+              <div className="userInfo">
+                <a href="/">{el.nickName}</a>
+                <div>{el.postCount}</div>
+                {el.userTag.map((ele, i) => (
+                  <a href="/">{ele}</a>
+                ))}
+              </div>
+            </div>
+          ))}
+        </UserListsWrap>
+      </UserMain>
+    </StyledDiv>
   );
 }
