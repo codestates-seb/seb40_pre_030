@@ -1,15 +1,16 @@
 import { atom } from "recoil";
-// import { recoilPersist } from "recoil-persist";
+import { recoilPersist } from "recoil-persist";
+import { v4 as uuidv4 } from "uuid";
 
-// const { persistAtom } = recoilPersist();
+const { persistAtom } = recoilPersist();
 
 export const loginStatus = atom({
-  key: "loginStatus",
+  key: `loginStatus/${uuidv4()}`,
   default: false,
 });
 
 export const loginInfo = atom({
-  key: "loginInfo",
+  key: `loginInfo/${uuidv4()}`,
   default: null,
-  // effects_UNSTABLE: [persistAtom],
+  effects_UNSTABLE: [persistAtom],
 });

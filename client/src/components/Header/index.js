@@ -2,9 +2,13 @@ import { useState } from "react";
 
 import { HeaderWrapper } from "./style";
 import { HeaderCont, HeaderNav, Logo, SearchBar } from "./HeaderCotents";
+// import { useRecoilValue } from "recoil";
+// import { loginInfo } from "../../util/atom.js";
 
 const Header = () => {
   const [logged, SetLogged] = useState(false);
+  // loginStatus;
+  // const user = useRecoilValue(loginInfo);
 
   return (
     <HeaderWrapper className="Header">

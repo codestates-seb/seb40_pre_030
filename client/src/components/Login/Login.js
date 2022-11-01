@@ -129,25 +129,39 @@ const Login = () => {
     }
 
     axios.defaults.withCredentials = true;
-    axios
-      .post(`${BASE_URL}/users/login`, {
-        auth: { email: login.email, password: login.password },
+    // axios
+    //   .post(`${BASE_URL}users/login`, {
+    //     auth: { email: login.email, password: login.password },
 
-        headers: {
-          "ngrok-skip-browser-warning": "skip",
-        },
-      })
+    //     headers: {
+    //       "ngrok-skip-browser-warning": "skip",
+    //     },
+    //   })
+    axios({
+      method: "post",
+      url: `${BASE_URL}users/login`,
+      data: {
+        email: login.email,
+        password: login.password,
+      },
+      headers: {
+        "ngrok-skip-browser-warning": "skip",
+      },
+    })
       .then((response) => {
         const accessToken = response.headers.authorization;
         localStorage.setItem("accessToken", accessToken);
-        const loginStatus = true;
-        console.log(response);
+        setLoginState(true);
+        setLoginInfo(response.data);
+
+        console.log(response.data);
         localStorage.setItem("loginStatus", loginStatus);
         axios.defaults.headers.common["Authorization"] = `${accessToken}`;
         navigate("/");
       })
       .catch((err) => console.log(err.response));
     // axios
+
     //   .post("/users/login", login)
     //   .then((res) => {
     //     console.log(res);

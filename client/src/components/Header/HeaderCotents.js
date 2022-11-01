@@ -11,6 +11,8 @@ import {
 } from "@fortawesome/free-solid-svg-icons";
 import Atag from "./Atag";
 import { Link } from "react-router-dom";
+import { useRecoilValue } from "recoil";
+import { loginStatus } from "../../util/atom.js";
 
 const headerNav = {
   false: ["About", "Products", "For Teams"],
@@ -60,6 +62,7 @@ export const SearchBar = ({ placeHolderText }) => {
 };
 
 export const HeaderCont = ({ logged }) => {
+  const user = useRecoilValue(loginStatus);
   return (
     <>
       {contents[logged].map((el, idx) => (
