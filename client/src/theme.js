@@ -6,6 +6,7 @@ export const theme = {
   selectedGrayButton: "#E4E6E8",
   highlightBlueTag: "#3172C6",
   lightBlueTag: "#E3ECF3",
+  tagBlueFont: "#39739d",
   selectedGreenTag: "#406E48",
   blueFont: "#0074cc",
   asideLightYellow: "#FCF7E4",
