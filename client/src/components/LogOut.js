@@ -1,8 +1,10 @@
 import { useState } from "react";
 import { Link } from "react-router-dom";
 import styled from "styled-components";
-
+import { loginInfo, loginStatus } from "../util/atom";
+import { useRecoilState } from "recoil";
 import Atag from "./Header/Atag";
+import { useNavigate } from "react-router-dom";
 // import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 // import { faGear } from "@fortawesome/free-solid-svg-icons";
 // import {
@@ -82,8 +84,20 @@ const siteFile = [
   ["superuser.com", "https://superuser.com/"],
 ];
 const LogOut = () => {
-  const [checkForAll, setCheckForAll] = useState(false);
-  const onClick = (e) => setCheckForAll(!checkForAll);
+  // const [checkForAll, setCheckForAll] = useState(false);
+  const [checkForAll, setCheckForAll] = useRecoilState(loginStatus);
+  const [userinfo, setuserInfo] = useRecoilState(loginInfo);
+  const navigate = useNavigate();
+  const onClick = (e) => {
+    e.preventDefault();
+    const accessToken = "";
+    localStorage.setItem("accessToken", accessToken);
+    const username = "";
+    localStorage.setItem("username", username);
+    setuserInfo(null);
+    setCheckForAll(!checkForAll);
+    navigate("/");
+  };
   console.log(checkForAll);
 
   return (
