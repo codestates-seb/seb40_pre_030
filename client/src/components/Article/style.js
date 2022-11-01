@@ -1,18 +1,19 @@
 import styled from "styled-components";
 
 export const ArticleWrapper = styled.div`
-  padding-bottom: 5px;
-  border-bottom: 1px solid #6c737a;
+  padding: 10px;
+  border-bottom: 1px solid lightgrey;
   .title {
     font-size: 2rem;
-    padding: 10px;
+    padding: 15px;
   }
   .date_wrapper {
     display: flex;
     padding: 5px;
     padding-bottom: 15px;
-    border-bottom: 1px solid #6c737a;
+    border-bottom: 1px solid lightgrey;
     font-size: 0.8rem;
+    margin-left: 15px;
     div {
       color: #6c737a;
       margin-right: 1rem;
@@ -26,8 +27,8 @@ export const ArticleContent = styled.article`
   display: flex;
   .body-section {
     width: 100%;
-    margin-top: 15px;
-    font-size: 1.2rem;
+    margin-top: 30px;
+    font-size: 1rem;
     .body-main {
       margin-bottom: 20px;
     }
@@ -43,7 +44,7 @@ export const ArticleContent = styled.article`
     font-size: 1.7rem;
     color: gray;
     .vote-icon {
-      font-size: 3.3rem;
+      font-size: 3rem;
       color: ;
     }
   }
@@ -56,20 +57,24 @@ export const ArticleContent = styled.article`
     .Tag-section {
     }
     .post-owner {
+      width: 180px;
       display: flex;
       flex-direction: column;
-      justify-content: center;
       float: right;
       background-color: #dceaf6;
-
+      padding: 10px;
       .user-action-item {
-        font-size: 1rem;
+        font-size: 0.8rem;
+      }
+      .user-avatar {
+        display: flex;
+        align-items: center;
       }
     }
   }
   img {
-    width: 32px;
-    height: 32px;
+    width: 35px;
+    height: 35px;
     margin: 8px 8px 0 0;
   }
 `;

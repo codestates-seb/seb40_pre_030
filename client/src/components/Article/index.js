@@ -85,7 +85,9 @@ const Article = () => {
                 <Tag value="Flag" />
               </div>
               <div className="post-owner">
-                <div className="user-action-item">asked 4 min ago</div>
+                <div className="user-action-item">
+                  asked {ArticleData.createdAt}
+                </div>
                 <div className="user-avatar">
                   <img src={ArticleData.photoURL} alt="" />
                   {ArticleData.nickName}

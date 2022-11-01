@@ -5,6 +5,7 @@ import { prism } from "react-syntax-highlighter/dist/esm/styles/prism";
 import styled from "styled-components";
 
 const StyledMarkdown = styled.div`
+  margin-top: 15px;
   .ReactMarkdown {
     pre > div {
       border-radius: 0.4rem;

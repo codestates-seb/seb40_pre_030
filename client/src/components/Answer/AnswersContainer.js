@@ -8,25 +8,34 @@ import { BASE_URL } from "../../util/api";
 import Markdown from "../Markdown";
 import UserCard from "../UserCard";
 import Vote from "../Vote";
+import Tag from "../Board/Tag";
 const StyledAnswersContainer = styled.div`
+  padding: 10px;
+
   .answers-container-title {
-    font-size: 1.5em;
+    font-size: 1.2em;
     padding: 20px;
     color: #3d4044;
   }
 `;
 const StyledAnswer = styled.li`
-  border-bottom: lightgray solid 1px;
-  margin-top: 30px;
   display: flex;
   flex-direction: column;
 
-  .answer-body {
-    display: flex;
-    flex-direction: row;
-  }
-  .UserCard {
-    float: right;
+  .answer-main-wrap {
+    border-bottom: 1px solid lightgrey;
+    .answer-main {
+      display: flex;
+      flex-direction: row;
+
+      .answer-body {
+        width: 100%;
+      }
+    }
+    .UserCard {
+      width: 210px;
+      float: right;
+    }
   }
 `;
 
@@ -57,20 +66,30 @@ const AnswersContainer = () => {
         <StyledAnswer className="Answer">
           {AnswerData.map((datas) => {
             return (
-              <>
-                <div className="answer-body">
+              <div className="answer-main-wrap">
+                <div className="answer-main">
                   <Vote voteCount={datas.voteCount} />
-                  <Markdown AnswerBody={datas.answerBody} />
+                  <div className="answer-body">
+                    <div>
+                      <Markdown AnswerBody={datas.answerBody} />
+                      <div className="Tag-section">
+                        <Tag value="Share" />
+                        <Tag value="Edit" />
+                        <Tag value="Delete" />
+                        <Tag value="Flag" />
+                      </div>
+                    </div>
+                    <div className="UserCard">
+                      <UserCard
+                        answer
+                        createdAt={datas.createdAt.slice(0, 19)}
+                        photoURL={datas.photoURL}
+                        displayName={datas.nickName}
+                      />
+                    </div>
+                  </div>
                 </div>
-                <div className="UserCard">
-                  <UserCard
-                    answer
-                    createdAt={datas.createdAt.slice(0, 19)}
-                    photoURL="https://www.gravatar.com/avatar/37d008229a56f1f8cb7a017644f9554d?s=64&d=identicon&r=PG"
-                    displayName={datas.nickName}
-                  />
-                </div>
-              </>
+              </div>
             );
           })}
         </StyledAnswer>
