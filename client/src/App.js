@@ -8,7 +8,7 @@ import Login from "./components/Login/Login";
 import Signup from "./components/Signup/Signup";
 import LogOut from "./components/LogOut";
 import Askquetion from "./components/Askquetion";
-import Tag from "./pages/Tag";
+import Tags from "./pages/Tags";
 import Users from "./pages/Users";
 import QuestionsView from "./pages/QuestionView";
 
@@ -24,7 +24,7 @@ function App() {
           <Route path="/users/signup" element={<Signup />} />
           <Route path="/users/logout" element={<LogOut />} />
           <Route path="/ask" element={<Askquetion />} />
-          <Route path="/tags" element={<Tag />}></Route>
+          <Route path="/tags" element={<Tags />}></Route>
           <Route path="/question/:id" element={<QuestionsView />}></Route>
           {/* 아래는 확인용. 나중에 지울 것 */}
           <Route path="/users" element={<Users />}></Route>

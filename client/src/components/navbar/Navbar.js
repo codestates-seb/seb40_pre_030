@@ -7,6 +7,7 @@ import {
   faCertificate,
   faCircleInfo,
 } from "@fortawesome/free-solid-svg-icons";
+import { useNavigate } from "react-router-dom";
 // import { useNavigate } from "react-router-dom";
 
 const ChangeLi = styled.li`
@@ -64,7 +65,7 @@ const NavContainer = styled.div`
 
 const Navbar = ({ seTabtIndex }) => {
   const [currentTab, setCurrentTab] = useState();
-
+  const navigate = useNavigate();
   const publicTab = [
     { icon: faEarthAmericas, text: "Question" },
     { icon: null, text: "Tags" },
@@ -73,7 +74,8 @@ const Navbar = ({ seTabtIndex }) => {
   ];
   const onTabClick = (id) => {
     setCurrentTab(id);
-    seTabtIndex(id);
+    if (id === 0) navigate("/");
+    if (id > 0) navigate(`/${publicTab[id].text}`);
   };
 
   return (
