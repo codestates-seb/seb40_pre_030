@@ -39,11 +39,14 @@ public class BoardDto {
     @Getter @Setter
     @NoArgsConstructor
     public static class Response {
+        private Long boardId;
         private LocalDateTime createdAt;
         private LocalDateTime modifiedAt;
         private String title;
         private String body;
+        private Long userId;
         private String nickName;
+        private String photoURL;
         private int voteCount;
         private List<AnswerDto.Response> answer;
     }
