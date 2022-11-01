@@ -127,9 +127,18 @@ const Login = () => {
   const handleSubmit = (e) => {
     e.preventDefault();
     setLoginState(!loginState);
-    if (login.email.length === 0 && login.password.length === 0) {
-      // setErrorMessage("아이디와 비밀번호를 입력하세요");
-      alert("길이가 부족합니다.");
+    // if (login.email.length === 0 && login.password.length === 0) {
+    //   // setErrorMessage("아이디와 비밀번호를 입력하세요");
+    //   alert("길이가 부족합니다.");
+    //   return;
+    // }
+
+    if (login.email.length === 0) {
+      alert("Email cannot be empty.");
+      return;
+    }
+    if (login.password.length === 0) {
+      alert("Password cannot be empty.");
       return;
     }
 

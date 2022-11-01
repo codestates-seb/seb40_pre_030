@@ -1,9 +1,12 @@
 import styled from "styled-components";
 import { useState } from "react";
 import SignBody from "./SignBody";
-import Thirdparty from "../Login/Thirdparty";
-import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
-import { faCheck } from "@fortawesome/free-solid-svg-icons";
+// import Thirdparty from "../Login/Thirdparty";
+// import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
+// import { faCheck } from "@fortawesome/free-solid-svg-icons";
+import { useNavigate } from "react-router";
+import axios from "axios";
+import { BASE_URL } from "../../util/api";
 
 const Backgtoundsign = styled.div`
   background-color: #f1f2f3;
@@ -52,36 +55,80 @@ const Signform = styled.form`
   }
 `;
 
+const getRandomNumber = (min, max) => {
+  return parseInt(Math.random() * (Number(max) - Number(min) + 2));
+};
+
 const Signup = () => {
   //이메일 유효성 검사 아직 x...n
   const [userInfo, setuserInfo] = useState({
     email: "",
-    username: "",
+    nickName: "",
     password: "",
   });
   const [ischeck, setIscheck] = useState(false);
   const [errorMessage, setErrorMessage] = useState("");
+  const navigate = useNavigate();
+
+  const onChangeHandler = (key) => (e) => {
+    // const { name, value } = e.target;
+    // setLogin((prev) => ({
+    //   ...prev,
+    //   [name]: value,
+    // }));
+    setuserInfo({ ...userInfo, [key]: e.target.value });
+  };
 
   const emailRegEx =
     /^[A-Za-z0-9]([-_.]?[A-Za-z0-9])*@[A-Za-z0-9]([-_.]?[A-Za-z0-9])*\.[A-Za-z]{2,3}$/i;
 
-  const checkHandler = () => {
-    setIscheck(!ischeck);
+  // const checkHandler = () => {
+  //   setIscheck(!ischeck);
+  // };
+
+  const SignupHandler = (e) => {
+    e.preventDefault();
+    axios({
+      method: "post",
+      url: `${BASE_URL}users/signup`,
+      data: {
+        email: userInfo.email,
+        password: userInfo.password,
+        nickName: userInfo.nickName,
+        photoURL: `https://randomuser.me/api/portraits/women/${getRandomNumber(
+          1,
+          98
+        )}.jpg`,
+      },
+      headers: {
+        "ngrok-skip-browser-warning": "skip",
+      },
+    })
+      .then((res) => {
+        console.log(res);
+        alert("가입되셨습니다");
+        navigate("/");
+      })
+      .catch((err) => {
+        alert("회원 가입에 실패하였습니다.");
+        console.log(err);
+      });
   };
 
   return (
     <Backgtoundsign>
       <div className="signupContent">
         <SignBody />
-        <Signform>
+        <Signform onSubmit={SignupHandler}>
           <div className="UserinfoWrap">
             <label className="Userlabel" htmlFor="user-id">
               Display Name <br />
               <input
                 className="SignupInput"
                 id="user-id"
-                name="username"
+                name="nickName"
                 type="text"
+                onChange={onChangeHandler("nickName")}
               />
             </label>{" "}
           </div>
@@ -93,6 +140,7 @@ const Signup = () => {
                 id="email"
                 name="email"
                 type="email"
+                onChange={onChangeHandler("email")}
               />
             </label>
           </div>
@@ -104,6 +152,7 @@ const Signup = () => {
                 id="password"
                 name="password"
                 type="password"
+                onChange={onChangeHandler("password")}
               />
             </label>
           </div>
