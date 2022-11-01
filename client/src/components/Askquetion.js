@@ -5,12 +5,15 @@ import { useState, useRef, useEffect } from "react";
 import "@toast-ui/editor/dist/toastui-editor.css";
 import { Editor } from "@toast-ui/react-editor";
 import { faDAndD } from "@fortawesome/free-brands-svg-icons";
+
+import { BASE_URL } from "../../src/util/api";
+import axios from "axios";
 const Accordiondata = [
   {
     id: 1,
     title: "Summarize the problem",
     content:
-      " Include details about your goal　 Describe expected and actual　　　　results Include any error messages",
+      "1. Include details about your goal　　　　  2. Describe expected and actual　　　　　 3. results Include any error messages",
   },
   {
     id: 2,
@@ -94,10 +97,9 @@ const Main = styled.main`
       }
     }
     .Aside {
-      width: 300px;
+      width: 330px;
       display: flex;
       flex-flow: column nowrap;
-      row-gap: 30px;
       font-size: 10px;
       margin-left: 15px;
 
@@ -126,16 +128,15 @@ const Main = styled.main`
         }
       }
       .AsideSlide {
-        padding: 5px;
+        padding: 15px;
         font-size: 15px;
       }
       .AsideTitle {
         background-color: #f8f9f9;
-        font-size: 17px;
-        padding: 5px;
+        font-size: 20px;
+        padding: 15px;
         margin-bottom: 5px;
         border-bottom: 1px solid #e4e6e8;
-        font-weight: bold;
       }
       .AsideTopicWrap {
         padding: 5px;
@@ -143,11 +144,25 @@ const Main = styled.main`
       .TopicBtn2 {
         border: none;
         width: 100%;
-        background-color: #f1f2f3;
+        background-color: #f8f9f9;
         font-size: 16px;
         box-shadow: grey 0px 0px 3px;
-        border-radius: 3px;
         padding: 15px;
+        margin-top: 30px;
+        transition: padding-top 0.5s, padding-bottom 0.5s, height 0.5s,
+          transform 0.5s;
+      }
+      .TopicContent {
+        transition: padding-top 0.5s, padding-bottom 0.5s, height 0.5s,
+          transform 0.5s;
+        padding: 15px;
+        font-size: 14px;
+        background-color: #fff;
+        box-shadow: grey 0px 0px 3px;
+      }
+      .TopicContent > p {
+        margin-top: 10px;
+        margin-bottom: 10px;
       }
     }
   }
@@ -157,6 +172,8 @@ const Askquetion = () => {
   const [AskBody, SetAskBody] = useState("");
   const textRef = useRef("");
   const [TitleId, SetTitleId] = useState(0);
+  const [TitleOn, SetTitleOn] = useState(false);
+  const [TitleOn2, SetTitleOn2] = useState(false);
   const AskTitleChange = (event) => {
     SetAskTitle(event.target.value);
   };
@@ -170,9 +187,46 @@ const Askquetion = () => {
     } else {
       SetTitleId(id);
     }
-    //변수는 id넘
+  };
+  const TitleOnClick = () => {
+    SetTitleOn(!TitleOn);
+  };
+  const TitleOnClick2 = () => {
+    SetTitleOn2(!TitleOn2);
+  };
+  // const Submit = (e) => {
+  //   e.preventDefault();
 
-    console.log(TitleId);
+  //   const title = { bodys: bodys, Edit: false, Date: date };
+  //   fetch("http://localhost:3001/Todo", {
+  //     method: "POST",
+  //     body: JSON.stringify(title),
+  //     headers: {
+  //       "Content-Type": "application/json",
+  //     },
+  //   })
+  //     .then(() => {
+  //       navigate("/");
+  //       window.location.reload();
+  //     })
+  //     .catch((err) => console.log(err));
+  //   setBody("");
+  // };
+
+  const AskHandler = (e) => {
+    e.preventDefault();
+
+    axios
+      .post(`${BASE_URL}/ask`, {
+        data: { title: AskTitle, body: AskBody },
+        headers: {
+          "ngrok-skip-browser-warning": "skip",
+        },
+      })
+      .then(function (response) {
+        console.log(response);
+      })
+      .catch((err) => console.log(err));
   };
 
   return (
@@ -230,9 +284,11 @@ const Askquetion = () => {
                     ></input>
                   </div>
                 </section>
-                <div>
-                  <button className="Submitbtn">Review your question</button>
-                </div>
+                <form onSubmit={AskHandler}>
+                  <button type="submit" className="Submitbtn">
+                    Review your question
+                  </button>
+                </form>
               </form>
               <aside className="Aside">
                 <div className="Asidewrap">
@@ -262,7 +318,11 @@ const Askquetion = () => {
                                   {items.title}
                                 </button>
                               </div>
-                              <div className="AsideSlide">
+                              <div
+                                className={
+                                  TitleId === items.id ? "AsideSlide" : ""
+                                }
+                              >
                                 {TitleId === items.id ? items.content : ""}
                               </div>
                             </li>
@@ -274,17 +334,74 @@ const Askquetion = () => {
                 </div>
                 <div>
                   <div>
-                    <button className="TopicBtn2">
-                      Have a non-programming question?{" "}
+                    <button className="TopicBtn2" onClick={TitleOnClick}>
+                      Have a non-programming question?
                     </button>
-                    <span></span>
+                    <br />
+
+                    {TitleOn ? (
+                      <div className="TopicContent">
+                        <span>
+                          <a href="https://superuser.com/help/on-topic">
+                            {" "}
+                            Super user
+                          </a>
+                        </span>
+                        <p> Troubleshooting hardware and software issues </p>
+                        <span>
+                          <a href="https://softwareengineering.stackexchange.com/">
+                            {" "}
+                            Software engineering
+                          </a>
+                        </span>
+                        <p>
+                          {" "}
+                          For software development methods and process questions{" "}
+                        </p>
+                        <span>
+                          <a href="https://hardwarerecs.stackexchange.com/help/on-topic">
+                            {" "}
+                            Hardware recommendations
+                          </a>
+                        </span>
+                        <p>
+                          {" "}
+                          Software recommendations Ask questions about the site
+                          on meta"
+                        </p>
+                      </div>
+                    ) : (
+                      ""
+                    )}
+                  </div>
+                  <div>
+                    <button className="TopicBtn2" onClick={TitleOnClick2}>
+                      More helpful links
+                    </button>
+                    <br />
+
+                    {TitleOn2 ? (
+                      <div className="TopicContent">
+                        {" "}
+                        <p>
+                          <a href="https://superuser.com/help/on-topic">
+                            {" "}
+                            Find more information about how to ask a good
+                            question here
+                          </a>
+                        </p>
+                        <br></br>
+                        <p>
+                          <a href="https://softwareengineering.stackexchange.com/">
+                            {" "}
+                            Visit the help center
+                          </a>
+                        </p>{" "}
+                      </div>
+                    ) : null}
                   </div>
                 </div>
                 <div>
-                  <div>
-                    <button className="TopicBtn2">More helpful links </button>
-                    <span></span>
-                  </div>
                   <div></div>
                 </div>
               </aside>
