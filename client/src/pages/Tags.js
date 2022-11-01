@@ -88,15 +88,7 @@ const Tags = () => {
           </div>
           <div className="Tagscard">
             {DummyTags.map((el) => {
-              return (
-                <Tagsbody
-                  key={el.id}
-                  tags={el.tags}
-                  tagsbody={el.tagsbody}
-                  tagsnum={el.tagsnum}
-                  tagsask={el.tagsask}
-                />
-              );
+              return <Tagsbody data={el} />;
             })}
           </div>
         </div>
