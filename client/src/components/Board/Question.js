@@ -30,6 +30,7 @@ const StyledQuestion = styled.li`
     }
   }
   .question-content {
+    width: 100%;
     margin-left: 0.8rem;
   }
   .toQuestion {
