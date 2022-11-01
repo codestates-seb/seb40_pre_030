@@ -39,6 +39,9 @@ public class BoardController {
         Board board = mapper.boardPostDtoToBoard(requestBody);
         Board createBoard = boardService.createBoard(board);
         BoardDto.Response response = mapper.boardToBoardResponse(createBoard);
+        response.setBoardId(board.getBoardId());
+        response.setUserId(user.getUserId());
+        response.setPhotoURL(user.getPhotoURL());
 
         return new ResponseEntity<>(response, HttpStatus.CREATED);
     }
@@ -75,10 +78,16 @@ public class BoardController {
 
     // 특정 질문 조회
     @GetMapping("/{post-id}")
-    public ResponseEntity getBoard(@PathVariable("post-id") @Positive long postId) {
+    public ResponseEntity getBoard(Principal principal,
+                                   @PathVariable("post-id") @Positive long postId) {
 
         Board board = boardService.findPost(postId);
+        User user = userService.findVerifiedUserEmail(principal.getName());
+        board.setUser(user);
         BoardDto.Response response = mapper.boardToBoardResponse(board);
+        response.setBoardId(board.getBoardId());
+        response.setUserId(user.getUserId());
+        response.setPhotoURL(user.getPhotoURL());
 
         return new ResponseEntity<>(response, HttpStatus.OK);
     }
