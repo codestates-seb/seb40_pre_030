@@ -17,7 +17,7 @@ const QuestionViewWrap = styled.div`
   }
 `;
 
-const QuetionView = () => {
+const QuestionView = () => {
   return (
     <>
       <QuestionViewWrap>
@@ -33,4 +33,4 @@ const QuetionView = () => {
     </>
   );
 };
-export default QuetionView;
+export default QuestionView;

@@ -11,6 +11,7 @@ import Askquetion from "./components/Askquetion";
 import Tags from "./pages/Tags";
 import Users from "./pages/Users";
 import QuestionsView from "./pages/QuestionView";
+import { RecoilRoot } from "recoil";
 
 function App() {
   return (

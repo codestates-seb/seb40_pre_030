@@ -39,6 +39,9 @@ public class BoardController {
         Board board = mapper.boardPostDtoToBoard(requestBody);
         Board createBoard = boardService.createBoard(board);
         BoardDto.Response response = mapper.boardToBoardResponse(createBoard);
+        response.setBoardId(board.getBoardId());
+        response.setUserId(user.getUserId());
+        response.setPhotoURL(user.getPhotoURL());
 
         return new ResponseEntity<>(response, HttpStatus.CREATED);
     }
@@ -56,12 +59,36 @@ public class BoardController {
         return new ResponseEntity<>(response, HttpStatus.OK);
     }
 
-    // 특정 질문 조회
+    // 질문 투표 +1
+    @PatchMapping("/{board_id}/voteUp")
+    public ResponseEntity voteBoardUp(@PathVariable("board_id") @Positive long boardId){
+        Board votedBoardUp = boardService.voteBoardUp(boardId);
+        BoardDto.Response response = mapper.boardToBoardResponse(votedBoardUp);
+
+        return new ResponseEntity<>(response, HttpStatus.OK);
+    }
+
+    // 질문 투표 -1
+    @PatchMapping("/{board_id}/voteDown")
+    public ResponseEntity voteBoardDown(@PathVariable("board_id") @Positive long boardId){
+        Board votedBoardDown = boardService.voteBoardDown(boardId);
+        BoardDto.Response response = mapper.boardToBoardResponse(votedBoardDown);
+
+        return new ResponseEntity<>(response, HttpStatus.OK);
+    }
+
+    // 질문 상세 페이지
     @GetMapping("/{post-id}")
     public ResponseEntity getBoard(@PathVariable("post-id") @Positive long postId) {
 
         Board board = boardService.findPost(postId);
+        User user = userService.findUser(board.getUser().getUserId());
+        board.setUser(user);
+
         BoardDto.Response response = mapper.boardToBoardResponse(board);
+        response.setBoardId(board.getBoardId());
+        response.setUserId(user.getUserId());
+        response.setPhotoURL(user.getPhotoURL());
 
         return new ResponseEntity<>(response, HttpStatus.OK);
     }

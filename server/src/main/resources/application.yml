@@ -1,13 +1,12 @@
 spring:
-  h2:
-    console:
-      enabled: true
-      path: /h2
   datasource:
-    url: jdbc:h2:mem:test
+    driver-class-name: com.mysql.cj.jdbc.Driver
+    url: jdbc:mysql://codestates-db.cvpvjd0qf4pp.ap-northeast-2.rds.amazonaws.com:3306/stackoverflow?serverTimezone=Asia/Seoul
+    username: admin
+    password: codestates
+
   jpa:
     hibernate:
-      ddl-auto: create
     show-sql: true
     properties:
       hibernate:
