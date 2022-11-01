@@ -2,6 +2,7 @@ import { Link } from "react-router-dom";
 import styled from "styled-components";
 import AnswerBox from "./AnswerBox";
 import Tag from "./Tag";
+import { calculateTime } from "./util/calculateTime";
 
 const StyledQuestion = styled.li`
   padding: 1.2rem;
@@ -102,7 +103,9 @@ const Question = ({ questionItem }) => {
             alt=""
           />
           <div className="user-nickname">{questionItem.nickName}</div>
-          <div className="asked-time">asked {questionItem.createdAt}</div>
+          <div className="asked-time">
+            asked {calculateTime(questionItem.createdAt)}
+          </div>
         </div>
       </div>
     </StyledQuestion>
