@@ -72,7 +72,6 @@ const Pagination = ({
             {currentPage > 4 && (
               <>
                 <LinkButton buttonContent="Prev" />
-                <LinkButton buttonContent={1} />
                 <span className="dotdotdot">...</span>
               </>
             )}
@@ -100,10 +99,6 @@ const Pagination = ({
               }
             })}
             <span className="dotdotdot">...</span>
-            {/* 마지막 페이지 설정 관련 서버 작업 후 진행 예정 */}
-            <PageButton buttonId="1234">
-              {/* last page number */}1234
-            </PageButton>
             <LinkButton buttonContent="Next" />
           </div>
           <div className="page-size">
