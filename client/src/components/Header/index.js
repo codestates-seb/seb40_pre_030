@@ -1,10 +1,11 @@
-import { useState } from "react";
-
+import { isLogged } from "../../atoms/atoms";
+import { useRecoilState } from "recoil";
 import { HeaderWrapper } from "./style";
 import { HeaderCont, HeaderNav, Logo, SearchBar } from "./HeaderCotents";
 
 const Header = () => {
-  const [logged, SetLogged] = useState(false);
+  const [logged, setLogged] = useRecoilState(isLogged);
+  console.log(logged);
 
   return (
     <HeaderWrapper className="Header">
