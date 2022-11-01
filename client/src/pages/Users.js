@@ -1,6 +1,7 @@
 import { useState } from "react";
 import styled from "styled-components";
 import { SearchBar } from "../components/Header/HeaderCotents";
+import Navbar from "../components/navbar/Navbar";
 import { UserProfile } from "../components/UserProfile";
 
 const userDummy = [
@@ -90,6 +91,11 @@ const FilterBox = styled.button`
   :hover {
     background-color: lightgray;
   }
+`;
+
+const StyledDiv = styled.div`
+  display: grid;
+  grid-template-columns: auto 80%;
 `;
 
 export default function Users() {

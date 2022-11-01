@@ -8,30 +8,30 @@ import Login from "./components/Login/Login";
 import Signup from "./components/Signup/Signup";
 import LogOut from "./components/LogOut";
 import Askquetion from "./components/Askquetion";
+import Tags from "./pages/Tags";
 import Users from "./pages/Users";
 import QuestionsView from "./pages/QuestionView";
 import { RecoilRoot } from "recoil";
 
 function App() {
   return (
-    <RecoilRoot>
-      <ThemeProvider theme={theme}>
-        <GlobalStyle />
-        <div className="App">
-          <Header />
-          <Routes>
-            <Route path="/*" element={<Main />} />
-            <Route path="/users/login" element={<Login />} />
-            <Route path="/users/signup" element={<Signup />} />
-            <Route path="/users/logout" element={<LogOut />} />
-            <Route path="/ask" element={<Askquetion />} />
-            <Route path="/question/:id" element={<QuestionsView />}></Route>
-            {/* 아래는 확인용. 나중에 지울 것 */}
-            <Route path="/users" element={<Users />}></Route>
-          </Routes>
-        </div>
-      </ThemeProvider>
-    </RecoilRoot>
+    <ThemeProvider theme={theme}>
+      <GlobalStyle />
+      <div className="App">
+        <Header />
+        <Routes>
+          <Route path="/*" element={<Main />} />
+          <Route path="/users/login" element={<Login />} />
+          <Route path="/users/signup" element={<Signup />} />
+          <Route path="/users/logout" element={<LogOut />} />
+          <Route path="/ask" element={<Askquetion />} />
+          <Route path="/tags" element={<Tags />}></Route>
+          <Route path="/question/:id" element={<QuestionsView />}></Route>
+          {/* 아래는 확인용. 나중에 지울 것 */}
+          <Route path="/users" element={<Users />}></Route>
+        </Routes>
+      </div>
+    </ThemeProvider>
   );
 }
 

@@ -1,4 +1,3 @@
-import { faBorderNone } from "@fortawesome/free-solid-svg-icons";
 import styled from "styled-components";
 
 const StyledP = styled.p`

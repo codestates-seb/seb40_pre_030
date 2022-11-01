@@ -6,9 +6,11 @@ import {
   faArrowDownWideShort,
   faCaretDown,
 } from "@fortawesome/free-solid-svg-icons";
-import { Link } from "react-router-dom";
-import { dummyQuestions } from "./dummyData";
+import { Link, useLocation } from "react-router-dom";
 import Pagination from "./Pagination";
+import { useEffect, useState } from "react";
+import axios from "axios";
+import { BASE_URL } from "../../util/api";
 
 const StyledQuestionsContainer = styled.div`
   width: 100%;
@@ -63,6 +65,28 @@ const StyledQuestionsContainer = styled.div`
 `;
 
 const QuestionsContainer = () => {
+  const [currentPage, setCurrentPage] = useState(1);
+  const [currentSize, setCurrentSize] = useState(15);
+  const [listData, setListData] = useState();
+
+  useEffect(() => {
+    const fetch = async () => {
+      axios.defaults.withCredentials = true;
+      await axios
+        .get(`${BASE_URL}?page=${currentPage}&size=${currentSize}`, {
+          headers: {
+            "ngrok-skip-browser-warning": "skip",
+          },
+        })
+        .then((res) => {
+          const { data } = res;
+          setListData(data);
+        });
+    };
+
+    fetch();
+  }, [currentPage, currentSize]);
+
   return (
     <StyledQuestionsContainer className="QuestionsContainer">
       <div className="questions-header">
@@ -104,12 +128,16 @@ const QuestionsContainer = () => {
           </Button>
         </div>
       </div>
+
       <ul className="questions-container">
-        {dummyQuestions.map((v, idx) => {
-          if (idx <= 20) return <Question key={v.postId} questionItem={v} />;
-          return null;
-        })}
-        <Pagination />
+        {listData &&
+          listData.map((v) => <Question key={v.postId} questionItem={v} />)}
+        <Pagination
+          currentPage={currentPage}
+          currentSize={currentSize}
+          setCurrentPage={setCurrentPage}
+          setCurrentSize={setCurrentSize}
+        />
       </ul>
     </StyledQuestionsContainer>
   );
