@@ -7,6 +7,7 @@ import axios from "axios";
 import { useRecoilState } from "recoil";
 import { BASE_URL } from "../../util/api";
 import { loginStatus, loginInfo } from "../../util/atom";
+import { setRefreshTokenToCookie } from "../../util/Cookies";
 
 const LoginForm = styled.form`
   border-radius: 10px;
@@ -117,14 +118,18 @@ const Login = () => {
     //   [name]: value,
     // }));
     setLogin({ ...login, [key]: e.target.value });
-    console.log(login);
+  };
+
+  const StateChange = () => {
+    setLoginState(!loginState);
   };
 
   const handleSubmit = (e) => {
     e.preventDefault();
-
+    setLoginState(!loginState);
     if (login.email.length === 0 && login.password.length === 0) {
       // setErrorMessage("아이디와 비밀번호를 입력하세요");
+      alert("길이가 부족합니다.");
       return;
     }
 
@@ -149,32 +154,25 @@ const Login = () => {
       },
     })
       .then((response) => {
-        console.log(response);
         const accessToken = response.headers.authorization;
-        const refreshToken = response.headers.Refresh;
+        const refreshToken = response.headers.refresh;
         localStorage.setItem("accessToken", accessToken);
-        localStorage.setItem("refreshToken", refreshToken);
-        if (response.data.refreshToken) {
-          localStorage.setItem("REFRESH_TOKEN", response.data.refreshToken);
-        }
-        setLoginInfo(response.data);
+        // localStorage.setItem("refreshToken", refreshToken);
+        // if (response.data.refreshToken) {
+        //   localStorage.setItem("REFRESH_TOKEN", response.data.refreshToken);
+        // }
+        // setLoginState(true);
+
         setLoginState(true);
-        const loginStatus = true;
-        console.log(response.data);
-        localStorage.setItem("loginState", loginState);
+        // const loginStatus = true;
+        // console.log(response.data);
+        // localStorage.setItem("loginState", loginState);
         // localStorage.setItem("loginStatus", loginStatus);
         axios.defaults.headers.common["Authorization"] = `${accessToken}`;
+        setRefreshTokenToCookie(refreshToken);
         navigate("/");
       })
       .catch((err) => console.log(err.response));
-    // axios
-
-    //   .post("/users/login", login)
-    //   .then((res) => {
-    //     console.log(res);
-    //     navigate("/");
-    //   })
-    //   .catch((error) => console.log(error.response));
   };
 
   return (
@@ -212,7 +210,11 @@ const Login = () => {
               onChange={onChangeHandler("password")}
             ></input>
           </div>
-          <Submitbtn type="submit" onChange={handleSubmit}>
+          <Submitbtn
+            type="submit"
+            onChange={handleSubmit}
+            onClick={StateChange}
+          >
             Log in
           </Submitbtn>
         </LoginForm>

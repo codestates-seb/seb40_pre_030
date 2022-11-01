@@ -9,8 +9,6 @@ import { loginStatus } from "../../util/atom.js";
 const Header = () => {
   // const [logged, SetLogged] = useState(false);
   const [logged, SetLogged] = useRecoilState(loginStatus);
-  // loginStatus;
-  // const user = useRecoilValue(loginInfo);
 
   return (
     <HeaderWrapper className="Header">
