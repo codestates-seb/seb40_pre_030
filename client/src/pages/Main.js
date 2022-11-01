@@ -21,7 +21,7 @@ const Main = () => {
     <StyledMain>
       <Navbar seTabtIndex={seTabtIndex} />
       {tabCont[tabIndex]}
-      <Sidebar />
+      {tabIndex === 0 ? <Sidebar /> : null}
       <Footer />
     </StyledMain>
   );
