@@ -52,6 +52,7 @@ const NavTitle = styled.div`
 
 const NavContainer = styled.div`
   /* position: fixed; */
+  min-height: 100vh;
   min-width: 185px;
   color: gray;
   padding-top: 24px;
