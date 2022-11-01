@@ -88,7 +88,7 @@ public class BoardService {
     public Board findVerifiedBoard(long boardId) {
         Optional<Board> optionalBoard = boardRepository.findById(boardId);
         Board findPost = optionalBoard.orElseThrow(() ->
-                new BusinessLogicException(ExceptionCode.QUESTION_NOT_FOUND));
+                new BusinessLogicException(ExceptionCode.BOARD_NOT_FOUND));
 
         return findPost;
     }

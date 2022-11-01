@@ -46,7 +46,7 @@ public class AnswerController {
         requestBody.setNickName(user.getNickName());
 
         Answer answer = mapper.answerPostDtoToAnswer(requestBody);
-        Board board = answerService.findVerifiedboard(boardId);
+        Board board = answerService.findVerifiedBoard(boardId);
         board.addAnswer(answer);
 
         Answer createAnswer = answerService.createAnswer(answer);
