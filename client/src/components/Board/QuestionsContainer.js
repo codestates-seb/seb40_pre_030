@@ -68,24 +68,11 @@ const QuestionsContainer = () => {
   const [currentPage, setCurrentPage] = useState(1);
   const [currentSize, setCurrentSize] = useState(15);
   const [listData, setListData] = useState();
-  const pageNow = useLocation().search; // 현재 페이지 또는 페이지 사이즈
-  useEffect(() => {
-    const num = pageNow.slice(pageNow.indexOf("=") + 1);
-    if (pageNow.includes("page")) setCurrentPage(Number(num));
-    else if (pageNow.includes("size")) {
-      setCurrentSize(Number(num));
-      setCurrentPage(1);
-    }
-  }, [pageNow]);
 
   useEffect(() => {
-    if (!currentPage || !currentSize) {
-      setCurrentPage(1);
-      setCurrentSize(15);
-    }
-    return async () => {
+    const fetch = async () => {
       axios.defaults.withCredentials = true;
-      axios
+      await axios
         .get(`${BASE_URL}?page=${currentPage}&size=${currentSize}`, {
           headers: {
             "ngrok-skip-browser-warning": "skip",
@@ -96,6 +83,8 @@ const QuestionsContainer = () => {
           setListData(data);
         });
     };
+
+    fetch();
   }, [currentPage, currentSize]);
 
   return (
@@ -139,12 +128,16 @@ const QuestionsContainer = () => {
           </Button>
         </div>
       </div>
+
       <ul className="questions-container">
         {listData &&
-          listData.map((v, idx) => (
-            <Question key={v.postId} questionItem={v} />
-          ))}
-        <Pagination currentPage={currentPage} currentSize={currentSize} />
+          listData.map((v) => <Question key={v.postId} questionItem={v} />)}
+        <Pagination
+          currentPage={currentPage}
+          currentSize={currentSize}
+          setCurrentPage={setCurrentPage}
+          setCurrentSize={setCurrentSize}
+        />
       </ul>
     </StyledQuestionsContainer>
   );
