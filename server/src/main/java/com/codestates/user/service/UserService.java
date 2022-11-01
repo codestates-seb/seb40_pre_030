@@ -40,11 +40,6 @@ public class UserService {
         return userRepository.save(user);
     }
 
-//    public User updateUser(User user){
-//
-//        return userRepository.save(user);
-//    }
-
     //회원 조회
     @Transactional(readOnly = true)
     public User findUser(long userId){
@@ -95,6 +90,6 @@ public class UserService {
         Optional<User> user =  userRepository.findByEmail(email);
 
         if(user.isPresent())
-            throw new IllegalStateException("중복된 Email 입니다.");
+            throw new BusinessLogicException(ExceptionCode.USER_EXISTS);
         }
     }
