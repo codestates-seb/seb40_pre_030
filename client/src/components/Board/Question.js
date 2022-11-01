@@ -75,11 +75,11 @@ const Question = ({ questionItem }) => {
     <StyledQuestion className="Question">
       <div className="question-summary-stats">
         <p className="question-summary-stats-item">
-          {questionItem.votes} votes
+          {questionItem.votes || 0} votes
         </p>
-        <AnswerBox answerCount={questionItem.answers} />
+        <AnswerBox answerCount={questionItem.answers || 0} />
         <div className="question-summary-stats-item">
-          {questionItem.views} views
+          {questionItem.views || 0} views
         </div>
       </div>
       <div className="question-content">
