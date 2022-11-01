@@ -39,6 +39,20 @@ public class AnswerService {
         return answerRepository.save(findAnswer);
     }
 
+    // 답변 투표 +1
+    public Answer voteAnswerUp(long answerId){
+        Answer findAnswer = findVerifiedAnswer(answerId);
+        findAnswer.setVoteCount(findAnswer.getVoteCount() + 1);
+        Answer updateAnswer = answerRepository.save(findAnswer);
+        return updateAnswer;
+    }
+    // 답변 투표 -1
+    public Answer voteAnswerDown(long answerId){
+        Answer findAnswer = findVerifiedAnswer(answerId);
+        findAnswer.setVoteCount(findAnswer.getVoteCount() - 1);
+        Answer updateAnswer = answerRepository.save(findAnswer);
+        return updateAnswer;
+    }
     /**
      public Answer findAnswer(long answerId){
      return findVerifiedAnswer(answerId);

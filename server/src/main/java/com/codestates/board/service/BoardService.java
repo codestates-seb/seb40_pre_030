@@ -45,6 +45,22 @@ public class BoardService {
         return boardRepository.save(findBoard);
     }
 
+    // 질문 투표 + 1
+    public Board voteBoardUp(long boardId){
+        Board findBoard = findVerifiedBoard(boardId);
+        findBoard.setVoteCount(findBoard.getVoteCount() + 1);
+        Board updateBoard = boardRepository.save(findBoard);
+        return updateBoard;
+    }
+
+    // 질문 투표 - 1
+    public Board voteBoardDown(long boardId){
+        Board findBoard = findVerifiedBoard(boardId);
+        findBoard.setVoteCount(findBoard.getVoteCount() - 1);
+        Board updateBoard = boardRepository.save(findBoard);
+
+        return updateBoard;
+    }
     // 특정 질문 출력
     @Transactional(readOnly = true)
     public Board findPost(long postId) {
