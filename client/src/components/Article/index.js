@@ -1,5 +1,5 @@
 import ReactMarkdown from "react-markdown";
-import Tag from "../Board/Tag";
+import Tag from "../tags/Tag";
 import { ArticleContent, ArticleWrapper } from "./style";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faCaretUp, faCaretDown } from "@fortawesome/free-solid-svg-icons";
