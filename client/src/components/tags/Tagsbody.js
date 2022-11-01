@@ -2,9 +2,11 @@ import styled from "styled-components";
 import Tag from "./Tag";
 
 const TagsBox = styled.div`
-  width: 10rem;
-  min-width: 8rem;
-  height: 3rem;
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+  justify-content: center;
+  height: 3.5rem;
   border: 1px solid lightgray;
   border-radius: 3px;
   padding: 12px;
