@@ -67,6 +67,7 @@ public class BoardController {
 
         return new ResponseEntity<>(response, HttpStatus.OK);
     }
+
     // 질문 투표 -1
     @PatchMapping("/{board_id}/voteDown")
     public ResponseEntity voteBoardDown(@PathVariable("board_id") @Positive long boardId){
@@ -76,14 +77,14 @@ public class BoardController {
         return new ResponseEntity<>(response, HttpStatus.OK);
     }
 
-    // 특정 질문 조회
+    // 질문 상세 페이지
     @GetMapping("/{post-id}")
-    public ResponseEntity getBoard(Principal principal,
-                                   @PathVariable("post-id") @Positive long postId) {
+    public ResponseEntity getBoard(@PathVariable("post-id") @Positive long postId) {
 
         Board board = boardService.findPost(postId);
-        User user = userService.findVerifiedUserEmail(principal.getName());
+        User user = userService.findUser(board.getUser().getUserId());
         board.setUser(user);
+
         BoardDto.Response response = mapper.boardToBoardResponse(board);
         response.setBoardId(board.getBoardId());
         response.setUserId(user.getUserId());
