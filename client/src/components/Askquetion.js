@@ -5,6 +5,8 @@ import { useState, useRef, useEffect } from "react";
 import "@toast-ui/editor/dist/toastui-editor.css";
 import { Editor } from "@toast-ui/react-editor";
 import { faDAndD } from "@fortawesome/free-brands-svg-icons";
+
+import { BASE_URL } from "../../src/util/api";
 import axios from "axios";
 const Accordiondata = [
   {
@@ -192,18 +194,41 @@ const Askquetion = () => {
   const TitleOnClick2 = () => {
     SetTitleOn2(!TitleOn2);
   };
-  const loginRequestHandler = () => {
+  // const Submit = (e) => {
+  //   e.preventDefault();
+
+  //   const title = { bodys: bodys, Edit: false, Date: date };
+  //   fetch("http://localhost:3001/Todo", {
+  //     method: "POST",
+  //     body: JSON.stringify(title),
+  //     headers: {
+  //       "Content-Type": "application/json",
+  //     },
+  //   })
+  //     .then(() => {
+  //       navigate("/");
+  //       window.location.reload();
+  //     })
+  //     .catch((err) => console.log(err));
+  //   setBody("");
+  // };
+
+  const AskHandler = (e) => {
+    e.preventDefault();
+
     axios
-      .post("https://localhost:4000/ask", { AskTitle, AskBody })
-      .then((res) => {
-        window.location.reload();
+      .post(`${BASE_URL}/ask`, {
+        data: { title: AskTitle, body: AskBody },
+        headers: {
+          "ngrok-skip-browser-warning": "skip",
+        },
       })
-      .catch((err) => {
-        if (err.response.status === 401) {
-          console.log(err.response.data);
-        }
-      });
+      .then(function (response) {
+        console.log(response);
+      })
+      .catch((err) => console.log(err));
   };
+
   return (
     <>
       <Main>
@@ -259,9 +284,11 @@ const Askquetion = () => {
                     ></input>
                   </div>
                 </section>
-                <div>
-                  <button className="Submitbtn">Review your question</button>
-                </div>
+                <form onSubmit={AskHandler}>
+                  <button type="submit" className="Submitbtn">
+                    Review your question
+                  </button>
+                </form>
               </form>
               <aside className="Aside">
                 <div className="Asidewrap">

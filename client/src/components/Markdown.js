@@ -979,44 +979,10 @@ const StyledMarkdown = styled.div`
   }
 `;
 
-const Markdown = ({ markdown }) => {
+const Markdown = ({ markdown, AnswerBody }) => {
   // 테스트용 마크다운
-  markdown = `Here is some JavaScript code:
+  markdown = `${AnswerBody}`;
 
-  ~~~js
-  import React from 'react'
-import ReactDOM from 'react-dom'
-import ReactMarkdown from 'react-markdown'
-import MyFancyRule from './components/my-fancy-rule.js'
-
-ReactDOM.render(
-  <ReactMarkdown
-    components={{
-      // Use h2s instead of h1s
-      h1: 'h2',
-      // Use a component instead of hrs
-      hr: ({node, ...props}) => <MyFancyRule {...props} />ddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddd
-    }}
-  >
-    # Your markdown here
-  </ReactMarkdown>,
-  document.querySelector('#content')
-)
-  ~~~
-  
-  A paragraph with *emphasis* and **strong importance**.
-
-> A block quote with ~strikethrough~ and a URL: https://reactjs.org.
-
-* Lists
-* [ ] todo
-* [x] done
-
-A table:
-
-| a | b |
-| - | - |
-  `;
   return (
     <StyledMarkdown className="Markdown">
       <div className="markdown-body">
