@@ -41,6 +41,7 @@ export const HeaderWrapper = styled.div`
       padding: 7px 9px;
       flex-grow: 1;
       margin: 0 8px;
+      background-color: white;
     }
     input {
       padding-left: 1rem;
