@@ -15,6 +15,20 @@ const Tagcontent = styled.div`
   max-width: 80%;
   margin-bottom: 1rem;
 
+  .tags-header {
+    box-sizing: border-box;
+    padding-left: 0.8rem;
+    margin: 1.4rem 0 2rem 1rem;
+    display: flex;
+    flex-direction: column;
+  }
+  .board-title {
+    font-size: 1.8rem;
+    font-weight: 500;
+    margin-top: 7px;
+    margin-bottom: 1rem;
+  }
+
   .TagsTitle {
     font-size: 2rem;
     margin-bottom: 1rem;
@@ -27,7 +41,7 @@ const Tagcontent = styled.div`
   .filtertags {
     display: flex;
     flex-direction: row;
-    justify-content: space-around;
+    justify-content: space-between;
   }
   .Tagscard {
     margin: 1rem;
@@ -41,17 +55,18 @@ const Tags = () => {
   const handleChange = (e) => setSearchText(e.target.value);
 
   return (
-    <StyledDiv>
+    <StyledDiv className="Tags">
       <Navbar />
-      <Tagcontent className="">
-        <div className="TagsTitle">Tags</div>
-        <div className="TagsBody">
+      <Tagcontent>
+        <div className="tags-header">
+          <div className="board-title">Tags</div>
           <div>
             A tag is a keyword or label that categorizes your question with
             other, similar questions. Using the right tags makes it easier for
             others to find and answer your question.
           </div>
-
+        </div>
+        <div className="TagsBody">
           <a href="https://stackoverflow.com/tags/synonyms" className="taglink">
             Show all tag synonyms
           </a>
