@@ -3,12 +3,10 @@ import AnswersContainer from "../components/Answer/AnswersContainer";
 import Navbar from "../components/navbar/Navbar";
 import Sidebar from "../components/Sidebar/Sidebar";
 import Article from "../components/Article/index";
-import { useParams } from "react-router";
 
 const QuestionViewWrap = styled.div`
   width: 100%;
   margin: auto;
-
   .ViewWrap {
     display: flex;
     flex-direction: row;
@@ -20,7 +18,6 @@ const QuestionViewWrap = styled.div`
 `;
 
 const QuestionView = () => {
-  const { id } = useParams();
   return (
     <>
       <QuestionViewWrap>
