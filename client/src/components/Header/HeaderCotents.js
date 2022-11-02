@@ -12,7 +12,7 @@ import {
 import Atag from "./Atag";
 import { Link } from "react-router-dom";
 import { useRecoilValue } from "recoil";
-import { loginStatus } from "../../util/atom.js";
+import { loginStatus } from "../../atoms/atom.js";
 
 const headerNav = {
   false: ["About", "Products", "For Teams"],

@@ -6,7 +6,7 @@ import { useNavigate } from "react-router-dom";
 import axios from "axios";
 import { useRecoilState } from "recoil";
 import { BASE_URL } from "../../util/api";
-import { loginStatus, loginInfo } from "../../util/atom";
+import { loginStatus, loginInfo } from "../../atoms/atoms";
 import { setRefreshTokenToCookie } from "../../util/Cookies";
 
 const LoginForm = styled.form`
@@ -107,7 +107,8 @@ const Login = () => {
   });
   const [loginState, setLoginState] = useRecoilState(loginStatus);
   const [logininfo, setLoginInfo] = useRecoilState(loginInfo);
-  // const [errorMessage, setErrorMessage] = useState("");
+  const [emailerrorMessage, setEmailErrorMessage] = useState("");
+  const [passworderrorMessage, setPasswordErrorMessage] = useState("");
 
   const navigate = useNavigate();
 
@@ -126,31 +127,20 @@ const Login = () => {
 
   const handleSubmit = (e) => {
     e.preventDefault();
-    setLoginState(!loginState);
-    // if (login.email.length === 0 && login.password.length === 0) {
-    //   // setErrorMessage("아이디와 비밀번호를 입력하세요");
-    //   alert("길이가 부족합니다.");
-    //   return;
-    // }
 
-    if (login.email.length === 0) {
-      alert("Email cannot be empty.");
+    if (login.email.length === 0 && !login.password) {
+      setEmailErrorMessage("Email cannot be empty.");
+      setPasswordErrorMessage("Password cannot be empty.");
       return;
-    }
-    if (login.password.length === 0) {
-      alert("Password cannot be empty.");
+    } else if (!login.email) {
+      setEmailErrorMessage("Email cannot be empty.");
+      return;
+    } else if (!login.password) {
+      setPasswordErrorMessage("Password cannot be empty.");
       return;
     }
 
     axios.defaults.withCredentials = true;
-    // axios
-    //   .post(`${BASE_URL}users/login`, {
-    //     auth: { email: login.email, password: login.password },
-
-    //     headers: {
-    //       "ngrok-skip-browser-warning": "skip",
-    //     },
-    //   })
     axios({
       method: "post",
       url: `${BASE_URL}users/login`,
@@ -184,6 +174,19 @@ const Login = () => {
       .catch((err) => console.log(err.response));
   };
 
+  //   const getUserName = JSON.parse(window.localStorage.getItem("user-name"));
+  // // 로컬 스토리지에 저장된 "user-name"의 value 가져오기
+
+  // useEffect(() => {
+  //   // 새로고침 했을 때, 현재 로그인된 user-name이 존재하는 경우에만 로그인 상태 유지
+  //   const localaccessToken = JSON.parse(
+  //     window.localStorage.getItem("accessToken")
+  //   );
+  //   if (localaccessToken) {
+  //     setLoginState(true);
+  //   }
+  // }, []);
+
   return (
     <BackgroundLogin>
       <div className="Logincontent">
@@ -202,7 +205,7 @@ const Login = () => {
               name="email"
               onChange={onChangeHandler("email")}
             ></input>
-            {/* {errorMessage ? <div>{errorMessage}</div> : null} */}
+            {emailerrorMessage === "" ? null : <div>{emailerrorMessage}</div>}
 
             <div className="label">
               Password
@@ -218,6 +221,9 @@ const Login = () => {
               name="password"
               onChange={onChangeHandler("password")}
             ></input>
+            {passworderrorMessage === "" ? null : (
+              <div>{passworderrorMessage}</div>
+            )}
           </div>
           <Submitbtn
             type="submit"
