@@ -1,4 +1,4 @@
-import { useEffect } from "react";
+import { useEffect, useState } from "react";
 import { useNavigate } from "react-router-dom";
 import styled from "styled-components";
 
@@ -33,6 +33,7 @@ const PageButton = styled.button`
 
 const TagPagination = ({ currentPage, setCurrentPage }) => {
   const pages = [1, 2, 3, 4, 5, 6, 7, 8, 9, 10];
+  const [pageIdx, setPageIdx] = useState(1);
 
   const LinkButton = ({ buttonContent, selected }) => {
     const navigate = useNavigate();
@@ -42,14 +43,19 @@ const TagPagination = ({ currentPage, setCurrentPage }) => {
     }, [currentPage]);
 
     const onPageButtonClick = (buttonContent) => {
-      if (buttonContent === "Prev") {
-        setCurrentPage((prev) => prev - 1);
-      } else if (buttonContent === "Next") {
-        setCurrentPage((prev) => prev + 1);
-      } else {
-        setCurrentPage(buttonContent);
+      if (pageIdx < 50) {
+        if (buttonContent === "Prev") {
+          setCurrentPage((prev) => prev - 1);
+          setPageIdx((prev) => prev - 1);
+        } else if (buttonContent === "Next") {
+          setCurrentPage((prev) => prev + 1);
+          setPageIdx((prev) => prev + 1);
+        } else {
+          setCurrentPage(buttonContent);
+          setPageIdx(+buttonContent);
+        }
+        navigate(`/tags/?page=${currentPage}`);
       }
-      navigate(`/tags/?page=${currentPage}`);
     };
     return (
       <PageButton
