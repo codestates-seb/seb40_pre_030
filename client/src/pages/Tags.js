@@ -113,8 +113,9 @@ const NavTab = styled.button`
 `;
 
 const Tags = () => {
+  const [inputText, setInputText] = useState("");
   const [searchText, setSearchText] = useState("");
-  const handleChange = (e) => setSearchText(e.target.value);
+  const handleChange = (e) => setInputText(e.target.value);
   const [currentPage, setCurrentPage] = useState(1);
   const [currentTab, setCurrentTab] = useState("popular");
   const [tagData, setTagData] = useState([]);
@@ -138,6 +139,11 @@ const Tags = () => {
     setCurrentTab(tabName.toLowerCase());
   };
 
+  const onSearch = (e) => {
+    e.preventDefault();
+    setSearchText(inputText);
+  };
+
   return (
     <StyledDiv className="Tags">
       <Navbar />
@@ -155,7 +161,7 @@ const Tags = () => {
             Show all tag synonyms
           </a>
           <div className="filtertags">
-            <form className="search-form">
+            <form className="search-form" onSubmit={onSearch}>
               <FontAwesomeIcon
                 className="search-icon"
                 icon={faMagnifyingGlass}
@@ -163,7 +169,7 @@ const Tags = () => {
               <input
                 className="search-bar"
                 placeholder="Filter by tag name"
-                value={searchText}
+                value={inputText}
                 onChange={handleChange}
               />
             </form>
