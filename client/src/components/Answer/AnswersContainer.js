@@ -47,8 +47,8 @@ const StyledAnswer = styled.li`
 
 const AnswersContainer = () => {
   const [AnswerData, setAnswerData] = useState([]);
+  //답변 조회 기능
   useEffect(() => {
-    //해당 페이지의 답변
     return async () => {
       axios.defaults.withCredentials = true;
 
@@ -64,6 +64,13 @@ const AnswersContainer = () => {
         });
     };
   }, []);
+  //답글 삭제 기능
+  const AnswerDelete = (answerId) => {
+    axios
+      .delete(`${BASE_URL}answers/${answerId}`)
+      .then((res) => window.location.reload());
+  };
+  console.log(AnswerData);
 
   return (
     <StyledAnswersContainer className="AnswersContainer">
@@ -81,7 +88,9 @@ const AnswersContainer = () => {
                       <div className="Tag-section">
                         <button value="">Share </button>
                         <button value="">Edit</button>
-                        <button value="">Delete</button>
+                        <button onClick={() => AnswerDelete(datas.answerId)}>
+                          Delete
+                        </button>
                         <button value="">Flag</button>
                       </div>
                     </div>
