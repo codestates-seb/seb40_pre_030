@@ -3,11 +3,11 @@ import { Link, useNavigate } from "react-router-dom";
 import styled from "styled-components";
 import { useRecoilState } from "recoil";
 
-import Atag from "./Header/Atag";
-import ButtonTag from "./Header/ButtonTag";
-import { isLogged, loggedUserAtom } from "../atoms/atoms";
-import { useSingup, useLogin } from "../hooks/customServHook";
-import { loginStatus } from "../atoms/atoms";
+import Atag from "../Header/Atag";
+import ButtonTag from "../Header/ButtonTag";
+import { isLogged, loggedUserAtom } from "../../atoms/atoms";
+import { useSingup, useLogin } from "../../hooks/customServHook";
+import { loginStatus } from "../../atoms/atoms";
 //상현님하고 회의해야함
 
 const Wrapper = styled.div`
@@ -33,11 +33,17 @@ const OutForm = styled.form`
   padding: 1rem;
   ul {
     border-bottom: 1px solid gray;
-  }
-  a {
-    color: hsl(206, 100%, 40%);
-    text-decoration: none;
-    display: block;
+    li {
+      display: flex;
+    }
+    a {
+      color: hsl(206, 100%, 40%);
+      text-decoration: none;
+      display: flex;
+    }
+    .siteLogo {
+      background-image: "https://cdn.sstatic.net/Img/favicons-sprite16.png?v=22475cccbf39";
+    }
   }
   .decider {
     display: flex;
@@ -86,7 +92,12 @@ const LogOut = () => {
         <OutForm>
           <ul>
             {siteFile.map((el, idx) => (
-              <Atag key={idx} name={el[0]} link={el[1]} />
+              <li>
+                <a key={idx} href={el[1]}>
+                  <div className="siteLogo">hi</div>
+                  {el[0]}
+                </a>
+              </li>
             ))}
           </ul>
           <input type="checkbox" onClick={onClickCheck} />
