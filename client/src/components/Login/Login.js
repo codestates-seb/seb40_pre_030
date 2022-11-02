@@ -217,7 +217,7 @@ const Login = () => {
             <input
               value={login.password || ""}
               //  onChange={onChangeHandler('password')}
-              type="text"
+              type="password"
               name="password"
               onChange={onChangeHandler("password")}
             ></input>
