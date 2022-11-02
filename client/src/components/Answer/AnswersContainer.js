@@ -21,15 +21,21 @@ const StyledAnswersContainer = styled.div`
 const StyledAnswer = styled.li`
   display: flex;
   flex-direction: column;
-  width: 850px;
+  width: 900px;
   .answer-main-wrap {
     border-bottom: 1px solid lightgrey;
     .answer-main {
       display: flex;
       flex-direction: row;
-
       .answer-body {
         width: 100%;
+        .Tag-section > button {
+          margin-top: 10px;
+          margin-right: 5px;
+          background-color: #fff;
+          border: none;
+          color: #3d4044;
+        }
       }
     }
     .UserCard {
@@ -58,7 +64,7 @@ const AnswersContainer = () => {
         });
     };
   }, []);
-  console.log(AnswerData);
+
   return (
     <StyledAnswersContainer className="AnswersContainer">
       <h2 className="answers-container-title">{"2"} Answers</h2>
@@ -66,17 +72,17 @@ const AnswersContainer = () => {
         <StyledAnswer className="Answer">
           {AnswerData.map((datas) => {
             return (
-              <div className="answer-main-wrap">
+              <div className="answer-main-wrap" key={datas}>
                 <div className="answer-main">
-                  <Vote voteCount={datas.voteCount} />
+                  <Vote datas={datas} />
                   <div className="answer-body">
                     <div>
                       <Markdown AnswerBody={datas.answerBody} />
                       <div className="Tag-section">
-                        <Tag value="Share" />
-                        <Tag value="Edit" />
-                        <Tag value="Delete" />
-                        <Tag value="Flag" />
+                        <button value="">Share </button>
+                        <button value="">Edit</button>
+                        <button value="">Delete</button>
+                        <button value="">Flag</button>
                       </div>
                     </div>
                     <div className="UserCard">

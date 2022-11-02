@@ -1,6 +1,8 @@
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faCaretDown, faCaretUp } from "@fortawesome/free-solid-svg-icons";
 import styled from "styled-components";
+import axios from "axios";
+import { BASE_URL } from "../util/api";
 
 const StyledVote = styled.div`
   font-size: 1.7rem;
@@ -18,12 +20,35 @@ const StyledVote = styled.div`
   }
 `;
 
-const Vote = ({ voteCount }) => {
+const Vote = ({ datas }) => {
+  const handleUpClick = () => {
+    axios
+      .patch(`${BASE_URL}answers/1/${datas.answerId}/voteUp`)
+      .then((response) => {
+        window.location.reload();
+      });
+  };
+  const handleDownClick = () => {
+    axios
+      .patch(`${BASE_URL}answers/1/${datas.answerId}/voteDown`)
+      .then((response) => {
+        window.location.reload();
+      });
+  };
+
   return (
     <StyledVote className="Vote">
-      <FontAwesomeIcon className="vote-icon" icon={faCaretUp} />
-      <div>{voteCount}</div>
-      <FontAwesomeIcon className="vote-icon" icon={faCaretDown} />
+      <FontAwesomeIcon
+        className="vote-icon"
+        icon={faCaretUp}
+        onClick={handleUpClick}
+      />
+      <div>{datas.voteCount}</div>
+      <FontAwesomeIcon
+        className="vote-icon"
+        icon={faCaretDown}
+        onClick={handleDownClick}
+      />
     </StyledVote>
   );
 };

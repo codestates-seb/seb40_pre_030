@@ -4,7 +4,7 @@ import styled from "styled-components";
 import axios from "axios";
 import { useState, useRef } from "react";
 import { BASE_URL } from "../../util/api";
-import { loginStatus } from "../../util/atom.js";
+import { loginStatus } from "../../atoms/atoms";
 import { useRecoilState } from "recoil";
 import { useNavigate, useParams } from "react-router";
 
