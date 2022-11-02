@@ -1,2 +1,3 @@
-export const BASE_URL = "";
-// 서버 주소 입력예정
+export const BASE_URL = "http://13.125.206.90:8080/";
+
+export const STACK_EXCHANGE_URL = "https://api.stackexchange.com/2.3/";

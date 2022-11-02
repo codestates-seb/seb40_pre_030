@@ -7,8 +7,8 @@ const ButtonWrap = styled.button`
   padding: 0.4rem;
 `;
 
-const ButtonTag = ({ name }) => {
-  return <ButtonWrap>{name}</ButtonWrap>;
+const ButtonTag = ({ name, onClick }) => {
+  return <ButtonWrap onClick={onClick}>{name}</ButtonWrap>;
 };
 
 export default ButtonTag;

@@ -3,14 +3,16 @@ import styled from "styled-components";
 const StyledUserCard = styled.div`
   box-sizing: border-box;
   width: fit-content;
-  background-color: lightblue;
+  background-color: #dceaf6;
   padding: 10px;
   margin-bottom: 20px;
   display: flex;
   flex-direction: column;
+  font-size: 0.8rem;
   .user-info {
     display: flex;
     align-items: center;
+    font-size: 1rem;
     img {
       width: 32px;
       height: 32px;

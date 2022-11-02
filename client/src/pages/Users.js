@@ -1,6 +1,7 @@
+import { useState } from "react";
 import styled from "styled-components";
-import Atag from "../components/Header/Atag";
 import { SearchBar } from "../components/Header/HeaderCotents";
+import Navbar from "../components/navbar/Navbar";
 import { UserProfile } from "../components/UserProfile";
 
 const userDummy = [
@@ -35,10 +36,25 @@ const userDummy = [
 ];
 
 const UserMain = styled.div`
+  padding: 40px;
+  h1 {
+    display: block;
+    font-size: 2em;
+    margin-top: 0.67em;
+    margin-bottom: 0.67em;
+    margin-left: 0;
+    margin-right: 0;
+    font-weight: bold;
+  }
   .filterbox {
     display: flex;
-    justify-content: space-around;
-    .filterbtn {
+    /* justify-content: space-around; */
+    button {
+      background-color: white;
+      color: gray;
+    }
+    .active {
+      background-color: lightgray;
     }
   }
 `;
@@ -77,7 +93,23 @@ const FilterBox = styled.button`
   }
 `;
 
+const StyledDiv = styled.div`
+  display: grid;
+  grid-template-columns: auto 80%;
+`;
+
 export default function Users() {
+  const [currentTab, setCurrentTab] = useState(0);
+  const buttonOnclick = (idx) => setCurrentTab(idx);
+
+  const buttonNmae = [
+    "Reputation",
+    "New users",
+    "Voters",
+    "Editors",
+    "Moderators",
+  ];
+
   return (
     <UserMain>
       <h1>Users</h1>
@@ -85,17 +117,19 @@ export default function Users() {
         <div>
           <SearchBar placeHolderText="Filter by user" />
         </div>
-        <div className="filterbtn">
-          <FilterBox>Reputation</FilterBox>
-          <FilterBox>New users</FilterBox>
-          <FilterBox>Voters</FilterBox>
-          <FilterBox>Editors</FilterBox>
-          <FilterBox>Moderators</FilterBox>
-        </div>
+        {buttonNmae.map((el, idx) => (
+          <div className="filterbtn" key={idx}>
+            <FilterBox
+              className={idx === currentTab ? "active" : "inactive"}
+              idx={idx}
+              onClick={() => buttonOnclick(idx)}
+            >
+              {el}
+            </FilterBox>
+          </div>
+        ))}
       </div>
-      <div>
-        <div>reputation</div>
-      </div>
+      <div className="time"></div>
       <UserListsWrap>
         {userDummy.map((el, idx) => (
           <div className="profile" key={idx}>

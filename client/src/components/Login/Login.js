@@ -2,6 +2,12 @@ import { useState } from "react";
 import styled from "styled-components";
 import Thirdparty from "./Thirdparty";
 import Stackoverflowimg from "./StackoverflowImg";
+import { useNavigate } from "react-router-dom";
+import axios from "axios";
+import { useRecoilState } from "recoil";
+import { BASE_URL } from "../../util/api";
+import { loginStatus, loginInfo } from "../../atoms/atoms";
+import { setRefreshTokenToCookie } from "../../util/Cookies";
 
 const LoginForm = styled.form`
   border-radius: 10px;
@@ -99,17 +105,87 @@ const Login = () => {
     email: "",
     password: "",
   });
-  // const [errorMessage,setErrorMessage]= useState(false)
+  const [loginState, setLoginState] = useRecoilState(loginStatus);
+  const [logininfo, setLoginInfo] = useRecoilState(loginInfo);
+  const [emailerrorMessage, setEmailErrorMessage] = useState("");
+  const [passworderrorMessage, setPasswordErrorMessage] = useState("");
 
-  const onChangeHandler = (e) => {
-    const { name, value } = e.target;
-    setLogin((prev) => ({
-      ...prev,
-      [name]: value,
-    }));
+  const navigate = useNavigate();
+
+  const onChangeHandler = (key) => (e) => {
+    // const { name, value } = e.target;
+    // setLogin((prev) => ({
+    //   ...prev,
+    //   [name]: value,
+    // }));
+    setLogin({ ...login, [key]: e.target.value });
   };
 
-  console.log(login);
+  const StateChange = () => {
+    setLoginState(!loginInfo);
+  };
+
+  const handleSubmit = (e) => {
+    e.preventDefault();
+
+    if (login.email.length === 0 && !login.password) {
+      setEmailErrorMessage("Email cannot be empty.");
+      setPasswordErrorMessage("Password cannot be empty.");
+      return;
+    } else if (!login.email) {
+      setEmailErrorMessage("Email cannot be empty.");
+      return;
+    } else if (!login.password) {
+      setPasswordErrorMessage("Password cannot be empty.");
+      return;
+    }
+
+    axios.defaults.withCredentials = true;
+    axios({
+      method: "post",
+      url: `${BASE_URL}users/login`,
+      data: {
+        email: login.email,
+        password: login.password,
+      },
+      headers: {
+        "ngrok-skip-browser-warning": "skip",
+      },
+    })
+      .then((response) => {
+        const accessToken = response.headers.authorization;
+        const refreshToken = response.headers.refresh;
+        localStorage.setItem("accessToken", accessToken);
+        // localStorage.setItem("refreshToken", refreshToken);
+        // if (response.data.refreshToken) {
+        //   localStorage.setItem("REFRESH_TOKEN", response.data.refreshToken);
+        // }
+        // setLoginState(true);
+        setLoginInfo(response.data);
+        setLoginState(true);
+        // const loginStatus = true;
+        console.log(response.data);
+        // localStorage.setItem("loginState", loginState);
+        // localStorage.setItem("loginStatus", loginStatus);
+        axios.defaults.headers.common["Authorization"] = `${accessToken}`;
+        setRefreshTokenToCookie(refreshToken);
+        navigate("/");
+      })
+      .catch((err) => console.log(err.response));
+  };
+
+  //   const getUserName = JSON.parse(window.localStorage.getItem("user-name"));
+  // // 로컬 스토리지에 저장된 "user-name"의 value 가져오기
+
+  // useEffect(() => {
+  //   // 새로고침 했을 때, 현재 로그인된 user-name이 존재하는 경우에만 로그인 상태 유지
+  //   const localaccessToken = JSON.parse(
+  //     window.localStorage.getItem("accessToken")
+  //   );
+  //   if (localaccessToken) {
+  //     setLoginState(true);
+  //   }
+  // }, []);
 
   return (
     <BackgroundLogin>
@@ -118,7 +194,7 @@ const Login = () => {
         <Thirdparty />
         <LoginForm
           style={{ display: "flex", flexDirection: "column" }}
-          onSubmit={onChangeHandler}
+          onSubmit={handleSubmit}
         >
           <div className="inputform">
             <span className="label">Email</span>
@@ -127,8 +203,9 @@ const Login = () => {
               //  onChange={onChangeHandler('userId')}
               type="text"
               name="email"
-              onChange={onChangeHandler}
+              onChange={onChangeHandler("email")}
             ></input>
+            {emailerrorMessage === "" ? null : <div>{emailerrorMessage}</div>}
 
             <div className="label">
               Password
@@ -142,10 +219,17 @@ const Login = () => {
               //  onChange={onChangeHandler('password')}
               type="text"
               name="password"
-              onChange={onChangeHandler}
+              onChange={onChangeHandler("password")}
             ></input>
+            {passworderrorMessage === "" ? null : (
+              <div>{passworderrorMessage}</div>
+            )}
           </div>
-          <Submitbtn type="submit" onChange={onChangeHandler}>
+          <Submitbtn
+            type="submit"
+            onChange={handleSubmit}
+            onClick={StateChange}
+          >
             Log in
           </Submitbtn>
         </LoginForm>
@@ -162,7 +246,6 @@ const Login = () => {
             <a href="https://stackoverflow.com/users/signup?ssrc=head&returnurl=https%3a%2f%2fstackoverflow.com%2f">
               Sign up on Talent
             </a>
-            {/* {errorMessage} */}
           </div>
         </div>
       </div>

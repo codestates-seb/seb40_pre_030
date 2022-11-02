@@ -1,7 +1,8 @@
 import { Link } from "react-router-dom";
 import styled from "styled-components";
 import AnswerBox from "./AnswerBox";
-import Tag from "./Tag";
+import Tag from "../tags/Tag";
+import { calculateTime } from "./util/calculateTime";
 
 const StyledQuestion = styled.li`
   padding: 1.2rem;
@@ -29,6 +30,7 @@ const StyledQuestion = styled.li`
     }
   }
   .question-content {
+    width: 100%;
     margin-left: 0.8rem;
   }
   .toQuestion {
@@ -74,11 +76,11 @@ const Question = ({ questionItem }) => {
     <StyledQuestion className="Question">
       <div className="question-summary-stats">
         <p className="question-summary-stats-item">
-          {questionItem.votes} votes
+          {questionItem.votes || 0} votes
         </p>
-        <AnswerBox answerCount={questionItem.answers} />
+        <AnswerBox answerCount={questionItem.answers || 0} />
         <div className="question-summary-stats-item">
-          {questionItem.views} views
+          {questionItem.views || 0} views
         </div>
       </div>
       <div className="question-content">
@@ -102,7 +104,9 @@ const Question = ({ questionItem }) => {
             alt=""
           />
           <div className="user-nickname">{questionItem.nickName}</div>
-          <div className="asked-time">asked {questionItem.createdAt}</div>
+          <div className="asked-time">
+            asked {calculateTime(questionItem.createdAt)}
+          </div>
         </div>
       </div>
     </StyledQuestion>

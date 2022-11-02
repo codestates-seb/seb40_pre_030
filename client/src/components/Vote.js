@@ -9,8 +9,9 @@ const StyledVote = styled.div`
   display: flex;
   flex-direction: column;
   align-items: center;
+  padding: 10px;
   .vote-icon {
-    font-size: 3.3rem;
+    font-size: 3rem;
   }
   .answer-body {
     grid-column: 2/3;
