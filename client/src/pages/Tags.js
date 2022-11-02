@@ -78,27 +78,12 @@ const Tagcontent = styled.div`
       }
     }
   }
-  .questions-nav {
+  .tags-tab-nav {
     display: flex;
     border: gray solid 1px;
     border-radius: 3px;
   }
-  .questions-tab {
-    background-color: white;
-    box-sizing: border-box;
-    height: 100%;
-    border: none;
-    border-right: gray solid 1px;
-    align-self: center;
-    text-align: center;
-    padding: 0.4rem 0.5rem;
-    :last-child {
-      border-right: none;
-    }
-    &:focus {
-      outline: rgba(35, 38, 41, 0.1) solid 4px;
-    }
-  }
+
   .Tagscard {
     margin-top: 1rem;
     display: grid;
@@ -112,13 +97,28 @@ const Tagcontent = styled.div`
   }
 `;
 
+const NavTab = styled.button`
+  background-color: ${(props) =>
+    props.value === props.currentTab ? "#e3e6e8" : "white"};
+  box-sizing: border-box;
+  height: 100%;
+  border: none;
+  border-right: gray solid 1px;
+  align-self: center;
+  text-align: center;
+  padding: 0.4rem 0.5rem;
+  :last-child {
+    border-right: none;
+  }
+`;
+
 const Tags = () => {
   const [searchText, setSearchText] = useState("");
   const handleChange = (e) => setSearchText(e.target.value);
   const [currentPage, setCurrentPage] = useState(1);
   const [currentTab, setCurrentTab] = useState("popular");
   const [tagData, setTagData] = useState([]);
-  const sortTab = ["Popular", "Name", "New"];
+  const sortTab = ["Popular", "Activity", "Name"];
 
   useEffect(() => {
     axios.defaults.withCredentials = false;
@@ -133,6 +133,10 @@ const Tags = () => {
       })
       .catch(() => alert("Failed to load tag list"));
   }, [currentPage, currentTab, searchText]);
+
+  const onTabClick = (tabName) => {
+    setCurrentTab(tabName.toLowerCase());
+  };
 
   return (
     <StyledDiv className="Tags">
@@ -163,11 +167,17 @@ const Tags = () => {
                 onChange={handleChange}
               />
             </form>
-            <nav className="questions-nav">
+            <nav className="tags-tab-nav">
               {sortTab.map((v) => (
-                <button className="questions-tab" key={v.toLowerCase()}>
+                <NavTab
+                  className="tags-tab"
+                  onClick={() => onTabClick(v)}
+                  value={v.toLowerCase()}
+                  currentTab={currentTab}
+                  key={v.toLowerCase()}
+                >
                   {v}
-                </button>
+                </NavTab>
               ))}
             </nav>
           </div>
