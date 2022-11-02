@@ -9,6 +9,7 @@ import Markdown from "../Markdown";
 import UserCard from "../UserCard";
 import Vote from "../Vote";
 import Tag from "../tags/Tag";
+import { useParams } from "react-router";
 const StyledAnswersContainer = styled.div`
   padding: 10px;
 
@@ -47,13 +48,15 @@ const StyledAnswer = styled.li`
 
 const AnswersContainer = () => {
   const [AnswerData, setAnswerData] = useState([]);
+  const { id } = useParams();
+
   //답변 조회 기능
   useEffect(() => {
     return async () => {
       axios.defaults.withCredentials = true;
 
       axios
-        .get(`${BASE_URL}1`, {
+        .get(`${BASE_URL}${id}`, {
           headers: {
             "ngrok-skip-browser-warning": "skip",
           },
