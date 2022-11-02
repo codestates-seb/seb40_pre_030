@@ -13,6 +13,7 @@ import Users from "./pages/Users";
 import QuestionsView from "./pages/QuestionView";
 import { RecoilRoot } from "recoil";
 import EditQuestion from "./pages/EditQuestion";
+import EditAnswer from "./pages/EditAnswer";
 
 function App() {
   return (
@@ -29,6 +30,7 @@ function App() {
           <Route path="/tags" element={<Tags />}></Route>
           <Route path="/question/:id" element={<QuestionsView />}></Route>
           <Route path="/question/:id/edit" element={<EditQuestion />}></Route>
+          <Route path="/answer/:id/edit" element={<EditAnswer />}></Route>
           {/* 아래는 확인용. 나중에 지울 것 */}
           <Route path="/users" element={<Users />}></Route>
         </Routes>

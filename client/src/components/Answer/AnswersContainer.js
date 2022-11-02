@@ -67,6 +67,7 @@ const AnswersContainer = () => {
     useRecoilState(currentQuestionState);
   const UpdateAnswerValues = ["Share", "Edit", "Delete"];
   const { id } = useParams();
+  const navigate = useNavigate();
 
   //답변 조회 기능
   useEffect(() => {
@@ -89,8 +90,7 @@ const AnswersContainer = () => {
   const onUpdateButtonClick = (id, value) => {
     setSelectedComment(id);
     if (value === "Share") setOpenShare((pre) => !pre);
-    console.log("selectedComment", selectedComment);
-    console.log(id);
+    if (value === "Edit") navigate(`/answer/${id}/edit`);
   };
 
   // console.log(currentQuestion);
