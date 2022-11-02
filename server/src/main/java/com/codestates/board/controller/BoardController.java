@@ -10,6 +10,7 @@ import org.springframework.data.domain.Page;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
+import com.codestates.dto.MultiResponseDto;
 
 import javax.validation.Valid;
 import javax.validation.constraints.Positive;
@@ -84,7 +85,6 @@ public class BoardController {
         Board board = boardService.findPost(postId);
         User user = userService.findUser(board.getUser().getUserId());
         board.setUser(user);
-
         BoardDto.Response response = mapper.boardToBoardResponse(board);
         response.setBoardId(board.getBoardId());
         response.setUserId(user.getUserId());
@@ -95,14 +95,14 @@ public class BoardController {
 
     // 질문 전체 목록 조회
     @GetMapping
-    public ResponseEntity getBoards(@Positive @RequestParam int page,
-                                    @Positive @RequestParam int size) {
+    public ResponseEntity<MultiResponseDto<BoardDto.Response>> getBoards(@Positive @RequestParam int page,
+                                                                         @Positive @RequestParam int size) {
 
         Page<Board> boards = boardService.findPosts(page - 1, size);
         List<Board> boardList = boards.getContent();
         List<BoardDto.Response> responses = mapper.boardsToBoardResponse(boardList);
 
-        return new ResponseEntity<>(responses, HttpStatus.OK);
+        return new ResponseEntity<>(new MultiResponseDto<>(responses,boards), HttpStatus.OK);
     }
 
     // 질문 삭제
