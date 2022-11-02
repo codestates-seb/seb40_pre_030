@@ -8,7 +8,7 @@ import { BASE_URL } from "../../util/api";
 import Markdown from "../Markdown";
 import UserCard from "../UserCard";
 import Vote from "../Vote";
-import Tag from "../Board/Tag";
+import Tag from "../tags/Tag";
 const StyledAnswersContainer = styled.div`
   padding: 10px;
 

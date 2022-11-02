@@ -33,20 +33,27 @@ const Pagination = ({
   setCurrentPage,
   setCurrentSize,
 }) => {
+  const navigate = useNavigate();
   const pages = [1, 2, 3, 4, 5, 6, 7, 8, 9, 10];
   const pageSizes = [15, 30, 50];
 
+  useEffect(() => {
+    if (currentPage === 1) navigate("/");
+    else navigate(`/?page=${currentPage}`);
+  }, [currentPage]);
+
   const LinkButton = ({ buttonContent, selected, buttonId }) => {
-    const navigate = useNavigate();
     const onPageButtonClick = (buttonId, buttonContent) => {
       if (buttonId) {
         setCurrentSize(buttonContent);
         navigate(`/?size=${buttonContent}`);
       } else {
-        setCurrentPage(buttonContent);
-        navigate(`/?page=${buttonContent}`);
+        if (buttonContent === "Prev") setCurrentPage((prev) => prev - 1);
+        else if (buttonContent === "Next") setCurrentPage((prev) => prev + 1);
+        else setCurrentPage(buttonContent);
       }
     };
+
     return (
       <PageButton
         onClick={() => onPageButtonClick(buttonId, buttonContent)}

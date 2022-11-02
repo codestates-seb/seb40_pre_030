@@ -62,12 +62,18 @@ const StyledQuestionsContainer = styled.div`
   .icon {
     margin: 0 5px;
   }
+  .questions-container {
+    min-height: 820px;
+    display: flex;
+    flex-direction: column;
+    justify-content: flex-end;
+  }
 `;
 
 const QuestionsContainer = () => {
   const [currentPage, setCurrentPage] = useState(1);
   const [currentSize, setCurrentSize] = useState(15);
-  const [listData, setListData] = useState();
+  const [listData, setListData] = useState([]);
 
   useEffect(() => {
     const fetch = async () => {
@@ -80,7 +86,7 @@ const QuestionsContainer = () => {
         })
         .then((res) => {
           const { data } = res;
-          setListData(data);
+          setListData(data.data);
         });
     };
 
@@ -108,8 +114,6 @@ const QuestionsContainer = () => {
         <div className="questions-filtering-buttons">
           <nav className="questions-nav">
             <button className="questions-tab">Newest</button>
-            <button className="questions-tab">Active</button>
-            <button className="questions-tab">Bounted{"283"}</button>
             <button className="questions-tab">Unanswered</button>
             <button className="questions-tab">
               More
@@ -131,7 +135,7 @@ const QuestionsContainer = () => {
 
       <ul className="questions-container">
         {listData &&
-          listData.map((v) => <Question key={v.postId} questionItem={v} />)}
+          listData.map((v) => <Question key={v.boardId} questionItem={v} />)}
         <Pagination
           currentPage={currentPage}
           currentSize={currentSize}
