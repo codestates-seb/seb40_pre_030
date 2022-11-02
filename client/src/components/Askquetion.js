@@ -167,18 +167,18 @@ const Main = styled.main`
   }
 `;
 const Askquetion = () => {
-  const [AskTitle, SetAskTitle] = useState("");
-  const [AskBody, SetAskBody] = useState("");
+  const [title, Settitle] = useState("");
+  const [body, Setbody] = useState("");
   const textRef = useRef("");
   const [TitleId, SetTitleId] = useState(0);
   const [TitleOn, SetTitleOn] = useState(false);
   const [TitleOn2, SetTitleOn2] = useState(false);
   const AskTitleChange = (event) => {
-    SetAskTitle(event.target.value);
+    Settitle(event.target.value);
   };
 
   const handleChangeInput = () => {
-    SetAskBody(textRef.current.getInstance().getMarkdown());
+    Setbody(textRef.current.getInstance().getMarkdown());
   };
   const TitleClick = (id) => {
     if (id === TitleId) {
@@ -213,12 +213,7 @@ const Askquetion = () => {
   const AskHandler = (e) => {
     e.preventDefault();
     axios
-      .post(`${BASE_URL}ask`, {
-        data: { title: AskTitle, body: AskBody },
-        headers: {
-          "ngrok-skip-browser-warning": "skip",
-        },
-      })
+      .post(`${BASE_URL}ask`, { title, body })
       .then(function (response) {
         console.log(response);
       })
