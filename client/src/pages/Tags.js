@@ -121,6 +121,7 @@ const Tags = () => {
   const sortTab = ["Popular", "Name", "New"];
 
   useEffect(() => {
+    axios.defaults.withCredentials = false;
     axios
       .get(
         `${STACK_EXCHANGE_URL}tags?page=${currentPage}&pagesize=50&order=desc&sort=${currentTab}&inname=${searchText}&site=stackoverflow&key=${process.env.REACT_APP_STACK_API_KEY}`
