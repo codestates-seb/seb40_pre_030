@@ -2,6 +2,8 @@ import styled from "styled-components";
 
 const Div = styled.div`
   display: flex;
+  display: ${(props) =>
+    props.selectedComment === props.answerId ? "flex" : "none"};
   flex-direction: column;
   gap: 8px;
   position: absolute;
@@ -68,14 +70,20 @@ const Div = styled.div`
   }
 `;
 
-const Bubble = ({ link }) => {
+const Bubble = ({ link, answerId, selectedComment, isAnswer }) => {
   const onCopy = async () => {
     await navigator.clipboard.writeText(link);
     alert("Copy complete!");
   };
   return (
-    <Div className="Bubble">
-      <div className="bubble-text">Share a link to this question</div>
+    <Div
+      className="Bubble"
+      answerId={answerId}
+      selectedComment={selectedComment}
+    >
+      <div className="bubble-text">
+        Share a link to this {isAnswer ? "answer" : "question"}
+      </div>
       <input value={link} disabled />
       <div className="bubble-interaction">
         <button id="copy-button" onClick={onCopy}>
