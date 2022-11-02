@@ -10,13 +10,13 @@ import { loginStatus } from "../../atoms/atoms";
 import { OutForm, Wrapper, Contents, SiteLi } from "./style";
 
 const siteFile = [
-  ["askbuntu.com", "https://askubuntu.com/", "0 -360px"],
-  ["mathoverflow.com", "https://mathoverflow.net/", "0 -4032px"],
-  ["serverfault.com", "https://serverfault.com/", "0 -5652px"],
-  ["stackapps.com", "https://stackapps.com/", "0 -6084px"],
-  ["stackexchange.com", "https://stackexchange.com/", "0 -6102px"],
-  ["stackoverflow.com", "https://stackoverflow.com/", "0 -6138px"],
-  ["superuser.com", "https://superuser.com/", "0 -6282px"],
+  ["askbuntu.com", "https://askubuntu.com/", [0, -360]],
+  ["mathoverflow.com", "https://mathoverflow.net/", [0, -4032]],
+  ["serverfault.com", "https://serverfault.com/", [0, -5652]],
+  ["stackapps.com", "https://stackapps.com/", [0, -6084]],
+  ["stackexchange.com", "https://stackexchange.com/", [0, -6102]],
+  ["stackoverflow.com", "https://stackoverflow.com/", [0, -6138]],
+  ["superuser.com", "https://superuser.com/", [0, -6282]],
 ];
 const LogOut = () => {
   const navigate = useNavigate();
@@ -38,14 +38,14 @@ const LogOut = () => {
   return (
     <Wrapper>
       <Contents>
-        <div>
+        <div className="notice">
           Clicking “Log out” will log you out of the following domains on this
           device:
         </div>
         <OutForm>
           <ul>
             {siteFile.map((el, idx) => (
-              <SiteLi position={0 - 360}>
+              <SiteLi position={el[2][0]} position2={el[2][1]}>
                 <a key={idx} href={el[1]}>
                   <div>
                     <div className="siteLogo"></div>
@@ -55,8 +55,10 @@ const LogOut = () => {
               </SiteLi>
             ))}
           </ul>
-          <input type="checkbox" onClick={onClickCheck} />
-          Log out on all devices
+          <div className="checkbox">
+            <input type="checkbox" onClick={onClickCheck} />
+            <span>Log out on all devices</span>
+          </div>
           <div className="decider">
             <ButtonTag name="Log out" onClick={onLogoutClick} />
             <Atag name="Cancel" link="http://localhost:3000/" />
