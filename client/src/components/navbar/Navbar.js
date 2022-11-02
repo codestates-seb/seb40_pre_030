@@ -76,7 +76,7 @@ const Navbar = ({ seTabtIndex }) => {
   const onTabClick = (id) => {
     setCurrentTab(id);
     if (id === 0) navigate("/");
-    if (id > 0) navigate(`/${publicTab[id].text}`);
+    if (id > 0) navigate(`/${publicTab[id].text.toLowerCase()}`);
   };
 
   return (

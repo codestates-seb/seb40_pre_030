@@ -1,7 +1,7 @@
 import { Link } from "react-router-dom";
 import styled from "styled-components";
 import AnswerBox from "./AnswerBox";
-import Tag from "./Tag";
+import Tag from "../tags/Tag";
 import { calculateTime } from "./util/calculateTime";
 
 const StyledQuestion = styled.li`
