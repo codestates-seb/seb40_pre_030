@@ -1,68 +1,80 @@
-import { useState } from "react";
+import { faMagnifyingGlass } from "@fortawesome/free-solid-svg-icons";
+import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
+import axios from "axios";
+import { useEffect, useState } from "react";
 import styled from "styled-components";
-import { SearchBar } from "../components/Header/HeaderCotents";
 import Navbar from "../components/navbar/Navbar";
-import { UserProfile } from "../components/UserProfile";
-
-const userDummy = [
-  {
-    nickName: "paul",
-    postCount: 30,
-    userTag: ["python", "pandas"],
-    photoURL:
-      "https://w.namu.la/s/4c30cf3fed5c1a9052a52b527b9c3a4ae98534ee72dfbfd8d728cec568db7a657709d8d87507681663b495ed4355acd9049fd552bf810bda0c5252715ba7c634a5e79b21e222dca1fdf34b945146ceaffa04f4c604defd926a0bdcdd7f290978ec649f7517275885f066c43e15d422df",
-  },
-  {
-    nickName: "sam",
-    postCount: 40,
-    userTag: ["js", "R"],
-    photoURL:
-      "https://w.namu.la/s/4c30cf3fed5c1a9052a52b527b9c3a4ae98534ee72dfbfd8d728cec568db7a657709d8d87507681663b495ed4355acd9049fd552bf810bda0c5252715ba7c634a5e79b21e222dca1fdf34b945146ceaffa04f4c604defd926a0bdcdd7f290978ec649f7517275885f066c43e15d422df",
-  },
-  {
-    nickName: "paul",
-    postCount: 20,
-    userTag: ["python", "nodejs"],
-    photoURL:
-      "https://w.namu.la/s/4c30cf3fed5c1a9052a52b527b9c3a4ae98534ee72dfbfd8d728cec568db7a657709d8d87507681663b495ed4355acd9049fd552bf810bda0c5252715ba7c634a5e79b21e222dca1fdf34b945146ceaffa04f4c604defd926a0bdcdd7f290978ec649f7517275885f066c43e15d422df",
-  },
-  {
-    nickName: "paul",
-    postCount: 10,
-    userTag: ["next", "react"],
-    photoURL:
-      "https://w.namu.la/s/4c30cf3fed5c1a9052a52b527b9c3a4ae98534ee72dfbfd8d728cec568db7a657709d8d87507681663b495ed4355acd9049fd552bf810bda0c5252715ba7c634a5e79b21e222dca1fdf34b945146ceaffa04f4c604defd926a0bdcdd7f290978ec649f7517275885f066c43e15d422df",
-  },
-];
+import UserCard from "../components/Users/UserCard";
+import UserPagination from "../components/Users/UserPagination";
+import { STACK_EXCHANGE_URL } from "../util/api";
 
 const UserMain = styled.div`
-  padding: 40px;
-  h1 {
-    display: block;
-    font-size: 2em;
-    margin-top: 0.67em;
-    margin-bottom: 0.67em;
-    margin-left: 0;
-    margin-right: 0;
-    font-weight: bold;
-  }
-  .filterbox {
+  max-width: 95%;
+  margin-bottom: 1rem;
+  .tags-header {
+    box-sizing: border-box;
+    padding-left: 0.8rem;
+    margin: 1.4rem 0 0 1rem;
     display: flex;
-    /* justify-content: space-around; */
-    button {
-      background-color: white;
-      color: gray;
+    flex-direction: column;
+  }
+  .board-title {
+    font-size: 1.8rem;
+    font-weight: 500;
+    margin-top: 7px;
+    margin-bottom: 1rem;
+  }
+  .filtertags {
+    margin-top: 1rem;
+    display: flex;
+    flex-direction: row;
+    justify-content: space-between;
+  }
+  .search-form {
+    display: grid;
+    align-items: center;
+    .search-icon {
+      color: ${(props) => props.theme.grayFont};
+      position: relative;
+      left: 10px;
+      grid-column: 1/2;
+      grid-row: 1/2;
+      z-index: 1;
     }
-    .active {
-      background-color: lightgray;
+    input {
+      border: ${(props) => props.theme.searchBarBorder + " solid 1px"};
+      border-radius: 3px;
+      padding: 0.6rem 0.5rem 0.6rem 1.8rem;
+      grid-column: 1/2;
+      grid-row: 1/2;
+      &::placeholder {
+        display: none;
+        color: #9fa6ad;
+      }
+      &:focus {
+        border-color: #6bbbf7;
+        outline: #cde9fe solid 4px;
+      }
     }
+  }
+  .tags-tab-nav {
+    display: flex;
+    border: gray solid 1px;
+    border-radius: 3px;
+  }
+  .pagination-wrapper {
+    display: flex;
+    justify-content: flex-end;
   }
 `;
 
 const UserListsWrap = styled.div`
-  display: flex;
-  justify-content: space-evenly;
-  align-items: center;
+  margin-top: 1rem;
+  display: grid;
+  justify-content: stretch;
+  grid-template-columns: repeat(auto-fill, minmax(14rem, auto));
+  gap: 1rem;
+  margin: 1.4rem 0 1.4rem 1.8rem;
 
   .profile {
     display: flex;
@@ -80,72 +92,87 @@ const UserListsWrap = styled.div`
     }
   }
 `;
-const FilterBox = styled.button`
-  box-sizing: border-box;
-  height: 100%;
-  border: gray solid 1px;
-  align-self: center;
-  text-align: center;
-  background-color: white;
-  padding: 0.4rem 0.5rem;
-  :hover {
-    background-color: lightgray;
-  }
-`;
 
-const StyledDiv = styled.div`
+const UsersContainer = styled.div`
   display: grid;
   grid-template-columns: auto 80%;
 `;
 
-export default function Users() {
-  const [currentTab, setCurrentTab] = useState(0);
-  const buttonOnclick = (idx) => setCurrentTab(idx);
+const NavTab = styled.button`
+  background-color: ${(props) =>
+    props.value === props.currentTab ? "#e3e6e8" : "white"};
+  box-sizing: border-box;
+  height: 100%;
+  border: none;
+  border-right: gray solid 1px;
+  align-self: center;
+  text-align: center;
+  padding: 0.4rem 0.5rem;
+  :last-child {
+    border-right: none;
+  }
+`;
 
-  const buttonNmae = [
-    "Reputation",
-    "New users",
-    "Voters",
-    "Editors",
-    "Moderators",
-  ];
+export default function Users() {
+  const [inputText, setInputText] = useState("");
+  const [searchText, setSearchText] = useState("");
+  const [currentPage, setCurrentPage] = useState(1);
+  const [userData, setUserData] = useState([]);
+
+  useEffect(() => {
+    axios.defaults.withCredentials = false;
+    axios
+      .get(
+        `${STACK_EXCHANGE_URL}users?page=${currentPage}&pagesize=24&order=desc&sort=reputation&inname=${searchText}&site=stackoverflow&key=${process.env.REACT_APP_STACK_API_KEY}`
+      )
+      .then((res) => {
+        const { data } = res;
+        setUserData(data.items);
+        console.log(data);
+      })
+      .catch(() => alert("Failed to load user list"));
+  }, [currentPage, searchText]);
+
+  const handleChange = (e) => setInputText(e.target.value);
+
+  const onSearch = (e) => {
+    e.preventDefault();
+    setSearchText(inputText);
+  };
 
   return (
-    <UserMain>
-      <h1>Users</h1>
-      <div className="filterbox">
-        <div>
-          <SearchBar placeHolderText="Filter by user" />
+    <UsersContainer>
+      <Navbar />
+      <UserMain>
+        <div className="tags-header">
+          <div className="board-title">Users</div>
+          <div className="filtertags">
+            <form className="search-form" onSubmit={onSearch}>
+              <FontAwesomeIcon
+                className="search-icon"
+                icon={faMagnifyingGlass}
+              />
+              <input
+                className="search-bar"
+                placeholder="Filter by tag name"
+                value={inputText}
+                onChange={handleChange}
+              />
+            </form>
+          </div>
         </div>
-        {buttonNmae.map((el, idx) => (
-          <div className="filterbtn" key={idx}>
-            <FilterBox
-              className={idx === currentTab ? "active" : "inactive"}
-              idx={idx}
-              onClick={() => buttonOnclick(idx)}
-            >
-              {el}
-            </FilterBox>
-          </div>
-        ))}
-      </div>
-      <div className="time"></div>
-      <UserListsWrap>
-        {userDummy.map((el, idx) => (
-          <div className="profile" key={idx}>
-            <div className="userImg">
-              <img src={el.photoURL} alt="profile" />
-            </div>
-            <div className="userInfo">
-              <a href="/">{el.nickName}</a>
-              <div>{el.postCount}</div>
-              {el.userTag.map((ele, i) => (
-                <a href="/">{ele}</a>
-              ))}
-            </div>
-          </div>
-        ))}
-      </UserListsWrap>
-    </UserMain>
+        <div className="time"></div>
+        <UserListsWrap>
+          {userData &&
+            userData.map((v) => <UserCard user={v} key={v.account_id} />)}
+        </UserListsWrap>
+        <div className="pagination-wrapper">
+          <UserPagination
+            currentPage={currentPage}
+            setCurrentPage={setCurrentPage}
+          />
+        </div>
+      </UserMain>
+    </UsersContainer>
   );
 }
