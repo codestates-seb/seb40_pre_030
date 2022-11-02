@@ -6,6 +6,7 @@ import { faCaretUp, faCaretDown } from "@fortawesome/free-solid-svg-icons";
 import { useState, useEffect } from "react";
 import axios from "axios";
 import { BASE_URL } from "../../util/api";
+import { useNavigate, useParams } from "react-router";
 
 const dummyArticle = {
   post_id: 1,
@@ -28,13 +29,13 @@ const data = `
 
 `;
 
-const Article = () => {
+const Article = ({ pageid }) => {
   const [ArticleData, setArticleData] = useState("");
-
+  const navigate = useNavigate();
   useEffect(() => {
     return async () => {
       axios.defaults.withCredentials = true;
-      // fetch(`/?page=${currentPage}&size=${currentSize}`)
+
       axios
         .get(`${BASE_URL}1`, {
           headers: {
@@ -43,12 +44,21 @@ const Article = () => {
         })
         .then((res) => {
           const { data } = res;
-          console.log(data.title);
           setArticleData(data);
         });
     };
   }, []);
-
+  console.log();
+  const handleUpClick = () => {
+    axios.patch(`${BASE_URL}1/voteUp`).then((response) => {
+      window.location.reload();
+    });
+  };
+  const handleDownClick = () => {
+    axios.patch(`${BASE_URL}1/voteDown`).then((response) => {
+      window.location.reload();
+    });
+  };
   return (
     <ArticleWrapper>
       <div className="title">{ArticleData.title}</div>
@@ -66,9 +76,17 @@ const Article = () => {
         </div>
         <ArticleContent>
           <div className="vote-section">
-            <FontAwesomeIcon className="vote-icon" icon={faCaretUp} />
+            <FontAwesomeIcon
+              className="vote-icon"
+              icon={faCaretUp}
+              onClick={handleUpClick}
+            />
             {ArticleData.voteCount}
-            <FontAwesomeIcon className="vote-icon" icon={faCaretDown} />
+            <FontAwesomeIcon
+              className="vote-icon"
+              icon={faCaretDown}
+              onClick={handleDownClick}
+            />
           </div>
           <div className="body-section">
             <div className="body-main">{ArticleData.body}</div>
@@ -79,14 +97,14 @@ const Article = () => {
             </div>
             <div className="body-footer">
               <div className="Tag-section">
-                <Tag value="Share" />
-                <Tag value="Edit" />
-                <Tag value="Delete" />
-                <Tag value="Flag" />
+                <button value="">Share </button>
+                <button value="">Edit</button>
+                <button value="">Delete</button>
+                <button value="">Flag</button>
               </div>
               <div className="post-owner">
                 <div className="user-action-item">
-                  asked {ArticleData.createdAt}
+                  asked 2022-11-01T01:31:27
                 </div>
                 <div className="user-avatar">
                   <img src={ArticleData.photoURL} alt="" />

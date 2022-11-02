@@ -1,6 +1,7 @@
 import styled from "styled-components";
 
 export const ArticleWrapper = styled.div`
+  width: 900px;
   padding: 10px;
   border-bottom: 1px solid lightgrey;
   .title {
@@ -27,10 +28,11 @@ export const ArticleContent = styled.article`
   display: flex;
   .body-section {
     width: 100%;
-    margin-top: 30px;
+
+    padding-top: 30px;
     font-size: 1rem;
-    .body-main {
-      margin-bottom: 20px;
+    .body-tag {
+      padding-top: 30px;
     }
   }
   .vote-section {
@@ -45,19 +47,21 @@ export const ArticleContent = styled.article`
     color: gray;
     .vote-icon {
       font-size: 3rem;
-      color: ;
     }
   }
   .body-footer {
     display: flex;
     justify-content: space-between;
     align-items: center;
-    margin-top: 15px;
 
-    .Tag-section {
+    .Tag-section > button {
+      margin-right: 5px;
+      background-color: #fff;
+      border: none;
+      color: #3d4044;
     }
     .post-owner {
-      width: 180px;
+      width: 190px;
       display: flex;
       flex-direction: column;
       float: right;

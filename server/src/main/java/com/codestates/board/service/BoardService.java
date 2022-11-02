@@ -4,7 +4,6 @@ import com.codestates.board.entity.Board;
 import com.codestates.board.repository.BoardRepository;
 import com.codestates.exception.BusinessLogicException;
 import com.codestates.exception.ExceptionCode;
-import com.codestates.user.repository.UserRepository;
 import com.codestates.user.service.UserService;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageRequest;
@@ -12,6 +11,7 @@ import org.springframework.data.domain.Sort;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
+import java.time.LocalDateTime;
 import java.util.Optional;
 
 @Service
@@ -41,6 +41,7 @@ public class BoardService {
         Optional.ofNullable(board.getTitle()).ifPresent(title -> findBoard.setTitle(title));
         Optional.ofNullable(board.getBody()).ifPresent(body -> findBoard.setBody(body));
         Optional.ofNullable(board.getPhotoURL()).ifPresent(photo -> findBoard.setPhotoURL(photo));
+        findBoard.setModifiedAt(LocalDateTime.now());
 
         return boardRepository.save(findBoard);
     }

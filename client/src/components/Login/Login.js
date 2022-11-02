@@ -9,6 +9,7 @@ import { BASE_URL } from "../../util/api";
 import { loginStatus, loginInfo } from "../../atoms/atoms";
 import { setRefreshTokenToCookie } from "../../util/Cookies";
 
+//outline->으로 주기
 const LoginForm = styled.form`
   border-radius: 10px;
   width: 19rem;
@@ -20,15 +21,24 @@ const LoginForm = styled.form`
   flex-direction: column;
   flex-wrap: wrap;
   box-shadow: rgba(0, 0, 0, 0.24) 0px 3px 8px;
+  /* box-shadow: ${(props) => (props.login ? "red" : "blue")}; */
+
+  .errmassage {
+    /* box-shadow: red 0px 3px 8px; */
+    color: red;
+    font-size: 14px;
+    font-weight: bold;
+  }
 
   input {
     width: 100%;
     height: 2rem;
-    border: 1px solid rgba(198, 199, 199, 1);
+    border: 1px solid black;
 
     &:focus {
       box-shadow: 0px 0px 3px 6px rgba(127, 193, 240, 0.32);
-      background-color: #e4f7fc;
+
+      /* background-color: #e4f7fc; */
       border: none;
     }
   }
@@ -125,6 +135,9 @@ const Login = () => {
     setLoginState(!loginInfo);
   };
 
+  const emailRegEx =
+    /^[A-Za-z0-9]([-_.]?[A-Za-z0-9])*@[A-Za-z0-9]([-_.]?[A-Za-z0-9])*\.[A-Za-z]{2,3}$/i;
+
   const handleSubmit = (e) => {
     e.preventDefault();
 
@@ -132,8 +145,8 @@ const Login = () => {
       setEmailErrorMessage("Email cannot be empty.");
       setPasswordErrorMessage("Password cannot be empty.");
       return;
-    } else if (!login.email) {
-      setEmailErrorMessage("Email cannot be empty.");
+    } else if (!emailRegEx.test(login.email)) {
+      setEmailErrorMessage("The email is not a valid email address.");
       return;
     } else if (!login.password) {
       setPasswordErrorMessage("Password cannot be empty.");
@@ -173,20 +186,6 @@ const Login = () => {
       })
       .catch((err) => console.log(err.response));
   };
-
-  //   const getUserName = JSON.parse(window.localStorage.getItem("user-name"));
-  // // 로컬 스토리지에 저장된 "user-name"의 value 가져오기
-
-  // useEffect(() => {
-  //   // 새로고침 했을 때, 현재 로그인된 user-name이 존재하는 경우에만 로그인 상태 유지
-  //   const localaccessToken = JSON.parse(
-  //     window.localStorage.getItem("accessToken")
-  //   );
-  //   if (localaccessToken) {
-  //     setLoginState(true);
-  //   }
-  // }, []);
-
   return (
     <BackgroundLogin>
       <div className="Logincontent">
@@ -199,13 +198,16 @@ const Login = () => {
           <div className="inputform">
             <span className="label">Email</span>
             <input
+              color={"red"}
               value={login.email || ""}
               //  onChange={onChangeHandler('userId')}
               type="text"
               name="email"
               onChange={onChangeHandler("email")}
             ></input>
-            {emailerrorMessage === "" ? null : <div>{emailerrorMessage}</div>}
+            {emailerrorMessage === "" ? null : (
+              <div className="errmassage">{emailerrorMessage}</div>
+            )}
 
             <div className="label">
               Password
@@ -217,12 +219,14 @@ const Login = () => {
             <input
               value={login.password || ""}
               //  onChange={onChangeHandler('password')}
-              type="text"
+              type="password"
               name="password"
               onChange={onChangeHandler("password")}
             ></input>
             {passworderrorMessage === "" ? null : (
-              <div>{passworderrorMessage}</div>
+              <div className="errmassage" color={"red"}>
+                {passworderrorMessage}
+              </div>
             )}
           </div>
           <Submitbtn
