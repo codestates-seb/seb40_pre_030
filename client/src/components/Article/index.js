@@ -49,13 +49,14 @@ const Article = () => {
   const [openShare, setOpenShare] = useState(false);
   const [currentQuestion, setCurrentQuestion] =
     useRecoilState(currentQuestionState);
+  const { id } = useParams();
 
   useEffect(() => {
     return async () => {
       axios.defaults.withCredentials = true;
 
       axios
-        .get(`${BASE_URL}1`, {
+        .get(`${BASE_URL}${id}`, {
           headers: {
             "ngrok-skip-browser-warning": "skip",
           },
