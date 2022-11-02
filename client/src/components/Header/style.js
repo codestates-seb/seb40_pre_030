@@ -7,6 +7,7 @@ export const HeaderWrapper = styled.div`
   align-items: center;
   background-color: ${(props) => props.theme.headerBg};
   height: 50px;
+  box-shadow: 0 4px 2px -2px hsl(210, 8%, 80%);
   nav {
     width: 90%;
     margin: 0 auto;
