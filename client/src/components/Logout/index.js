@@ -4,10 +4,11 @@ import { useRecoilState } from "recoil";
 
 import Atag from "../Header/Atag";
 import ButtonTag from "../Header/ButtonTag";
-import { isLogged, loggedUserAtom } from "../../atoms/atoms";
-import { useSingup, useLogin } from "../../hooks/customServHook";
+import { loggedUserAtom } from "../../atoms/atoms";
+import { useLogin } from "../../hooks/customServHook";
 import { loginStatus } from "../../atoms/atoms";
 import { OutForm, Wrapper, Contents, SiteLi } from "./style";
+import { logout } from "../../util/Cookies";
 
 const siteFile = [
   ["askbuntu.com", "https://askubuntu.com/", [0, -360]],
@@ -24,15 +25,14 @@ const LogOut = () => {
   const [logged, setLogged] = useRecoilState(loginStatus);
   const [user, setUser] = useRecoilState(loggedUserAtom);
   setUser(useLogin());
-  console.log("user", user);
-  console.log("logged", logged);
 
   const onClickCheck = (e) => setCheckForAll(!checkForAll);
   const onLogoutClick = (e) => {
     e.preventDefault();
     setLogged(!logged);
-    localStorage.removeItem("recoil-persist");
+    localStorage.removeItem("accessToken");
     navigate("/");
+    logout();
   };
 
   return (
