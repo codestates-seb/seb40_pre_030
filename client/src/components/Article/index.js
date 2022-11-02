@@ -52,6 +52,7 @@ const Article = () => {
   const { id } = useParams();
 
   useEffect(() => {
+    window.scrollTo(0, 0);
     return async () => {
       axios.defaults.withCredentials = true;
 
