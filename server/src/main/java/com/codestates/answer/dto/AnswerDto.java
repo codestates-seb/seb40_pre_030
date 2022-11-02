@@ -6,7 +6,9 @@ import lombok.Getter;
 import lombok.Setter;
 import org.hibernate.validator.constraints.URL;
 
+import javax.validation.constraints.Min;
 import javax.validation.constraints.NotBlank;
+import javax.validation.constraints.Pattern;
 import java.time.LocalDateTime;
 
 public class AnswerDto {
@@ -17,6 +19,7 @@ public class AnswerDto {
         private User user;
 
         @NotBlank(message = "답변을 작성해주세요.")
+        @Pattern(regexp = "^.{15,}", message = "15자 이상 작성하세요.")
         private String answerBody;
 
         private long boardId;
@@ -30,6 +33,7 @@ public class AnswerDto {
         private long answerId;
 
         @NotBlank(message = "답변을 작성해주세요.")
+        @Pattern(regexp = "^.{15,}", message = "15자 이상 작성하세요.")
         private String answerBody;
     }
 

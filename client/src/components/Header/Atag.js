@@ -8,7 +8,7 @@ const ATagWrap = styled.div`
   padding: 0.4rem;
 `;
 
-const Atag = ({ name, link, logged, isContent, isHover }) => {
+const Atag = ({ name, link, logged, isContent, isHover, className }) => {
   return (
     <ATagWrap>
       {logged === true ? (
@@ -20,7 +20,7 @@ const Atag = ({ name, link, logged, isContent, isHover }) => {
           </div>
         )
       ) : (
-        <div>{name}</div>
+        <div className={className}>{name}</div>
       )}
     </ATagWrap>
   );

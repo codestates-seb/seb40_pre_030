@@ -4,10 +4,9 @@ import { faAngleUp, faAngleDown } from "@fortawesome/free-solid-svg-icons";
 import { useState, useRef, useEffect } from "react";
 import "@toast-ui/editor/dist/toastui-editor.css";
 import { Editor } from "@toast-ui/react-editor";
-import { faDAndD } from "@fortawesome/free-brands-svg-icons";
-
 import { BASE_URL } from "../../src/util/api";
 import axios from "axios";
+//아코디언 더미 데이터
 const Accordiondata = [
   {
     id: 1,
@@ -197,27 +196,24 @@ const Askquetion = () => {
   // const Submit = (e) => {
   //   e.preventDefault();
 
-  //   const title = { bodys: bodys, Edit: false, Date: date };
-  //   fetch("http://localhost:3001/Todo", {
+  //   const Questiondata = { title: AskTitle, body: AskBody };
+  //   fetch(`${BASE_URL}ask`, {
   //     method: "POST",
-  //     body: JSON.stringify(title),
+  //     body: JSON.stringify(Questiondata),
   //     headers: {
   //       "Content-Type": "application/json",
   //     },
   //   })
   //     .then(() => {
-  //       navigate("/");
   //       window.location.reload();
   //     })
   //     .catch((err) => console.log(err));
-  //   setBody("");
   // };
 
   const AskHandler = (e) => {
     e.preventDefault();
-
     axios
-      .post(`${BASE_URL}/ask`, {
+      .post(`${BASE_URL}ask`, {
         data: { title: AskTitle, body: AskBody },
         headers: {
           "ngrok-skip-browser-warning": "skip",
@@ -284,11 +280,11 @@ const Askquetion = () => {
                     ></input>
                   </div>
                 </section>
-                <form onSubmit={AskHandler}>
-                  <button type="submit" className="Submitbtn">
+                <div>
+                  <button className="Submitbtn" onClick={AskHandler}>
                     Review your question
                   </button>
-                </form>
+                </div>
               </form>
               <aside className="Aside">
                 <div className="Asidewrap">

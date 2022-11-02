@@ -1,5 +1,5 @@
 import { useEffect, useState } from "react";
-import { useLocation, useNavigate } from "react-router-dom";
+import { useNavigate } from "react-router-dom";
 import styled from "styled-components";
 
 const StyledPagination = styled.div`
@@ -31,7 +31,7 @@ const PageButton = styled.button`
   }
 `;
 
-const TagPagination = ({ currentPage, setCurrentPage }) => {
+const UserPagination = ({ currentPage, setCurrentPage }) => {
   const [pages, setPages] = useState([1, 2, 3, 4, 5, 6, 7, 8, 9, 10]);
   const [pageIdx, setPageIdx] = useState(1);
   const navigate = useNavigate();
@@ -43,8 +43,8 @@ const TagPagination = ({ currentPage, setCurrentPage }) => {
   }, [currentPage]);
 
   useEffect(() => {
-    if (currentPage === 1) navigate("/tags");
-    else navigate(`/tags/?page=${currentPage}`);
+    if (currentPage === 1) navigate("/users");
+    else navigate(`/users/?page=${currentPage}`);
   }, [currentPage]);
 
   const LinkButton = ({ buttonContent, selected }) => {
@@ -109,7 +109,7 @@ const TagPagination = ({ currentPage, setCurrentPage }) => {
   );
 };
 
-export default TagPagination;
+export default UserPagination;
 
 // {4페이지}까지는 [prev] 버튼 없음
 // {5페이지}부터 {마지막페이지 - 5페이지}까지 [prev] [1] ... 과 함께 현재 페이지가 3번째 버튼이 됨

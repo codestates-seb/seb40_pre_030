@@ -21,15 +21,21 @@ const StyledAnswersContainer = styled.div`
 const StyledAnswer = styled.li`
   display: flex;
   flex-direction: column;
-
+  width: 900px;
   .answer-main-wrap {
     border-bottom: 1px solid lightgrey;
     .answer-main {
       display: flex;
       flex-direction: row;
-
       .answer-body {
         width: 100%;
+        .Tag-section > button {
+          margin-top: 10px;
+          margin-right: 5px;
+          background-color: #fff;
+          border: none;
+          color: #3d4044;
+        }
       }
     }
     .UserCard {
@@ -41,8 +47,8 @@ const StyledAnswer = styled.li`
 
 const AnswersContainer = () => {
   const [AnswerData, setAnswerData] = useState([]);
+  //답변 조회 기능
   useEffect(() => {
-    //해당 페이지의 답변
     return async () => {
       axios.defaults.withCredentials = true;
 
@@ -58,25 +64,35 @@ const AnswersContainer = () => {
         });
     };
   }, []);
+
+  //답글 삭제 기능
+  const AnswerDelete = (answerId) => {
+    axios
+      .delete(`${BASE_URL}answers/${answerId}`)
+      .then((res) => window.location.reload());
+  };
   console.log(AnswerData);
+
   return (
     <StyledAnswersContainer className="AnswersContainer">
-      <h2 className="answers-container-title">{"2"} Answers</h2>
+      <h2 className="answers-container-title">{AnswerData.length} Answers</h2>
       <ul className="answers-list">
         <StyledAnswer className="Answer">
           {AnswerData.map((datas) => {
             return (
-              <div className="answer-main-wrap">
+              <div className="answer-main-wrap" key={datas}>
                 <div className="answer-main">
-                  <Vote voteCount={datas.voteCount} />
+                  <Vote datas={datas} />
                   <div className="answer-body">
                     <div>
                       <Markdown AnswerBody={datas.answerBody} />
                       <div className="Tag-section">
-                        <Tag value="Share" />
-                        <Tag value="Edit" />
-                        <Tag value="Delete" />
-                        <Tag value="Flag" />
+                        <button value="">Share </button>
+                        <button value="">Edit</button>
+                        <button onClick={() => AnswerDelete(datas.answerId)}>
+                          Delete
+                        </button>
+                        <button value="">Flag</button>
                       </div>
                     </div>
                     <div className="UserCard">

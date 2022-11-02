@@ -30,7 +30,9 @@ const Tagcontent = styled.div`
     margin-top: 7px;
     margin-bottom: 1rem;
   }
-
+  .tags-description {
+    line-height: 1.1rem;
+  }
   .TagsTitle {
     font-size: 2rem;
     margin-bottom: 1rem;
@@ -78,27 +80,12 @@ const Tagcontent = styled.div`
       }
     }
   }
-  .questions-nav {
+  .tags-tab-nav {
     display: flex;
     border: gray solid 1px;
     border-radius: 3px;
   }
-  .questions-tab {
-    background-color: white;
-    box-sizing: border-box;
-    height: 100%;
-    border: none;
-    border-right: gray solid 1px;
-    align-self: center;
-    text-align: center;
-    padding: 0.4rem 0.5rem;
-    :last-child {
-      border-right: none;
-    }
-    &:focus {
-      outline: rgba(35, 38, 41, 0.1) solid 4px;
-    }
-  }
+
   .Tagscard {
     margin-top: 1rem;
     display: grid;
@@ -112,15 +99,32 @@ const Tagcontent = styled.div`
   }
 `;
 
+const NavTab = styled.button`
+  background-color: ${(props) =>
+    props.value === props.currentTab ? "#e3e6e8" : "white"};
+  box-sizing: border-box;
+  height: 100%;
+  border: none;
+  border-right: gray solid 1px;
+  align-self: center;
+  text-align: center;
+  padding: 0.4rem 0.5rem;
+  :last-child {
+    border-right: none;
+  }
+`;
+
 const Tags = () => {
+  const [inputText, setInputText] = useState("");
   const [searchText, setSearchText] = useState("");
-  const handleChange = (e) => setSearchText(e.target.value);
+  const handleChange = (e) => setInputText(e.target.value);
   const [currentPage, setCurrentPage] = useState(1);
   const [currentTab, setCurrentTab] = useState("popular");
   const [tagData, setTagData] = useState([]);
-  const sortTab = ["Popular", "Name", "New"];
+  const sortTab = ["Popular", "Activity", "Name"];
 
   useEffect(() => {
+    axios.defaults.withCredentials = false;
     axios
       .get(
         `${STACK_EXCHANGE_URL}tags?page=${currentPage}&pagesize=50&order=desc&sort=${currentTab}&inname=${searchText}&site=stackoverflow&key=${process.env.REACT_APP_STACK_API_KEY}`
@@ -133,24 +137,35 @@ const Tags = () => {
       .catch(() => alert("Failed to load tag list"));
   }, [currentPage, currentTab, searchText]);
 
+  const onTabClick = (tabName) => {
+    setCurrentTab(tabName.toLowerCase());
+  };
+
+  const onSearch = (e) => {
+    e.preventDefault();
+    setSearchText(inputText);
+  };
+
   return (
     <StyledDiv className="Tags">
       <Navbar />
       <Tagcontent>
         <div className="tags-header">
           <div className="board-title">Tags</div>
-          <div>
+          <p className="tags-description">
             A tag is a keyword or label that categorizes your question with
-            other, similar questions. Using the right tags makes it easier for
-            others to find and answer your question.
-          </div>
+            other, similar questions.
+            <br />
+            Using the right tags makes it easier for others to find and answer
+            your question.
+          </p>
         </div>
         <div className="TagsBody">
           <a href="https://stackoverflow.com/tags/synonyms" className="taglink">
             Show all tag synonyms
           </a>
           <div className="filtertags">
-            <form className="search-form">
+            <form className="search-form" onSubmit={onSearch}>
               <FontAwesomeIcon
                 className="search-icon"
                 icon={faMagnifyingGlass}
@@ -158,15 +173,21 @@ const Tags = () => {
               <input
                 className="search-bar"
                 placeholder="Filter by tag name"
-                value={searchText}
+                value={inputText}
                 onChange={handleChange}
               />
             </form>
-            <nav className="questions-nav">
+            <nav className="tags-tab-nav">
               {sortTab.map((v) => (
-                <button className="questions-tab" key={v.toLowerCase()}>
+                <NavTab
+                  className="tags-tab"
+                  onClick={() => onTabClick(v)}
+                  value={v.toLowerCase()}
+                  currentTab={currentTab}
+                  key={v.toLowerCase()}
+                >
                   {v}
-                </button>
+                </NavTab>
               ))}
             </nav>
           </div>

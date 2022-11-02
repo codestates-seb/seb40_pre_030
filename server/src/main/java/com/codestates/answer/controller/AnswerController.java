@@ -82,14 +82,6 @@ public class AnswerController {
 
         return new ResponseEntity<>(response, HttpStatus.OK);
     }
-    /**
-     // 답변 조회
-     @GetMapping("/{answer-id}")
-     public ResponseEntity getAnswer(@PathVariable("answer-id") @Positive long answerId){
-     Answer answer = answerService.findAnswer(answerId);
-     return new ResponseEntity<>(mapper.answerToAnswerResponseDto(answer), HttpStatus.OK);
-     }
-     **/
 
     // 답변 전체 조회
     @GetMapping
