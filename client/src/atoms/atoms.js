@@ -22,3 +22,8 @@ export const loginInfo = atom({
   default: null,
   // effects_UNSTABLE: [persistAtom],
 });
+
+export const currentQuestionState = atom({
+  key: "currentQuestionState",
+  default: null,
+});

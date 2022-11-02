@@ -1,4 +1,3 @@
-import ReactMarkdown from "react-markdown";
 import Tag from "../tags/Tag";
 import { ArticleContent, ArticleWrapper } from "./style";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
@@ -8,6 +7,8 @@ import axios from "axios";
 import { BASE_URL } from "../../util/api";
 import { useNavigate, useParams } from "react-router";
 import Bubble from "./Bubble";
+import { useRecoilState } from "recoil";
+import { currentQuestionState } from "../../atoms/atoms";
 
 const dummyArticle = {
   post_id: 1,
@@ -42,10 +43,12 @@ const Button = ({ value, setOpenShare }) => {
   return <button onClick={() => onButtonClick(value)}>{value}</button>;
 };
 
-const Article = ({ pageid }) => {
+const Article = () => {
   const [ArticleData, setArticleData] = useState("");
   const UpdateArticleValues = ["Share", "Edit", "Delete"];
   const [openShare, setOpenShare] = useState(false);
+  const [currentQuestion, setCurrentQuestion] =
+    useRecoilState(currentQuestionState);
 
   useEffect(() => {
     return async () => {
@@ -60,6 +63,7 @@ const Article = ({ pageid }) => {
         .then((res) => {
           const { data } = res;
           setArticleData(data);
+          setCurrentQuestion(data);
         });
     };
   }, []);

@@ -1,6 +1,8 @@
 import { Editor } from "@toast-ui/react-editor";
 import { useRef, useState } from "react";
+import { useRecoilState } from "recoil";
 import styled from "styled-components";
+import { currentQuestionState } from "../atoms/atoms";
 import Button from "../components/Button";
 import Markdown from "../components/Markdown";
 import Navbar from "../components/navbar/Navbar";
@@ -78,6 +80,8 @@ const StyledEditQuestion = styled.div`
 const EditQuestion = ({ article }) => {
   const [AskBody, SetAskBody] = useState("agwergfwaefgaewg");
   const textRef = useRef("");
+  const [currentQuestion, setCurrentQuestion] =
+    useRecoilState(currentQuestionState);
 
   const handleChangeInput = () => {
     SetAskBody(textRef.current.getInstance().getMarkdown());
@@ -100,13 +104,13 @@ const EditQuestion = ({ article }) => {
             </p>
           </div>
           <label>Title</label>
-          <input value="article.title" />
+          <input value={currentQuestion.title} />
           <label>Body</label>
           <Editor
             ref={textRef}
             height="300px"
             initialEditType="markdown"
-            initialValue={AskBody}
+            initialValue={currentQuestion.body}
             onChange={handleChangeInput}
           />
           <div className="editor-content-viewer">
