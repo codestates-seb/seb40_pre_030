@@ -72,6 +72,9 @@ export const HeaderWrapper = styled.div`
       background-color: hsl(205, 46%, 92%);
       border-color: hsl(205, 41%, 63%);
       box-shadow: 0 1px 0 0 hsl(0deg 0% 100% / 70%);
+      :hover {
+        background-color: hsl(205, 41%, 63%);
+      }
       .logtxt {
         color: hsl(205, 47%, 42%);
       }
@@ -89,6 +92,9 @@ export const HeaderWrapper = styled.div`
       border-color: hsl(206, 100%, 52%);
       background-color: hsl(206, 100%, 52%);
       box-shadow: 0 1px 0 0 hsl(0deg 0% 100% / 70%);
+      :hover {
+        background-color: hsl(206, 100%, 40%);
+      }
       .signtxt {
         color: white;
       }

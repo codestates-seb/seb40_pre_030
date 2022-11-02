@@ -8,6 +8,7 @@ import {
   faTrophy,
   faFileCircleQuestion,
   faBars,
+  faUser,
 } from "@fortawesome/free-solid-svg-icons";
 import Atag from "./Atag";
 import { Link } from "react-router-dom";
@@ -19,7 +20,7 @@ const headerNav = {
 
 const contents = {
   false: ["Log in", "Sign up"],
-  true: ["Profile", faInbox, faTrophy, faFileCircleQuestion, faBars],
+  true: [faUser, faInbox, faTrophy, faFileCircleQuestion, faBars],
 };
 
 export const Logo = () => {
