@@ -6,7 +6,7 @@ import Header from "./components/Header";
 import { Route, Routes } from "react-router-dom";
 import Login from "./components/Login/Login";
 import Signup from "./components/Signup/Signup";
-import LogOut from "./components/LogOut";
+import LogOut from "./components/Logout/";
 import Askquetion from "./components/Askquetion";
 import Tags from "./pages/Tags";
 import Users from "./pages/Users";

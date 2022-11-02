@@ -11,8 +11,6 @@ import {
 } from "@fortawesome/free-solid-svg-icons";
 import Atag from "./Atag";
 import { Link } from "react-router-dom";
-import { useRecoilValue } from "recoil";
-import { loginStatus } from "../../atoms/atom.js";
 
 const headerNav = {
   false: ["About", "Products", "For Teams"],
@@ -68,11 +66,15 @@ export const HeaderCont = ({ logged }) => {
         <div key={idx}>
           {el === "Log in" ? (
             <Link to="/users/login">
-              <Atag name={el} logged={logged} />
+              <div className="loginbtn">
+                <Atag className="logtxt" name={el} logged={logged} />
+              </div>
             </Link>
           ) : el === "Sign up" ? (
             <Link to="users/signup">
-              <Atag name={el} logged={logged} />
+              <div className="signupbtn">
+                <Atag className="signtxt" name={el} logged={logged} />
+              </div>
             </Link>
           ) : el === faBars ? (
             <Link to="users/logout">
