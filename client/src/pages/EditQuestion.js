@@ -78,7 +78,7 @@ const StyledEditQuestion = styled.div`
 `;
 
 const EditQuestion = ({ article }) => {
-  const [AskBody, SetAskBody] = useState("agwergfwaefgaewg");
+  const [AskBody, SetAskBody] = useState("");
   const textRef = useRef("");
   const [currentQuestion, setCurrentQuestion] =
     useRecoilState(currentQuestionState);
