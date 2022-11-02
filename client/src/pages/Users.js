@@ -1,9 +1,12 @@
 import { faMagnifyingGlass } from "@fortawesome/free-solid-svg-icons";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
-import { useState } from "react";
+import axios from "axios";
+import { useEffect, useState } from "react";
 import styled from "styled-components";
 import Navbar from "../components/navbar/Navbar";
 import UserCard from "../components/Users/UserCard";
+import UserPagination from "../components/Users/UserPagination";
+import { STACK_EXCHANGE_URL } from "../util/api";
 
 const UserMain = styled.div`
   max-width: 95%;
@@ -65,8 +68,9 @@ const UserListsWrap = styled.div`
   margin-top: 1rem;
   display: grid;
   justify-content: stretch;
-  grid-template-columns: repeat(auto-fill, minmax(13rem, auto));
+  grid-template-columns: repeat(auto-fill, minmax(14rem, auto));
   gap: 1rem;
+  margin: 1.4rem 0 1.4rem 1.8rem;
 
   .profile {
     display: flex;
@@ -106,19 +110,28 @@ const NavTab = styled.button`
 `;
 
 export default function Users() {
-  const [currentTab, setCurrentTab] = useState(0);
-  const [searchText, setSearchText] = useState("");
   const [inputText, setInputText] = useState("");
-  const buttonOnclick = (idx) => setCurrentTab(idx);
-  const handleChange = (e) => setInputText(e.target.value);
+  const [searchText, setSearchText] = useState("");
+  const [currentPage, setCurrentPage] = useState(1);
+  const [currentTab, setCurrentTab] = useState("reputation");
+  const [userData, setUserData] = useState([]);
+  const sortTab = ["Reputation", "Creation", "Name", "Modified"];
 
-  const sortTab = [
-    "Reputation",
-    "New users",
-    "Voters",
-    "Editors",
-    "Moderators",
-  ];
+  useEffect(() => {
+    axios.defaults.withCredentials = false;
+    axios
+      .get(
+        `${STACK_EXCHANGE_URL}users?page=${currentPage}&pagesize=36&order=desc&sort=${currentTab}&site=stackoverflow&key=${process.env.REACT_APP_STACK_API_KEY}`
+      )
+      .then((res) => {
+        const { data } = res;
+        setUserData(data.items);
+        console.log(data);
+      })
+      .catch(() => alert("Failed to load tag list"));
+  }, [currentPage, currentTab, searchText]);
+
+  const handleChange = (e) => setInputText(e.target.value);
 
   const onSearch = (e) => {
     e.preventDefault();
@@ -165,25 +178,14 @@ export default function Users() {
         </div>
         <div className="time"></div>
         <UserListsWrap>
-          <UserCard />
-          <UserCard />
-          <UserCard />
-          <UserCard />
-          <UserCard />
-          <UserCard />
-          <UserCard />
-          <UserCard />
-          <UserCard />
-          <UserCard />
-          <UserCard />
-          <UserCard />
-          <UserCard />
-          <UserCard />
-          <UserCard />
-          <UserCard />
-          <UserCard />
-          <UserCard />
+          {userData.map((v) => (
+            <UserCard user={v} />
+          ))}
         </UserListsWrap>
+        <UserPagination
+          currentPage={currentPage}
+          setCurrentPage={setCurrentPage}
+        />
       </UserMain>
     </UsersContainer>
   );
