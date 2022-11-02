@@ -30,7 +30,9 @@ const Tagcontent = styled.div`
     margin-top: 7px;
     margin-bottom: 1rem;
   }
-
+  .tags-description {
+    line-height: 1.1rem;
+  }
   .TagsTitle {
     font-size: 2rem;
     margin-bottom: 1rem;
@@ -150,11 +152,13 @@ const Tags = () => {
       <Tagcontent>
         <div className="tags-header">
           <div className="board-title">Tags</div>
-          <div>
+          <p className="tags-description">
             A tag is a keyword or label that categorizes your question with
-            other, similar questions. Using the right tags makes it easier for
-            others to find and answer your question.
-          </div>
+            other, similar questions.
+            <br />
+            Using the right tags makes it easier for others to find and answer
+            your question.
+          </p>
         </div>
         <div className="TagsBody">
           <a href="https://stackoverflow.com/tags/synonyms" className="taglink">
