@@ -85,7 +85,7 @@ const AnswersContainer = () => {
                   <Vote datas={datas} />
                   <div className="answer-body">
                     <div>
-                      <Markdown AnswerBody={datas.answerBody} />
+                      <Markdown markdown={datas.answerBody} />
                       <div className="Tag-section">
                         <button value="">Share </button>
                         <button value="">Edit</button>
