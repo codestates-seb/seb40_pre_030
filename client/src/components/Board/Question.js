@@ -3,6 +3,7 @@ import styled from "styled-components";
 import AnswerBox from "./AnswerBox";
 import Tag from "../tags/Tag";
 import { calculateTime } from "./util/calculateTime";
+import { BASE_URL } from "../../util/api";
 
 const StyledQuestion = styled.li`
   padding: 1.2rem;
@@ -84,7 +85,7 @@ const Question = ({ questionItem }) => {
         </div>
       </div>
       <div className="question-content">
-        <Link className="toQuestion" to={"/question/" + questionItem.postId}>
+        <Link className="toQuestion" to={`question/${questionItem.boardId}`}>
           <h2 className="question-content-title">{questionItem.title}</h2>
         </Link>
         <div className="question-content-body">
