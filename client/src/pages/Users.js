@@ -117,17 +117,13 @@ export default function Users() {
   const [inputText, setInputText] = useState("");
   const [searchText, setSearchText] = useState("");
   const [currentPage, setCurrentPage] = useState(1);
-  const [currentTab, setCurrentTab] = useState("reputation");
   const [userData, setUserData] = useState([]);
-  const sortTab = ["Reputation", "Creation", "Name", "Modified"];
 
   useEffect(() => {
     axios.defaults.withCredentials = false;
     axios
       .get(
-        `${STACK_EXCHANGE_URL}users?page=${currentPage}&pagesize=24&order=desc&sort=${currentTab.toLowerCase()}&inname=${searchText}&site=stackoverflow&key=${
-          process.env.REACT_APP_STACK_API_KEY
-        }`
+        `${STACK_EXCHANGE_URL}users?page=${currentPage}&pagesize=24&order=desc&sort=reputation&inname=${searchText}&site=stackoverflow&key=${process.env.REACT_APP_STACK_API_KEY}`
       )
       .then((res) => {
         const { data } = res;
@@ -135,17 +131,13 @@ export default function Users() {
         console.log(data);
       })
       .catch(() => alert("Failed to load user list"));
-  }, [currentPage, currentTab, searchText]);
+  }, [currentPage, searchText]);
 
   const handleChange = (e) => setInputText(e.target.value);
 
   const onSearch = (e) => {
     e.preventDefault();
     setSearchText(inputText);
-  };
-
-  const onTabClick = (tabName) => {
-    setCurrentTab(tabName.toLowerCase());
   };
 
   return (
@@ -167,19 +159,6 @@ export default function Users() {
                 onChange={handleChange}
               />
             </form>
-            <nav className="tags-tab-nav">
-              {sortTab.map((v) => (
-                <NavTab
-                  className="tags-tab"
-                  onClick={() => onTabClick(v)}
-                  value={v.toLowerCase()}
-                  currentTab={currentTab}
-                  key={v.toLowerCase()}
-                >
-                  {v}
-                </NavTab>
-              ))}
-            </nav>
           </div>
         </div>
         <div className="time"></div>
