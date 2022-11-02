@@ -1,5 +1,4 @@
-/*
-package com.codestates.dto;
+package com.codestates.response;
 
 import lombok.AllArgsConstructor;
 import lombok.Getter;
@@ -10,9 +9,9 @@ public class PageInfo {
 
     private int page;
     private int size;
-    private long totalElements;
+    private long totalBoards;
     private int totalPages;
 
 
 }
-*/
+
