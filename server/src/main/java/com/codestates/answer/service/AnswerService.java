@@ -11,7 +11,7 @@ import org.springframework.data.domain.Sort;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
-import java.util.List;
+import java.time.LocalDateTime;
 import java.util.Optional;
 
 @Service
@@ -36,6 +36,7 @@ public class AnswerService {
         Answer findAnswer = findVerifiedAnswer(answer.getAnswerId());
         Optional.ofNullable(answer.getAnswerBody()).ifPresent(answerBody -> findAnswer.setAnswerBody(answerBody));
         Optional.ofNullable(answer.getPhotoURL()).ifPresent(photo -> findAnswer.setPhotoURL(photo));
+        findAnswer.setModifiedAt(LocalDateTime.now());
         return answerRepository.save(findAnswer);
     }
 
