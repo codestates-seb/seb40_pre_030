@@ -64,6 +64,7 @@ const AnswersContainer = () => {
         });
     };
   }, []);
+
   //답글 삭제 기능
   const AnswerDelete = (answerId) => {
     axios
@@ -74,7 +75,7 @@ const AnswersContainer = () => {
 
   return (
     <StyledAnswersContainer className="AnswersContainer">
-      <h2 className="answers-container-title">{"2"} Answers</h2>
+      <h2 className="answers-container-title">{AnswerData.length} Answers</h2>
       <ul className="answers-list">
         <StyledAnswer className="Answer">
           {AnswerData.map((datas) => {

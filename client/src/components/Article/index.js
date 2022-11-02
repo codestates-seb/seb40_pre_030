@@ -35,7 +35,7 @@ const Article = ({ pageid }) => {
   useEffect(() => {
     return async () => {
       axios.defaults.withCredentials = true;
-      // fetch(`/?page=${currentPage}&size=${currentSize}`)
+
       axios
         .get(`${BASE_URL}1`, {
           headers: {
@@ -48,7 +48,7 @@ const Article = ({ pageid }) => {
         });
     };
   }, []);
-
+  console.log();
   const handleUpClick = () => {
     axios.patch(`${BASE_URL}1/voteUp`).then((response) => {
       window.location.reload();
