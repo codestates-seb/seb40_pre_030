@@ -7,6 +7,7 @@ import { useState, useEffect } from "react";
 import axios from "axios";
 import { BASE_URL } from "../../util/api";
 import { useNavigate, useParams } from "react-router";
+import Bubble from "./Bubble";
 
 const dummyArticle = {
   post_id: 1,
@@ -29,9 +30,23 @@ const data = `
 
 `;
 
+const Button = ({ value, setOpenShare }) => {
+  const { id } = useParams();
+  const navigate = useNavigate();
+  const onButtonClick = (value) => {
+    if (value === "Share") setOpenShare((pre) => !pre);
+    if (value === "Edit") navigate("/question/" + id);
+    if (value === "Delete") axios.delete(`${BASE_URL}/${id}`);
+  };
+
+  return <button onClick={() => onButtonClick(value)}>{value}</button>;
+};
+
 const Article = ({ pageid }) => {
   const [ArticleData, setArticleData] = useState("");
-  const navigate = useNavigate();
+  const UpdateArticleValues = ["Share", "Edit", "Delete"];
+  const [openShare, setOpenShare] = useState(false);
+
   useEffect(() => {
     return async () => {
       axios.defaults.withCredentials = true;
@@ -48,7 +63,7 @@ const Article = ({ pageid }) => {
         });
     };
   }, []);
-  console.log();
+
   const handleUpClick = () => {
     axios.patch(`${BASE_URL}1/voteUp`).then((response) => {
       window.location.reload();
@@ -59,6 +74,7 @@ const Article = ({ pageid }) => {
       window.location.reload();
     });
   };
+
   return (
     <ArticleWrapper>
       <div className="title">{ArticleData.title}</div>
@@ -97,10 +113,11 @@ const Article = ({ pageid }) => {
             </div>
             <div className="body-footer">
               <div className="Tag-section">
-                <button value="">Share </button>
-                <button value="">Edit</button>
-                <button value="">Delete</button>
-                <button value="">Flag</button>
+                {UpdateArticleValues.map((v) => (
+                  <Button key={v} value={v} setOpenShare={setOpenShare} />
+                ))}
+                {/* 배포 후 글 주소 기재하기 */}
+                {openShare && <Bubble link="글 주소 기재" />}
               </div>
               <div className="post-owner">
                 <div className="user-action-item">
