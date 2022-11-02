@@ -28,7 +28,7 @@ const data = `
 
 `;
 
-const Article = () => {
+const Article = ({ pageid }) => {
   const [ArticleData, setArticleData] = useState("");
 
   useEffect(() => {

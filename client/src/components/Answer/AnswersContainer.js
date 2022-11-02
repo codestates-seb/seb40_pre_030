@@ -21,7 +21,7 @@ const StyledAnswersContainer = styled.div`
 const StyledAnswer = styled.li`
   display: flex;
   flex-direction: column;
-
+  width: 850px;
   .answer-main-wrap {
     border-bottom: 1px solid lightgrey;
     .answer-main {

@@ -1,6 +1,7 @@
 import styled from "styled-components";
 
 export const ArticleWrapper = styled.div`
+  width: 100%;
   padding: 10px;
   border-bottom: 1px solid lightgrey;
   .title {
