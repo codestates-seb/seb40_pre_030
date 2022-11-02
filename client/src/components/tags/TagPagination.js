@@ -1,5 +1,5 @@
 import { useEffect, useState } from "react";
-import { useNavigate } from "react-router-dom";
+import { useLocation, useNavigate } from "react-router-dom";
 import styled from "styled-components";
 
 const StyledPagination = styled.div`
@@ -32,31 +32,39 @@ const PageButton = styled.button`
 `;
 
 const TagPagination = ({ currentPage, setCurrentPage }) => {
-  const pages = [1, 2, 3, 4, 5, 6, 7, 8, 9, 10];
+  const [pages, setPages] = useState([1, 2, 3, 4, 5, 6, 7, 8, 9, 10]);
   const [pageIdx, setPageIdx] = useState(1);
+  const pageLocation = useLocation().search.slice(
+    useLocation().search.indexOf("=") + 1
+  );
+  const [isPending, setIsPending] = useState(false);
+  const navigate = useNavigate();
+
+  useEffect(() => {
+    if (pageIdx >= 3 && pages.length < 50) {
+      setPages([...pages, pages[pages.length - 1] + 1]);
+    }
+  }, [currentPage]);
+
+  useEffect(() => {
+    if (currentPage === 1) navigate("/tags");
+    else navigate(`/tags/?page=${currentPage}`);
+  }, [currentPage]);
 
   const LinkButton = ({ buttonContent, selected }) => {
-    const navigate = useNavigate();
-
-    useEffect(() => {
-      navigate(`/tags/?page=${currentPage}`);
-    }, [currentPage]);
-
     const onPageButtonClick = (buttonContent) => {
-      if (pageIdx < 50) {
-        if (buttonContent === "Prev") {
-          setCurrentPage((prev) => prev - 1);
-          setPageIdx((prev) => prev - 1);
-        } else if (buttonContent === "Next") {
-          setCurrentPage((prev) => prev + 1);
-          setPageIdx((prev) => prev + 1);
-        } else {
-          setCurrentPage(buttonContent);
-          setPageIdx(+buttonContent);
-        }
-        navigate(`/tags/?page=${currentPage}`);
+      if (buttonContent === "Prev") {
+        setCurrentPage((prev) => prev - 1);
+        setPageIdx((prev) => prev - 1);
+      } else if (buttonContent === "Next") {
+        setCurrentPage((prev) => prev + 1);
+        setPageIdx((prev) => prev + 1);
+      } else {
+        setCurrentPage(buttonContent);
+        setPageIdx(buttonContent);
       }
     };
+
     return (
       <PageButton
         onClick={() => onPageButtonClick(buttonContent)}
@@ -72,7 +80,7 @@ const TagPagination = ({ currentPage, setCurrentPage }) => {
     <>
       <StyledPagination className="TagPagination">
         <div className="pages">
-          {currentPage > 4 && (
+          {currentPage > 1 && (
             <>
               <LinkButton selected={currentPage} buttonContent="Prev" />
               <span className="dotdotdot">...</span>
@@ -93,8 +101,12 @@ const TagPagination = ({ currentPage, setCurrentPage }) => {
               );
             }
           })}
-          <span className="dotdotdot">...</span>
-          <LinkButton selected={currentPage} buttonContent="Next" />
+          {currentPage < 50 && (
+            <>
+              <span className="dotdotdot">...</span>
+              <LinkButton selected={currentPage} buttonContent="Next" />
+            </>
+          )}
         </div>
       </StyledPagination>
     </>
