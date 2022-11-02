@@ -3,6 +3,11 @@ import { Editor } from "@toast-ui/react-editor";
 import styled from "styled-components";
 import axios from "axios";
 import { useState, useRef } from "react";
+import { BASE_URL } from "../../util/api";
+import { loginStatus } from "../../atoms/atoms";
+import { useRecoilState } from "recoil";
+import { useNavigate, useParams } from "react-router";
+
 const Createform = styled.div`
   margin: auto;
   float: right;
@@ -14,6 +19,7 @@ const Createform = styled.div`
     font-weight: bold;
   }
   .Postwrap {
+    width: 90%;
     margin-top: 30px;
     .Postbtn {
       font-size: 15px;
@@ -27,41 +33,53 @@ const Createform = styled.div`
   }
 `;
 const AnswerCreate = () => {
-  const [Answerbody, SetAnswerbody] = useState();
+  const [answerBody, SetanswerBody] = useState();
   const Bodydata = useRef();
+  const [logged, SetLogged] = useRecoilState(loginStatus);
+  const navigate = useNavigate();
   const AnswerChange = () => {
-    SetAnswerbody(Bodydata.current.getInstance().getMarkdown());
+    SetanswerBody(Bodydata.current.getInstance().getMarkdown());
   };
   const Answerpost = () => {
-    axios
-      .post("https://localhost:4000/", { Answerbody })
-      .then((res) => {
-        window.location.reload();
-      })
-      .catch((err) => {
-        if (err.response.status === 401) {
-          console.log(err.response.data);
-        }
-      });
+    if (answerBody === undefined) {
+      window.alert("답변을 입력해주세요!");
+    } else {
+      axios
+        .post(`${BASE_URL}answers/1`, { answerBody })
+        .then((res) => {
+          window.location.reload();
+        })
+        .catch((err) => {
+          if (err.response.status === 401) {
+            console.log(err.response.data);
+          }
+        });
+    }
   };
 
   return (
     <>
-      <Createform>
-        <div className="AnswerCreatetitle">
-          <h1>Your answer</h1>
-        </div>
-        <Editor
-          onChange={AnswerChange}
-          ref={Bodydata}
-          height="350px"
-          initialEditType="markdown"
-          initialValue=""
-        />
-        <div className="Postwrap">
-          <button className="Postbtn">Post Your Answer</button>
-        </div>
-      </Createform>
+      {logged ? (
+        <Createform>
+          <div className="AnswerCreatetitle">
+            <h1>Your answer</h1>
+          </div>
+          <Editor
+            onChange={AnswerChange}
+            ref={Bodydata}
+            height="350px"
+            initialEditType="markdown"
+            initialValue=""
+          />
+          <div className="Postwrap">
+            <button className="Postbtn" onClick={Answerpost}>
+              Post Your Answer
+            </button>
+          </div>
+        </Createform>
+      ) : (
+        ""
+      )}
     </>
   );
 };

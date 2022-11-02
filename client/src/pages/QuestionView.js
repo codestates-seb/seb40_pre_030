@@ -3,6 +3,8 @@ import AnswersContainer from "../components/Answer/AnswersContainer";
 import Navbar from "../components/navbar/Navbar";
 import Sidebar from "../components/Sidebar/Sidebar";
 import Article from "../components/Article/index";
+import { useParams } from "react-router";
+
 const QuestionViewWrap = styled.div`
   width: 100%;
   margin: auto;
@@ -18,13 +20,14 @@ const QuestionViewWrap = styled.div`
 `;
 
 const QuestionView = () => {
+  const { id } = useParams();
   return (
     <>
       <QuestionViewWrap>
         <div className="ViewWrap">
           <Navbar />
           <div className="ViewWrap2">
-            <Article></Article>
+            <Article />
             <AnswersContainer />
           </div>
           <Sidebar />
