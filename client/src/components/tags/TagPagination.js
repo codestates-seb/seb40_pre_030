@@ -34,10 +34,6 @@ const PageButton = styled.button`
 const TagPagination = ({ currentPage, setCurrentPage }) => {
   const [pages, setPages] = useState([1, 2, 3, 4, 5, 6, 7, 8, 9, 10]);
   const [pageIdx, setPageIdx] = useState(1);
-  const pageLocation = useLocation().search.slice(
-    useLocation().search.indexOf("=") + 1
-  );
-  const [isPending, setIsPending] = useState(false);
   const navigate = useNavigate();
 
   useEffect(() => {
