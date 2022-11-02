@@ -7,12 +7,16 @@ export const HeaderWrapper = styled.div`
   align-items: center;
   background-color: ${(props) => props.theme.headerBg};
   height: 50px;
-  box-shadow: 0 4px 2px -2px hsl(210, 8%, 80%);
+  box-shadow: 0 1px 2px hsla(0, 0%, 0%, 0.05), 0 1px 4px hsla(0, 0%, 0%, 0.05),
+    0 2px 8px hsla(0, 0%, 0%, 0.05);
   nav {
     width: 90%;
     margin: 0 auto;
     display: flex;
     align-items: center;
+    div {
+      color: black;
+    }
     .nav_item {
       width: 150px;
       height: 30px;
@@ -28,9 +32,6 @@ export const HeaderWrapper = styled.div`
       padding: 6px 12px;
       margin: 2px;
       font-size: 0.8em;
-      :hover {
-        background-color: red;
-      }
     }
     form {
       display: flex;
@@ -55,6 +56,42 @@ export const HeaderWrapper = styled.div`
     svg {
       cursor: text;
       background-color: white;
+    }
+    .loginbtn {
+      margin-left: 0.5rem;
+      margin-right: 0.5rem;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      box-sizing: border-box;
+      width: 60px;
+      height: 35px;
+      border: solid 1px;
+      border-radius: 3px;
+      color: hsl(205, 47%, 42%);
+      background-color: hsl(205, 46%, 92%);
+      border-color: hsl(205, 41%, 63%);
+      box-shadow: 0 1px 0 0 hsl(0deg 0% 100% / 70%);
+      .logtxt {
+        color: hsl(205, 47%, 42%);
+      }
+    }
+    .signupbtn {
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      box-sizing: border-box;
+      width: 60px;
+      height: 35px;
+      color: white;
+      border: solid 1px;
+      border-radius: 3px;
+      border-color: hsl(206, 100%, 52%);
+      background-color: hsl(206, 100%, 52%);
+      box-shadow: 0 1px 0 0 hsl(0deg 0% 100% / 70%);
+      .signtxt {
+        color: white;
+      }
     }
   }
 `;
