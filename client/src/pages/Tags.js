@@ -1,11 +1,12 @@
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faMagnifyingGlass } from "@fortawesome/free-solid-svg-icons";
 import styled from "styled-components";
 import Tagsbody from "../components/tags/Tagsbody";
-import { DummyTags } from "../components/tags/dummyTags";
 import Navbar from "../components/navbar/Navbar";
 import TagPagination from "../components/tags/TagPagination";
+import axios from "axios";
+import { STACK_EXCHANGE_URL } from "../util/api";
 
 const StyledDiv = styled.div`
   display: grid;
@@ -115,6 +116,22 @@ const Tags = () => {
   const [searchText, setSearchText] = useState("");
   const handleChange = (e) => setSearchText(e.target.value);
   const [currentPage, setCurrentPage] = useState(1);
+  const [currentTab, setCurrentTab] = useState("popular");
+  const [tagData, setTagData] = useState([]);
+  const sortTab = ["Popular", "Name", "New"];
+
+  useEffect(() => {
+    axios
+      .get(
+        `${STACK_EXCHANGE_URL}tags?page=${currentPage}&pagesize=50&order=desc&sort=${currentTab}&inname=${searchText}&site=stackoverflow&key=${process.env.REACT_APP_STACK_API_KEY}`
+      )
+      .then((res) => {
+        const { data } = res;
+        setTagData(data.items);
+        console.log(data);
+      })
+      .catch(() => alert("Failed to load tag list"));
+  }, [currentPage, currentTab, searchText]);
 
   return (
     <StyledDiv className="Tags">
@@ -146,15 +163,18 @@ const Tags = () => {
               />
             </form>
             <nav className="questions-nav">
-              <button className="questions-tab">Popular</button>
-              <button className="questions-tab">Name</button>
-              <button className="questions-tab">New</button>
+              {sortTab.map((v) => (
+                <button className="questions-tab" key={v.toLowerCase()}>
+                  {v}
+                </button>
+              ))}
             </nav>
           </div>
           <div className="Tagscard">
-            {DummyTags.map((el) => {
-              return <Tagsbody data={el} />;
-            })}
+            {tagData &&
+              tagData.map((el) => {
+                return <Tagsbody data={el} key={el.name} />;
+              })}
           </div>
         </div>
         <div className="pagination-wrapper">
