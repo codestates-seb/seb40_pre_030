@@ -11,7 +11,8 @@ import Pagination from "./Pagination";
 import { useEffect, useState } from "react";
 import axios from "axios";
 import { BASE_URL } from "../../util/api";
-
+import { loginStatus } from "../../atoms/atoms";
+import { useRecoilState } from "recoil";
 const StyledQuestionsContainer = styled.div`
   width: 100%;
   min-width: 40rem;
@@ -74,7 +75,7 @@ const QuestionsContainer = () => {
   const [currentPage, setCurrentPage] = useState(1);
   const [currentSize, setCurrentSize] = useState(15);
   const [listData, setListData] = useState([]);
-
+  const [logged, SetLogged] = useRecoilState(loginStatus);
   useEffect(() => {
     const fetch = async () => {
       axios.defaults.withCredentials = true;
@@ -98,16 +99,18 @@ const QuestionsContainer = () => {
       <div className="questions-header">
         <h1 className="board-title">All Questions</h1>
 
-        <Link to="/ask">
-          <Button
-            bgcolor={(props) => props.theme.buttonBlue}
-            font="white"
-            border="none"
-            fontSize="15px"
-          >
-            Ask Question
-          </Button>
-        </Link>
+        {logged ? (
+          <Link to="/ask">
+            <Button
+              bgcolor={(props) => props.theme.buttonBlue}
+              font="white"
+              border="none"
+              fontSize="15px"
+            >
+              Ask Question
+            </Button>
+          </Link>
+        ) : null}
       </div>
       <div className="questions-nav-wrapper">
         <div className="questions-count"> {"23,136,393"} questions</div>
