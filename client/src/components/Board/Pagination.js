@@ -38,7 +38,8 @@ const Pagination = ({
   const pageSizes = [15, 30, 50];
 
   useEffect(() => {
-    navigate(`/?page=${currentPage}`);
+    if (currentPage === 1) navigate("/");
+    else navigate(`/?page=${currentPage}`);
   }, [currentPage]);
 
   const LinkButton = ({ buttonContent, selected, buttonId }) => {
