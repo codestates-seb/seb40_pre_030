@@ -61,7 +61,7 @@ export const ArticleContent = styled.article`
       color: #3d4044;
     }
     .post-owner {
-      width: 160px;
+      width: 190px;
       display: flex;
       flex-direction: column;
       float: right;
