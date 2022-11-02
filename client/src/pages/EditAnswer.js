@@ -2,7 +2,7 @@ import { Editor } from "@toast-ui/react-editor";
 import { useRef, useState } from "react";
 import { useRecoilState } from "recoil";
 import styled from "styled-components";
-import { currentAnswerState } from "../atoms/atoms";
+import { currentAnswerState, currentQuestionState } from "../atoms/atoms";
 import Button from "../components/Button";
 import Markdown from "../components/Markdown";
 import Navbar from "../components/navbar/Navbar";
@@ -47,6 +47,10 @@ const StyledEditAnswer = styled.div`
       letter-spacing: 0.5px;
     }
   }
+  .question-body-for-answer {
+    width: 660px;
+    min-height: 200px;
+  }
   .toastui-editor-defaultUI {
     width: 660px;
   }
@@ -81,6 +85,8 @@ const EditAnswer = ({ article }) => {
   const [AnswerBody, SetAnswerBody] = useState("");
   const textRef = useRef("");
   const [currentAnswer, setCurrentAnswer] = useRecoilState(currentAnswerState);
+  const [currentQuestion, setCurrentQuestion] =
+    useRecoilState(currentQuestionState);
 
   const handleChangeInput = () => {
     SetAnswerBody(textRef.current.getInstance().getMarkdown());
@@ -93,7 +99,9 @@ const EditAnswer = ({ article }) => {
       <Navbar />
       <div className="edit-answer-container">
         <div className="edit-answer-main">
-          <div>현재 게시글 내용 마크다운으로 보여주기</div>
+          <div className="question-body-for-answer">
+            <Markdown markdown={currentQuestion.body} />
+          </div>
           <label>Body</label>
           <Editor
             ref={textRef}
