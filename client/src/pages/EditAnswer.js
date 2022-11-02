@@ -1,15 +1,17 @@
 import { Editor } from "@toast-ui/react-editor";
 import { useRef, useState } from "react";
+import { useRecoilState } from "recoil";
 import styled from "styled-components";
+import { currentAnswerState } from "../atoms/atoms";
 import Button from "../components/Button";
 import Markdown from "../components/Markdown";
 import Navbar from "../components/navbar/Navbar";
-import { ListContent, StyledYellowBox } from "../components/Sidebar/YellowBox";
+import { StyledYellowBox } from "../components/Sidebar/YellowBox";
 
 const StyledEditAnswer = styled.div`
   display: grid;
   grid-template-columns: auto 80%;
-  .edit-question-container {
+  .edit-answer-container {
     display: flex;
   }
   .yellow-box-middle {
@@ -29,7 +31,7 @@ const StyledEditAnswer = styled.div`
       color: ${(props) => props.theme.blueFont};
     }
   }
-  .edit-question-main {
+  .edit-answer-main {
     box-sizing: border-box;
     padding: 1.4rem;
     display: flex;
@@ -76,41 +78,32 @@ const StyledEditAnswer = styled.div`
 `;
 
 const EditAnswer = ({ article }) => {
-  const [AskBody, SetAskBody] = useState("agwergfwaefgaewg");
+  const [AnswerBody, SetAnswerBody] = useState("");
   const textRef = useRef("");
+  const [currentAnswer, setCurrentAnswer] = useRecoilState(currentAnswerState);
 
   const handleChangeInput = () => {
-    SetAskBody(textRef.current.getInstance().getMarkdown());
+    SetAnswerBody(textRef.current.getInstance().getMarkdown());
   };
+
+  console.log(currentAnswer);
 
   return (
     <StyledEditAnswer>
       <Navbar />
-      <div className="edit-question-container">
-        <div className="edit-question-main">
-          <div className="yellow-box-middle">
-            <p>
-              Your edit will be placed in a queue until it is peer reviewed.
-            </p>
-            <p>
-              Attention! Your last edit was rejected. While reasonable edits may
-              be rejected for many reasons outside of your control, you should
-              <span> review the reasons given for rejecting it </span>
-              before continuing.
-            </p>
-          </div>
-          <label>Title</label>
-          <input value="article.title" />
+      <div className="edit-answer-container">
+        <div className="edit-answer-main">
+          <div>현재 게시글 내용 마크다운으로 보여주기</div>
           <label>Body</label>
           <Editor
             ref={textRef}
             height="300px"
             initialEditType="markdown"
-            initialValue={AskBody}
+            initialValue={currentAnswer.answerBody}
             onChange={handleChangeInput}
           />
           <div className="editor-content-viewer">
-            <Markdown markdown={AskBody} />
+            <Markdown markdown={AnswerBody} />
           </div>
           <div className="edit-buttons">
             <Button

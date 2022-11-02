@@ -12,7 +12,7 @@ import Tag from "../tags/Tag";
 import { useNavigate, useParams } from "react-router";
 import Bubble from "../Article/Bubble";
 import { useRecoilState } from "recoil";
-import { currentQuestionState } from "../../atoms/atoms";
+import { currentAnswerState } from "../../atoms/atoms";
 const StyledAnswersContainer = styled.div`
   padding: 10px;
 
@@ -63,8 +63,7 @@ const AnswersContainer = () => {
   const [AnswerData, setAnswerData] = useState([]);
   const [openShare, setOpenShare] = useState(false);
   const [selectedComment, setSelectedComment] = useState();
-  const [currentQuestion, setCurrentQuestion] =
-    useRecoilState(currentQuestionState);
+  const [currentAnswer, setCurrentAnswer] = useRecoilState(currentAnswerState);
   const UpdateAnswerValues = ["Share", "Edit", "Delete"];
   const { id } = useParams();
   const navigate = useNavigate();
@@ -90,11 +89,11 @@ const AnswersContainer = () => {
   const onUpdateButtonClick = (id, value) => {
     setSelectedComment(id);
     if (value === "Share") setOpenShare((pre) => !pre);
-    if (value === "Edit") navigate(`/answer/${id}/edit`);
+    if (value === "Edit") {
+      setCurrentAnswer(AnswerData.filter((v) => v.answerId === id)[0]);
+      navigate(`/answer/${id}/edit`);
+    }
   };
-
-  // console.log(currentQuestion);
-  // console.log(AnswerData);
 
   return (
     <StyledAnswersContainer className="AnswersContainer">

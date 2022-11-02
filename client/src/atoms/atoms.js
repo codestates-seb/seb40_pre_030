@@ -27,3 +27,8 @@ export const currentQuestionState = atom({
   key: "currentQuestionState",
   default: null,
 });
+
+export const currentAnswerState = atom({
+  key: "currentAnswerState",
+  default: null,
+});
