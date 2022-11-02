@@ -35,7 +35,7 @@ const Button = ({ value, setOpenShare }) => {
   const navigate = useNavigate();
   const onButtonClick = (value) => {
     if (value === "Share") setOpenShare((pre) => !pre);
-    if (value === "Edit") navigate("/question/" + id);
+    if (value === "Edit") navigate(`/question/${id}/edit`);
     if (value === "Delete") axios.delete(`${BASE_URL}/${id}`);
   };
 
