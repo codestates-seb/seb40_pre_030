@@ -63,8 +63,16 @@ const UserCard = ({ user }) => {
     <StyledUserCard>
       <img className="user-avatar" src={user.profile_image} alt="" />
       <div className="user-info">
-        <div className="user-name">{user.display_name}</div>
-        <div className="user-location">{user.location}</div>
+        <div className="user-name">
+          {user.display_name && user.display_name.length > 15
+            ? user.display_name.substring(0, 15) + "..."
+            : user.display_name}
+        </div>
+        <div className="user-location">
+          {user.location && user.location.length > 20
+            ? user.location.substring(0, 20) + "..."
+            : user.location}
+        </div>
         <div className="user-score">
           <span className="user-reputation">
             {formatNumber(user.reputation)}

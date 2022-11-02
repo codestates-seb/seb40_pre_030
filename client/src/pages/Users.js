@@ -62,6 +62,10 @@ const UserMain = styled.div`
     border: gray solid 1px;
     border-radius: 3px;
   }
+  .pagination-wrapper {
+    display: flex;
+    justify-content: flex-end;
+  }
 `;
 
 const UserListsWrap = styled.div`
@@ -121,14 +125,16 @@ export default function Users() {
     axios.defaults.withCredentials = false;
     axios
       .get(
-        `${STACK_EXCHANGE_URL}users?page=${currentPage}&pagesize=36&order=desc&sort=${currentTab}&site=stackoverflow&key=${process.env.REACT_APP_STACK_API_KEY}`
+        `${STACK_EXCHANGE_URL}users?page=${currentPage}&pagesize=24&order=desc&sort=${currentTab.toLowerCase()}&inname=${searchText}&site=stackoverflow&key=${
+          process.env.REACT_APP_STACK_API_KEY
+        }`
       )
       .then((res) => {
         const { data } = res;
         setUserData(data.items);
         console.log(data);
       })
-      .catch(() => alert("Failed to load tag list"));
+      .catch(() => alert("Failed to load user list"));
   }, [currentPage, currentTab, searchText]);
 
   const handleChange = (e) => setInputText(e.target.value);
@@ -178,14 +184,15 @@ export default function Users() {
         </div>
         <div className="time"></div>
         <UserListsWrap>
-          {userData.map((v) => (
-            <UserCard user={v} />
-          ))}
+          {userData &&
+            userData.map((v) => <UserCard user={v} key={v.account_id} />)}
         </UserListsWrap>
-        <UserPagination
-          currentPage={currentPage}
-          setCurrentPage={setCurrentPage}
-        />
+        <div className="pagination-wrapper">
+          <UserPagination
+            currentPage={currentPage}
+            setCurrentPage={setCurrentPage}
+          />
+        </div>
       </UserMain>
     </UsersContainer>
   );
