@@ -7,6 +7,8 @@ import Atag from "./Header/Atag";
 import ButtonTag from "./Header/ButtonTag";
 import { isLogged, loggedUserAtom } from "../atoms/atoms";
 import { useSingup, useLogin } from "../hooks/customServHook";
+import { loginStatus } from "../atoms/atoms";
+//상현님하고 회의해야함
 
 const Wrapper = styled.div`
   display: flex;
@@ -60,7 +62,7 @@ const siteFile = [
 const LogOut = () => {
   const navigate = useNavigate();
   const [checkForAll, setCheckForAll] = useState(false);
-  const [logged, setLogged] = useRecoilState(isLogged);
+  const [logged, setLogged] = useRecoilState(loginStatus);
   const [user, setUser] = useRecoilState(loggedUserAtom);
   setUser(useLogin());
   console.log("user", user);
@@ -70,6 +72,7 @@ const LogOut = () => {
   const onLogoutClick = (e) => {
     e.preventDefault();
     setLogged(!logged);
+    localStorage.removeItem("recoil-persist");
     navigate("/");
   };
 
