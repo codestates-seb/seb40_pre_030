@@ -12,6 +12,7 @@ import { currentQuestionState } from "../../atoms/atoms";
 import AnswersContainer from "../Answer/AnswersContainer";
 import Sidebar from "../Sidebar/Sidebar";
 import { Link } from "react-router-dom";
+import { calculateTime } from "../Board/util/calculateTime";
 
 const dummyArticle = {
   post_id: 1,
@@ -72,9 +73,14 @@ const Article = () => {
           const { data } = res;
           setArticleData(data);
           setCurrentQuestion(data);
+          console.log(data.modifiedAt);
         });
     };
   }, []);
+
+  // const modate = ArticleData.createdAt;
+  // console.log(modate);
+  // console.log(modate.toLocaleDateString());
 
   const handleUpClick = () => {
     axios.patch(`${BASE_URL}${id}/voteUp`).then((response) => {
@@ -99,10 +105,28 @@ const Article = () => {
         <div className="qustion-content-wapper">
           <div className="date_wrapper">
             <div>
-              Asked<span>1 days ago</span>
+              Asked
+              <span>
+                {/* {ArticleData && ArticleData.createdAt.toLocaleString("ko-kr")} */}
+
+                {calculateTime(new Date(ArticleData.createdAt)).toLocaleString(
+                  "ko-KR",
+                  {
+                    timeZone: "UTC",
+                  }
+                )}
+              </span>
             </div>
             <div>
-              Modified <span>today</span>
+              Modified{" "}
+              <span>
+                {calculateTime(new Date(ArticleData.modifiedAt)).toLocaleString(
+                  "ko-KR",
+                  {
+                    timeZone: "UTC",
+                  }
+                )}
+              </span>
             </div>
             <div>
               Viewed <span>279 times</span>
