@@ -3,6 +3,7 @@ import styled from "styled-components";
 import AnswerBox from "./AnswerBox";
 import Tag from "../tags/Tag";
 import { calculateTime } from "./util/calculateTime";
+import { BASE_URL } from "../../util/api";
 
 const StyledQuestion = styled.li`
   padding: 1.2rem;
@@ -44,8 +45,10 @@ const StyledQuestion = styled.li`
     line-height: 1.2rem;
   }
   .question-content-body {
+    max-width: 700px;
     font-size: 0.8rem;
     line-height: 1.2rem;
+    word-break: break-all;
   }
   .tags-container {
     margin: 0.5rem 0;
@@ -76,26 +79,20 @@ const Question = ({ questionItem }) => {
     <StyledQuestion className="Question">
       <div className="question-summary-stats">
         <p className="question-summary-stats-item">
-          {questionItem.votes || 0} votes
+          {questionItem.voteCount || 0} votes
         </p>
-        <AnswerBox answerCount={questionItem.answers || 0} />
+        <AnswerBox answerCount={questionItem.answer.length || 0} />
         <div className="question-summary-stats-item">
           {questionItem.views || 0} views
         </div>
       </div>
       <div className="question-content">
-        <Link className="toQuestion" to={"/question/" + questionItem.postId}>
+        <Link className="toQuestion" to={"/question/" + questionItem.boardId}>
           <h2 className="question-content-title">{questionItem.title}</h2>
         </Link>
         <div className="question-content-body">
           {/* 특정 글자수 이상은 말줄임표로 대체 */}
           {questionItem.body}
-        </div>
-        <div className="tags-container">
-          <Tag value="reactjs" />
-          <Tag value="reactjs" />
-          <Tag value="reactjs" />
-          <Tag value="reactjs" />
         </div>
         <div className="user-card-minimal">
           <img
@@ -105,7 +102,13 @@ const Question = ({ questionItem }) => {
           />
           <div className="user-nickname">{questionItem.nickName}</div>
           <div className="asked-time">
-            asked {calculateTime(questionItem.createdAt)}
+            asked{" "}
+            {calculateTime(new Date(questionItem.createdAt)).toLocaleString(
+              "ko-KR",
+              {
+                timeZone: "UTC",
+              }
+            )}
           </div>
         </div>
       </div>

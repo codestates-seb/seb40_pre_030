@@ -2,19 +2,17 @@ import styled from "styled-components";
 import Button from "../Button";
 import Question from "./Question";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
-import {
-  faArrowDownWideShort,
-  faCaretDown,
-} from "@fortawesome/free-solid-svg-icons";
-import { Link, useLocation } from "react-router-dom";
+import { faArrowDownWideShort } from "@fortawesome/free-solid-svg-icons";
+import { Link } from "react-router-dom";
 import Pagination from "./Pagination";
 import { useEffect, useState } from "react";
 import axios from "axios";
 import { BASE_URL } from "../../util/api";
 
 const StyledQuestionsContainer = styled.div`
-  width: 100%;
+  width: 70%;
   min-width: 40rem;
+
   .questions-header {
     box-sizing: border-box;
     padding-left: 0.8rem;
@@ -70,10 +68,53 @@ const StyledQuestionsContainer = styled.div`
   }
 `;
 
+const NavTab = styled.button`
+  background-color: ${(props) =>
+    props.value === props.currentTab ? "#e3e6e8" : "white"};
+  box-sizing: border-box;
+  height: 100%;
+  border: none;
+  border-right: gray solid 1px;
+  align-self: center;
+  text-align: center;
+  padding: 0.4rem 0.5rem;
+  :last-child {
+    border-right: none;
+  }
+`;
+
 const QuestionsContainer = () => {
   const [currentPage, setCurrentPage] = useState(1);
   const [currentSize, setCurrentSize] = useState(15);
   const [listData, setListData] = useState([]);
+  const [originData, setOriginData] = useState([]);
+  const sortTab = ["Newest", "Unanswered", "Voted"];
+  const [currentTab, setCurrentTab] = useState("newest");
+  const [totalPages, setTotalPages] = useState();
+  const [totalBoards, setTotalBoards] = useState();
+
+  useEffect(() => {
+    const fetch = async () => {
+      axios.defaults.withCredentials = true;
+      await axios
+        .get(`${BASE_URL}?page=1&size=${totalBoards}`, {
+          headers: {
+            "ngrok-skip-browser-warning": "skip",
+          },
+        })
+        .then((res) => {
+          const { data } = res;
+          if (currentTab === "newest") setListData(originData);
+          if (currentTab === "unanswered") {
+            setListData(data.data.filter((v) => v.answer.length === 0));
+          }
+          if (currentTab === "voted") {
+            setListData(data.data.filter((v) => v.voteCount !== 0));
+          }
+        });
+    };
+    fetch();
+  }, [currentTab]);
 
   useEffect(() => {
     const fetch = async () => {
@@ -86,39 +127,64 @@ const QuestionsContainer = () => {
         })
         .then((res) => {
           const { data } = res;
+          console.log(data);
           setListData(data.data);
+          setOriginData(data.data);
+          setTotalPages(data.pageInfo.totalPages);
+          setTotalBoards(data.pageInfo.totalBoards);
         });
     };
-
     fetch();
   }, [currentPage, currentSize]);
+
+  const onTabClick = (tabName) => {
+    setCurrentTab(tabName.toLowerCase());
+  };
 
   return (
     <StyledQuestionsContainer className="QuestionsContainer">
       <div className="questions-header">
         <h1 className="board-title">All Questions</h1>
 
-        <Link to="/ask">
-          <Button
-            bgcolor={(props) => props.theme.buttonBlue}
-            font="white"
-            border="none"
-            fontSize="15px"
-          >
-            Ask Question
-          </Button>
-        </Link>
+        {window.localStorage.getItem("accessToken") ? (
+          <Link to="/ask">
+            <Button
+              bgcolor={(props) => props.theme.buttonBlue}
+              font="white"
+              border="none"
+              fontSize="15px"
+            >
+              Ask Question
+            </Button>
+          </Link>
+        ) : (
+          <Link to="/users/login">
+            <Button
+              bgcolor={(props) => props.theme.buttonBlue}
+              font="white"
+              border="none"
+              fontSize="15px"
+            >
+              Ask Question
+            </Button>
+          </Link>
+        )}
       </div>
       <div className="questions-nav-wrapper">
         <div className="questions-count"> {"23,136,393"} questions</div>
         <div className="questions-filtering-buttons">
           <nav className="questions-nav">
-            <button className="questions-tab">Newest</button>
-            <button className="questions-tab">Unanswered</button>
-            <button className="questions-tab">
-              More
-              <FontAwesomeIcon className="icon" icon={faCaretDown} />
-            </button>
+            {sortTab.map((v, idx) => (
+              <NavTab
+                className="questions-tab"
+                onClick={() => onTabClick(v)}
+                currentTab={currentTab}
+                value={v.toLowerCase()}
+                key={idx}
+              >
+                {v}
+              </NavTab>
+            ))}
           </nav>
           <Button
             bgcolor={(props) => props.theme.lightBlueTag}
@@ -136,12 +202,15 @@ const QuestionsContainer = () => {
       <ul className="questions-container">
         {listData &&
           listData.map((v) => <Question key={v.boardId} questionItem={v} />)}
-        <Pagination
-          currentPage={currentPage}
-          currentSize={currentSize}
-          setCurrentPage={setCurrentPage}
-          setCurrentSize={setCurrentSize}
-        />
+        {currentTab === "newest" && (
+          <Pagination
+            currentPage={currentPage}
+            currentSize={currentSize}
+            setCurrentPage={setCurrentPage}
+            setCurrentSize={setCurrentSize}
+            totalPages={totalPages}
+          />
+        )}
       </ul>
     </StyledQuestionsContainer>
   );

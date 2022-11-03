@@ -7,9 +7,27 @@ import axios from "axios";
 import { useRecoilState } from "recoil";
 import { BASE_URL } from "../../util/api";
 import { loginStatus, loginInfo } from "../../atoms/atoms";
-import { setRefreshTokenToCookie } from "../../util/Cookies";
+import {
+  setRefreshTokenToCookie,
+  setAcceddTokenCookie,
+} from "../../util/Cookies";
 
 //outline->으로 주기
+
+const LoginInputline = styled.input`
+  width: 100%;
+  height: 2rem;
+
+  border: ${(props) =>
+      props.active !== "" ? "rgba(252, 136, 136, 0.6)" : "lightgray"}
+    solid 1px;
+  &:focus {
+    outline: ${(props) =>
+        props.active !== "" ? "rgba(252, 136, 136, 0.6)" : "#cde9fe"}
+      solid 4px;
+  }
+`;
+
 const LoginForm = styled.form`
   border-radius: 10px;
   width: 19rem;
@@ -21,27 +39,12 @@ const LoginForm = styled.form`
   flex-direction: column;
   flex-wrap: wrap;
   box-shadow: rgba(0, 0, 0, 0.24) 0px 3px 8px;
-  /* box-shadow: ${(props) => (props.login ? "red" : "blue")}; */
 
   .errmassage {
-    /* box-shadow: red 0px 3px 8px; */
     color: red;
-    font-size: 14px;
-    font-weight: bold;
+    font-size: 12px;
   }
 
-  input {
-    width: 100%;
-    height: 2rem;
-    border: 1px solid black;
-
-    &:focus {
-      box-shadow: 0px 0px 3px 6px rgba(127, 193, 240, 0.32);
-
-      /* background-color: #e4f7fc; */
-      border: none;
-    }
-  }
   .label {
     display: flex;
     width: 100%;
@@ -107,6 +110,10 @@ const BackgroundLogin = styled.div`
     .Employer-link {
       margin-top: 1rem;
     }
+  }
+  a {
+    text-decoration: none;
+    color: hsl(206, 100%, 40%);
   }
 `;
 
@@ -182,6 +189,7 @@ const Login = () => {
         // localStorage.setItem("loginStatus", loginStatus);
         axios.defaults.headers.common["Authorization"] = `${accessToken}`;
         setRefreshTokenToCookie(refreshToken);
+        setAcceddTokenCookie(accessToken);
         navigate("/");
       })
       .catch((err) => console.log(err.response));
@@ -197,14 +205,14 @@ const Login = () => {
         >
           <div className="inputform">
             <span className="label">Email</span>
-            <input
-              color={"red"}
-              value={login.email || ""}
+            <LoginInputline
+              active={emailerrorMessage}
+              value={login.email}
               //  onChange={onChangeHandler('userId')}
               type="text"
               name="email"
               onChange={onChangeHandler("email")}
-            ></input>
+            ></LoginInputline>
             {emailerrorMessage === "" ? null : (
               <div className="errmassage">{emailerrorMessage}</div>
             )}
@@ -216,13 +224,15 @@ const Login = () => {
               </Labellink>
             </div>
 
-            <input
+            <LoginInputline
+              active={passworderrorMessage}
               value={login.password || ""}
               //  onChange={onChangeHandler('password')}
               type="password"
               name="password"
               onChange={onChangeHandler("password")}
-            ></input>
+            ></LoginInputline>
+
             {passworderrorMessage === "" ? null : (
               <div className="errmassage" color={"red"}>
                 {passworderrorMessage}
@@ -240,14 +250,12 @@ const Login = () => {
         <div className="sublink">
           <div>
             Dont't have an account?
-            <a href="https://stackoverflow.com/users/signup?ssrc=head&returnurl=https%3a%2f%2fstackoverflow.com%2f">
-              Sign up
-            </a>
+            <a href="/users/signup">Sign up</a>
           </div>
 
           <div className="Employer-link">
             Are you an employer?
-            <a href="https://stackoverflow.com/users/signup?ssrc=head&returnurl=https%3a%2f%2fstackoverflow.com%2f">
+            <a href="https://talent.stackoverflow.com/users/login">
               Sign up on Talent
             </a>
           </div>

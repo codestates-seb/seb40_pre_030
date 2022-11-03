@@ -44,6 +44,7 @@ public class AnswerController {
         requestBody.setUser(user);
         requestBody.setBoardId(boardId);
         requestBody.setNickName(user.getNickName());
+        requestBody.setPhotoURL(user.getPhotoURL());
 
         Answer answer = mapper.answerPostDtoToAnswer(requestBody);
         Board board = answerService.findVerifiedBoard(boardId);

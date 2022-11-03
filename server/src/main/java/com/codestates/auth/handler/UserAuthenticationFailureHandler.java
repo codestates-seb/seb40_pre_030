@@ -4,8 +4,11 @@ import com.codestates.response.ErrorResponse;
 import com.google.gson.Gson;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.http.HttpStatus;
-import org.springframework.http.MediaType;
+import org.springframework.security.authentication.AuthenticationCredentialsNotFoundException;
+import org.springframework.security.authentication.BadCredentialsException;
+import org.springframework.security.authentication.InternalAuthenticationServiceException;
 import org.springframework.security.core.AuthenticationException;
+import org.springframework.security.core.userdetails.UsernameNotFoundException;
 import org.springframework.security.web.authentication.AuthenticationFailureHandler;
 
 import javax.servlet.ServletException;
@@ -24,15 +27,27 @@ public class UserAuthenticationFailureHandler implements AuthenticationFailureHa
 
         log.error("# Authentication failed: {}", exception.getMessage());
 
-        sendErrorResponse(response);
+        String errorMessage;
+        if (exception instanceof BadCredentialsException) {
+            errorMessage = "아이디 또는 비밀번호가 맞지 않습니다. 다시 확인해 주세요.";
+        } else if (exception instanceof InternalAuthenticationServiceException) {
+            errorMessage = "아이디 또는 비밀번호가 맞지 않습니다. 다시 확인해 주세요.";
+        } else if (exception instanceof UsernameNotFoundException) {
+            errorMessage = "계정이 존재하지 않습니다. 회원가입 후 로그인 해주세요.";
+        } else if (exception instanceof AuthenticationCredentialsNotFoundException) {
+            errorMessage = "인증 요청이 거부되었습니다. 관리자에게 문의하세요.";
+        } else {
+            errorMessage = "알 수 없는 이유로 로그인에 실패하였습니다 관리자에게 문의하세요.";
+        }
+
+        sendErrorResponse(response, errorMessage);
     }
 
-    private void sendErrorResponse(HttpServletResponse response) throws IOException {
+    private void sendErrorResponse(HttpServletResponse response, String errorMessage) throws IOException {
 
-        Gson gson = new Gson();
-        ErrorResponse errorResponse = ErrorResponse.of(HttpStatus.UNAUTHORIZED);
-        response.setContentType(MediaType.APPLICATION_JSON_VALUE);
-        response.setStatus(HttpStatus.UNAUTHORIZED.value());
-        response.getWriter().write(gson.toJson(errorResponse, ErrorResponse.class));
+        ErrorResponse errorResponse = ErrorResponse.of(HttpStatus.UNAUTHORIZED, errorMessage);
+        response.setCharacterEncoding("utf-8");
+        response.setStatus(401);
+        response.getWriter().write(new Gson().toJson(errorResponse));
     }
 }

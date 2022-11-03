@@ -8,9 +8,11 @@ import {
   faTrophy,
   faFileCircleQuestion,
   faBars,
+  faUser,
 } from "@fortawesome/free-solid-svg-icons";
 import Atag from "./Atag";
 import { Link } from "react-router-dom";
+import styled from "styled-components";
 
 const headerNav = {
   false: ["About", "Products", "For Teams"],
@@ -19,22 +21,25 @@ const headerNav = {
 
 const contents = {
   false: ["Log in", "Sign up"],
-  true: ["Profile", faInbox, faTrophy, faFileCircleQuestion, faBars],
+  true: [faUser, faInbox, faTrophy, faFileCircleQuestion, faBars],
 };
 
+// const Headerbutton = styled.button`
+//   border: none;
+//   background: ${(props) => props.background};
+//   color: white;
+//   color: ${(props) => props.color || "#013a60"};
+// `;
+
 export const Logo = () => {
-  return (
-    <Link to="/">
-      <div className="nav_item"></div>
-    </Link>
-  );
+  return <Link className="nav_item" to="/"></Link>;
 };
 
 export const HeaderNav = ({ logged }) => {
   return (
     <>
       {headerNav[logged].map((el, idx) => (
-        <div key={idx}>
+        <div className="hovergray_nav" key={idx}>
           <Atag name={el} logged={logged} />
         </div>
       ))}
@@ -58,7 +63,7 @@ export const SearchBar = ({ placeHolderText }) => {
     </form>
   );
 };
-
+//로그인 회원가입 버튼으로 만들어줌
 export const HeaderCont = ({ logged }) => {
   return (
     <>
@@ -77,29 +82,14 @@ export const HeaderCont = ({ logged }) => {
               </div>
             </Link>
           ) : el === faBars ? (
-            <Link to="users/logout">
+            <Link className="hovergray_cont" to="users/logout">
               <Atag name={el} logged={logged} />
             </Link>
           ) : (
-            <Atag name={el} logged={logged} />
+            <Atag className="hovergray_cont" name={el} logged={logged} />
           )}
         </div>
       ))}
     </>
   );
 };
-
-// {
-//   el === "Log in" ? (
-//     <Link to="/users/login">
-//       <Atag name={el} logged={logged} />
-//     </Link>
-//   ) : null;
-// }
-// {
-//   el === "Sign up" ? (
-//     <Link to="users/signup">
-//       <Atag name={el} logged={logged} />
-//     </Link>
-//   ) : null;
-// }

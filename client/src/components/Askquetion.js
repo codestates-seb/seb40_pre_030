@@ -6,6 +6,9 @@ import "@toast-ui/editor/dist/toastui-editor.css";
 import { Editor } from "@toast-ui/react-editor";
 import { BASE_URL } from "../../src/util/api";
 import axios from "axios";
+import { useRecoilState } from "recoil";
+import { loginInfo } from "../atoms/atoms";
+import { useNavigate } from "react-router";
 //아코디언 더미 데이터
 const Accordiondata = [
   {
@@ -167,19 +170,24 @@ const Main = styled.main`
   }
 `;
 const Askquetion = () => {
-  const [AskTitle, SetAskTitle] = useState("");
-  const [AskBody, SetAskBody] = useState("");
+  const [title, Settitle] = useState("");
+  const [body, Setbody] = useState("");
   const textRef = useRef("");
   const [TitleId, SetTitleId] = useState(0);
   const [TitleOn, SetTitleOn] = useState(false);
   const [TitleOn2, SetTitleOn2] = useState(false);
+  const [userInformation, setUserInformation] = useRecoilState(loginInfo);
+  const navigate = useNavigate();
+  const accessToken = window.localStorage.getItem("accessToken");
+
   const AskTitleChange = (event) => {
-    SetAskTitle(event.target.value);
+    Settitle(event.target.value);
   };
 
   const handleChangeInput = () => {
-    SetAskBody(textRef.current.getInstance().getMarkdown());
+    Setbody(textRef.current.getInstance().getMarkdown().trim());
   };
+
   const TitleClick = (id) => {
     if (id === TitleId) {
       SetTitleId(0);
@@ -187,42 +195,34 @@ const Askquetion = () => {
       SetTitleId(id);
     }
   };
+
   const TitleOnClick = () => {
     SetTitleOn(!TitleOn);
   };
+
   const TitleOnClick2 = () => {
     SetTitleOn2(!TitleOn2);
   };
-  // const Submit = (e) => {
-  //   e.preventDefault();
-
-  //   const Questiondata = { title: AskTitle, body: AskBody };
-  //   fetch(`${BASE_URL}ask`, {
-  //     method: "POST",
-  //     body: JSON.stringify(Questiondata),
-  //     headers: {
-  //       "Content-Type": "application/json",
-  //     },
-  //   })
-  //     .then(() => {
-  //       window.location.reload();
-  //     })
-  //     .catch((err) => console.log(err));
-  // };
 
   const AskHandler = (e) => {
     e.preventDefault();
-    axios
-      .post(`${BASE_URL}ask`, {
-        data: { title: AskTitle, body: AskBody },
-        headers: {
-          "ngrok-skip-browser-warning": "skip",
-        },
-      })
+    axios({
+      method: "post",
+      url: `${BASE_URL}ask`,
+      data: { title, body, photoURL: userInformation.photoURL },
+      headers: {
+        "ngrok-skip-browser-warning": "skip",
+        authorization: accessToken,
+      },
+    })
       .then(function (response) {
-        console.log(response);
+        navigate(`/question/${response.data.boardId}`);
+        console.log(response.data.boardId);
       })
-      .catch((err) => console.log(err));
+      .catch((err) => {
+        console.log(err);
+        alert("글 작성에 실패했습니다");
+      });
   };
 
   return (
@@ -264,7 +264,7 @@ const Askquetion = () => {
                         ref={textRef}
                         height="500px"
                         initialEditType="markdown"
-                        initialValue=""
+                        initialValue=" "
                         onChange={handleChangeInput}
                       />
                     </div>
@@ -280,11 +280,11 @@ const Askquetion = () => {
                     ></input>
                   </div>
                 </section>
-                <div>
+                <form>
                   <button className="Submitbtn" onClick={AskHandler}>
                     Review your question
                   </button>
-                </div>
+                </form>
               </form>
               <aside className="Aside">
                 <div className="Asidewrap">

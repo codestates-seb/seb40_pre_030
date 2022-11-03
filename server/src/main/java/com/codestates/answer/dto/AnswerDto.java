@@ -25,6 +25,8 @@ public class AnswerDto {
         private long boardId;
 
         private String nickName;
+
+        private String photoURL;
     }
     @Getter
     public static class Patch{

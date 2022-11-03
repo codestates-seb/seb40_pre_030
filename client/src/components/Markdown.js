@@ -980,10 +980,7 @@ const StyledMarkdown = styled.div`
   }
 `;
 
-const Markdown = ({ markdown, AnswerBody }) => {
-  // 테스트용 마크다운
-  markdown = `${AnswerBody}`;
-
+const Markdown = ({ markdown }) => {
   return (
     <StyledMarkdown className="Markdown">
       <div className="markdown-body">

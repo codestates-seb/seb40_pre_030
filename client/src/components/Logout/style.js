@@ -18,13 +18,21 @@ export const Contents = styled.div`
     display: flex;
     justify-content: center;
     align-items: center;
+    flex-direction: column;
     font-size: 1.61538462rem;
     margin-top: 1em;
     margin-bottom: 1em;
     margin-left: 0;
     margin-right: 0;
-    max-width: 480px;
+    width: 700px;
     line-height: 2.5rem;
+    p {
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      margin-left: auto !important;
+      margin-right: auto !important;
+    }
   }
 `;
 
@@ -44,9 +52,23 @@ export const OutForm = styled.form`
   }
   .decider {
     display: flex;
-    justify-content: space-evenly;
+    /* justify-content: space-evenly; */
+    align-items: center;
     padding: 0.8rem;
     line-height: 1rem;
+    .cancelbtn {
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      text-decoration: none;
+      color: hsl(206, 100%, 40%);
+      padding-top: 4px;
+      width: 56px;
+      height: 35px;
+      :hover {
+        background-color: ${(props) => props.theme.headerhovergray};
+      }
+    }
   }
   .hint {
     padding-top: 1rem;
@@ -77,6 +99,11 @@ export const SiteLi = styled.li`
     .siteName {
       margin-left: 0.5rem;
     }
+  }
+  .cancelbtn {
+    display: flex;
+    justify-content: center;
+    align-items: center;
   }
 `;
 

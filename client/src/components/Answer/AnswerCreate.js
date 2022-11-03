@@ -36,18 +36,27 @@ const AnswerCreate = () => {
   const [answerBody, SetanswerBody] = useState();
   const Bodydata = useRef();
   const [logged, SetLogged] = useRecoilState(loginStatus);
+  const { id } = useParams();
   const navigate = useNavigate();
+  const accessToken = window.localStorage.getItem("accessToken");
   const AnswerChange = () => {
     SetanswerBody(Bodydata.current.getInstance().getMarkdown());
   };
-  const Answerpost = () => {
-    if (answerBody === undefined) {
+  const Answerpost = (authorizationCode) => {
+    if (answerBody === undefined || "") {
       window.alert("답변을 입력해주세요!");
     } else {
-      axios
-        .post(`${BASE_URL}answers/1`, { answerBody })
+      axios({
+        method: "post",
+        url: `${BASE_URL}answers/${id}`,
+        data: { answerBody },
+        headers: {
+          "ngrok-skip-browser-warning": "skip",
+          authorization: accessToken,
+        },
+      })
         .then((res) => {
-          window.location.reload();
+          navigate(`/question/${id}`);
         })
         .catch((err) => {
           if (err.response.status === 401) {
@@ -67,9 +76,10 @@ const AnswerCreate = () => {
           <Editor
             onChange={AnswerChange}
             ref={Bodydata}
+            width="200px"
             height="350px"
             initialEditType="markdown"
-            initialValue=""
+            initialValue="　"
           />
           <div className="Postwrap">
             <button className="Postbtn" onClick={Answerpost}>
