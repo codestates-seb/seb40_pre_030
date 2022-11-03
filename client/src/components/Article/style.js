@@ -54,11 +54,14 @@ export const ArticleContent = styled.article`
     justify-content: space-between;
     align-items: center;
 
-    .Tag-section > button {
-      margin-right: 5px;
-      background-color: #fff;
-      border: none;
-      color: #3d4044;
+    .Tag-section {
+      position: relative;
+      button {
+        margin-right: 5px;
+        background-color: #fff;
+        border: none;
+        color: #3d4044;
+      }
     }
     .post-owner {
       width: 190px;

@@ -1,4 +1,3 @@
-import ReactMarkdown from "react-markdown";
 import Tag from "../tags/Tag";
 import { ArticleContent, ArticleWrapper } from "./style";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
@@ -7,6 +6,9 @@ import { useState, useEffect } from "react";
 import axios from "axios";
 import { BASE_URL } from "../../util/api";
 import { useNavigate, useParams } from "react-router";
+import Bubble from "./Bubble";
+import { useRecoilState } from "recoil";
+import { currentQuestionState } from "../../atoms/atoms";
 
 const dummyArticle = {
   post_id: 1,
@@ -29,15 +31,33 @@ const data = `
 
 `;
 
-const Article = ({ pageid }) => {
-  const [ArticleData, setArticleData] = useState("");
+const Button = ({ value, setOpenShare }) => {
+  const { id } = useParams();
   const navigate = useNavigate();
+  const onButtonClick = (value) => {
+    if (value === "Share") setOpenShare((pre) => !pre);
+    if (value === "Edit") navigate(`/question/${id}/edit`);
+    if (value === "Delete") axios.delete(`${BASE_URL}/${id}`);
+  };
+
+  return <button onClick={() => onButtonClick(value)}>{value}</button>;
+};
+
+const Article = () => {
+  const [ArticleData, setArticleData] = useState("");
+  const UpdateArticleValues = ["Share", "Edit", "Delete"];
+  const [openShare, setOpenShare] = useState(false);
+  const [currentQuestion, setCurrentQuestion] =
+    useRecoilState(currentQuestionState);
+  const { id } = useParams();
+
   useEffect(() => {
+    window.scrollTo(0, 0);
     return async () => {
       axios.defaults.withCredentials = true;
 
       axios
-        .get(`${BASE_URL}1`, {
+        .get(`${BASE_URL}${id}`, {
           headers: {
             "ngrok-skip-browser-warning": "skip",
           },
@@ -45,10 +65,11 @@ const Article = ({ pageid }) => {
         .then((res) => {
           const { data } = res;
           setArticleData(data);
+          setCurrentQuestion(data);
         });
     };
   }, []);
-  console.log();
+
   const handleUpClick = () => {
     axios.patch(`${BASE_URL}1/voteUp`).then((response) => {
       window.location.reload();
@@ -59,6 +80,7 @@ const Article = ({ pageid }) => {
       window.location.reload();
     });
   };
+
   return (
     <ArticleWrapper>
       <div className="title">{ArticleData.title}</div>
@@ -97,10 +119,11 @@ const Article = ({ pageid }) => {
             </div>
             <div className="body-footer">
               <div className="Tag-section">
-                <button value="">Share </button>
-                <button value="">Edit</button>
-                <button value="">Delete</button>
-                <button value="">Flag</button>
+                {UpdateArticleValues.map((v) => (
+                  <Button key={v} value={v} setOpenShare={setOpenShare} />
+                ))}
+                {/* 배포 후 글 주소 기재하기 */}
+                {openShare && <Bubble link="글 주소 기재" />}
               </div>
               <div className="post-owner">
                 <div className="user-action-item">

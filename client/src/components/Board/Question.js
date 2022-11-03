@@ -85,7 +85,7 @@ const Question = ({ questionItem }) => {
         </div>
       </div>
       <div className="question-content">
-        <Link className="toQuestion" to={`question/${questionItem.boardId}`}>
+        <Link className="toQuestion" to={"/question/" + questionItem.boardId}>
           <h2 className="question-content-title">{questionItem.title}</h2>
         </Link>
         <div className="question-content-body">
