@@ -12,6 +12,7 @@ const QuestionViewWrap = styled.div`
   .ViewWrap {
     display: flex;
     flex-direction: row;
+    overflow-x: hidden;
     /* align-itmes: center;
     justify-content: center; */
     .ViewWrap2 {
@@ -28,10 +29,7 @@ const QuestionView = () => {
           <Navbar />
           <div className="ViewWrap2">
             <Article />
-            {/* <AnswersContainer /> */}
           </div>
-
-          {/* <Sidebar /> */}
         </div>
       </QuestionViewWrap>
     </>
