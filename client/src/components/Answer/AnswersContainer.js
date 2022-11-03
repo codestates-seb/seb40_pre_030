@@ -12,7 +12,7 @@ import Tag from "../tags/Tag";
 import { useNavigate, useParams } from "react-router";
 import Bubble from "../Article/Bubble";
 import { useRecoilState } from "recoil";
-import { currentAnswerState } from "../../atoms/atoms";
+import { currentAnswerState, loginInfo } from "../../atoms/atoms";
 import { calculateTime } from "../Board/util/calculateTime";
 const StyledAnswersContainer = styled.div`
   padding: 10px;
@@ -68,6 +68,8 @@ const AnswersContainer = () => {
   const [Count, setCount] = useState(0);
   const { id } = useParams();
   const navigate = useNavigate();
+  const [currentUser, setCurrentUser] = useRecoilState(loginInfo);
+  const accessToken = window.localStorage.getItem("accessToken");
 
   //답변 조회 기능
   useEffect(() => {
@@ -85,15 +87,29 @@ const AnswersContainer = () => {
       });
   }, []);
 
-  const onUpdateButtonClick = (ind, value) => {
-    setSelectedComment(ind);
+  const onUpdateButtonClick = (answerId, value) => {
+    setSelectedComment(answerId);
+    setCurrentAnswer(AnswerData.filter((v) => v.answerId === answerId)[0]);
     if (value === "Share") setOpenShare((pre) => !pre);
     if (value === "Edit") {
-      setCurrentAnswer(AnswerData.filter((v) => v.answerId === ind)[0]);
-      navigate(`/answer/${ind}/edit`);
+      if (currentUser.userId === currentAnswer.userId) {
+        navigate(`/answer/${answerId}/edit`);
+      } else alert("You can only edit or delete your own!");
     }
     if (value === "Delete") {
-      axios.delete(`${BASE_URL}answers/${ind}`);
+      if (currentUser.userId === currentAnswer.userId) {
+        if (window.confirm("Are you sure you want to delete it?")) {
+          axios
+            .delete(`${BASE_URL}answers/${answerId}`, {
+              headers: {
+                authorization: accessToken,
+              },
+            })
+            .then((res) => {
+              window.location.reload();
+            });
+        }
+      } else alert("You can only edit or delete your own!");
     }
   };
 
