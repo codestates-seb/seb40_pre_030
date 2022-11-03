@@ -52,13 +52,17 @@ const NavTitle = styled.div`
 
 const NavContainer = styled.div`
   /* position: fixed; */
-  min-height: 100vh;
+  position: sticky;
+  top: 0;
+  height: 100vh;
   min-width: 185px;
   color: gray;
   padding-top: 24px;
   border-right: lightgray solid 1px;
   margin-left: 30px;
   justify-self: end;
+  //위치조정을 위해?
+  margin-bottom: 40px;
   .nav-area {
     margin-bottom: 40px;
   }
