@@ -209,7 +209,7 @@ const Askquetion = () => {
     axios({
       method: "post",
       url: `${BASE_URL}ask`,
-      data: { title, body, photoURL: "1234" },
+      data: { title, body, photoURL: userInformation.photoURL },
       headers: {
         "ngrok-skip-browser-warning": "skip",
         authorization: accessToken,
