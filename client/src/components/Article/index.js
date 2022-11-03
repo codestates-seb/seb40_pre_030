@@ -51,6 +51,7 @@ const Article = () => {
   const [currentQuestion, setCurrentQuestion] =
     useRecoilState(currentQuestionState);
   const { id } = useParams();
+  const accessToken = window.localStorage.getItem("accessToken");
 
   window.scrollTo(0, 0);
   useEffect(() => {
@@ -83,6 +84,14 @@ const Article = () => {
     axios.patch(`${BASE_URL}${id}/vote${value}`, {
       headers: {
         "ngrok-skip-browser-warning": "skip",
+      },
+    });
+    axios({
+      method: "patch",
+      url: `${BASE_URL}${id}/vote${value}`,
+      headers: {
+        "ngrok-skip-browser-warning": "skip",
+        authorization: accessToken,
       },
     });
   };

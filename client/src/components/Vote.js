@@ -21,18 +21,8 @@ const StyledVote = styled.div`
 `;
 
 const Vote = ({ idx, AnswerData, setAnswerData, datas }) => {
-  const navigate = useNavigate();
   const { id } = useParams();
-
-  // const handleUpClick = () => {
-  //   axios.patch(`${BASE_URL}answers/${id}/${datas.answerId}/voteUp`);
-
-  //   setCount(Count + 1);
-  // };
-  // const handleDownClick = () => {
-  //   axios.patch(`${BASE_URL}answers/${id}/${datas.answerId}/voteDown`);
-  //   setCount(Count - 1);
-  // };
+  const accessToken = window.localStorage.getItem("accessToken");
 
   const onVoteClick = (value) => {
     let answerDataCopy = [...AnswerData];
@@ -44,9 +34,12 @@ const Vote = ({ idx, AnswerData, setAnswerData, datas }) => {
       answerDataCopy[idx] = { ...datas, voteCount: datas.voteCount - 1 };
       setAnswerData(answerDataCopy);
     }
-    axios.patch(`${BASE_URL}answers/${id}/${datas.answerId}/vote${value}`, {
+    axios({
+      method: "patch",
+      url: `${BASE_URL}answers/${id}/${datas.answerId}/vote${value}`,
       headers: {
         "ngrok-skip-browser-warning": "skip",
+        authorization: accessToken,
       },
     });
   };
