@@ -37,7 +37,7 @@ public class AnswerDto {
         private String answerBody;
     }
 
-    @Getter
+    @Getter @Setter
     @Builder
     public static class Response{
         private long answerId;
@@ -46,6 +46,7 @@ public class AnswerDto {
         private LocalDateTime createdAt;
         private LocalDateTime modifiedAt;
         private int voteCount;
+        private Long userId;
     }
 
     @Getter

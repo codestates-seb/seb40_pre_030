@@ -51,7 +51,7 @@ public class AnswerController {
 
         Answer createAnswer = answerService.createAnswer(answer);
         AnswerDto.Response response = mapper.answerToAnswerResponse(createAnswer);
-
+        response.setUserId(user.getUserId());
         return new ResponseEntity<>(response, HttpStatus.CREATED);
     }
 
