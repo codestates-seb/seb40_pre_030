@@ -1,5 +1,7 @@
 import { Editor } from "@toast-ui/react-editor";
+import axios from "axios";
 import { useEffect, useRef, useState } from "react";
+import { useNavigate } from "react-router";
 import { useRecoilState } from "recoil";
 import styled from "styled-components";
 import { currentQuestionState } from "../atoms/atoms";
@@ -7,6 +9,7 @@ import Button from "../components/Button";
 import Markdown from "../components/Markdown";
 import Navbar from "../components/navbar/Navbar";
 import { ListContent, StyledYellowBox } from "../components/Sidebar/YellowBox";
+import { BASE_URL } from "../util/api";
 
 const StyledEditQuestion = styled.div`
   display: grid;
@@ -78,18 +81,46 @@ const StyledEditQuestion = styled.div`
 `;
 
 const EditQuestion = ({ article }) => {
-  const [AskBody, SetAskBody] = useState("");
-  const textRef = useRef("");
   const [currentQuestion, setCurrentQuestion] =
     useRecoilState(currentQuestionState);
-
-  const handleChangeInput = () => {
-    SetAskBody(textRef.current.getInstance().getMarkdown());
-  };
+  const [body, SetBody] = useState(currentQuestion.body);
+  const [title, setTitle] = useState(currentQuestion.title);
+  const textRef = useRef("");
+  const accessToken = window.localStorage.getItem("accessToken");
+  const { boardId } = currentQuestion;
+  const navigate = useNavigate();
 
   useEffect(() => {
-    SetAskBody(textRef.current.getInstance().getMarkdown());
+    SetBody(textRef.current.getInstance().getMarkdown());
   }, []);
+
+  const handleChangeInput = () => {
+    SetBody(textRef.current.getInstance().getMarkdown());
+  };
+
+  const onTitleChange = (e) => {
+    setTitle(e.target.value);
+  };
+
+  const onSaveClick = (e) => {
+    e.preventDefault();
+    axios({
+      method: "patch",
+      url: `${BASE_URL}${boardId}/edit`,
+      data: { title, body },
+      headers: {
+        "ngrok-skip-browser-warning": "skip",
+        authorization: accessToken,
+      },
+    })
+      .then(function (response) {
+        navigate(`/question/${boardId}`);
+      })
+      .catch((err) => {
+        console.log(err);
+        alert("글 수정에 실패했습니다");
+      });
+  };
 
   return (
     <StyledEditQuestion>
@@ -108,20 +139,21 @@ const EditQuestion = ({ article }) => {
             </p>
           </div>
           <label>Title</label>
-          <input value={currentQuestion.title} />
+          <input value={title} onChange={onTitleChange} />
           <label>Body</label>
           <Editor
             ref={textRef}
             height="300px"
             initialEditType="markdown"
-            initialValue={currentQuestion.body}
+            initialValue={body}
             onChange={handleChangeInput}
           />
           <div className="editor-content-viewer">
-            <Markdown markdown={AskBody} />
+            <Markdown markdown={body} />
           </div>
           <div className="edit-buttons">
             <Button
+              onClick={onSaveClick}
               bgcolor={(props) => props.theme.buttonBlue}
               font="white"
               border="none"
