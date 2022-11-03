@@ -15,7 +15,6 @@ import { useRecoilState } from "recoil";
 import { currentAnswerState } from "../../atoms/atoms";
 const StyledAnswersContainer = styled.div`
   padding: 10px;
-
   .answers-container-title {
     font-size: 1.2em;
     padding: 20px;
@@ -26,7 +25,6 @@ const StyledAnswer = styled.li`
   display: flex;
   flex-direction: column;
   width: 900px;
-  /* width: 100%; */
   .answer-main-wrap {
     border-bottom: 1px solid lightgrey;
     .answer-main {
@@ -66,26 +64,25 @@ const AnswersContainer = () => {
   const [selectedComment, setSelectedComment] = useState();
   const [currentAnswer, setCurrentAnswer] = useRecoilState(currentAnswerState);
   const UpdateAnswerValues = ["Share", "Edit", "Delete"];
+  const [Count, setCount] = useState(0);
   const { id } = useParams();
   const navigate = useNavigate();
 
   //답변 조회 기능
   useEffect(() => {
-    return async () => {
-      axios.defaults.withCredentials = true;
+    axios.defaults.withCredentials = true;
 
-      axios
-        .get(`${BASE_URL}${id}`, {
-          headers: {
-            "ngrok-skip-browser-warning": "skip",
-          },
-        })
-        .then((res) => {
-          const { data } = res;
-          setAnswerData(data.answer);
-        });
-    };
-  }, [id]);
+    axios
+      .get(`${BASE_URL}${id}`, {
+        headers: {
+          "ngrok-skip-browser-warning": "skip",
+        },
+      })
+      .then((res) => {
+        const { data } = res;
+        setAnswerData(data.answer);
+      });
+  }, [Count]);
 
   const onUpdateButtonClick = (ind, value) => {
     setSelectedComment(ind);
@@ -94,10 +91,10 @@ const AnswersContainer = () => {
       setCurrentAnswer(AnswerData.filter((v) => v.answerId === ind)[0]);
       navigate(`/answer/${ind}/edit`);
     }
-    if (value === "Delete")
-      axios.delete(`${BASE_URL}answers/${ind}`).then((res) => {
-        navigate(`/question/${id}`);
-      });
+    if (value === "Delete") {
+      axios.delete(`${BASE_URL}answers/${ind}`);
+      setCount(Count + 1);
+    }
   };
 
   return (
@@ -109,7 +106,7 @@ const AnswersContainer = () => {
             return (
               <div className="answer-main-wrap" key={datas.answerId}>
                 <div className="answer-main">
-                  <Vote datas={datas} />
+                  <Vote datas={datas} setCount={setCount} Count={Count} />
                   <div className="answer-body">
                     <div>
                       <Markdown markdown={datas.answerBody} />
@@ -147,7 +144,7 @@ const AnswersContainer = () => {
           })}
         </StyledAnswer>
 
-        <AnswerCreate />
+        <AnswerCreate setCount={setCount} Count={Count} />
       </ul>
     </StyledAnswersContainer>
   );

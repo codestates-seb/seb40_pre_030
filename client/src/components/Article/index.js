@@ -9,9 +9,6 @@ import { useNavigate, useParams } from "react-router";
 import Bubble from "./Bubble";
 import { useRecoilState } from "recoil";
 import { currentQuestionState } from "../../atoms/atoms";
-import AnswersContainer from "../Answer/AnswersContainer";
-import Sidebar from "../Sidebar/Sidebar";
-import { Link } from "react-router-dom";
 import { calculateTime } from "../Board/util/calculateTime";
 
 const dummyArticle = {
@@ -29,10 +26,7 @@ const dummyArticle = {
 
 const data = `
 # 헤딩
-
 ***굵게***
-
-
 `;
 
 const Button = ({ value, setOpenShare }) => {
@@ -52,136 +46,116 @@ const Button = ({ value, setOpenShare }) => {
 
 const Article = () => {
   const [ArticleData, setArticleData] = useState("");
+  const [Count, setCount] = useState(0);
   const UpdateArticleValues = ["Share", "Edit", "Delete"];
   const [openShare, setOpenShare] = useState(false);
   const [currentQuestion, setCurrentQuestion] =
     useRecoilState(currentQuestionState);
   const { id } = useParams();
   const navigate = useNavigate();
+  console.log(Count);
   useEffect(() => {
     window.scrollTo(0, 0);
-    return async () => {
-      axios.defaults.withCredentials = true;
 
-      axios
-        .get(`${BASE_URL}${id}`, {
-          headers: {
-            "ngrok-skip-browser-warning": "skip",
-          },
-        })
-        .then((res) => {
-          const { data } = res;
-          setArticleData(data);
-          setCurrentQuestion(data);
-          console.log(data.modifiedAt);
-        });
-    };
-  }, []);
+    axios.defaults.withCredentials = true;
+
+    axios.get(`${BASE_URL}${id}`).then((res) => {
+      const { data } = res;
+      setArticleData((a) => data);
+      setCurrentQuestion(data);
+      console.log(data.modifiedAt);
+    });
+  }, [Count]);
 
   // const modate = ArticleData.createdAt;
   // console.log(modate);
   // console.log(modate.toLocaleDateString());
 
   const handleUpClick = () => {
-    axios.patch(`${BASE_URL}${id}/voteUp`).then((response) => {
-      navigate(`/question/${id}`);
-    });
+    axios.patch(`${BASE_URL}${id}/voteUp`).then((response) => {});
+    setCount(Count + 1);
   };
   const handleDownClick = () => {
     axios.patch(`${BASE_URL}${id}/voteDown`).then((response) => {
-      navigate(`/question/${id}`);
+      setCount(Count - 1);
     });
   };
 
   return (
     <ArticleWrapper>
-      <div className="title">
-        {ArticleData.title}
-        <Link to="/ask">
-          <button className="AskQuestion">Ask Question </button>
-        </Link>
-      </div>
-      <div className="sub-content-wapper">
-        <div className="qustion-content-wapper">
-          <div className="date_wrapper">
-            <div>
-              Asked
-              <span>
-                {/* {ArticleData && ArticleData.createdAt.toLocaleString("ko-kr")} */}
+      <div className="title">{ArticleData.title}</div>
+      <div>
+        <div className="date_wrapper">
+          <div>
+            Asked
+            <span>
+              {/* {ArticleData && ArticleData.createdAt.toLocaleString("ko-kr")} */}
 
-                {calculateTime(new Date(ArticleData.createdAt)).toLocaleString(
-                  "ko-KR",
-                  {
-                    timeZone: "UTC",
-                  }
-                )}
-              </span>
+              {calculateTime(new Date(ArticleData.createdAt)).toLocaleString(
+                "ko-KR",
+                {
+                  timeZone: "UTC",
+                }
+              )}
+            </span>
+          </div>
+          <div>
+            Modified{" "}
+            <span>
+              {calculateTime(new Date(ArticleData.modifiedAt)).toLocaleString(
+                "ko-KR",
+                {
+                  timeZone: "UTC",
+                }
+              )}
+            </span>
+          </div>
+          <div>
+            Viewed <span>279 times</span>
+          </div>
+        </div>
+        <ArticleContent>
+          <div className="vote-section">
+            <FontAwesomeIcon
+              className="vote-icon"
+              icon={faCaretUp}
+              onClick={handleUpClick}
+            />
+            {ArticleData.voteCount}
+            <FontAwesomeIcon
+              className="vote-icon"
+              icon={faCaretDown}
+              onClick={handleDownClick}
+            />
+          </div>
+          <div className="body-section">
+            <div className="body-main">{ArticleData.body}</div>
+            <div className="body-tag">
+              {dummyArticle.tag.map((el, idx) => (
+                <Tag key={idx} value={el} />
+              ))}
             </div>
-            <div>
-              Modified{" "}
-              <span>
-                {calculateTime(new Date(ArticleData.modifiedAt)).toLocaleString(
-                  "ko-KR",
-                  {
-                    timeZone: "UTC",
-                  }
-                )}
-              </span>
-            </div>
-            <div>
-              Viewed <span>279 times</span>
+            <div className="body-footer">
+              <div className="Tag-section">
+                {UpdateArticleValues.map((v) => (
+                  <Button key={v} value={v} setOpenShare={setOpenShare} />
+                ))}
+                {/* 배포 후 글 주소 기재하기 */}
+                {openShare && <Bubble link="글 주소 기재" />}
+              </div>
+              <div className="post-owner">
+                <div className="user-action-item">
+                  asked 2022-11-01T01:31:27
+                </div>
+                <div className="user-avatar">
+                  <img src={ArticleData.photoURL} alt="" />
+                  {ArticleData.nickName}
+                </div>
+              </div>
             </div>
           </div>
-          <ArticleContent>
-            <div className="vote-section">
-              <FontAwesomeIcon
-                className="vote-icon"
-                icon={faCaretUp}
-                onClick={handleUpClick}
-              />
-              {ArticleData.voteCount}
-              <FontAwesomeIcon
-                className="vote-icon"
-                icon={faCaretDown}
-                onClick={handleDownClick}
-              />
-            </div>
-            <div className="body-section">
-              <div className="body-main">{ArticleData.body}</div>
-              <div className="body-tag">
-                {dummyArticle.tag.map((el, idx) => (
-                  <Tag key={idx} value={el} />
-                ))}
-              </div>
-              <div className="body-footer">
-                <div className="Tag-section">
-                  {UpdateArticleValues.map((v) => (
-                    <Button key={v} value={v} setOpenShare={setOpenShare} />
-                  ))}
-                  {/* 배포 후 글 주소 기재하기 */}
-                  {openShare && <Bubble link="글 주소 기재" />}
-                </div>
-                <div className="post-owner">
-                  <div className="user-action-item">
-                    asked 2022-11-01T01:31:27
-                  </div>
-                  <div className="user-avatar">
-                    <img src={ArticleData.photoURL} alt="" />
-                    {ArticleData.nickName}
-                  </div>
-                </div>
-              </div>
-            </div>
-          </ArticleContent>
-          <AnswersContainer />
-        </div>
-        <div className="question-sidebar">
-          <Sidebar />
-        </div>
+        </ArticleContent>
       </div>
-      {/* <div>
-        <Sidebar />
-      </div> */}
     </ArticleWrapper>
   );
 };
