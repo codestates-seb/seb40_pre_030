@@ -34,6 +34,9 @@ const ThridButton = styled.button`
 
   color: ${(props) => props.color || "black"};
   background: ${(props) => props.background || "white"};
+  span {
+    padding-left: 0.5rem;
+  }
 `;
 
 const Thirdparty = () => {
@@ -41,7 +44,7 @@ const Thirdparty = () => {
     <Buttoncontent>
       <ThridButton className="googleBtn">
         <FontAwesomeIcon icon={faGoogle} />
-        Log in with Goolge
+        <span>Log in with Goolge</span>
       </ThridButton>
       <ThridButton
         className="githubBtn"
@@ -50,7 +53,7 @@ const Thirdparty = () => {
         hover="green"
       >
         <FontAwesomeIcon icon={faGithub} />
-        Log in with Github
+        <span>Log in with Github</span>
       </ThridButton>
       <ThridButton
         type="submit"
@@ -59,7 +62,7 @@ const Thirdparty = () => {
         color="white"
       >
         <FontAwesomeIcon icon={faSquareFacebook} />
-        Log in with Facebook
+        <span>Log in with Facebook</span>
       </ThridButton>
     </Buttoncontent>
   );

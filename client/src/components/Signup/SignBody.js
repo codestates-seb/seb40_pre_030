@@ -32,11 +32,10 @@ const SignBody = () => {
   return (
     <TextBody>
       <SubTitle className="Info1">Join the Stack Overflow community</SubTitle>
-
-      <span>
+      <SubInfo>
         <img src="https://user-images.githubusercontent.com/107850055/198524110-ec09c42a-0e7c-4d45-9f46-4b006b80e663.png"></img>
-      </span>
-      <SubInfo> Get unstuck — ask a question</SubInfo>
+        Get unstuck — ask a question
+      </SubInfo>
       <SubInfo>
         <img src="https://user-images.githubusercontent.com/107850055/198523765-547e8efb-5103-44a8-9f12-c3ca68f928d1.png"></img>
         Unlock new privileges like voting and commenting
