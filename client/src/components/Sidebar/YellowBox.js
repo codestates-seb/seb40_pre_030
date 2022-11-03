@@ -2,7 +2,7 @@ import { faCommentAlt, faPen } from "@fortawesome/free-solid-svg-icons";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import styled from "styled-components";
 
-const StyledDiv = styled.div`
+export const StyledYellowBox = styled.div`
   background-color: #fef6df;
   border: 1px solid #f1e1b6;
   margin-bottom: 20px;
@@ -81,7 +81,7 @@ const listContents = {
   ],
 };
 
-const ListContent = ({ listContent, id }) => {
+export const ListContent = ({ listContent, id }) => {
   return (
     <li className="Sidecontent" key={id}>
       <div className="list-item">
@@ -96,7 +96,7 @@ const ListContent = ({ listContent, id }) => {
 
 const YellowBox = () => {
   return (
-    <StyledDiv className="SideTop">
+    <StyledYellowBox className="SideTop">
       <ul className="Sideul">
         <li className="Sideheader">The Overflow Blog</li>
         {listContents.faPen.map((el, idx) => (
@@ -116,7 +116,7 @@ const YellowBox = () => {
           </div>
         </li>
       </ul>
-    </StyledDiv>
+    </StyledYellowBox>
   );
 };
 

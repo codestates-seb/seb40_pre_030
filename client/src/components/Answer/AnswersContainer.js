@@ -9,6 +9,10 @@ import Markdown from "../Markdown";
 import UserCard from "../UserCard";
 import Vote from "../Vote";
 import Tag from "../tags/Tag";
+import { useNavigate, useParams } from "react-router";
+import Bubble from "../Article/Bubble";
+import { useRecoilState } from "recoil";
+import { currentAnswerState } from "../../atoms/atoms";
 const StyledAnswersContainer = styled.div`
   padding: 10px;
 
@@ -29,12 +33,14 @@ const StyledAnswer = styled.li`
       flex-direction: row;
       .answer-body {
         width: 100%;
-        .Tag-section > button {
-          margin-top: 10px;
-          margin-right: 5px;
-          background-color: #fff;
-          border: none;
-          color: #3d4044;
+        .Tag-section {
+          position: relative;
+          button {
+            margin-right: 5px;
+            background-color: #fff;
+            border: none;
+            color: #3d4044;
+          }
         }
       }
     }
@@ -45,15 +51,30 @@ const StyledAnswer = styled.li`
   }
 `;
 
+const Button = ({ value, onUpdateButtonClick, answerId }) => {
+  return (
+    <button onClick={() => onUpdateButtonClick(answerId, value)}>
+      {value}
+    </button>
+  );
+};
+
 const AnswersContainer = () => {
   const [AnswerData, setAnswerData] = useState([]);
+  const [openShare, setOpenShare] = useState(false);
+  const [selectedComment, setSelectedComment] = useState();
+  const [currentAnswer, setCurrentAnswer] = useRecoilState(currentAnswerState);
+  const UpdateAnswerValues = ["Share", "Edit", "Delete"];
+  const { id } = useParams();
+  const navigate = useNavigate();
+
   //답변 조회 기능
   useEffect(() => {
     return async () => {
       axios.defaults.withCredentials = true;
 
       axios
-        .get(`${BASE_URL}1`, {
+        .get(`${BASE_URL}${id}`, {
           headers: {
             "ngrok-skip-browser-warning": "skip",
           },
@@ -63,15 +84,16 @@ const AnswersContainer = () => {
           setAnswerData(data.answer);
         });
     };
-  }, []);
+  }, [id]);
 
-  //답글 삭제 기능
-  const AnswerDelete = (answerId) => {
-    axios
-      .delete(`${BASE_URL}answers/${answerId}`)
-      .then((res) => window.location.reload());
+  const onUpdateButtonClick = (id, value) => {
+    setSelectedComment(id);
+    if (value === "Share") setOpenShare((pre) => !pre);
+    if (value === "Edit") {
+      setCurrentAnswer(AnswerData.filter((v) => v.answerId === id)[0]);
+      navigate(`/answer/${id}/edit`);
+    }
   };
-  console.log(AnswerData);
 
   return (
     <StyledAnswersContainer className="AnswersContainer">
@@ -80,19 +102,29 @@ const AnswersContainer = () => {
         <StyledAnswer className="Answer">
           {AnswerData.map((datas) => {
             return (
-              <div className="answer-main-wrap" key={datas}>
+              <div className="answer-main-wrap" key={datas.answerId}>
                 <div className="answer-main">
                   <Vote datas={datas} />
                   <div className="answer-body">
                     <div>
-                      <Markdown AnswerBody={datas.answerBody} />
+                      <Markdown markdown={datas.answerBody} />
                       <div className="Tag-section">
-                        <button value="">Share </button>
-                        <button value="">Edit</button>
-                        <button onClick={() => AnswerDelete(datas.answerId)}>
-                          Delete
-                        </button>
-                        <button value="">Flag</button>
+                        {UpdateAnswerValues.map((v, idx) => (
+                          <Button
+                            key={idx}
+                            value={v}
+                            answerId={datas.answerId}
+                            onUpdateButtonClick={onUpdateButtonClick}
+                          />
+                        ))}
+                        {openShare && (
+                          <Bubble
+                            link="글 주소 기재"
+                            answerId={datas.answerId}
+                            selectedComment={selectedComment}
+                            isAnswer={true}
+                          />
+                        )}
                       </div>
                     </div>
                     <div className="UserCard">
