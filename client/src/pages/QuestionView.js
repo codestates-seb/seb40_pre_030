@@ -6,13 +6,14 @@ import Article from "../components/Article/index";
 
 const QuestionViewWrap = styled.div`
   width: 70%;
-  margin-left: 23.4rem;
-  display: flex;
-  justify-content: center;
+  margin-left: 21.8rem;
+  display: grid;
+  grid-template-columns: auto 80%;
   .ViewWrap {
     display: flex;
     .ViewWrap2 {
-      width: 81.5%;
+      display: flex;
+      flex-direction: column;
     }
     .ViewWrap3 {
       margin-top: 1rem;
@@ -31,7 +32,13 @@ const QuestionView = () => {
             <AnswersContainer />
           </div>
           <div className="ViewWrap3">
-            <Sidebar />
+            <Sidebar
+              width="90"
+              position="relative"
+              left="100"
+              rigth="10"
+              marginleft="0.8"
+            />
           </div>
         </div>
       </QuestionViewWrap>
