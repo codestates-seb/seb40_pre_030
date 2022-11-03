@@ -11,6 +11,7 @@ import org.springframework.data.domain.Sort;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
+import java.security.Principal;
 import java.time.LocalDateTime;
 import java.util.Optional;
 
@@ -33,11 +34,11 @@ public class BoardService {
     }
 
     // 질문 수정
-    public Board updateBoard(Board board) {
+    public Board updateBoard(Board board, long userId) {
 
         // 수정할 질문이 존재하는지 확인
         Board findBoard = findVerifiedBoard(board.getBoardId());
-
+        verifyWriter(findBoard, userId);
         Optional.ofNullable(board.getTitle()).ifPresent(title -> findBoard.setTitle(title));
         Optional.ofNullable(board.getBody()).ifPresent(body -> findBoard.setBody(body));
         Optional.ofNullable(board.getPhotoURL()).ifPresent(photo -> findBoard.setPhotoURL(photo));
@@ -78,9 +79,10 @@ public class BoardService {
     }
 
     // 질문 삭제
-    public void deleteBoard(long boardId) {
+    public void deleteBoard(long boardId,long userId) {
 
         Board findBoard = findVerifiedBoard(boardId);
+        verifyWriter(findBoard,userId);
         boardRepository.delete(findBoard);
     }
 
@@ -92,5 +94,13 @@ public class BoardService {
                 new BusinessLogicException(ExceptionCode.BOARD_NOT_FOUND));
 
         return findPost;
+    }
+
+    //작성자랑 로그인 유저랑 id비교
+    public void verifyWriter(Board board,long userId){
+        long writerId = board.getUser().getUserId();
+        if (writerId != userId) {
+            throw new BusinessLogicException(ExceptionCode.PERMISSION_DINIED);
+        }
     }
 }
