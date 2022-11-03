@@ -83,11 +83,6 @@ const Article = () => {
         ...ArticleData,
         voteCount: ArticleData.voteCount - 1,
       });
-    axios.patch(`${BASE_URL}${id}/vote${value}`, {
-      headers: {
-        "ngrok-skip-browser-warning": "skip",
-      },
-    });
     axios({
       method: "patch",
       url: `${BASE_URL}${id}/vote${value}`,
