@@ -1,7 +1,8 @@
 import styled from "styled-components";
 
 export const ArticleWrapper = styled.div`
-  width: 100%;
+  margin: 0px;
+  width: 70%;
   padding: 10px;
   border-bottom: 1px solid lightgrey;
   //수정부분
@@ -10,8 +11,15 @@ export const ArticleWrapper = styled.div`
     display: flex;
     flex-direction: row;
   }
+
+  .question-sidebar {
+    margin-top: 3rem;
+    display: flex;
+    flex-direction: row-reverse;
+    width: 50%;
+  }
   .qustion-content-wapper {
-    width: 90%;
+    width: 60vw;
   }
 
   .title {
@@ -37,7 +45,7 @@ export const ArticleWrapper = styled.div`
 export const ArticleContent = styled.article`
   display: flex;
   .body-section {
-    width: 100%;
+    width: 82%;
 
     padding-top: 30px;
     font-size: 1rem;
