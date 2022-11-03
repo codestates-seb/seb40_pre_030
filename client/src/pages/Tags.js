@@ -7,6 +7,7 @@ import Navbar from "../components/navbar/Navbar";
 import TagPagination from "../components/tags/TagPagination";
 import axios from "axios";
 import { STACK_EXCHANGE_URL } from "../util/api";
+import TagSkeleton from "./TagSkeleton";
 
 const StyledDiv = styled.div`
   display: grid;
@@ -134,7 +135,7 @@ const Tags = () => {
         setTagData(data.items);
         console.log(data);
       })
-      .catch(() => alert("Failed to load tag list"));
+      .catch((err) => console.log(err));
   }, [currentPage, currentTab, searchText]);
 
   const onTabClick = (tabName) => {
@@ -191,6 +192,7 @@ const Tags = () => {
               ))}
             </nav>
           </div>
+          <div>{tagData.length === 0 && <TagSkeleton />}</div>
           <div className="Tagscard">
             {tagData &&
               tagData.map((el) => {
