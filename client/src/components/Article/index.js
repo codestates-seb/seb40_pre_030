@@ -145,7 +145,7 @@ const Article = () => {
           </ArticleContent>
           <AnswersContainer />
         </div>
-        <div>
+        <div className="question-sidebar">
           <Sidebar />
         </div>
       </div>
