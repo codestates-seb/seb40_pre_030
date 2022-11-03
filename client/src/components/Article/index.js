@@ -25,10 +25,7 @@ const dummyArticle = {
 
 const data = `
 # 헤딩
-
 ***굵게***
-
-
 `;
 
 const Button = ({ value, setOpenShare }) => {
@@ -48,36 +45,34 @@ const Button = ({ value, setOpenShare }) => {
 
 const Article = () => {
   const [ArticleData, setArticleData] = useState("");
+  const [Count, setCount] = useState(0);
   const UpdateArticleValues = ["Share", "Edit", "Delete"];
   const [openShare, setOpenShare] = useState(false);
   const [currentQuestion, setCurrentQuestion] =
     useRecoilState(currentQuestionState);
   const { id } = useParams();
   const navigate = useNavigate();
+  console.log(Count);
   useEffect(() => {
     window.scrollTo(0, 0);
-    return async () => {
-      axios.defaults.withCredentials = true;
 
-      axios
-        .get(`${BASE_URL}${id}`, {
-          headers: {
-            "ngrok-skip-browser-warning": "skip",
-          },
-        })
-        .then((res) => {
-          const { data } = res;
-          setArticleData(data);
-          setCurrentQuestion(data);
-        });
-    };
-  }, []);
+    axios.defaults.withCredentials = true;
+
+    axios.get(`${BASE_URL}${id}`).then((res) => {
+      const { data } = res;
+      setArticleData((a) => data);
+      setCurrentQuestion(data);
+    });
+  }, [Count]);
 
   const handleUpClick = () => {
     axios.patch(`${BASE_URL}${id}/voteUp`).then((response) => {});
+    setCount(Count + 1);
   };
   const handleDownClick = () => {
-    axios.patch(`${BASE_URL}${id}/voteDown`).then((response) => {});
+    axios.patch(`${BASE_URL}${id}/voteDown`).then((response) => {
+      setCount(Count - 1);
+    });
   };
 
   return (

@@ -31,7 +31,7 @@ const StyledAnswer = styled.li`
       display: flex;
       flex-direction: row;
       .answer-body {
-        width: 100%;
+        width: 82%;
         .Tag-section {
           position: relative;
           button {
@@ -64,6 +64,7 @@ const AnswersContainer = () => {
   const [selectedComment, setSelectedComment] = useState();
   const [currentAnswer, setCurrentAnswer] = useRecoilState(currentAnswerState);
   const UpdateAnswerValues = ["Share", "Edit", "Delete"];
+  const [Count, setCount] = useState(0);
   const { id } = useParams();
   const navigate = useNavigate();
 
@@ -81,7 +82,7 @@ const AnswersContainer = () => {
         const { data } = res;
         setAnswerData(data.answer);
       });
-  }, []);
+  }, [Count]);
 
   const onUpdateButtonClick = (ind, value) => {
     setSelectedComment(ind);
@@ -90,10 +91,12 @@ const AnswersContainer = () => {
       setCurrentAnswer(AnswerData.filter((v) => v.answerId === ind)[0]);
       navigate(`/answer/${ind}/edit`);
     }
-    if (value === "Delete")
-      axios.delete(`${BASE_URL}answers/${ind}`).then((res) => {});
+    if (value === "Delete") {
+      axios.delete(`${BASE_URL}answers/${ind}`);
+      setCount(Count + 1);
+    }
   };
-  console.log();
+
   return (
     <StyledAnswersContainer className="AnswersContainer">
       <h2 className="answers-container-title">{AnswerData.length} Answers</h2>
@@ -103,7 +106,7 @@ const AnswersContainer = () => {
             return (
               <div className="answer-main-wrap" key={datas.answerId}>
                 <div className="answer-main">
-                  <Vote datas={datas} />
+                  <Vote datas={datas} setCount={setCount} Count={Count} />
                   <div className="answer-body">
                     <div>
                       <Markdown markdown={datas.answerBody} />
@@ -141,7 +144,7 @@ const AnswersContainer = () => {
           })}
         </StyledAnswer>
 
-        <AnswerCreate />
+        <AnswerCreate setCount={setCount} Count={Count} />
       </ul>
     </StyledAnswersContainer>
   );

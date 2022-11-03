@@ -7,20 +7,19 @@ import {
   faCertificate,
   faCircleInfo,
 } from "@fortawesome/free-solid-svg-icons";
-import { useNavigate } from "react-router-dom";
+import { useLocation, useNavigate, useParams } from "react-router-dom";
 // import { useNavigate } from "react-router-dom";
 
 const ChangeLi = styled.li`
   box-sizing: border-box;
   height: 30px;
   font-size: 13px;
-
-  font-weight: ${(props) => (props.idx === props.currentTab ? 800 : 600)};
-  color: ${(props) => (props.idx === props.currentTab ? "black" : "gray")};
+  font-weight: ${(props) => (props.tabPath === props.currentTab ? 800 : 600)};
+  color: ${(props) => (props.tabPath === props.currentTab ? "black" : "gray")};
   background: ${(props) =>
-    props.idx === props.currentTab ? props.theme.selectedTab : "white"};
+    props.tabPath === props.currentTab ? props.theme.selectedTab : "white"};
   border-right: ${(props) =>
-    props.idx === props.currentTab
+    props.tabPath === props.currentTab
       ? props.theme.highlightOrange + " solid 4px"
       : "none"};
   margin-bottom: 10px;
@@ -28,6 +27,16 @@ const ChangeLi = styled.li`
   display: grid;
   align-items: center;
   grid-template-columns: 1.3em auto;
+  :first-child {
+    font-weight: ${(props) => (props.currentTab === "/" ? 800 : 600)};
+    color: ${(props) => (props.currentTab === "/" ? "black" : "gray")};
+    background: ${(props) =>
+      props.currentTab === "/" ? props.theme.selectedTab : "white"};
+    border-right: ${(props) =>
+      props.currentTab === "/"
+        ? props.theme.highlightOrange + " solid 4px"
+        : "none"};
+  }
   &:hover {
     color: black;
   }
@@ -36,9 +45,16 @@ const ChangeLi = styled.li`
   }
 `;
 
-const ChangeList = ({ icon, text, iconStyle, idx, currentTab, onClick }) => {
+const ChangeList = ({
+  icon,
+  text,
+  iconStyle,
+  tabPath,
+  currentTab,
+  onClick,
+}) => {
   return (
-    <ChangeLi currentTab={currentTab} idx={idx} onClick={onClick}>
+    <ChangeLi currentTab={currentTab} tabPath={tabPath} onClick={onClick}>
       {icon && <FontAwesomeIcon icon={icon} style={iconStyle} />}
       <div>{text}</div>
     </ChangeLi>
@@ -80,6 +96,8 @@ const Navbar = ({ seTabtIndex }) => {
     { icon: null, text: "Users" },
     { icon: null, text: "Companies" },
   ];
+  const path = useLocation().pathname;
+
   const onTabClick = (id) => {
     setCurrentTab(id);
     if (id === 0) navigate("/");
@@ -101,8 +119,8 @@ const Navbar = ({ seTabtIndex }) => {
                   key={idx}
                   icon={el.icon}
                   text={el.text}
-                  idx={idx}
-                  currentTab={currentTab}
+                  currentTab={path}
+                  tabPath={`/${el.text.toLowerCase()}`}
                   onClick={() => onTabClick(idx)}
                 />
               ))}
@@ -118,9 +136,8 @@ const Navbar = ({ seTabtIndex }) => {
                 icon={faCertificate}
                 text={"Explore Collectives"}
                 iconStyle={{ color: "orange" }}
-                idx={5}
-                currentTab={currentTab}
                 onClick={() => onTabClick(5)}
+                tabPath={null}
               />
             </ul>
           </div>
