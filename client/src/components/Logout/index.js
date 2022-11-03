@@ -41,8 +41,8 @@ const LogOut = () => {
     <Wrapper>
       <Contents>
         <div className="notice">
-          Clicking “Log out” will log you out of the following domains on this
-          device:
+          <p>Clicking “Log out” will log you out of the following</p>
+          <p>domains on this device:</p>
         </div>
         <OutForm>
           <ul>

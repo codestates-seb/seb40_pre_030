@@ -18,13 +18,21 @@ export const Contents = styled.div`
     display: flex;
     justify-content: center;
     align-items: center;
+    flex-direction: column;
     font-size: 1.61538462rem;
     margin-top: 1em;
     margin-bottom: 1em;
     margin-left: 0;
     margin-right: 0;
-    max-width: 480px;
+    width: 700px;
     line-height: 2.5rem;
+    p {
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      margin-left: auto !important;
+      margin-right: auto !important;
+    }
   }
 `;
 
