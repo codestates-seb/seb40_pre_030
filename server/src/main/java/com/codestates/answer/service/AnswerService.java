@@ -54,11 +54,6 @@ public class AnswerService {
         Answer updateAnswer = answerRepository.save(findAnswer);
         return updateAnswer;
     }
-    /**
-     public Answer findAnswer(long answerId){
-     return findVerifiedAnswer(answerId);
-     }
-     **/
 
     // 답변 전체 보기
     @Transactional(readOnly = true)
