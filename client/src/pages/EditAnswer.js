@@ -2,6 +2,7 @@ import { Editor } from "@toast-ui/react-editor";
 import axios from "axios";
 import { useEffect, useRef, useState } from "react";
 import { useNavigate } from "react-router";
+import { Link } from "react-router-dom";
 import { useRecoilState } from "recoil";
 import styled from "styled-components";
 import { currentAnswerState, currentQuestionState } from "../atoms/atoms";
@@ -152,14 +153,16 @@ const EditAnswer = ({ article }) => {
             >
               Save edits
             </Button>
-            <Button
-              bgcolor="white"
-              font={(props) => props.theme.buttonBlue}
-              border="none"
-              fontSize="13px"
-            >
-              Cancel
-            </Button>
+            <Link to={`/question/${boardId}`}>
+              <Button
+                bgcolor="white"
+                font={(props) => props.theme.buttonBlue}
+                border="none"
+                fontSize="13px"
+              >
+                Cancel
+              </Button>
+            </Link>
           </div>
         </div>
         <div className="yellow-box-container">
