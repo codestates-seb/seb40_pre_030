@@ -19,25 +19,51 @@ export const HeaderWrapper = styled.div`
     }
     .nav_item {
       width: 150px;
-      height: 30px;
+      height: 50px;
+      padding: 10px 10px;
       background-image: ${(props) => props.theme.sprites};
-      background-position: 0 -500px;
+      background-position: 0 -493px;
+      background-repeat: no-repeat;
       padding: 0 8px;
+      :hover {
+        background-color: ${(props) => props.theme.headerhovergray};
+      }
     }
     a {
-      //버튼때문에 스타일바꿈
       color: black;
       text-decoration: none;
-      border-radius: 1000px;
       border: none;
       padding: 6px 12px;
       margin: 0px;
       font-size: 0.8em;
-      //hover의 색변경
+    }
+    .hovergray_nav {
+      margin: 0.4rem;
+      padding-top: 3px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
       :hover {
-        background-color: rgba(222, 222, 222, 0.98);
-        border-radius: 0px;
+        border-radius: 1000px;
+        background-color: ${(props) => props.theme.headerhovergray};
       }
+    }
+    .hovergray_cont {
+      padding: 0;
+      display: flex;
+      box-sizing: border-box;
+      /* align-items: center; */
+      /* justify-content: center; */
+      svg {
+        background-color: ${(props) => props.theme.headerBg};
+        padding: 18px 0.6rem !important;
+        :hover {
+          background-color: ${(props) => props.theme.headerhovergray};
+        }
+      }
+      /* :hover {
+        background-color: ${(props) => props.theme.headerhovergray};
+      } */
     }
     form {
       display: flex;

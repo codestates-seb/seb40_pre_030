@@ -8,7 +8,7 @@ import Card from "../PopUserCard/card";
 const ATagWrap = styled.div`
   color: hsl(206, 85%, 57.5%);
   border: none;
-  padding: 0.4rem;
+  /* padding: 0.4rem; */
 `;
 
 const Atag = ({ name, link, logged, isContent, isHover, className }) => {
@@ -18,24 +18,26 @@ const Atag = ({ name, link, logged, isContent, isHover, className }) => {
   };
 
   return (
-    <ATagWrap>
-      {logged === true ? (
-        name === "Products" ? (
-          <div>{name}</div> // 다른 테그로 변경 필요
-        ) : name === faUser ? (
-          <div onClick={userOnClick}>
-            <FontAwesomeIcon icon={name} onClick={userOnClick} />
-            {!open && <Card onClick={userOnClick} />}
-          </div>
+    <div className={className}>
+      <ATagWrap>
+        {logged === true ? (
+          name === "Products" ? (
+            <div>{name}</div> // 다른 테그로 변경 필요
+          ) : name === faUser ? (
+            <div onClick={userOnClick}>
+              <FontAwesomeIcon icon={name} onClick={userOnClick} />
+              {!open && <Card onClick={userOnClick} />}
+            </div>
+          ) : (
+            <div>
+              <FontAwesomeIcon icon={name} />
+            </div>
+          )
         ) : (
-          <div>
-            <FontAwesomeIcon icon={name} />
-          </div>
-        )
-      ) : (
-        <div className={className}>{name}</div>
-      )}
-    </ATagWrap>
+          <div className={className}>{name}</div>
+        )}
+      </ATagWrap>
+    </div>
   );
 };
 export default Atag;
