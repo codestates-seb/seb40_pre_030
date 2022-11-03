@@ -105,12 +105,13 @@ const Pagination = ({
                 );
               }
             })}
-            {currentPage + 2 < totalPages && (
-              <>
-                <span className="dotdotdot">...</span>
-                <LinkButton buttonContent={totalPages} />
-              </>
-            )}
+            {!(currentPage < 3 && totalPages < 5) &&
+              currentPage + 2 < totalPages && (
+                <>
+                  <span className="dotdotdot">...</span>
+                  <LinkButton buttonContent={totalPages} />
+                </>
+              )}
             <LinkButton buttonContent="Next" />
           </div>
           <div className="page-size">
