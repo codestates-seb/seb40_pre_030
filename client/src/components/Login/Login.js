@@ -87,7 +87,7 @@ const Submitbtn = styled.button`
 `;
 const BackgroundLogin = styled.div`
   height: 100vh;
-  background-color: rgba(232, 232, 232, 1);
+  background-color: #e6e6e6;
   display: flex;
   justify-content: center;
   align-items: center;
@@ -122,6 +122,7 @@ const Login = () => {
     email: "",
     password: "",
   });
+
   const [loginState, setLoginState] = useRecoilState(loginStatus);
   const [logininfo, setLoginInfo] = useRecoilState(loginInfo);
   const [emailerrorMessage, setEmailErrorMessage] = useState("");
@@ -130,11 +131,6 @@ const Login = () => {
   const navigate = useNavigate();
 
   const onChangeHandler = (key) => (e) => {
-    // const { name, value } = e.target;
-    // setLogin((prev) => ({
-    //   ...prev,
-    //   [name]: value,
-    // }));
     setLogin({ ...login, [key]: e.target.value });
   };
 
@@ -176,17 +172,12 @@ const Login = () => {
         const accessToken = response.headers.authorization;
         const refreshToken = response.headers.refresh;
         localStorage.setItem("accessToken", accessToken);
-        // localStorage.setItem("refreshToken", refreshToken);
-        // if (response.data.refreshToken) {
-        //   localStorage.setItem("REFRESH_TOKEN", response.data.refreshToken);
-        // }
-        // setLoginState(true);
+
         setLoginInfo(response.data);
         setLoginState(true);
         // const loginStatus = true;
         console.log(response.data);
-        // localStorage.setItem("loginState", loginState);
-        // localStorage.setItem("loginStatus", loginStatus);
+
         axios.defaults.headers.common["Authorization"] = `${accessToken}`;
         setRefreshTokenToCookie(refreshToken);
         setAcceddTokenCookie(accessToken);
@@ -208,7 +199,6 @@ const Login = () => {
             <LoginInputline
               active={emailerrorMessage}
               value={login.email}
-              //  onChange={onChangeHandler('userId')}
               type="text"
               name="email"
               onChange={onChangeHandler("email")}
@@ -227,7 +217,6 @@ const Login = () => {
             <LoginInputline
               active={passworderrorMessage}
               value={login.password || ""}
-              //  onChange={onChangeHandler('password')}
               type="password"
               name="password"
               onChange={onChangeHandler("password")}

@@ -9,6 +9,7 @@ import { useNavigate, useParams } from "react-router";
 import Bubble from "./Bubble";
 import { useRecoilState } from "recoil";
 import { currentQuestionState } from "../../atoms/atoms";
+import { calculateTime } from "../Board/util/calculateTime";
 
 const dummyArticle = {
   post_id: 1,
@@ -62,8 +63,13 @@ const Article = () => {
       const { data } = res;
       setArticleData((a) => data);
       setCurrentQuestion(data);
+      console.log(data.modifiedAt);
     });
   }, [Count]);
+
+  // const modate = ArticleData.createdAt;
+  // console.log(modate);
+  // console.log(modate.toLocaleDateString());
 
   const handleUpClick = () => {
     axios.patch(`${BASE_URL}${id}/voteUp`).then((response) => {});
@@ -81,10 +87,28 @@ const Article = () => {
       <div>
         <div className="date_wrapper">
           <div>
-            Asked<span>1 days ago</span>
+            Asked
+            <span>
+              {/* {ArticleData && ArticleData.createdAt.toLocaleString("ko-kr")} */}
+
+              {calculateTime(new Date(ArticleData.createdAt)).toLocaleString(
+                "ko-KR",
+                {
+                  timeZone: "UTC",
+                }
+              )}
+            </span>
           </div>
           <div>
-            Modified <span>today</span>
+            Modified{" "}
+            <span>
+              {calculateTime(new Date(ArticleData.modifiedAt)).toLocaleString(
+                "ko-KR",
+                {
+                  timeZone: "UTC",
+                }
+              )}
+            </span>
           </div>
           <div>
             Viewed <span>279 times</span>
