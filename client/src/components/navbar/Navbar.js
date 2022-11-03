@@ -79,6 +79,7 @@ const NavContainer = styled.div`
   padding-top: 24px;
   border-right: lightgray solid 1px;
   margin-left: 30px;
+  margin-top: 0px;
   justify-self: end;
   //위치조정을 위해?
   margin-bottom: 40px;
