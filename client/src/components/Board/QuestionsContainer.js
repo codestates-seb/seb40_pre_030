@@ -97,7 +97,7 @@ const QuestionsContainer = () => {
     const fetch = async () => {
       axios.defaults.withCredentials = true;
       await axios
-        .get(`${BASE_URL}?page=1&size=${totalBoards}`, {
+        .get(`${BASE_URL}?page=1&size=${totalBoards || currentSize}`, {
           headers: {
             "ngrok-skip-browser-warning": "skip",
           },
