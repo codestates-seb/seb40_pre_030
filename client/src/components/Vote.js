@@ -20,17 +20,35 @@ const StyledVote = styled.div`
   }
 `;
 
-const Vote = ({ datas, setCount, Count }) => {
+const Vote = ({ idx, AnswerData, setAnswerData, datas }) => {
   const navigate = useNavigate();
   const { id } = useParams();
-  const handleUpClick = () => {
-    axios.patch(`${BASE_URL}answers/${id}/${datas.answerId}/voteUp`);
 
-    setCount(Count + 1);
-  };
-  const handleDownClick = () => {
-    axios.patch(`${BASE_URL}answers/${id}/${datas.answerId}/voteDown`);
-    setCount(Count - 1);
+  // const handleUpClick = () => {
+  //   axios.patch(`${BASE_URL}answers/${id}/${datas.answerId}/voteUp`);
+
+  //   setCount(Count + 1);
+  // };
+  // const handleDownClick = () => {
+  //   axios.patch(`${BASE_URL}answers/${id}/${datas.answerId}/voteDown`);
+  //   setCount(Count - 1);
+  // };
+
+  const onVoteClick = (value) => {
+    let answerDataCopy = [...AnswerData];
+    if (value === "Up") {
+      answerDataCopy[idx] = { ...datas, voteCount: datas.voteCount + 1 };
+      setAnswerData(answerDataCopy);
+    }
+    if (value === "Down") {
+      answerDataCopy[idx] = { ...datas, voteCount: datas.voteCount - 1 };
+      setAnswerData(answerDataCopy);
+    }
+    axios.patch(`${BASE_URL}answers/${id}/${datas.answerId}/vote${value}`, {
+      headers: {
+        "ngrok-skip-browser-warning": "skip",
+      },
+    });
   };
 
   return (
@@ -38,13 +56,13 @@ const Vote = ({ datas, setCount, Count }) => {
       <FontAwesomeIcon
         className="vote-icon"
         icon={faCaretUp}
-        onClick={handleUpClick}
+        onClick={() => onVoteClick("Up")}
       />
       <div>{datas.voteCount}</div>
       <FontAwesomeIcon
         className="vote-icon"
         icon={faCaretDown}
-        onClick={handleDownClick}
+        onClick={() => onVoteClick("Down")}
       />
     </StyledVote>
   );

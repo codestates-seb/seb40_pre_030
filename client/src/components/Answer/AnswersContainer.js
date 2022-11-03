@@ -82,7 +82,7 @@ const AnswersContainer = () => {
         const { data } = res;
         setAnswerData(data.answer);
       });
-  }, [Count]);
+  }, []);
 
   const onUpdateButtonClick = (ind, value) => {
     setSelectedComment(ind);
@@ -93,7 +93,6 @@ const AnswersContainer = () => {
     }
     if (value === "Delete") {
       axios.delete(`${BASE_URL}answers/${ind}`);
-      setCount(Count + 1);
     }
   };
 
@@ -102,11 +101,16 @@ const AnswersContainer = () => {
       <h2 className="answers-container-title">{AnswerData.length} Answers</h2>
       <ul className="answers-list">
         <StyledAnswer className="Answer">
-          {AnswerData.map((datas) => {
+          {AnswerData.map((datas, idx) => {
             return (
               <div className="answer-main-wrap" key={datas.answerId}>
                 <div className="answer-main">
-                  <Vote datas={datas} setCount={setCount} Count={Count} />
+                  <Vote
+                    idx={idx}
+                    AnswerData={AnswerData}
+                    setAnswerData={setAnswerData}
+                    datas={datas}
+                  />
                   <div className="answer-body">
                     <div>
                       <Markdown markdown={datas.answerBody} />
