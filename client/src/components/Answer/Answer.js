@@ -8,13 +8,18 @@ const StyledAnswer = styled.li`
   margin-top: 30px;
   display: flex;
   flex-direction: column;
+  width: 90%;
 
   .answer-body {
     display: flex;
+    width: 800px;
     flex-direction: row;
   }
   .UserCard {
+    display: flex;
+    justify-content: flex-end;
     float: right;
+    width: 80%;
   }
 `;
 
