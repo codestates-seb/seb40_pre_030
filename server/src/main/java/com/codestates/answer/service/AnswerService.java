@@ -85,7 +85,7 @@ public class AnswerService {
         return findBoard;
     }
     public void verifiedWriter(Answer answer, long userId){
-        long answerUserId = answer.getUser().getUserId();// 작성자 user id
+        long answerUserId = answer.getUser().getUserId();
         if(answerUserId != userId){
             throw new BusinessLogicException(ExceptionCode.PERMISSION_DENIED);
         }
