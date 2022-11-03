@@ -15,7 +15,6 @@ import { useRecoilState } from "recoil";
 import { currentAnswerState } from "../../atoms/atoms";
 const StyledAnswersContainer = styled.div`
   padding: 10px;
-
   .answers-container-title {
     font-size: 1.2em;
     padding: 20px;
@@ -26,7 +25,6 @@ const StyledAnswer = styled.li`
   display: flex;
   flex-direction: column;
   width: 900px;
-  /* width: 100%; */
   .answer-main-wrap {
     border-bottom: 1px solid lightgrey;
     .answer-main {
@@ -71,20 +69,18 @@ const AnswersContainer = () => {
 
   //답변 조회 기능
   useEffect(() => {
-    return async () => {
-      axios.defaults.withCredentials = true;
+    axios.defaults.withCredentials = true;
 
-      axios
-        .get(`${BASE_URL}${id}`, {
-          headers: {
-            "ngrok-skip-browser-warning": "skip",
-          },
-        })
-        .then((res) => {
-          const { data } = res;
-          setAnswerData(data.answer);
-        });
-    };
+    axios
+      .get(`${BASE_URL}${id}`, {
+        headers: {
+          "ngrok-skip-browser-warning": "skip",
+        },
+      })
+      .then((res) => {
+        const { data } = res;
+        setAnswerData(data.answer);
+      });
   }, []);
 
   const onUpdateButtonClick = (ind, value) => {
@@ -95,11 +91,9 @@ const AnswersContainer = () => {
       navigate(`/answer/${ind}/edit`);
     }
     if (value === "Delete")
-      axios.delete(`${BASE_URL}answers/${ind}`).then((res) => {
-        navigate(`/question/${id}`);
-      });
+      axios.delete(`${BASE_URL}answers/${ind}`).then((res) => {});
   };
-
+  console.log();
   return (
     <StyledAnswersContainer className="AnswersContainer">
       <h2 className="answers-container-title">{AnswerData.length} Answers</h2>

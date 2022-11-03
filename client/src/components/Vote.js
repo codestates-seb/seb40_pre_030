@@ -4,7 +4,6 @@ import styled from "styled-components";
 import axios from "axios";
 import { BASE_URL } from "../util/api";
 import { useNavigate, useParams } from "react-router";
-import { useEffect } from "react";
 const StyledVote = styled.div`
   font-size: 1.7rem;
   color: gray;
@@ -25,11 +24,16 @@ const Vote = ({ datas }) => {
   const navigate = useNavigate();
   const { id } = useParams();
   const handleUpClick = () => {
-    axios.patch(`${BASE_URL}answers/${id}/${datas.answerId}/voteUp`);
+    axios
+      .patch(`${BASE_URL}answers/${id}/${datas.answerId}/voteUp`)
+      .then((response) => {});
   };
-
   const handleDownClick = () => {
-    axios.patch(`${BASE_URL}answers/${id}/${datas.answerId}/voteDown`);
+    axios
+      .patch(`${BASE_URL}answers/${id}/${datas.answerId}/voteDown`)
+      .then((response) => {
+        navigate("");
+      });
   };
 
   return (
