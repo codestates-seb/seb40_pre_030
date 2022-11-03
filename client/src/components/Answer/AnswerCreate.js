@@ -54,15 +54,11 @@ const AnswerCreate = () => {
           "ngrok-skip-browser-warning": "skip",
           authorization: accessToken,
         },
-      })
-        .then((res) => {
-          navigate(`/question/${id}`);
-        })
-        .catch((err) => {
-          if (err.response.status === 401) {
-            console.log(err.response.data);
-          }
-        });
+      }).catch((err) => {
+        if (err.response.status === 401) {
+          console.log(err.response.data);
+        }
+      });
     }
   };
 

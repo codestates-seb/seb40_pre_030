@@ -84,7 +84,7 @@ const AnswersContainer = () => {
           setAnswerData(data.answer);
         });
     };
-  }, [id]);
+  }, []);
 
   const onUpdateButtonClick = (ind, value) => {
     setSelectedComment(ind);

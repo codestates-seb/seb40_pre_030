@@ -2,7 +2,7 @@ import Tag from "../tags/Tag";
 import { ArticleContent, ArticleWrapper } from "./style";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faCaretUp, faCaretDown } from "@fortawesome/free-solid-svg-icons";
-import { useState, useEffect } from "react";
+import { useState, useEffect, useCallback } from "react";
 import axios from "axios";
 import { BASE_URL } from "../../util/api";
 import { useNavigate, useParams } from "react-router";
@@ -54,11 +54,8 @@ const Article = () => {
     useRecoilState(currentQuestionState);
   const { id } = useParams();
   const navigate = useNavigate();
-  useEffect(() => {
-    window.scrollTo(0, 0);
-    return async () => {
-      axios.defaults.withCredentials = true;
-
+  const GetData = useCallback(() => {
+    async function getandsetArticle() {
       axios
         .get(`${BASE_URL}${id}`, {
           headers: {
@@ -70,9 +67,13 @@ const Article = () => {
           setArticleData(data);
           setCurrentQuestion(data);
         });
-    };
+    }
+    getandsetArticle();
   }, []);
-
+  useEffect(() => {
+    GetData();
+  }, []);
+  console.log();
   const handleUpClick = () => {
     axios.patch(`${BASE_URL}${id}/voteUp`).then((response) => {
       navigate(`/question/${id}`);
