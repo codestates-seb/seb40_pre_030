@@ -12,7 +12,7 @@ const QuestionViewWrap = styled.div`
   .ViewWrap {
     display: flex;
     flex-direction: row;
-    overflow-x: hidden;
+    /* overflow-x: hidden; */
     /* align-itmes: center;
     justify-content: center; */
     .ViewWrap2 {
