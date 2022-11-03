@@ -185,7 +185,7 @@ const Askquetion = () => {
   };
 
   const handleChangeInput = () => {
-    Setbody(textRef.current.getInstance().getMarkdown());
+    Setbody(textRef.current.getInstance().getMarkdown().trim());
   };
 
   const TitleClick = (id) => {
