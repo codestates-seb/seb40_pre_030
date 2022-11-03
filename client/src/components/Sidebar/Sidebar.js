@@ -4,6 +4,8 @@ import Collectives from "./Collectives";
 
 const SideWrap = styled.div`
   /* width: 300px; */
+  position: sticky;
+  top: 0;
   width: 40%;
   float: right;
   /* margin: 0 60px; */
