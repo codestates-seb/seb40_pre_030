@@ -2,17 +2,13 @@ import styled from "styled-components";
 import Button from "../Button";
 import Question from "./Question";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
-import {
-  faArrowDownWideShort,
-  faCaretDown,
-} from "@fortawesome/free-solid-svg-icons";
+import { faArrowDownWideShort } from "@fortawesome/free-solid-svg-icons";
 import { Link } from "react-router-dom";
 import Pagination from "./Pagination";
 import { useEffect, useState } from "react";
 import axios from "axios";
 import { BASE_URL } from "../../util/api";
-import { loginStatus } from "../../atoms/atoms";
-import { useRecoilState } from "recoil";
+
 const StyledQuestionsContainer = styled.div`
   width: 70%;
   min-width: 40rem;
@@ -71,10 +67,41 @@ const StyledQuestionsContainer = styled.div`
   }
 `;
 
+const NavTab = styled.button`
+  background-color: ${(props) =>
+    props.value === props.currentTab ? "#e3e6e8" : "white"};
+  box-sizing: border-box;
+  height: 100%;
+  border: none;
+  border-right: gray solid 1px;
+  align-self: center;
+  text-align: center;
+  padding: 0.4rem 0.5rem;
+  :last-child {
+    border-right: none;
+  }
+`;
+
 const QuestionsContainer = () => {
   const [currentPage, setCurrentPage] = useState(1);
   const [currentSize, setCurrentSize] = useState(15);
+  const [allListData, setAllListData] = useState([]);
   const [listData, setListData] = useState([]);
+  const sortTab = ["Newest", "Unanswered", "Voted"];
+  const [currentTab, setCurrentTab] = useState("newest");
+
+  useEffect(() => {
+    if (currentTab === "newest") setListData(allListData);
+    if (currentTab === "unanswered") {
+      const newList = allListData.filter((v) => v.answer.length === 0);
+      setListData(newList);
+    }
+    if (currentTab === "voted") {
+      const newList = allListData.filter((v) => v.voteCount !== 0);
+      setListData(newList);
+    }
+  }, [currentTab, allListData]);
+
   useEffect(() => {
     const fetch = async () => {
       axios.defaults.withCredentials = true;
@@ -87,11 +114,16 @@ const QuestionsContainer = () => {
         .then((res) => {
           const { data } = res;
           setListData(data.data);
+          setAllListData(data.data);
         });
     };
     //ask버튼을 누를때 로그인이 안되어있으면 로그인창으로 이동
     fetch();
   }, [currentPage, currentSize]);
+
+  const onTabClick = (tabName) => {
+    setCurrentTab(tabName.toLowerCase());
+  };
 
   return (
     <StyledQuestionsContainer className="QuestionsContainer">
@@ -126,12 +158,17 @@ const QuestionsContainer = () => {
         <div className="questions-count"> {"23,136,393"} questions</div>
         <div className="questions-filtering-buttons">
           <nav className="questions-nav">
-            <button className="questions-tab">Newest</button>
-            <button className="questions-tab">Unanswered</button>
-            <button className="questions-tab">
-              More
-              <FontAwesomeIcon className="icon" icon={faCaretDown} />
-            </button>
+            {sortTab.map((v, idx) => (
+              <NavTab
+                className="questions-tab"
+                onClick={() => onTabClick(v)}
+                currentTab={currentTab}
+                value={v.toLowerCase()}
+                key={idx}
+              >
+                {v}
+              </NavTab>
+            ))}
           </nav>
           <Button
             bgcolor={(props) => props.theme.lightBlueTag}
