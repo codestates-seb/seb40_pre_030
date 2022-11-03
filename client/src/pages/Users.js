@@ -7,6 +7,7 @@ import Navbar from "../components/navbar/Navbar";
 import UserCard from "../components/Users/UserCard";
 import UserPagination from "../components/Users/UserPagination";
 import { STACK_EXCHANGE_URL } from "../util/api";
+import TagSkeleton from "./TagSkeleton";
 
 const UserMain = styled.div`
   max-width: 95%;
@@ -162,6 +163,7 @@ export default function Users() {
           </div>
         </div>
         <div className="time"></div>
+        {userData.length === 0 && <TagSkeleton />}
         <UserListsWrap>
           {userData &&
             userData.map((v) => <UserCard user={v} key={v.account_id} />)}
