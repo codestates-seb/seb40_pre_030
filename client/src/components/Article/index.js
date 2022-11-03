@@ -8,42 +8,39 @@ import { BASE_URL } from "../../util/api";
 import { useNavigate, useParams } from "react-router";
 import Bubble from "./Bubble";
 import { useRecoilState } from "recoil";
-import { currentQuestionState } from "../../atoms/atoms";
+import { currentQuestionState, loginInfo } from "../../atoms/atoms";
 import AnswersContainer from "../Answer/AnswersContainer";
 import Sidebar from "../Sidebar/Sidebar";
 import { Link } from "react-router-dom";
 
-const dummyArticle = {
-  post_id: 1,
-  createdAt: "2022. 10. 26",
-  modifiedAt: "2022. 10. 27",
-  title: "how to write stackoverflow",
-  body: `this is the longest body`,
-  displayName: "admin",
-  photoURL:
-    "https://w.namu.la/s/4c30cf3fed5c1a9052a52b527b9c3a4ae98534ee72dfbfd8d728cec568db7a657709d8d87507681663b495ed4355acd9049fd552bf810bda0c5252715ba7c634a5e79b21e222dca1fdf34b945146ceaffa04f4c604defd926a0bdcdd7f290978ec649f7517275885f066c43e15d422df",
-  voteCount: 3,
-  tag: ["reactjs", "testing"],
-};
-
-const data = `
-# 헤딩
-
-***굵게***
-
-
-`;
-
 const Button = ({ value, setOpenShare }) => {
   const { id } = useParams();
   const navigate = useNavigate();
+  const [currentUser, setCurrentUser] = useRecoilState(loginInfo);
+  const [currentQuestion, setCurrentQuestion] =
+    useRecoilState(currentQuestionState);
+  const accessToken = window.localStorage.getItem("accessToken");
+
   const onButtonClick = (value) => {
     if (value === "Share") setOpenShare((pre) => !pre);
-    if (value === "Edit") navigate(`/question/${id}/edit`);
-    if (value === "Delete")
-      axios.delete(`${BASE_URL}${id}`).then((res) => {
-        navigate("/");
-      });
+    if (value === "Edit") {
+      if (currentUser.userId === currentQuestion.userId)
+        navigate(`/question/${id}/edit`);
+      else alert("You can only edit or delete your own!");
+    }
+    if (value === "Delete") {
+      if (currentUser.userId === currentQuestion.userId) {
+        axios
+          .delete(`${BASE_URL}${id}`, {
+            headers: {
+              authorization: accessToken,
+            },
+          })
+          .then((res) => {
+            navigate("/");
+          });
+      } else alert("You can only edit or delete your own!");
+    }
   };
 
   return <button onClick={() => onButtonClick(value)}>{value}</button>;
@@ -51,12 +48,14 @@ const Button = ({ value, setOpenShare }) => {
 
 const Article = () => {
   const [ArticleData, setArticleData] = useState("");
-  const UpdateArticleValues = ["Share", "Edit", "Delete"];
   const [openShare, setOpenShare] = useState(false);
+  const UpdateArticleValues = ["Share", "Edit", "Delete"];
   const [currentQuestion, setCurrentQuestion] =
     useRecoilState(currentQuestionState);
+
   const { id } = useParams();
   const navigate = useNavigate();
+
   useEffect(() => {
     window.scrollTo(0, 0);
     return async () => {
@@ -74,7 +73,7 @@ const Article = () => {
           setCurrentQuestion(data);
         });
     };
-  }, []);
+  }, [id]);
 
   const handleUpClick = () => {
     axios.patch(`${BASE_URL}${id}/voteUp`).then((response) => {
@@ -124,11 +123,7 @@ const Article = () => {
             </div>
             <div className="body-section">
               <div className="body-main">{ArticleData.body}</div>
-              <div className="body-tag">
-                {dummyArticle.tag.map((el, idx) => (
-                  <Tag key={idx} value={el} />
-                ))}
-              </div>
+              <div className="body-tag"></div>
               <div className="body-footer">
                 <div className="Tag-section">
                   {UpdateArticleValues.map((v) => (
