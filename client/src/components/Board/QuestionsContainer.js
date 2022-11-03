@@ -171,7 +171,7 @@ const QuestionsContainer = () => {
         )}
       </div>
       <div className="questions-nav-wrapper">
-        <div className="questions-count"> {"23,136,393"} questions</div>
+        <div className="questions-count"> {totalBoards} questions</div>
         <div className="questions-filtering-buttons">
           <nav className="questions-nav">
             {sortTab.map((v, idx) => (
