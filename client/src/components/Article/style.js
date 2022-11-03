@@ -2,9 +2,10 @@ import styled from "styled-components";
 
 export const ArticleWrapper = styled.div`
   margin: 0px;
-  width: 100%;
+
   padding: 10px;
   border-bottom: 1px solid lightgrey;
+
   //수정부분
 
   .sub-content-wapper {
@@ -16,7 +17,7 @@ export const ArticleWrapper = styled.div`
     margin-top: 3rem;
     display: flex;
     flex-direction: row-reverse;
-    width: 50%;
+    width: 30vw;
   }
   .qustion-content-wapper {
     width: 60vw;
