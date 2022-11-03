@@ -76,9 +76,9 @@ const Question = ({ questionItem }) => {
     <StyledQuestion className="Question">
       <div className="question-summary-stats">
         <p className="question-summary-stats-item">
-          {questionItem.votes || 0} votes
+          {questionItem.voteCount || 0} votes
         </p>
-        <AnswerBox answerCount={questionItem.answers || 0} />
+        <AnswerBox answerCount={questionItem.answer.length || 0} />
         <div className="question-summary-stats-item">
           {questionItem.views || 0} views
         </div>
@@ -91,12 +91,6 @@ const Question = ({ questionItem }) => {
           {/* 특정 글자수 이상은 말줄임표로 대체 */}
           {questionItem.body}
         </div>
-        <div className="tags-container">
-          <Tag value="reactjs" />
-          <Tag value="reactjs" />
-          <Tag value="reactjs" />
-          <Tag value="reactjs" />
-        </div>
         <div className="user-card-minimal">
           <img
             className="user-card-minimal-avatar"
@@ -105,7 +99,13 @@ const Question = ({ questionItem }) => {
           />
           <div className="user-nickname">{questionItem.nickName}</div>
           <div className="asked-time">
-            asked {calculateTime(questionItem.createdAt)}
+            asked{" "}
+            {calculateTime(new Date(questionItem.createdAt)).toLocaleString(
+              "ko-KR",
+              {
+                timeZone: "UTC",
+              }
+            )}
           </div>
         </div>
       </div>
