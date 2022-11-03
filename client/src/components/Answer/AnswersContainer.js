@@ -26,6 +26,7 @@ const StyledAnswer = styled.li`
   display: flex;
   flex-direction: column;
   width: 900px;
+  /* width: 100%; */
   .answer-main-wrap {
     border-bottom: 1px solid lightgrey;
     .answer-main {

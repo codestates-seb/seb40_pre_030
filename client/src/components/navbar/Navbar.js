@@ -13,7 +13,8 @@ import { useNavigate } from "react-router-dom";
 const ChangeLi = styled.li`
   box-sizing: border-box;
   height: 30px;
-  font-size: 15px;
+  font-size: 13px;
+
   font-weight: ${(props) => (props.idx === props.currentTab ? 800 : 600)};
   color: ${(props) => (props.idx === props.currentTab ? "black" : "gray")};
   background: ${(props) =>
@@ -45,22 +46,28 @@ const ChangeList = ({ icon, text, iconStyle, idx, currentTab, onClick }) => {
 };
 
 const NavTitle = styled.div`
-  margin: 0 10px 17px 10px;
+  margin: 0 10px 5px 10px;
   display: flex;
   justify-content: space-between;
+  font-size: 15px;
 `;
 
 const NavContainer = styled.div`
   /* position: fixed; */
-  min-height: 100vh;
+  position: sticky;
+  top: 0;
+  height: 100vh;
+  margin-top: 1rem;
   min-width: 185px;
   color: gray;
   padding-top: 24px;
   border-right: lightgray solid 1px;
   margin-left: 30px;
   justify-self: end;
+  //위치조정을 위해?
+  margin-bottom: 40px;
   .nav-area {
-    margin-bottom: 40px;
+    margin-bottom: 30px;
   }
 `;
 

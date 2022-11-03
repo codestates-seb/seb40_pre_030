@@ -12,6 +12,7 @@ import { BASE_URL } from "../../util/api";
 const StyledQuestionsContainer = styled.div`
   width: 70%;
   min-width: 40rem;
+
   .questions-header {
     box-sizing: border-box;
     padding-left: 0.8rem;
