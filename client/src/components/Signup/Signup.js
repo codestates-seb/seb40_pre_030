@@ -99,6 +99,8 @@ const Signup = () => {
   const handleEmailChange = (e) => {
     if (!emailRegEx.test(e.target.value)) {
       setEmailerr(`${useremail} is not a valid email address.`);
+    } else {
+      setEmailerr("");
     }
     setUserEmail(e.target.value);
   };
@@ -106,6 +108,8 @@ const Signup = () => {
   const handlePasswordChange = (e) => {
     if (!passwordRegEx.test(e.target.value)) {
       setPassworderr("Please add one of the following things");
+    } else {
+      setPassworderr("");
     }
     setUserPassword(e.target.value);
   };
