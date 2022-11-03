@@ -58,11 +58,15 @@ public class AnswerController {
     // 답변 수정
     @PatchMapping("{post-id}/{answer-id}/edit")
     public ResponseEntity patchAnswer(@PathVariable("answer-id") @Positive long answerId,
-                                      @Valid @RequestBody AnswerDto.Patch requestBody){
+                                      @Valid @RequestBody AnswerDto.Patch requestBody,
+                                      Principal principal){
+        User user = userService.findVerifiedUserEmail(principal.getName());
+        long userId = user.getUserId();
         requestBody.setAnswerId(answerId);
         Answer answer = mapper.answerPatchDtoToAnswer(requestBody);
-        Answer updateAnswer = answerService.updateAnswer(answer);
+        Answer updateAnswer = answerService.updateAnswer(answer, userId);
         AnswerDto.Response response = mapper.answerToAnswerResponse(updateAnswer);
+        response.setUserId(user.getUserId());
         return new ResponseEntity<>(response, HttpStatus.OK);
     }
     // 답변 투표 +1
@@ -95,9 +99,11 @@ public class AnswerController {
 
     // 답변 삭제
     @DeleteMapping("/{answer-id}")
-    public ResponseEntity deleteAnswer(@PathVariable("answer-id") @Positive long answerId){
-
-        answerService.deleteAnswer(answerId);
+    public ResponseEntity deleteAnswer(@PathVariable("answer-id") @Positive long answerId,
+                                       Principal principal){
+        User user = userService.findVerifiedUserEmail(principal.getName());
+        long userId = user.getUserId();
+        answerService.deleteAnswer(answerId, userId);
         return new ResponseEntity<>(HttpStatus.NO_CONTENT);
     }
 }
