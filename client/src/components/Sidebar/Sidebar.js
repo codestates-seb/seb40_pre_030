@@ -4,13 +4,14 @@ import Collectives from "./Collectives";
 
 const SideWrap = styled.div`
   /* width: 300px; */
-  position: sticky;
-  top: 0;
-  width: 40%;
+  /* position: sticky;
+  top: 0; */
+  width: 30vw;
   float: right;
   /* margin: 0 60px; */
   margin-right: 6rem;
   margin-left: 1rem;
+  z-index: 1;
 `;
 const Sidebar = () => {
   return (
