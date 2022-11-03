@@ -13,6 +13,7 @@ import Users from "./pages/Users";
 import QuestionsView from "./pages/QuestionView";
 import EditQuestion from "./pages/EditQuestion";
 import EditAnswer from "./pages/EditAnswer";
+import Footer from "./components/Footer";
 
 function App() {
   return (
@@ -34,6 +35,7 @@ function App() {
           <Route path="/users" element={<Users />}></Route>
         </Routes>
       </div>
+      <Footer />
     </ThemeProvider>
   );
 }
