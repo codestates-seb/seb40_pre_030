@@ -12,4 +12,5 @@ export function logout() {
   console.log("localStorage set logout!");
   window.localStorage.setItem("logout", Date.now());
   cookies.remove("refresh_token");
+  cookies.remove("accesstoken");
 }
