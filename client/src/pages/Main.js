@@ -23,7 +23,7 @@ const Main = () => {
         <QuestionsContainer />
         <Sidebar />
       </div>
-      <Footer />
+      {/* <Footer /> */}
     </StyledMain>
   );
 };
