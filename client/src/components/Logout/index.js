@@ -9,6 +9,7 @@ import { useLogin } from "../../hooks/customServHook";
 import { loginStatus } from "../../atoms/atoms";
 import { OutForm, Wrapper, Contents, SiteLi } from "./style";
 import { logout } from "../../util/Cookies";
+// import Header from "../components/Header";
 
 const siteFile = [
   ["askbuntu.com", "https://askubuntu.com/", [0, -360]],

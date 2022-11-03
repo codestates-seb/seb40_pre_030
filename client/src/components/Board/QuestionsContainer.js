@@ -16,6 +16,7 @@ import { useRecoilState } from "recoil";
 const StyledQuestionsContainer = styled.div`
   width: 100%;
   min-width: 40rem;
+
   .questions-header {
     box-sizing: border-box;
     padding-left: 0.8rem;
