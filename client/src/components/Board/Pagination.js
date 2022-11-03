@@ -1,8 +1,6 @@
 import { useEffect, useState } from "react";
-import { Link, Navigate, useLocation, useNavigate } from "react-router-dom";
+import { Navigate, useNavigate } from "react-router-dom";
 import styled from "styled-components";
-import axios from "axios";
-import { BASE_URL } from "../../util/api";
 
 const StyledPagination = styled.div`
   display: flex;
@@ -32,15 +30,21 @@ const Pagination = ({
   currentSize,
   setCurrentPage,
   setCurrentSize,
+  totalPages,
 }) => {
   const navigate = useNavigate();
-  const pages = [1, 2, 3, 4, 5, 6, 7, 8, 9, 10];
+  const [pages, setPages] = useState([1]);
   const pageSizes = [15, 30, 50];
 
   useEffect(() => {
     if (currentPage === 1) navigate("/");
     else navigate(`/?page=${currentPage}`);
   }, [currentPage]);
+
+  useEffect(() => {
+    const newPages = Array.from({ length: totalPages }, (v, i) => i + 1);
+    setPages(newPages);
+  }, [totalPages]);
 
   const LinkButton = ({ buttonContent, selected, buttonId }) => {
     const onPageButtonClick = (buttonId, buttonContent) => {

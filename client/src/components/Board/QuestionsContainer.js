@@ -89,6 +89,7 @@ const QuestionsContainer = () => {
   const [listData, setListData] = useState([]);
   const sortTab = ["Newest", "Unanswered", "Voted"];
   const [currentTab, setCurrentTab] = useState("newest");
+  const [totalPages, setTotalPages] = useState();
 
   useEffect(() => {
     if (currentTab === "newest") setListData(allListData);
@@ -115,6 +116,7 @@ const QuestionsContainer = () => {
           const { data } = res;
           setListData(data.data);
           setAllListData(data.data);
+          setTotalPages(data.pageInfo.totalPages);
         });
     };
     //ask버튼을 누를때 로그인이 안되어있으면 로그인창으로 이동
@@ -191,6 +193,7 @@ const QuestionsContainer = () => {
           currentSize={currentSize}
           setCurrentPage={setCurrentPage}
           setCurrentSize={setCurrentSize}
+          totalPages={totalPages}
         />
       </ul>
     </StyledQuestionsContainer>
