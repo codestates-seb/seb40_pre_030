@@ -13,6 +13,7 @@ import Atag from "./Atag";
 import { Link } from "react-router-dom";
 import { useRecoilValue } from "recoil";
 import { loginStatus } from "../../atoms/atom.js";
+import styled from "styled-components";
 
 const headerNav = {
   false: ["About", "Products", "For Teams"],
@@ -23,6 +24,13 @@ const contents = {
   false: ["Log in", "Sign up"],
   true: ["Profile", faInbox, faTrophy, faFileCircleQuestion, faBars],
 };
+
+const Headerbutton = styled.button`
+  border: none;
+  background: ${(props) => props.background};
+  color: white;
+  color: ${(props) => props.color || "#013a60"};
+`;
 
 export const Logo = () => {
   return (
@@ -60,7 +68,7 @@ export const SearchBar = ({ placeHolderText }) => {
     </form>
   );
 };
-
+//로그인 회원가입 버튼으로 만들어줌
 export const HeaderCont = ({ logged }) => {
   return (
     <>
@@ -68,11 +76,15 @@ export const HeaderCont = ({ logged }) => {
         <div key={idx}>
           {el === "Log in" ? (
             <Link to="/users/login">
-              <Atag name={el} logged={logged} />
+              <Headerbutton background="#aad3ee" color="white">
+                <Atag name={el} logged={logged} />
+              </Headerbutton>
             </Link>
           ) : el === "Sign up" ? (
             <Link to="users/signup">
-              <Atag name={el} logged={logged} />
+              <Headerbutton background="#42b1fa" color="white">
+                <Atag name={el} logged={logged} />
+              </Headerbutton>
             </Link>
           ) : el === faBars ? (
             <Link to="users/logout">

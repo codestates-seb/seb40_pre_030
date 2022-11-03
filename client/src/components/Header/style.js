@@ -20,15 +20,18 @@ export const HeaderWrapper = styled.div`
       padding: 0 8px;
     }
     a {
+      //버튼때문에 스타일바꿈
       color: black;
       text-decoration: none;
       border-radius: 1000px;
       border: none;
       padding: 6px 12px;
-      margin: 2px;
+      margin: 0px;
       font-size: 0.8em;
+      //hover의 색변경
       :hover {
-        background-color: red;
+        background-color: rgba(222, 222, 222, 0.98);
+        border-radius: 0px;
       }
     }
     form {

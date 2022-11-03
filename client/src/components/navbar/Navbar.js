@@ -12,7 +12,7 @@ import { useNavigate } from "react-router-dom";
 
 const ChangeLi = styled.li`
   box-sizing: border-box;
-  height: 40px;
+  height: 30px;
   font-size: 15px;
   font-weight: ${(props) => (props.idx === props.currentTab ? 800 : 600)};
   color: ${(props) => (props.idx === props.currentTab ? "black" : "gray")};

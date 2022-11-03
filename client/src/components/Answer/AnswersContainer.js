@@ -58,6 +58,7 @@ const AnswersContainer = () => {
         });
     };
   }, []);
+
   console.log(AnswerData);
   return (
     <StyledAnswersContainer className="AnswersContainer">
