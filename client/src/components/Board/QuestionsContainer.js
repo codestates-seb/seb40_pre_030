@@ -94,20 +94,6 @@ const QuestionsContainer = () => {
   const [totalBoards, setTotalBoards] = useState();
 
   useEffect(() => {
-    const fetch = async () => {
-      axios.defaults.withCredentials = true;
-      await axios
-        .get(`${BASE_URL}?page=1&size=${totalBoards}`, {
-          headers: {
-            "ngrok-skip-browser-warning": "skip",
-          },
-        })
-        .then((res) => {
-          const { data } = res;
-          setAllListData(data.data);
-        });
-    };
-    fetch();
     if (currentTab === "newest") setListData(originData);
     if (currentTab === "unanswered") {
       setListData(allListData.filter((v) => v.answer.length === 0));
@@ -139,8 +125,21 @@ const QuestionsContainer = () => {
   }, [currentPage, currentSize]);
 
   const onTabClick = (tabName) => {
+    const fetch = async () => {
+      axios.defaults.withCredentials = true;
+      await axios
+        .get(`${BASE_URL}?page=1&size=${totalBoards}`, {
+          headers: {
+            "ngrok-skip-browser-warning": "skip",
+          },
+        })
+        .then((res) => {
+          const { data } = res;
+          setAllListData(data.data);
+        });
+    };
+    fetch();
     setCurrentTab(tabName.toLowerCase());
-    setCurrentPage(1);
   };
 
   return (
