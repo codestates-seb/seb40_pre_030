@@ -8,6 +8,7 @@ import {
   faTrophy,
   faFileCircleQuestion,
   faBars,
+  faUser,
 } from "@fortawesome/free-solid-svg-icons";
 import Atag from "./Atag";
 import { Link } from "react-router-dom";
@@ -19,8 +20,15 @@ const headerNav = {
 
 const contents = {
   false: ["Log in", "Sign up"],
-  true: ["Profile", faInbox, faTrophy, faFileCircleQuestion, faBars],
+  true: [faUser, faInbox, faTrophy, faFileCircleQuestion, faBars],
 };
+
+// const Headerbutton = styled.button`
+//   border: none;
+//   background: ${(props) => props.background};
+//   color: white;
+//   color: ${(props) => props.color || "#013a60"};
+// `;
 
 export const Logo = () => {
   return (
@@ -58,7 +66,7 @@ export const SearchBar = ({ placeHolderText }) => {
     </form>
   );
 };
-
+//로그인 회원가입 버튼으로 만들어줌
 export const HeaderCont = ({ logged }) => {
   return (
     <>

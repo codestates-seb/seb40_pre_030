@@ -1,6 +1,7 @@
 import styled from "styled-components";
 
 export const HeaderWrapper = styled.div`
+  /* position: fixed; */
   width: 100%;
   display: flex;
   justify-content: center;
@@ -25,13 +26,19 @@ export const HeaderWrapper = styled.div`
       padding: 0 8px;
     }
     a {
+      //버튼때문에 스타일바꿈
       color: black;
       text-decoration: none;
       border-radius: 1000px;
       border: none;
       padding: 6px 12px;
-      margin: 2px;
+      margin: 0px;
       font-size: 0.8em;
+      //hover의 색변경
+      :hover {
+        background-color: rgba(222, 222, 222, 0.98);
+        border-radius: 0px;
+      }
     }
     form {
       display: flex;
@@ -72,6 +79,9 @@ export const HeaderWrapper = styled.div`
       background-color: hsl(205, 46%, 92%);
       border-color: hsl(205, 41%, 63%);
       box-shadow: 0 1px 0 0 hsl(0deg 0% 100% / 70%);
+      :hover {
+        background-color: hsl(205, 41%, 63%);
+      }
       .logtxt {
         color: hsl(205, 47%, 42%);
       }
@@ -89,6 +99,9 @@ export const HeaderWrapper = styled.div`
       border-color: hsl(206, 100%, 52%);
       background-color: hsl(206, 100%, 52%);
       box-shadow: 0 1px 0 0 hsl(0deg 0% 100% / 70%);
+      :hover {
+        background-color: hsl(206, 100%, 40%);
+      }
       .signtxt {
         color: white;
       }
