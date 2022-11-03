@@ -204,11 +204,6 @@ const Askquetion = () => {
     SetTitleOn2(!TitleOn2);
   };
 
-  const getRandomNumber = (min, max) => {
-    return parseInt(Math.random() * (Number(max) - Number(min) + 2));
-  };
-  const resethandler = () => {};
-
   const AskHandler = (e) => {
     e.preventDefault();
     axios({
@@ -223,7 +218,10 @@ const Askquetion = () => {
       .then(function (response) {
         navigate("/");
       })
-      .catch((err) => console.log(err));
+      .catch((err) => {
+        console.log(err);
+        alert("글 작성에 실패했습니다");
+      });
   };
 
   return (
@@ -265,7 +263,7 @@ const Askquetion = () => {
                         ref={textRef}
                         height="500px"
                         initialEditType="markdown"
-                        initialValue="　"
+                        initialValue=" "
                         onChange={handleChangeInput}
                       />
                     </div>
