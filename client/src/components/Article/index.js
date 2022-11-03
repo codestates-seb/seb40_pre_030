@@ -37,7 +37,10 @@ const Button = ({ value, setOpenShare }) => {
   const onButtonClick = (value) => {
     if (value === "Share") setOpenShare((pre) => !pre);
     if (value === "Edit") navigate(`/question/${id}/edit`);
-    if (value === "Delete") axios.delete(`${BASE_URL}/${id}`);
+    if (value === "Delete")
+      axios.delete(`${BASE_URL}${id}`).then((res) => {
+        navigate("/");
+      });
   };
 
   return <button onClick={() => onButtonClick(value)}>{value}</button>;
@@ -50,7 +53,7 @@ const Article = () => {
   const [currentQuestion, setCurrentQuestion] =
     useRecoilState(currentQuestionState);
   const { id } = useParams();
-
+  const navigate = useNavigate();
   useEffect(() => {
     window.scrollTo(0, 0);
     return async () => {
@@ -71,13 +74,13 @@ const Article = () => {
   }, []);
 
   const handleUpClick = () => {
-    axios.patch(`${BASE_URL}1/voteUp`).then((response) => {
-      window.location.reload();
+    axios.patch(`${BASE_URL}${id}/voteUp`).then((response) => {
+      navigate(`/question/${id}`);
     });
   };
   const handleDownClick = () => {
-    axios.patch(`${BASE_URL}1/voteDown`).then((response) => {
-      window.location.reload();
+    axios.patch(`${BASE_URL}${id}/voteDown`).then((response) => {
+      navigate(`/question/${id}`);
     });
   };
 

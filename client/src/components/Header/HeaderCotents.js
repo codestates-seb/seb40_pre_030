@@ -12,6 +12,7 @@ import {
 } from "@fortawesome/free-solid-svg-icons";
 import Atag from "./Atag";
 import { Link } from "react-router-dom";
+import styled from "styled-components";
 
 const headerNav = {
   false: ["About", "Products", "For Teams"],

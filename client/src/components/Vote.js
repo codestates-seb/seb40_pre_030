@@ -3,7 +3,7 @@ import { faCaretDown, faCaretUp } from "@fortawesome/free-solid-svg-icons";
 import styled from "styled-components";
 import axios from "axios";
 import { BASE_URL } from "../util/api";
-
+import { useNavigate, useParams } from "react-router";
 const StyledVote = styled.div`
   font-size: 1.7rem;
   color: gray;
@@ -21,18 +21,18 @@ const StyledVote = styled.div`
 `;
 
 const Vote = ({ datas }) => {
+  const navigate = useNavigate();
+  const { id } = useParams();
   const handleUpClick = () => {
     axios
-      .patch(`${BASE_URL}answers/1/${datas.answerId}/voteUp`)
-      .then((response) => {
-        window.location.reload();
-      });
+      .patch(`${BASE_URL}answers/${id}/${datas.answerId}/voteUp`)
+      .then((response) => {});
   };
   const handleDownClick = () => {
     axios
-      .patch(`${BASE_URL}answers/1/${datas.answerId}/voteDown`)
+      .patch(`${BASE_URL}answers/${id}/${datas.answerId}/voteDown`)
       .then((response) => {
-        window.location.reload();
+        navigate("");
       });
   };
 

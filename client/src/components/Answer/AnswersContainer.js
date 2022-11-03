@@ -86,13 +86,17 @@ const AnswersContainer = () => {
     };
   }, [id]);
 
-  const onUpdateButtonClick = (id, value) => {
-    setSelectedComment(id);
+  const onUpdateButtonClick = (ind, value) => {
+    setSelectedComment(ind);
     if (value === "Share") setOpenShare((pre) => !pre);
     if (value === "Edit") {
-      setCurrentAnswer(AnswerData.filter((v) => v.answerId === id)[0]);
-      navigate(`/answer/${id}/edit`);
+      setCurrentAnswer(AnswerData.filter((v) => v.answerId === ind)[0]);
+      navigate(`/answer/${ind}/edit`);
     }
+    if (value === "Delete")
+      axios.delete(`${BASE_URL}answers/${ind}`).then((res) => {
+        navigate(`/question/${id}`);
+      });
   };
 
   return (

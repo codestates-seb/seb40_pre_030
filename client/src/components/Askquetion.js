@@ -6,6 +6,7 @@ import "@toast-ui/editor/dist/toastui-editor.css";
 import { Editor } from "@toast-ui/react-editor";
 import { BASE_URL } from "../../src/util/api";
 import axios from "axios";
+import { Navigate, useNavigate } from "react-router";
 //아코디언 더미 데이터
 const Accordiondata = [
   {
@@ -173,7 +174,7 @@ const Askquetion = () => {
   const [TitleId, SetTitleId] = useState(0);
   const [TitleOn, SetTitleOn] = useState(false);
   const [TitleOn2, SetTitleOn2] = useState(false);
-
+  const navigate = useNavigate();
   const AskTitleChange = (event) => {
     Settitle(event.target.value);
   };
@@ -215,7 +216,7 @@ const Askquetion = () => {
       })
       .then(function (response) {
         console.log(response);
-        window.location.reload();
+        Navigate("/");
       })
       .catch((err) => console.log(err));
   };
