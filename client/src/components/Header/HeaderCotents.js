@@ -23,12 +23,12 @@ const contents = {
   true: [faUser, faInbox, faTrophy, faFileCircleQuestion, faBars],
 };
 
-const Headerbutton = styled.button`
-  border: none;
-  background: ${(props) => props.background};
-  color: white;
-  color: ${(props) => props.color || "#013a60"};
-`;
+// const Headerbutton = styled.button`
+//   border: none;
+//   background: ${(props) => props.background};
+//   color: white;
+//   color: ${(props) => props.color || "#013a60"};
+// `;
 
 export const Logo = () => {
   return (
