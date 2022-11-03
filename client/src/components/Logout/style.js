@@ -52,7 +52,7 @@ export const OutForm = styled.form`
   }
   .decider {
     display: flex;
-    justify-content: space-evenly;
+    /* justify-content: space-evenly; */
     align-items: center;
     padding: 0.8rem;
     line-height: 1rem;
