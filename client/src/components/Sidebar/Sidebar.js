@@ -6,7 +6,7 @@ const SideWrap = styled.div`
   /* width: 300px; */
   /* position: sticky;
   top: 0; */
-  width: 30vw;
+  width: 25vw;
   float: right;
   /* margin: 0 60px; */
   margin-right: 6rem;
