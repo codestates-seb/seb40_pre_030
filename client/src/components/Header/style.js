@@ -39,14 +39,17 @@ export const HeaderWrapper = styled.div`
       font-size: 0.8em;
     }
     .hovergray_nav {
-      margin: 0.4rem;
-      padding-top: 3px;
+      font-size: 0.9rem;
+      padding: 7px 0.4rem 10px 0.4rem;
       display: flex;
       align-items: center;
       justify-content: center;
       :hover {
         border-radius: 1000px;
         background-color: ${(props) => props.theme.headerhovergray};
+      }
+      div {
+        margin-top: 3px;
       }
     }
     .hovergray_cont {
@@ -125,7 +128,7 @@ export const HeaderWrapper = styled.div`
       border-radius: 3px;
       border-color: hsl(206, 100%, 52%);
       background-color: hsl(206, 100%, 52%);
-      box-shadow: 0 1px 0 0 hsl(0deg 0% 100% / 70%);
+      box-shadow: inset 0 1px 0 0 hsl(0deg 0% 100% / 40%);
       :hover {
         background-color: hsl(206, 100%, 40%);
       }

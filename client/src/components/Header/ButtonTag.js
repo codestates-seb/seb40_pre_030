@@ -12,7 +12,7 @@ const ButtonWrap = styled.button`
   border-radius: 3px;
   border-color: hsl(206, 100%, 52%);
   background-color: hsl(206, 100%, 52%);
-  box-shadow: 0 1px 0 0 hsl(0deg 0% 100% / 70%);
+  box-shadow: inset 0 1px 0 0 hsl(0deg 0% 100% / 40%);
   :hover {
     background-color: hsl(206, 100%, 40%);
   }
