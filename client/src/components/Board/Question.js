@@ -45,8 +45,10 @@ const StyledQuestion = styled.li`
     line-height: 1.2rem;
   }
   .question-content-body {
+    max-width: 700px;
     font-size: 0.8rem;
     line-height: 1.2rem;
+    word-break: break-all;
   }
   .tags-container {
     margin: 0.5rem 0;
