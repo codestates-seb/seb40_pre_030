@@ -7,7 +7,10 @@ import axios from "axios";
 import { useRecoilState } from "recoil";
 import { BASE_URL } from "../../util/api";
 import { loginStatus, loginInfo } from "../../atoms/atoms";
-import { setRefreshTokenToCookie } from "../../util/Cookies";
+import {
+  setRefreshTokenToCookie,
+  setAcceddTokenCookie,
+} from "../../util/Cookies";
 
 //outline->으로 주기
 
@@ -182,6 +185,7 @@ const Login = () => {
         // localStorage.setItem("loginStatus", loginStatus);
         axios.defaults.headers.common["Authorization"] = `${accessToken}`;
         setRefreshTokenToCookie(refreshToken);
+        setAcceddTokenCookie(accessToken);
         navigate("/");
       })
       .catch((err) => console.log(err.response));

@@ -4,7 +4,7 @@ import { useRecoilState } from "recoil";
 
 import Atag from "../Header/Atag";
 import ButtonTag from "../Header/ButtonTag";
-import { loggedUserAtom } from "../../atoms/atoms";
+import { loggedUserAtom, loginInfo } from "../../atoms/atoms";
 import { useLogin } from "../../hooks/customServHook";
 import { loginStatus } from "../../atoms/atoms";
 import { OutForm, Wrapper, Contents, SiteLi } from "./style";
@@ -24,6 +24,7 @@ const LogOut = () => {
   const [checkForAll, setCheckForAll] = useState(false);
   const [logged, setLogged] = useRecoilState(loginStatus);
   const [user, setUser] = useRecoilState(loggedUserAtom);
+  const [userInfo, setUserInfo] = useRecoilState(loginInfo);
   setUser(useLogin());
 
   const onClickCheck = (e) => setCheckForAll(!checkForAll);
@@ -33,6 +34,7 @@ const LogOut = () => {
     localStorage.removeItem("accessToken");
     navigate("/");
     logout();
+    setUserInfo(null);
   };
 
   return (

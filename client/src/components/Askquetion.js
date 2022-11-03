@@ -6,7 +6,9 @@ import "@toast-ui/editor/dist/toastui-editor.css";
 import { Editor } from "@toast-ui/react-editor";
 import { BASE_URL } from "../../src/util/api";
 import axios from "axios";
-import { Navigate, useNavigate } from "react-router";
+import { useRecoilState } from "recoil";
+import { loginInfo } from "../atoms/atoms";
+import { useNavigate } from "react-router";
 //아코디언 더미 데이터
 const Accordiondata = [
   {
@@ -174,13 +176,16 @@ const Askquetion = () => {
   const [TitleId, SetTitleId] = useState(0);
   const [TitleOn, SetTitleOn] = useState(false);
   const [TitleOn2, SetTitleOn2] = useState(false);
+  const [userInformation, setUserInformation] = useRecoilState(loginInfo);
   const navigate = useNavigate();
+  const accessToken = window.localStorage.getItem("accessToken");
+
   const AskTitleChange = (event) => {
     Settitle(event.target.value);
   };
 
   const handleChangeInput = () => {
-    Setbody(textRef.current.getInstance().getMarkdown());
+    Setbody(textRef.current.getInstance().getMarkdown().trim());
   };
 
   const TitleClick = (id) => {
@@ -199,26 +204,25 @@ const Askquetion = () => {
     SetTitleOn2(!TitleOn2);
   };
 
-  const getRandomNumber = (min, max) => {
-    return parseInt(Math.random() * (Number(max) - Number(min) + 2));
-  };
-  const resethandler = () => {};
   const AskHandler = (e) => {
     e.preventDefault();
-    axios
-      .post(`${BASE_URL}ask`, {
-        title,
-        body,
-        photoURL: `https://randomuser.me/api/portraits/women/${getRandomNumber(
-          1,
-          98
-        )}.jpg`,
-      })
+    axios({
+      method: "post",
+      url: `${BASE_URL}ask`,
+      data: { title, body, photoURL: "1234" },
+      headers: {
+        "ngrok-skip-browser-warning": "skip",
+        authorization: accessToken,
+      },
+    })
       .then(function (response) {
-        console.log(response);
-        Navigate("/");
+        navigate(`/question/${response.data.boardId}`);
+        console.log(response.data.boardId);
       })
-      .catch((err) => console.log(err));
+      .catch((err) => {
+        console.log(err);
+        alert("글 작성에 실패했습니다");
+      });
   };
 
   return (
@@ -260,7 +264,7 @@ const Askquetion = () => {
                         ref={textRef}
                         height="500px"
                         initialEditType="markdown"
-                        initialValue="　"
+                        initialValue=" "
                         onChange={handleChangeInput}
                       />
                     </div>

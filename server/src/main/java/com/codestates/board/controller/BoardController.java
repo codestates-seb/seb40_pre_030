@@ -37,6 +37,8 @@ public class BoardController {
 
         User user = userService.findVerifiedUserEmail(principal.getName());
         requestBody.setUser(user);
+        requestBody.setNickName(user.getNickName());
+        requestBody.setPhotoURL(user.getPhotoURL());
         Board board = mapper.boardPostDtoToBoard(requestBody);
         Board createBoard = boardService.createBoard(board);
         BoardDto.Response response = mapper.boardToBoardResponse(createBoard);

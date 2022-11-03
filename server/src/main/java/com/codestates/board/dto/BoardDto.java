@@ -22,6 +22,10 @@ public class BoardDto {
 
         @NotBlank
         private String body;
+
+        private String nickName;
+
+        private String photoURL;
     }
 
     @Getter @Setter

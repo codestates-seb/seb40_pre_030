@@ -206,7 +206,7 @@ const Signup = () => {
             <label htmlFor="password">
               Password <br />
               <InputButton
-                active={emailerr}
+                active={passworderr}
                 className="SignupInput"
                 id="password"
                 name="password"
@@ -219,7 +219,7 @@ const Signup = () => {
             ) : null}
           </div>
 
-          <div className="UserinfoWrap">
+          {/* <div className="UserinfoWrap">
             <label htmlFor="confirm_password">
               Confirm Password <br />
               <InputButton
@@ -230,7 +230,7 @@ const Signup = () => {
                 type="password"
               />
             </label>
-          </div>
+          </div> */}
 
           <br />
           <button className="SignUpbtn" type="submit" onChange={SignupHandler}>

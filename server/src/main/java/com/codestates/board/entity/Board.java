@@ -49,7 +49,7 @@ public class Board {
     @Column// 일단 해놓음
     private int voteCount;
 
-    @OneToMany(mappedBy = "board", cascade = CascadeType.PERSIST)
+    @OneToMany(mappedBy = "board", cascade = CascadeType.ALL)
     private List<Answer> answer = new ArrayList<>();
 
     public void addAnswer(Answer answer) {
