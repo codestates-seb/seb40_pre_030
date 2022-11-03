@@ -11,7 +11,8 @@ import Pagination from "./Pagination";
 import { useEffect, useState } from "react";
 import axios from "axios";
 import { BASE_URL } from "../../util/api";
-
+import { loginStatus } from "../../atoms/atoms";
+import { useRecoilState } from "recoil";
 const StyledQuestionsContainer = styled.div`
   width: 100%;
   min-width: 40rem;
@@ -74,7 +75,7 @@ const QuestionsContainer = () => {
   const [currentPage, setCurrentPage] = useState(1);
   const [currentSize, setCurrentSize] = useState(15);
   const [listData, setListData] = useState([]);
-
+  const [logged, SetLogged] = useRecoilState(loginStatus);
   useEffect(() => {
     const fetch = async () => {
       axios.defaults.withCredentials = true;

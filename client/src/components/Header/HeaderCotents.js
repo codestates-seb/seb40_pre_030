@@ -8,12 +8,10 @@ import {
   faTrophy,
   faFileCircleQuestion,
   faBars,
+  faUser,
 } from "@fortawesome/free-solid-svg-icons";
 import Atag from "./Atag";
 import { Link } from "react-router-dom";
-import { useRecoilValue } from "recoil";
-import { loginStatus } from "../../atoms/atom.js";
-import styled from "styled-components";
 
 const headerNav = {
   false: ["About", "Products", "For Teams"],
@@ -22,7 +20,7 @@ const headerNav = {
 
 const contents = {
   false: ["Log in", "Sign up"],
-  true: ["Profile", faInbox, faTrophy, faFileCircleQuestion, faBars],
+  true: [faUser, faInbox, faTrophy, faFileCircleQuestion, faBars],
 };
 
 const Headerbutton = styled.button`
@@ -76,15 +74,15 @@ export const HeaderCont = ({ logged }) => {
         <div key={idx}>
           {el === "Log in" ? (
             <Link to="/users/login">
-              <Headerbutton background="#aad3ee" color="white">
-                <Atag name={el} logged={logged} />
-              </Headerbutton>
+              <div className="loginbtn">
+                <Atag className="logtxt" name={el} logged={logged} />
+              </div>
             </Link>
           ) : el === "Sign up" ? (
             <Link to="users/signup">
-              <Headerbutton background="#42b1fa" color="white">
-                <Atag name={el} logged={logged} />
-              </Headerbutton>
+              <div className="signupbtn">
+                <Atag className="signtxt" name={el} logged={logged} />
+              </div>
             </Link>
           ) : el === faBars ? (
             <Link to="users/logout">

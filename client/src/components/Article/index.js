@@ -1,4 +1,3 @@
-import ReactMarkdown from "react-markdown";
 import Tag from "../tags/Tag";
 import { ArticleContent, ArticleWrapper } from "./style";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
@@ -6,6 +5,10 @@ import { faCaretUp, faCaretDown } from "@fortawesome/free-solid-svg-icons";
 import { useState, useEffect } from "react";
 import axios from "axios";
 import { BASE_URL } from "../../util/api";
+import { useNavigate, useParams } from "react-router";
+import Bubble from "./Bubble";
+import { useRecoilState } from "recoil";
+import { currentQuestionState } from "../../atoms/atoms";
 
 const dummyArticle = {
   post_id: 1,
@@ -28,26 +31,55 @@ const data = `
 
 `;
 
+const Button = ({ value, setOpenShare }) => {
+  const { id } = useParams();
+  const navigate = useNavigate();
+  const onButtonClick = (value) => {
+    if (value === "Share") setOpenShare((pre) => !pre);
+    if (value === "Edit") navigate(`/question/${id}/edit`);
+    if (value === "Delete") axios.delete(`${BASE_URL}/${id}`);
+  };
+
+  return <button onClick={() => onButtonClick(value)}>{value}</button>;
+};
+
 const Article = () => {
   const [ArticleData, setArticleData] = useState("");
+  const UpdateArticleValues = ["Share", "Edit", "Delete"];
+  const [openShare, setOpenShare] = useState(false);
+  const [currentQuestion, setCurrentQuestion] =
+    useRecoilState(currentQuestionState);
+  const { id } = useParams();
 
   useEffect(() => {
+    window.scrollTo(0, 0);
     return async () => {
       axios.defaults.withCredentials = true;
-      // fetch(`/?page=${currentPage}&size=${currentSize}`)
+
       axios
-        .get(`${BASE_URL}1`, {
+        .get(`${BASE_URL}${id}`, {
           headers: {
             "ngrok-skip-browser-warning": "skip",
           },
         })
         .then((res) => {
           const { data } = res;
-          console.log(data.title);
           setArticleData(data);
+          setCurrentQuestion(data);
         });
     };
   }, []);
+
+  const handleUpClick = () => {
+    axios.patch(`${BASE_URL}1/voteUp`).then((response) => {
+      window.location.reload();
+    });
+  };
+  const handleDownClick = () => {
+    axios.patch(`${BASE_URL}1/voteDown`).then((response) => {
+      window.location.reload();
+    });
+  };
 
   return (
     <ArticleWrapper>
@@ -66,9 +98,17 @@ const Article = () => {
         </div>
         <ArticleContent>
           <div className="vote-section">
-            <FontAwesomeIcon className="vote-icon" icon={faCaretUp} />
+            <FontAwesomeIcon
+              className="vote-icon"
+              icon={faCaretUp}
+              onClick={handleUpClick}
+            />
             {ArticleData.voteCount}
-            <FontAwesomeIcon className="vote-icon" icon={faCaretDown} />
+            <FontAwesomeIcon
+              className="vote-icon"
+              icon={faCaretDown}
+              onClick={handleDownClick}
+            />
           </div>
           <div className="body-section">
             <div className="body-main">{ArticleData.body}</div>
@@ -79,14 +119,15 @@ const Article = () => {
             </div>
             <div className="body-footer">
               <div className="Tag-section">
-                <Tag value="Share" />
-                <Tag value="Edit" />
-                <Tag value="Delete" />
-                <Tag value="Flag" />
+                {UpdateArticleValues.map((v) => (
+                  <Button key={v} value={v} setOpenShare={setOpenShare} />
+                ))}
+                {/* 배포 후 글 주소 기재하기 */}
+                {openShare && <Bubble link="글 주소 기재" />}
               </div>
               <div className="post-owner">
                 <div className="user-action-item">
-                  asked {ArticleData.createdAt}
+                  asked 2022-11-01T01:31:27
                 </div>
                 <div className="user-avatar">
                   <img src={ArticleData.photoURL} alt="" />

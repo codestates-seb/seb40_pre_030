@@ -25,7 +25,7 @@ public interface BoardMapper {
         BoardDto.Response boardResponse = new BoardDto.Response();
         boardResponse.setTitle(requestBody.getTitle());
         boardResponse.setBody(requestBody.getBody());
-        boardResponse.setPhotoURL(requestBody.getPhotoURL());
+        boardResponse.setPhotoURL(requestBody.getUser().getPhotoURL());
         boardResponse.setBoardId(requestBody.getBoardId());
         boardResponse.setUserId(requestBody.getUser().getUserId());
         boardResponse.setNickName(requestBody.getUser().getNickName());

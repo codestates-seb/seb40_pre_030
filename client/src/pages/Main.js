@@ -9,6 +9,7 @@ const StyledMain = styled.div`
   grid-template-columns: auto 80%;
   .main-contents-wrapper {
     display: flex;
+    margin-top: 1rem;
   }
 `;
 

@@ -4,10 +4,9 @@ import { faAngleUp, faAngleDown } from "@fortawesome/free-solid-svg-icons";
 import { useState, useRef, useEffect } from "react";
 import "@toast-ui/editor/dist/toastui-editor.css";
 import { Editor } from "@toast-ui/react-editor";
-import { faDAndD } from "@fortawesome/free-brands-svg-icons";
-
 import { BASE_URL } from "../../src/util/api";
 import axios from "axios";
+//아코디언 더미 데이터
 const Accordiondata = [
   {
     id: 1,
@@ -168,19 +167,21 @@ const Main = styled.main`
   }
 `;
 const Askquetion = () => {
-  const [AskTitle, SetAskTitle] = useState("");
-  const [AskBody, SetAskBody] = useState("");
+  const [title, Settitle] = useState("");
+  const [body, Setbody] = useState("");
   const textRef = useRef("");
   const [TitleId, SetTitleId] = useState(0);
   const [TitleOn, SetTitleOn] = useState(false);
   const [TitleOn2, SetTitleOn2] = useState(false);
+
   const AskTitleChange = (event) => {
-    SetAskTitle(event.target.value);
+    Settitle(event.target.value);
   };
 
   const handleChangeInput = () => {
-    SetAskBody(textRef.current.getInstance().getMarkdown());
+    Setbody(textRef.current.getInstance().getMarkdown());
   };
+
   const TitleClick = (id) => {
     if (id === TitleId) {
       SetTitleId(0);
@@ -188,43 +189,33 @@ const Askquetion = () => {
       SetTitleId(id);
     }
   };
+
   const TitleOnClick = () => {
     SetTitleOn(!TitleOn);
   };
+
   const TitleOnClick2 = () => {
     SetTitleOn2(!TitleOn2);
   };
-  // const Submit = (e) => {
-  //   e.preventDefault();
 
-  //   const title = { bodys: bodys, Edit: false, Date: date };
-  //   fetch("http://localhost:3001/Todo", {
-  //     method: "POST",
-  //     body: JSON.stringify(title),
-  //     headers: {
-  //       "Content-Type": "application/json",
-  //     },
-  //   })
-  //     .then(() => {
-  //       navigate("/");
-  //       window.location.reload();
-  //     })
-  //     .catch((err) => console.log(err));
-  //   setBody("");
-  // };
-
+  const getRandomNumber = (min, max) => {
+    return parseInt(Math.random() * (Number(max) - Number(min) + 2));
+  };
+  const resethandler = () => {};
   const AskHandler = (e) => {
     e.preventDefault();
-
     axios
-      .post(`${BASE_URL}/ask`, {
-        data: { title: AskTitle, body: AskBody },
-        headers: {
-          "ngrok-skip-browser-warning": "skip",
-        },
+      .post(`${BASE_URL}ask`, {
+        title,
+        body,
+        photoURL: `https://randomuser.me/api/portraits/women/${getRandomNumber(
+          1,
+          98
+        )}.jpg`,
       })
       .then(function (response) {
         console.log(response);
+        window.location.reload();
       })
       .catch((err) => console.log(err));
   };
@@ -268,7 +259,7 @@ const Askquetion = () => {
                         ref={textRef}
                         height="500px"
                         initialEditType="markdown"
-                        initialValue=""
+                        initialValue="　"
                         onChange={handleChangeInput}
                       />
                     </div>
@@ -284,8 +275,8 @@ const Askquetion = () => {
                     ></input>
                   </div>
                 </section>
-                <form onSubmit={AskHandler}>
-                  <button type="submit" className="Submitbtn">
+                <form>
+                  <button className="Submitbtn" onClick={AskHandler}>
                     Review your question
                   </button>
                 </form>
