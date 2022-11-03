@@ -26,22 +26,25 @@ const Vote = ({ idx, AnswerData, setAnswerData, datas }) => {
 
   const onVoteClick = (value) => {
     let answerDataCopy = [...AnswerData];
-    if (value === "Up") {
-      answerDataCopy[idx] = { ...datas, voteCount: datas.voteCount + 1 };
-      setAnswerData(answerDataCopy);
+    if (!accessToken) alert("Please sign in first💗");
+    else {
+      if (value === "Up") {
+        answerDataCopy[idx] = { ...datas, voteCount: datas.voteCount + 1 };
+        setAnswerData(answerDataCopy);
+      }
+      if (value === "Down") {
+        answerDataCopy[idx] = { ...datas, voteCount: datas.voteCount - 1 };
+        setAnswerData(answerDataCopy);
+      }
+      axios({
+        method: "patch",
+        url: `${BASE_URL}answers/${id}/${datas.answerId}/vote${value}`,
+        headers: {
+          "ngrok-skip-browser-warning": "skip",
+          authorization: accessToken,
+        },
+      });
     }
-    if (value === "Down") {
-      answerDataCopy[idx] = { ...datas, voteCount: datas.voteCount - 1 };
-      setAnswerData(answerDataCopy);
-    }
-    axios({
-      method: "patch",
-      url: `${BASE_URL}answers/${id}/${datas.answerId}/vote${value}`,
-      headers: {
-        "ngrok-skip-browser-warning": "skip",
-        authorization: accessToken,
-      },
-    });
   };
 
   return (

@@ -73,24 +73,27 @@ const Article = () => {
   }, [id]);
 
   const onVoteClick = (value) => {
-    if (value === "Up")
-      setArticleData({
-        ...ArticleData,
-        voteCount: ArticleData.voteCount + 1,
+    if (!accessToken) alert("Please sign in first💗");
+    else {
+      if (value === "Up")
+        setArticleData({
+          ...ArticleData,
+          voteCount: ArticleData.voteCount + 1,
+        });
+      if (value === "Down")
+        setArticleData({
+          ...ArticleData,
+          voteCount: ArticleData.voteCount - 1,
+        });
+      axios({
+        method: "patch",
+        url: `${BASE_URL}${id}/vote${value}`,
+        headers: {
+          "ngrok-skip-browser-warning": "skip",
+          authorization: accessToken,
+        },
       });
-    if (value === "Down")
-      setArticleData({
-        ...ArticleData,
-        voteCount: ArticleData.voteCount - 1,
-      });
-    axios({
-      method: "patch",
-      url: `${BASE_URL}${id}/vote${value}`,
-      headers: {
-        "ngrok-skip-browser-warning": "skip",
-        authorization: accessToken,
-      },
-    });
+    }
   };
 
   return (
