@@ -2,7 +2,7 @@ import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faUser } from "@fortawesome/free-solid-svg-icons";
 import styled from "styled-components";
 import { useState } from "react";
-import Card from "../PopUserCard/card";
+import PopUserCard from "../PopUserCard";
 
 // 상위를 a tag에서 div로 변경
 const ATagWrap = styled.div`
@@ -26,7 +26,7 @@ const Atag = ({ name, link, logged, isContent, isHover, className }) => {
           ) : name === faUser ? (
             <div onClick={userOnClick}>
               <FontAwesomeIcon icon={name} onClick={userOnClick} />
-              {!open && <Card onClick={userOnClick} />}
+              {!open && <PopUserCard onClick={userOnClick} />}
             </div>
           ) : (
             <div>
