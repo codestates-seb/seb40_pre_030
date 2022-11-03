@@ -11,7 +11,6 @@ import Askquetion from "./components/Askquetion";
 import Tags from "./pages/Tags";
 import Users from "./pages/Users";
 import QuestionsView from "./pages/QuestionView";
-import { RecoilRoot } from "recoil";
 import EditQuestion from "./pages/EditQuestion";
 import EditAnswer from "./pages/EditAnswer";
 
