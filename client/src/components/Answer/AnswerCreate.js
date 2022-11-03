@@ -32,7 +32,7 @@ const Createform = styled.div`
     }
   }
 `;
-const AnswerCreate = () => {
+const AnswerCreate = ({ setCount, Count }) => {
   const [answerBody, SetanswerBody] = useState();
   const Bodydata = useRef();
   const [logged, SetLogged] = useRecoilState(loginStatus);
@@ -42,7 +42,7 @@ const AnswerCreate = () => {
   const AnswerChange = () => {
     SetanswerBody(Bodydata.current.getInstance().getMarkdown());
   };
-  const Answerpost = (authorizationCode) => {
+  const Answerpost = () => {
     if (answerBody === undefined || "") {
       window.alert("답변을 입력해주세요!");
     } else {
@@ -54,15 +54,12 @@ const AnswerCreate = () => {
           "ngrok-skip-browser-warning": "skip",
           authorization: accessToken,
         },
-      })
-        .then((res) => {
-          navigate(`/question/${id}`);
-        })
-        .catch((err) => {
-          if (err.response.status === 401) {
-            console.log(err.response.data);
-          }
-        });
+      }).catch((err) => {
+        if (err.response.status === 401) {
+          console.log(err.response.data);
+        }
+      });
+      setCount(Count + 1);
     }
   };
 

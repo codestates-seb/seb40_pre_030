@@ -58,8 +58,8 @@ const Article = () => {
 
   useEffect(() => {
     window.scrollTo(0, 0);
-    return async () => {
-      axios.defaults.withCredentials = true;
+
+    axios.defaults.withCredentials = true;
 
       axios
         .get(`${BASE_URL}${id}`, {
@@ -76,13 +76,12 @@ const Article = () => {
   }, [id]);
 
   const handleUpClick = () => {
-    axios.patch(`${BASE_URL}${id}/voteUp`).then((response) => {
-      navigate(`/question/${id}`);
-    });
+    axios.patch(`${BASE_URL}${id}/voteUp`).then((response) => {});
+    setCount(Count + 1);
   };
   const handleDownClick = () => {
     axios.patch(`${BASE_URL}${id}/voteDown`).then((response) => {
-      navigate(`/question/${id}`);
+      setCount(Count - 1);
     });
   };
 

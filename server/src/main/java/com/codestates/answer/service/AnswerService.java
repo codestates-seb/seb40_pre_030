@@ -32,8 +32,9 @@ public class AnswerService {
     }
 
     // 답변 수정
-    public Answer updateAnswer(Answer answer){
+    public Answer updateAnswer(Answer answer, long userId){
         Answer findAnswer = findVerifiedAnswer(answer.getAnswerId());
+        verifiedWriter(findAnswer, userId);
         Optional.ofNullable(answer.getAnswerBody()).ifPresent(answerBody -> findAnswer.setAnswerBody(answerBody));
         Optional.ofNullable(answer.getPhotoURL()).ifPresent(photo -> findAnswer.setPhotoURL(photo));
         findAnswer.setModifiedAt(LocalDateTime.now());
@@ -54,11 +55,6 @@ public class AnswerService {
         Answer updateAnswer = answerRepository.save(findAnswer);
         return updateAnswer;
     }
-    /**
-     public Answer findAnswer(long answerId){
-     return findVerifiedAnswer(answerId);
-     }
-     **/
 
     // 답변 전체 보기
     @Transactional(readOnly = true)
@@ -67,8 +63,9 @@ public class AnswerService {
     }
 
     // 답변 삭제
-    public void deleteAnswer(long answerId){
+    public void deleteAnswer(long answerId, long userId){
         Answer findAnswer = findVerifiedAnswer(answerId);
+        verifiedWriter(findAnswer, userId);
         answerRepository.delete(findAnswer);
     }
 
@@ -86,5 +83,11 @@ public class AnswerService {
         Board findBoard = optionalBoard.orElseThrow(() ->
                 new BusinessLogicException(ExceptionCode.BOARD_NOT_FOUND));
         return findBoard;
+    }
+    public void verifiedWriter(Answer answer, long userId){
+        long answerUserId = answer.getUser().getUserId();
+        if(answerUserId != userId){
+            throw new BusinessLogicException(ExceptionCode.PERMISSION_DENIED);
+        }
     }
 }

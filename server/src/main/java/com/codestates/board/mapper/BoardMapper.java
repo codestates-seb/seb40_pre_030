@@ -55,6 +55,7 @@ public interface BoardMapper {
                         .createdAt(answer.getCreatedAt())
                         .modifiedAt(answer.getModifiedAt())
                         .voteCount(answer.getVoteCount())
+                        .userId(answer.getUser().getUserId())
                         .build())
                 .collect(Collectors.toList());
     }
