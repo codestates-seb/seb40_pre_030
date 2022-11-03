@@ -10,6 +10,21 @@ import { loginStatus, loginInfo } from "../../atoms/atoms";
 import { setRefreshTokenToCookie } from "../../util/Cookies";
 
 //outline->으로 주기
+
+const LoginInputline = styled.input`
+  width: 100%;
+  height: 2rem;
+
+  border: ${(props) =>
+      props.active !== "" ? "rgba(252, 136, 136, 0.6)" : "lightgray"}
+    solid 1px;
+  &:focus {
+    outline: ${(props) =>
+        props.active !== "" ? "rgba(252, 136, 136, 0.6)" : "#cde9fe"}
+      solid 4px;
+  }
+`;
+
 const LoginForm = styled.form`
   border-radius: 10px;
   width: 19rem;
@@ -21,27 +36,12 @@ const LoginForm = styled.form`
   flex-direction: column;
   flex-wrap: wrap;
   box-shadow: rgba(0, 0, 0, 0.24) 0px 3px 8px;
-  /* box-shadow: ${(props) => (props.login ? "red" : "blue")}; */
 
   .errmassage {
-    /* box-shadow: red 0px 3px 8px; */
     color: red;
-    font-size: 14px;
-    font-weight: bold;
+    font-size: 12px;
   }
 
-  input {
-    width: 100%;
-    height: 2rem;
-    border: 1px solid black;
-
-    &:focus {
-      box-shadow: 0px 0px 3px 6px rgba(127, 193, 240, 0.32);
-
-      /* background-color: #e4f7fc; */
-      border: none;
-    }
-  }
   .label {
     display: flex;
     width: 100%;
@@ -197,14 +197,14 @@ const Login = () => {
         >
           <div className="inputform">
             <span className="label">Email</span>
-            <input
-              color={"red"}
-              value={login.email || ""}
+            <LoginInputline
+              active={emailerrorMessage}
+              value={login.email}
               //  onChange={onChangeHandler('userId')}
               type="text"
               name="email"
               onChange={onChangeHandler("email")}
-            ></input>
+            ></LoginInputline>
             {emailerrorMessage === "" ? null : (
               <div className="errmassage">{emailerrorMessage}</div>
             )}
@@ -216,13 +216,15 @@ const Login = () => {
               </Labellink>
             </div>
 
-            <input
+            <LoginInputline
+              active={passworderrorMessage}
               value={login.password || ""}
               //  onChange={onChangeHandler('password')}
               type="password"
               name="password"
               onChange={onChangeHandler("password")}
-            ></input>
+            ></LoginInputline>
+
             {passworderrorMessage === "" ? null : (
               <div className="errmassage" color={"red"}>
                 {passworderrorMessage}

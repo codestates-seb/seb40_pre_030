@@ -23,6 +23,13 @@ const contents = {
   true: [faUser, faInbox, faTrophy, faFileCircleQuestion, faBars],
 };
 
+const Headerbutton = styled.button`
+  border: none;
+  background: ${(props) => props.background};
+  color: white;
+  color: ${(props) => props.color || "#013a60"};
+`;
+
 export const Logo = () => {
   return (
     <Link to="/">
@@ -59,7 +66,7 @@ export const SearchBar = ({ placeHolderText }) => {
     </form>
   );
 };
-
+//로그인 회원가입 버튼으로 만들어줌
 export const HeaderCont = ({ logged }) => {
   return (
     <>
