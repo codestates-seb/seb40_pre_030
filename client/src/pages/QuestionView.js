@@ -4,30 +4,25 @@ import Navbar from "../components/navbar/Navbar";
 import Sidebar from "../components/Sidebar/Sidebar";
 import Article from "../components/Article/index";
 
-const DoubleWrap = styled.div`
-  width: 100%;
+const QuestionViewWrap = styled.div`
+  width: 70%;
+  margin-left: 23.4rem;
   display: flex;
   justify-content: center;
-  align-items: center;
-`;
-
-const QuestionViewWrap = styled.div`
-  width: 80%;
-  /* margin: auto; */
-  display: flex;
-  flex-direction: row;
   .ViewWrap {
     display: flex;
-    flex-direction: row;
     .ViewWrap2 {
-      width: 60%;
+      width: 81.5%;
+    }
+    .ViewWrap3 {
+      margin-top: 1rem;
     }
   }
 `;
 
 const QuestionView = () => {
   return (
-    <DoubleWrap>
+    <>
       <QuestionViewWrap>
         <div className="ViewWrap">
           <Navbar />
@@ -35,11 +30,12 @@ const QuestionView = () => {
             <Article />
             <AnswersContainer />
           </div>
-
-          <Sidebar />
+          <div className="ViewWrap3">
+            <Sidebar />
+          </div>
         </div>
       </QuestionViewWrap>
-    </DoubleWrap>
+    </>
   );
 };
 export default QuestionView;

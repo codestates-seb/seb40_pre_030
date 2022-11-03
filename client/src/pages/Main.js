@@ -7,7 +7,6 @@ import Footer from "../components/Footer";
 const StyledMain = styled.div`
   width: 80%;
   display: grid;
-  margin-top: 1rem;
   margin-left: 15rem;
   grid-template-columns: auto 80%;
   .main-contents-wrapper {

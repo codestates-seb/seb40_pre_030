@@ -20,11 +20,15 @@ const StyledAnswersContainer = styled.div`
     padding: 20px;
     color: #3d4044;
   }
+  .edit-section {
+    min-width: 670px;
+    overflow: hidden;
+  }
 `;
 const StyledAnswer = styled.li`
   display: flex;
   flex-direction: column;
-  width: 900px;
+  width: 99%;
   .answer-main-wrap {
     border-bottom: 1px solid lightgrey;
     .answer-main {
@@ -144,8 +148,9 @@ const AnswersContainer = () => {
             );
           })}
         </StyledAnswer>
-
-        <AnswerCreate setCount={setCount} Count={Count} />
+        <div className="edit-section">
+          <AnswerCreate setCount={setCount} Count={Count} />
+        </div>
       </ul>
     </StyledAnswersContainer>
   );

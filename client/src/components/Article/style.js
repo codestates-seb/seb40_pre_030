@@ -1,8 +1,7 @@
 import styled from "styled-components";
 
 export const ArticleWrapper = styled.div`
-  margin: 0px;
-  max-width: 50%;
+  max-width: 100%;
   padding: 10px;
   border-bottom: 1px solid lightgrey;
 
