@@ -9,24 +9,7 @@ import Bubble from "./Bubble";
 import { useRecoilState } from "recoil";
 import { currentQuestionState, loginInfo } from "../../atoms/atoms";
 import { calculateTime } from "../Board/util/calculateTime";
-
-const dummyArticle = {
-  post_id: 1,
-  createdAt: "2022. 10. 26",
-  modifiedAt: "2022. 10. 27",
-  title: "how to write stackoverflow",
-  body: `this is the longest body`,
-  displayName: "admin",
-  photoURL:
-    "https://w.namu.la/s/4c30cf3fed5c1a9052a52b527b9c3a4ae98534ee72dfbfd8d728cec568db7a657709d8d87507681663b495ed4355acd9049fd552bf810bda0c5252715ba7c634a5e79b21e222dca1fdf34b945146ceaffa04f4c604defd926a0bdcdd7f290978ec649f7517275885f066c43e15d422df",
-  voteCount: 3,
-  tag: ["reactjs", "testing"],
-};
-
-const data = `
-# 헤딩
-***굵게***
-`;
+import Markdown from "../Markdown";
 
 const Button = ({ value, setOpenShare }) => {
   const { id } = useParams();
@@ -112,8 +95,6 @@ const Article = () => {
           <div>
             Asked
             <span>
-              {/* {ArticleData && ArticleData.createdAt.toLocaleString("ko-kr")} */}
-
               {calculateTime(new Date(ArticleData.createdAt)).toLocaleString(
                 "ko-KR",
                 {
@@ -149,7 +130,9 @@ const Article = () => {
             />
           </div>
           <div className="body-section">
-            <div className="body-main">{ArticleData.body}</div>
+            <div className="body-main">
+              <Markdown markdown={ArticleData.body} />
+            </div>
             <div className="body-tag"></div>
             <div className="body-footer">
               <div className="Tag-section">
