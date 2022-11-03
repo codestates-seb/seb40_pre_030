@@ -11,6 +11,7 @@ import { useRecoilState } from "recoil";
 import { currentQuestionState } from "../../atoms/atoms";
 import AnswersContainer from "../Answer/AnswersContainer";
 import Sidebar from "../Sidebar/Sidebar";
+import { Link } from "react-router-dom";
 
 const dummyArticle = {
   post_id: 1,
@@ -88,7 +89,12 @@ const Article = () => {
 
   return (
     <ArticleWrapper>
-      <div className="title">{ArticleData.title}</div>
+      <div className="title">
+        {ArticleData.title}
+        <Link to="/ask">
+          <button className="AskQuestion">Ask Question </button>
+        </Link>
+      </div>
       <div className="sub-content-wapper">
         <div className="qustion-content-wapper">
           <div className="date_wrapper">
