@@ -50,6 +50,7 @@ const Pagination = ({
     const onPageButtonClick = (buttonId, buttonContent) => {
       if (buttonId) {
         setCurrentSize(buttonContent);
+        setCurrentPage(1);
         navigate(`/?size=${buttonContent}`);
       } else {
         if (buttonContent === "Prev") setCurrentPage((prev) => prev - 1);
@@ -74,9 +75,9 @@ const Pagination = ({
       {currentPage && currentSize && (
         <StyledPagination className="Pagination">
           <div className="pages">
-            {currentPage > 4 && (
+            {currentPage > 1 && <LinkButton buttonContent="Prev" />}
+            {currentPage - 3 > 1 && (
               <>
-                <LinkButton buttonContent="Prev" />
                 <LinkButton buttonContent={1} />
                 <span className="dotdotdot">...</span>
               </>
@@ -104,11 +105,12 @@ const Pagination = ({
                 );
               }
             })}
-            <span className="dotdotdot">...</span>
-            {/* 마지막 페이지 설정 관련 서버 작업 후 진행 예정 */}
-            <PageButton buttonId="1234">
-              {/* last page number */}1234
-            </PageButton>
+            {currentPage + 2 < totalPages && (
+              <>
+                <span className="dotdotdot">...</span>
+                <LinkButton buttonContent={totalPages} />
+              </>
+            )}
             <LinkButton buttonContent="Next" />
           </div>
           <div className="page-size">
