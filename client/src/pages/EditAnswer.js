@@ -1,5 +1,5 @@
 import { Editor } from "@toast-ui/react-editor";
-import { useRef, useState } from "react";
+import { useEffect, useRef, useState } from "react";
 import { useRecoilState } from "recoil";
 import styled from "styled-components";
 import { currentAnswerState, currentQuestionState } from "../atoms/atoms";
@@ -92,7 +92,9 @@ const EditAnswer = ({ article }) => {
     SetAnswerBody(textRef.current.getInstance().getMarkdown());
   };
 
-  console.log(currentAnswer);
+  useEffect(() => {
+    SetAnswerBody(textRef.current.getInstance().getMarkdown());
+  }, []);
 
   return (
     <StyledEditAnswer>
