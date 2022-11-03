@@ -12,7 +12,7 @@ import Tag from "../tags/Tag";
 import { useNavigate, useParams } from "react-router";
 import Bubble from "../Article/Bubble";
 import { useRecoilState } from "recoil";
-import { currentAnswerState } from "../../atoms/atoms";
+import { currentAnswerState, loginInfo } from "../../atoms/atoms";
 const StyledAnswersContainer = styled.div`
   padding: 10px;
   .answers-container-title {
@@ -63,6 +63,7 @@ const AnswersContainer = () => {
   const [openShare, setOpenShare] = useState(false);
   const [selectedComment, setSelectedComment] = useState();
   const [currentAnswer, setCurrentAnswer] = useRecoilState(currentAnswerState);
+  const [useInfo, setUserInfo] = useRecoilState(loginInfo);
   const UpdateAnswerValues = ["Share", "Edit", "Delete"];
   const [Count, setCount] = useState(0);
   const { id } = useParams();
@@ -133,7 +134,7 @@ const AnswersContainer = () => {
                       <UserCard
                         answer
                         createdAt={datas.createdAt.slice(0, 19)}
-                        photoURL={datas.photoURL}
+                        photoURL={useInfo.photoURL}
                         displayName={datas.nickName}
                       />
                     </div>
