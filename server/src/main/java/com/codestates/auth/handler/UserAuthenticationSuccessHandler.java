@@ -1,12 +1,13 @@
 package com.codestates.auth.handler;
 
+import com.codestates.exception.BusinessLogicException;
+import com.codestates.exception.ExceptionCode;
 import com.codestates.user.entity.User;
-import com.fasterxml.jackson.databind.ObjectMapper;
+import com.codestates.user.repository.UserRepository;
+import com.google.gson.Gson;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.http.HttpStatus;
-import org.springframework.http.MediaType;
 import org.springframework.security.core.Authentication;
-import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.security.web.authentication.AuthenticationSuccessHandler;
 import org.springframework.stereotype.Component;
 
@@ -18,18 +19,27 @@ import java.io.IOException;
 @Slf4j
 @Component
 public class UserAuthenticationSuccessHandler implements AuthenticationSuccessHandler {
-    private ObjectMapper objectMapper = new ObjectMapper();
+
+    private UserRepository userRepository;
+
+    public UserAuthenticationSuccessHandler(UserRepository userRepository) {
+        this.userRepository = userRepository;
+    }
+
     @Override
     public void onAuthenticationSuccess(HttpServletRequest request,
                                         HttpServletResponse response,
                                         Authentication authentication) throws IOException, ServletException {
+
         log.info("# Authenticated successfully!");
 
-        User user = (User) authentication.getPrincipal();
+        User user = userRepository.findByEmail(authentication.getName())
+                .orElseThrow(() -> new BusinessLogicException(ExceptionCode.USER_NOT_FOUND));
 
-        response.setStatus(HttpStatus.OK.value());
-        response.setContentType(MediaType.APPLICATION_JSON_VALUE);
+        SuccessUserInfo successUserInfo = new SuccessUserInfo(HttpStatus.ACCEPTED.value(), user.getEmail(), user.getPhotoURL());
+        String responseInfo = new Gson().toJson(successUserInfo);
 
-        objectMapper.writeValue(response.getWriter(), user.getEmail());
+        response.setStatus(HttpStatus.ACCEPTED.value());
+        response.getWriter().write(responseInfo);
     }
 }
