@@ -2,7 +2,7 @@ import styled from "styled-components";
 
 export const ArticleWrapper = styled.div`
   margin: 0px;
-  width: 70%;
+  width: 100%;
   padding: 10px;
   border-bottom: 1px solid lightgrey;
   //수정부분
@@ -23,8 +23,21 @@ export const ArticleWrapper = styled.div`
   }
 
   .title {
+    width: 100%;
+    display: flex;
+    justify-content: space-between;
     font-size: 2rem;
     padding: 15px;
+  }
+
+  .AskQuestion {
+    width: 100px;
+    height: 2rem;
+    background-color: ${(props) => props.theme.buttonBlue};
+    font-size: 12px;
+    border: none;
+    border-radius: 3px;
+    color: white;
   }
   .date_wrapper {
     display: flex;
@@ -45,7 +58,7 @@ export const ArticleWrapper = styled.div`
 export const ArticleContent = styled.article`
   display: flex;
   .body-section {
-    width: 82%;
+    width: 90%;
 
     padding-top: 30px;
     font-size: 1rem;
