@@ -85,22 +85,35 @@ const NavTab = styled.button`
 const QuestionsContainer = () => {
   const [currentPage, setCurrentPage] = useState(1);
   const [currentSize, setCurrentSize] = useState(15);
-  const [allListData, setAllListData] = useState([]);
   const [listData, setListData] = useState([]);
+  const [originData, setOriginData] = useState([]);
   const sortTab = ["Newest", "Unanswered", "Voted"];
   const [currentTab, setCurrentTab] = useState("newest");
+  const [totalPages, setTotalPages] = useState();
+  const [totalBoards, setTotalBoards] = useState();
 
   useEffect(() => {
-    if (currentTab === "newest") setListData(allListData);
-    if (currentTab === "unanswered") {
-      const newList = allListData.filter((v) => v.answer.length === 0);
-      setListData(newList);
-    }
-    if (currentTab === "voted") {
-      const newList = allListData.filter((v) => v.voteCount !== 0);
-      setListData(newList);
-    }
-  }, [currentTab, allListData]);
+    const fetch = async () => {
+      axios.defaults.withCredentials = true;
+      await axios
+        .get(`${BASE_URL}?page=1&size=${totalBoards}`, {
+          headers: {
+            "ngrok-skip-browser-warning": "skip",
+          },
+        })
+        .then((res) => {
+          const { data } = res;
+          if (currentTab === "newest") setListData(originData);
+          if (currentTab === "unanswered") {
+            setListData(data.data.filter((v) => v.answer.length === 0));
+          }
+          if (currentTab === "voted") {
+            setListData(data.data.filter((v) => v.voteCount !== 0));
+          }
+        });
+    };
+    fetch();
+  }, [currentTab]);
 
   useEffect(() => {
     const fetch = async () => {
@@ -113,11 +126,13 @@ const QuestionsContainer = () => {
         })
         .then((res) => {
           const { data } = res;
+          console.log(data);
           setListData(data.data);
-          setAllListData(data.data);
+          setOriginData(data.data);
+          setTotalPages(data.pageInfo.totalPages);
+          setTotalBoards(data.pageInfo.totalBoards);
         });
     };
-    //ask버튼을 누를때 로그인이 안되어있으면 로그인창으로 이동
     fetch();
   }, [currentPage, currentSize]);
 
@@ -186,12 +201,15 @@ const QuestionsContainer = () => {
       <ul className="questions-container">
         {listData &&
           listData.map((v) => <Question key={v.boardId} questionItem={v} />)}
-        <Pagination
-          currentPage={currentPage}
-          currentSize={currentSize}
-          setCurrentPage={setCurrentPage}
-          setCurrentSize={setCurrentSize}
-        />
+        {currentTab === "newest" && (
+          <Pagination
+            currentPage={currentPage}
+            currentSize={currentSize}
+            setCurrentPage={setCurrentPage}
+            setCurrentSize={setCurrentSize}
+            totalPages={totalPages}
+          />
+        )}
       </ul>
     </StyledQuestionsContainer>
   );
