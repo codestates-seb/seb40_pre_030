@@ -14,4 +14,5 @@ export const theme = {
   grayFont: "#6a737c",
   selectedTab: "#f1f2f3",
   searchBarBorder: "#babfc4",
+  headerhovergray: "hsl(210, 8%, 85%)",
 };

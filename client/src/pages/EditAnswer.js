@@ -1,5 +1,8 @@
 import { Editor } from "@toast-ui/react-editor";
-import { useRef, useState } from "react";
+import axios from "axios";
+import { useEffect, useRef, useState } from "react";
+import { useNavigate } from "react-router";
+import { Link } from "react-router-dom";
 import { useRecoilState } from "recoil";
 import styled from "styled-components";
 import { currentAnswerState, currentQuestionState } from "../atoms/atoms";
@@ -7,6 +10,7 @@ import Button from "../components/Button";
 import Markdown from "../components/Markdown";
 import Navbar from "../components/navbar/Navbar";
 import { StyledYellowBox } from "../components/Sidebar/YellowBox";
+import { BASE_URL } from "../util/api";
 
 const StyledEditAnswer = styled.div`
   display: grid;
@@ -82,17 +86,43 @@ const StyledEditAnswer = styled.div`
 `;
 
 const EditAnswer = ({ article }) => {
-  const [AnswerBody, SetAnswerBody] = useState("");
+  const [answerBody, SetAnswerBody] = useState("");
   const textRef = useRef("");
   const [currentAnswer, setCurrentAnswer] = useRecoilState(currentAnswerState);
   const [currentQuestion, setCurrentQuestion] =
     useRecoilState(currentQuestionState);
+  const accessToken = window.localStorage.getItem("accessToken");
+  const { answerId } = currentAnswer;
+  const { boardId } = currentQuestion;
+  const navigate = useNavigate();
+
+  useEffect(() => {
+    SetAnswerBody(textRef.current.getInstance().getMarkdown());
+  }, []);
 
   const handleChangeInput = () => {
     SetAnswerBody(textRef.current.getInstance().getMarkdown());
   };
 
-  console.log(currentAnswer);
+  const onSaveClick = (e) => {
+    e.preventDefault();
+    axios({
+      method: "patch",
+      url: `${BASE_URL}answers/${boardId}/${answerId}/edit`,
+      data: { answerId, answerBody },
+      headers: {
+        "ngrok-skip-browser-warning": "skip",
+        authorization: accessToken,
+      },
+    })
+      .then(function (response) {
+        navigate(`/question/${boardId}`);
+      })
+      .catch((err) => {
+        console.log(err);
+        alert("글 수정에 실패했습니다");
+      });
+  };
 
   return (
     <StyledEditAnswer>
@@ -111,10 +141,11 @@ const EditAnswer = ({ article }) => {
             onChange={handleChangeInput}
           />
           <div className="editor-content-viewer">
-            <Markdown markdown={AnswerBody} />
+            <Markdown markdown={answerBody} />
           </div>
           <div className="edit-buttons">
             <Button
+              onClick={onSaveClick}
               bgcolor={(props) => props.theme.buttonBlue}
               font="white"
               border="none"
@@ -122,14 +153,16 @@ const EditAnswer = ({ article }) => {
             >
               Save edits
             </Button>
-            <Button
-              bgcolor="white"
-              font={(props) => props.theme.buttonBlue}
-              border="none"
-              fontSize="13px"
-            >
-              Cancel
-            </Button>
+            <Link to={`/question/${boardId}`}>
+              <Button
+                bgcolor="white"
+                font={(props) => props.theme.buttonBlue}
+                border="none"
+                fontSize="13px"
+              >
+                Cancel
+              </Button>
+            </Link>
           </div>
         </div>
         <div className="yellow-box-container">

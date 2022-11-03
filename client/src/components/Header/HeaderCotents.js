@@ -32,18 +32,14 @@ const contents = {
 // `;
 
 export const Logo = () => {
-  return (
-    <Link to="/">
-      <div className="nav_item"></div>
-    </Link>
-  );
+  return <Link className="nav_item" to="/"></Link>;
 };
 
 export const HeaderNav = ({ logged }) => {
   return (
     <>
       {headerNav[logged].map((el, idx) => (
-        <div key={idx}>
+        <div className="hovergray_nav" key={idx}>
           <Atag name={el} logged={logged} />
         </div>
       ))}
@@ -86,29 +82,14 @@ export const HeaderCont = ({ logged }) => {
               </div>
             </Link>
           ) : el === faBars ? (
-            <Link to="users/logout">
+            <Link className="hovergray_cont" to="users/logout">
               <Atag name={el} logged={logged} />
             </Link>
           ) : (
-            <Atag name={el} logged={logged} />
+            <Atag className="hovergray_cont" name={el} logged={logged} />
           )}
         </div>
       ))}
     </>
   );
 };
-
-// {
-//   el === "Log in" ? (
-//     <Link to="/users/login">
-//       <Atag name={el} logged={logged} />
-//     </Link>
-//   ) : null;
-// }
-// {
-//   el === "Sign up" ? (
-//     <Link to="users/signup">
-//       <Atag name={el} logged={logged} />
-//     </Link>
-//   ) : null;
-// }

@@ -72,6 +72,7 @@ const AnswerCreate = () => {
           <Editor
             onChange={AnswerChange}
             ref={Bodydata}
+            width="200px"
             height="350px"
             initialEditType="markdown"
             initialValue="　"

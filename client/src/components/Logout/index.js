@@ -9,6 +9,7 @@ import { useLogin } from "../../hooks/customServHook";
 import { loginStatus } from "../../atoms/atoms";
 import { OutForm, Wrapper, Contents, SiteLi } from "./style";
 import { logout } from "../../util/Cookies";
+// import Header from "../components/Header";
 
 const siteFile = [
   ["askbuntu.com", "https://askubuntu.com/", [0, -360]],
@@ -41,8 +42,8 @@ const LogOut = () => {
     <Wrapper>
       <Contents>
         <div className="notice">
-          Clicking “Log out” will log you out of the following domains on this
-          device:
+          <p>Clicking “Log out” will log you out of the following</p>
+          <p>domains on this device:</p>
         </div>
         <OutForm>
           <ul>
@@ -63,7 +64,9 @@ const LogOut = () => {
           </div>
           <div className="decider">
             <ButtonTag name="Log out" onClick={onLogoutClick} />
-            <Atag name="Cancel" link="http://localhost:3000/" />
+            <a className="cancelbtn" href="/">
+              Cancel
+            </a>
           </div>
           <div className="hint">
             <span>

@@ -111,6 +111,10 @@ const BackgroundLogin = styled.div`
       margin-top: 1rem;
     }
   }
+  a {
+    text-decoration: none;
+    color: hsl(206, 100%, 40%);
+  }
 `;
 
 const Login = () => {
@@ -246,14 +250,12 @@ const Login = () => {
         <div className="sublink">
           <div>
             Dont't have an account?
-            <a href="https://stackoverflow.com/users/signup?ssrc=head&returnurl=https%3a%2f%2fstackoverflow.com%2f">
-              Sign up
-            </a>
+            <a href="/users/signup">Sign up</a>
           </div>
 
           <div className="Employer-link">
             Are you an employer?
-            <a href="https://stackoverflow.com/users/signup?ssrc=head&returnurl=https%3a%2f%2fstackoverflow.com%2f">
+            <a href="https://talent.stackoverflow.com/users/login">
               Sign up on Talent
             </a>
           </div>

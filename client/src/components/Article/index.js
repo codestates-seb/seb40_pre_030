@@ -9,6 +9,8 @@ import { useNavigate, useParams } from "react-router";
 import Bubble from "./Bubble";
 import { useRecoilState } from "recoil";
 import { currentQuestionState } from "../../atoms/atoms";
+import AnswersContainer from "../Answer/AnswersContainer";
+import Sidebar from "../Sidebar/Sidebar";
 
 const dummyArticle = {
   post_id: 1,
@@ -88,60 +90,69 @@ const Article = () => {
   return (
     <ArticleWrapper>
       <div className="title">{ArticleData.title}</div>
-      <div>
-        <div className="date_wrapper">
-          <div>
-            Asked<span>1 days ago</span>
-          </div>
-          <div>
-            Modified <span>today</span>
-          </div>
-          <div>
-            Viewed <span>279 times</span>
-          </div>
-        </div>
-        <ArticleContent>
-          <div className="vote-section">
-            <FontAwesomeIcon
-              className="vote-icon"
-              icon={faCaretUp}
-              onClick={handleUpClick}
-            />
-            {ArticleData.voteCount}
-            <FontAwesomeIcon
-              className="vote-icon"
-              icon={faCaretDown}
-              onClick={handleDownClick}
-            />
-          </div>
-          <div className="body-section">
-            <div className="body-main">{ArticleData.body}</div>
-            <div className="body-tag">
-              {dummyArticle.tag.map((el, idx) => (
-                <Tag key={idx} value={el} />
-              ))}
+      <div className="sub-content-wapper">
+        <div className="qustion-content-wapper">
+          <div className="date_wrapper">
+            <div>
+              Asked<span>1 days ago</span>
             </div>
-            <div className="body-footer">
-              <div className="Tag-section">
-                {UpdateArticleValues.map((v) => (
-                  <Button key={v} value={v} setOpenShare={setOpenShare} />
+            <div>
+              Modified <span>today</span>
+            </div>
+            <div>
+              Viewed <span>279 times</span>
+            </div>
+          </div>
+          <ArticleContent>
+            <div className="vote-section">
+              <FontAwesomeIcon
+                className="vote-icon"
+                icon={faCaretUp}
+                onClick={handleUpClick}
+              />
+              {ArticleData.voteCount}
+              <FontAwesomeIcon
+                className="vote-icon"
+                icon={faCaretDown}
+                onClick={handleDownClick}
+              />
+            </div>
+            <div className="body-section">
+              <div className="body-main">{ArticleData.body}</div>
+              <div className="body-tag">
+                {dummyArticle.tag.map((el, idx) => (
+                  <Tag key={idx} value={el} />
                 ))}
-                {/* 배포 후 글 주소 기재하기 */}
-                {openShare && <Bubble link="글 주소 기재" />}
               </div>
-              <div className="post-owner">
-                <div className="user-action-item">
-                  asked 2022-11-01T01:31:27
+              <div className="body-footer">
+                <div className="Tag-section">
+                  {UpdateArticleValues.map((v) => (
+                    <Button key={v} value={v} setOpenShare={setOpenShare} />
+                  ))}
+                  {/* 배포 후 글 주소 기재하기 */}
+                  {openShare && <Bubble link="글 주소 기재" />}
                 </div>
-                <div className="user-avatar">
-                  <img src={ArticleData.photoURL} alt="" />
-                  {ArticleData.nickName}
+                <div className="post-owner">
+                  <div className="user-action-item">
+                    asked 2022-11-01T01:31:27
+                  </div>
+                  <div className="user-avatar">
+                    <img src={ArticleData.photoURL} alt="" />
+                    {ArticleData.nickName}
+                  </div>
                 </div>
               </div>
             </div>
-          </div>
-        </ArticleContent>
+          </ArticleContent>
+          <AnswersContainer />
+        </div>
+        <div>
+          <Sidebar />
+        </div>
       </div>
+      {/* <div>
+        <Sidebar />
+      </div> */}
     </ArticleWrapper>
   );
 };

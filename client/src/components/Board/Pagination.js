@@ -1,8 +1,6 @@
 import { useEffect, useState } from "react";
-import { Link, Navigate, useLocation, useNavigate } from "react-router-dom";
+import { Navigate, useNavigate } from "react-router-dom";
 import styled from "styled-components";
-import axios from "axios";
-import { BASE_URL } from "../../util/api";
 
 const StyledPagination = styled.div`
   display: flex;
@@ -32,9 +30,10 @@ const Pagination = ({
   currentSize,
   setCurrentPage,
   setCurrentSize,
+  totalPages,
 }) => {
   const navigate = useNavigate();
-  const pages = [1, 2, 3, 4, 5, 6, 7, 8, 9, 10];
+  const [pages, setPages] = useState([1]);
   const pageSizes = [15, 30, 50];
 
   useEffect(() => {
@@ -42,10 +41,16 @@ const Pagination = ({
     else navigate(`/?page=${currentPage}`);
   }, [currentPage]);
 
+  useEffect(() => {
+    const newPages = Array.from({ length: totalPages }, (v, i) => i + 1);
+    setPages(newPages);
+  }, [totalPages]);
+
   const LinkButton = ({ buttonContent, selected, buttonId }) => {
     const onPageButtonClick = (buttonId, buttonContent) => {
       if (buttonId) {
         setCurrentSize(buttonContent);
+        setCurrentPage(1);
         navigate(`/?size=${buttonContent}`);
       } else {
         if (buttonContent === "Prev") setCurrentPage((prev) => prev - 1);
@@ -70,9 +75,9 @@ const Pagination = ({
       {currentPage && currentSize && (
         <StyledPagination className="Pagination">
           <div className="pages">
-            {currentPage > 4 && (
+            {currentPage > 1 && <LinkButton buttonContent="Prev" />}
+            {currentPage - 3 > 1 && (
               <>
-                <LinkButton buttonContent="Prev" />
                 <LinkButton buttonContent={1} />
                 <span className="dotdotdot">...</span>
               </>
@@ -100,12 +105,14 @@ const Pagination = ({
                 );
               }
             })}
-            <span className="dotdotdot">...</span>
-            {/* 마지막 페이지 설정 관련 서버 작업 후 진행 예정 */}
-            <PageButton buttonId="1234">
-              {/* last page number */}1234
-            </PageButton>
-            <LinkButton buttonContent="Next" />
+            {!(currentPage < 3 && totalPages < 5) &&
+              currentPage + 2 < totalPages && (
+                <>
+                  <span className="dotdotdot">...</span>
+                  <LinkButton buttonContent={totalPages} />
+                </>
+              )}
+            {currentPage < totalPages && <LinkButton buttonContent="Next" />}
           </div>
           <div className="page-size">
             {pageSizes.map((v) => (

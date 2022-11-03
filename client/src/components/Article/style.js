@@ -1,9 +1,19 @@
 import styled from "styled-components";
 
 export const ArticleWrapper = styled.div`
-  width: 900px;
+  width: 100%;
   padding: 10px;
   border-bottom: 1px solid lightgrey;
+  //수정부분
+
+  .sub-content-wapper {
+    display: flex;
+    flex-direction: row;
+  }
+  .qustion-content-wapper {
+    width: 90%;
+  }
+
   .title {
     font-size: 2rem;
     padding: 15px;
