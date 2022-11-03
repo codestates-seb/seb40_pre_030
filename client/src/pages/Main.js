@@ -6,7 +6,7 @@ import Footer from "../components/Footer";
 
 const StyledMain = styled.div`
   display: grid;
-  margin-top: 1rem;
+  margin-top: 0px;
   grid-template-columns: auto 80%;
   .main-contents-wrapper {
     display: flex;
