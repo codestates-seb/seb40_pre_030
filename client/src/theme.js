@@ -1,5 +1,6 @@
 export const theme = {
   sprites: `url("https://cdn.sstatic.net/Img/unified/sprites.svg?v=fcc0ea44ba27")`,
+  iconSprites: `url("https://cdn.sstatic.net/Img/favicons-sprite32.png?v=9e298e5b472b")`,
   headerBg: "#F9F9F9",
   highlightOrange: "#f48225",
   buttonBlue: "#4393f7",
