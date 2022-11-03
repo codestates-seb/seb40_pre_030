@@ -1,7 +1,7 @@
 import styled from "styled-components";
-import { useState, useCallback } from "react";
+import { useState, useEffect } from "react";
 import SignBody from "./SignBody";
-// import Thirdparty from "../Login/Thirdparty";
+import Thirdparty from "../Login/Thirdparty";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faExclamationCircle } from "@fortawesome/free-solid-svg-icons";
 import { useNavigate } from "react-router";
@@ -25,7 +25,7 @@ const InputButton = styled.input`
 `;
 
 const Backgtoundsign = styled.div`
-  background-color: #f1f2f3;
+  background-color: #e6e6e6;
   height: 100vh;
   display: flex;
   justify-content: center;
@@ -58,19 +58,6 @@ const Signform = styled.form`
     margin-top: 15px;
   }
 
-  .search-bar__input {
-    /* border: none;
-
-
-    right: 5px;
-    overflow: auto;
-    z-index: -1;
-    font-size: 15px;
-     transform: translatey(-130%);
-    overflow: auto;
-    top: 50%;
-    transform: translatey(-50%); */
-  }
   .Signuperrer {
     color: red;
     font-size: 14px;
@@ -82,6 +69,7 @@ const Signform = styled.form`
     padding: 15px;
     font-size: 18px;
     background-color: #0a95ff;
+    border-radius: 3px;
     border: none;
     color: #fff;
   }
@@ -92,46 +80,46 @@ const getRandomNumber = (min, max) => {
 };
 
 const Signup = () => {
-  //이메일 유효성 검사 아직 x...n
-  const [userInfo, setuserInfo] = useState({
-    email: "",
-    nickName: "",
-    password: "",
-  });
+  const [useremail, setUserEmail] = useState("");
+  const [userpassword, setUserPassword] = useState("");
+  const [nickName, setNickName] = useState("");
   // const [ischeck, setIscheck] = useState(false);
   const [passworderr, setPassworderr] = useState("");
   const [emailerr, setEmailerr] = useState("");
   const navigate = useNavigate();
-
-  const onChangeHandler = (key) => (e) => {
-    // const { name, value } = e.target;
-    // setLogin((prev) => ({
-    //   ...prev,
-    //   [name]: value,
-    // }));
-    setuserInfo({ ...userInfo, [key]: e.target.value });
-  };
-
   const emailRegEx =
     /^[A-Za-z0-9]([-_.]?[A-Za-z0-9])*@[A-Za-z0-9]([-_.]?[A-Za-z0-9])*\.[A-Za-z]{2,3}$/i;
 
   const passwordRegEx = /^(?=.*[a-zA-Z])(?=.*[!@#$%^*+=-])(?=.*[0-9]).{8,25}$/;
 
+  const handleDisplayNameChange = (e) => {
+    setNickName(e.target.value);
+  };
+
+  const handleEmailChange = (e) => {
+    if (!emailRegEx.test(e.target.value)) {
+      setEmailerr(`${useremail} is not a valid email address.`);
+    } else {
+      setEmailerr("");
+    }
+    setUserEmail(e.target.value);
+  };
+
+  const handlePasswordChange = (e) => {
+    if (!passwordRegEx.test(e.target.value)) {
+      setPassworderr("Please add one of the following things");
+    } else {
+      setPassworderr("");
+    }
+    setUserPassword(e.target.value);
+  };
+
   const SignupHandler = (e) => {
     e.preventDefault();
 
-    if (userInfo.email.length === 0 && userInfo.password.length === 0) {
+    if (useremail.length === 0 && userpassword.length === 0) {
       setEmailerr("Email cannot be empty.");
       setPassworderr("Password cannot be empty.");
-      return;
-    } else if (emailRegEx.test(userInfo.email) === false) {
-      setEmailerr(`${userInfo.email}is not a valid email address.`);
-      console.log("er1");
-      //`${userInfo.email}is not a valid email address.`
-      return;
-    } else if (passwordRegEx.test(userInfo.password) === false) {
-      setPassworderr("Please add one of the following");
-      console.log("er");
       return;
     }
 
@@ -139,9 +127,9 @@ const Signup = () => {
       method: "post",
       url: `${BASE_URL}users/signup`,
       data: {
-        email: userInfo.email,
-        password: userInfo.password,
-        nickName: userInfo.nickName,
+        email: useremail,
+        password: userpassword,
+        nickName: nickName,
         photoURL: `https://randomuser.me/api/portraits/women/${getRandomNumber(
           1,
           98
@@ -176,7 +164,7 @@ const Signup = () => {
                 id="user-id"
                 name="nickName"
                 type="text"
-                onChange={onChangeHandler("nickName")}
+                onChange={handleDisplayNameChange}
               />
             </label>
           </div>
@@ -189,12 +177,8 @@ const Signup = () => {
                 id="email"
                 name="email"
                 type="text"
-                onChange={onChangeHandler("email")}
+                onChange={handleEmailChange}
               />
-              {/* <FontAwesomeIcon
-                icon={faExclamationCircle}
-                className="search-bar__input"
-              /> */}
             </label>
             {emailerr === "" ? null : (
               <div className="Signuperrer" color="red">
@@ -211,27 +195,13 @@ const Signup = () => {
                 id="password"
                 name="password"
                 type="password"
-                onChange={onChangeHandler("password")}
+                onChange={handlePasswordChange}
               />
             </label>
             {passworderr ? (
               <div className="Signuperrer">{passworderr}</div>
             ) : null}
           </div>
-
-          {/* <div className="UserinfoWrap">
-            <label htmlFor="confirm_password">
-              Confirm Password <br />
-              <InputButton
-                active={emailerr}
-                className="SignupInput"
-                id="confirm_password"
-                name="confirmPassword"
-                type="password"
-              />
-            </label>
-          </div> */}
-
           <br />
           <button className="SignUpbtn" type="submit" onChange={SignupHandler}>
             Sign Up

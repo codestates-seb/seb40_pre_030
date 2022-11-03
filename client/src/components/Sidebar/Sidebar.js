@@ -11,7 +11,6 @@ const SideWrap = styled.div`
   /* margin: 0 60px; */
   margin-right: 6rem;
   margin-left: 1rem;
-  z-index: 1;
 `;
 const Sidebar = () => {
   return (
