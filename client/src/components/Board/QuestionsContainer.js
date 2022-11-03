@@ -89,7 +89,7 @@ const QuestionsContainer = () => {
           setListData(data.data);
         });
     };
-
+    //ask버튼을 누를때 로그인이 안되어있으면 로그인창으로 이동
     fetch();
   }, [currentPage, currentSize]);
 
@@ -98,7 +98,31 @@ const QuestionsContainer = () => {
       <div className="questions-header">
         <h1 className="board-title">All Questions</h1>
 
-        <Link to="/ask">
+        {window.localStorage.getItem("accessToken") ? (
+          <Link to="/ask">
+            <Button
+              bgcolor={(props) => props.theme.buttonBlue}
+              font="white"
+              border="none"
+              fontSize="15px"
+            >
+              Ask Question
+            </Button>
+          </Link>
+        ) : (
+          <Link to="/users/login">
+            <Button
+              bgcolor={(props) => props.theme.buttonBlue}
+              font="white"
+              border="none"
+              fontSize="15px"
+            >
+              Ask Question
+            </Button>
+          </Link>
+        )}
+
+        {/* <Link to="/ask">
           <Button
             bgcolor={(props) => props.theme.buttonBlue}
             font="white"
@@ -107,7 +131,7 @@ const QuestionsContainer = () => {
           >
             Ask Question
           </Button>
-        </Link>
+        </Link> */}
       </div>
       <div className="questions-nav-wrapper">
         <div className="questions-count"> {"23,136,393"} questions</div>
