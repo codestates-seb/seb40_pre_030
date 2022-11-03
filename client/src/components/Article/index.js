@@ -28,15 +28,17 @@ const Button = ({ value, setOpenShare }) => {
     }
     if (value === "Delete") {
       if (currentUser.userId === currentQuestion.userId) {
-        axios
-          .delete(`${BASE_URL}${id}`, {
-            headers: {
-              authorization: accessToken,
-            },
-          })
-          .then((res) => {
-            navigate("/");
-          });
+        if (window.confirm("Are you sure you want to delete it?")) {
+          axios
+            .delete(`${BASE_URL}${id}`, {
+              headers: {
+                authorization: accessToken,
+              },
+            })
+            .then((res) => {
+              navigate("/");
+            });
+        }
       } else alert("You can only edit or delete your own!");
     }
   };
