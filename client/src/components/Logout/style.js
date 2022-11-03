@@ -45,8 +45,22 @@ export const OutForm = styled.form`
   .decider {
     display: flex;
     justify-content: space-evenly;
+    align-items: center;
     padding: 0.8rem;
     line-height: 1rem;
+    .cancelbtn {
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      text-decoration: none;
+      color: hsl(206, 100%, 40%);
+      padding-top: 4px;
+      width: 56px;
+      height: 35px;
+      :hover {
+        background-color: ${(props) => props.theme.headerhovergray};
+      }
+    }
   }
   .hint {
     padding-top: 1rem;
@@ -77,6 +91,11 @@ export const SiteLi = styled.li`
     .siteName {
       margin-left: 0.5rem;
     }
+  }
+  .cancelbtn {
+    display: flex;
+    justify-content: center;
+    align-items: center;
   }
 `;
 

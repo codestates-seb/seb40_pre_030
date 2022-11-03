@@ -61,7 +61,9 @@ const LogOut = () => {
           </div>
           <div className="decider">
             <ButtonTag name="Log out" onClick={onLogoutClick} />
-            <Atag name="Cancel" link="http://localhost:3000/" />
+            <a className="cancelbtn" href="/">
+              Cancel
+            </a>
           </div>
           <div className="hint">
             <span>
