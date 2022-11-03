@@ -85,7 +85,6 @@ const NavTab = styled.button`
 const QuestionsContainer = () => {
   const [currentPage, setCurrentPage] = useState(1);
   const [currentSize, setCurrentSize] = useState(15);
-  const [allListData, setAllListData] = useState([]);
   const [listData, setListData] = useState([]);
   const [originData, setOriginData] = useState([]);
   const sortTab = ["Newest", "Unanswered", "Voted"];
@@ -94,13 +93,26 @@ const QuestionsContainer = () => {
   const [totalBoards, setTotalBoards] = useState();
 
   useEffect(() => {
-    if (currentTab === "newest") setListData(originData);
-    if (currentTab === "unanswered") {
-      setListData(allListData.filter((v) => v.answer.length === 0));
-    }
-    if (currentTab === "voted") {
-      setListData(allListData.filter((v) => v.voteCount !== 0));
-    }
+    const fetch = async () => {
+      axios.defaults.withCredentials = true;
+      await axios
+        .get(`${BASE_URL}?page=1&size=${totalBoards}`, {
+          headers: {
+            "ngrok-skip-browser-warning": "skip",
+          },
+        })
+        .then((res) => {
+          const { data } = res;
+          if (currentTab === "newest") setListData(originData);
+          if (currentTab === "unanswered") {
+            setListData(data.data.filter((v) => v.answer.length === 0));
+          }
+          if (currentTab === "voted") {
+            setListData(data.data.filter((v) => v.voteCount !== 0));
+          }
+        });
+    };
+    fetch();
   }, [currentTab]);
 
   useEffect(() => {
@@ -125,20 +137,6 @@ const QuestionsContainer = () => {
   }, [currentPage, currentSize]);
 
   const onTabClick = (tabName) => {
-    const fetch = async () => {
-      axios.defaults.withCredentials = true;
-      await axios
-        .get(`${BASE_URL}?page=1&size=${totalBoards}`, {
-          headers: {
-            "ngrok-skip-browser-warning": "skip",
-          },
-        })
-        .then((res) => {
-          const { data } = res;
-          setAllListData(data.data);
-        });
-    };
-    fetch();
     setCurrentTab(tabName.toLowerCase());
   };
 
