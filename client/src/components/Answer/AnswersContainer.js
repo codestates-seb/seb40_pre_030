@@ -13,6 +13,7 @@ import { useNavigate, useParams } from "react-router";
 import Bubble from "../Article/Bubble";
 import { useRecoilState } from "recoil";
 import { currentAnswerState } from "../../atoms/atoms";
+import { calculateTime } from "../Board/util/calculateTime";
 const StyledAnswersContainer = styled.div`
   padding: 10px;
   .answers-container-title {
@@ -136,7 +137,11 @@ const AnswersContainer = () => {
                     <div className="UserCard">
                       <UserCard
                         answer
-                        createdAt={datas.createdAt.slice(0, 19)}
+                        createdAt={calculateTime(
+                          new Date(datas.createdAt)
+                        ).toLocaleString("ko-KR", {
+                          timeZone: "UTC",
+                        })}
                         photoURL={datas.photoURL}
                         displayName={datas.nickName}
                       />

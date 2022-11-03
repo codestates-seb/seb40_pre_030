@@ -102,7 +102,7 @@ const Article = () => {
       <div>
         <div className="date_wrapper">
           <div>
-            Asked
+            Asked{" "}
             <span>
               {calculateTime(new Date(ArticleData.createdAt)).toLocaleString(
                 "ko-KR",
@@ -153,7 +153,12 @@ const Article = () => {
               </div>
               <div className="post-owner">
                 <div className="user-action-item">
-                  asked 2022-11-01T01:31:27
+                  asked{" "}
+                  {calculateTime(
+                    new Date(ArticleData.createdAt)
+                  ).toLocaleString("ko-KR", {
+                    timeZone: "UTC",
+                  })}
                 </div>
                 <div className="user-avatar">
                   <img src={ArticleData.photoURL} alt="" />
