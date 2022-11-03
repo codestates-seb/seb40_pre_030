@@ -12,6 +12,7 @@ const SprintItme = styled.div`
 `;
 
 const Footerbox = styled.div`
+  z-index: 1;
   background-color: #333333;
   /* height: 20vh; */
   display: flex;
