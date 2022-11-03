@@ -7,7 +7,6 @@ import Article from "../components/Article/index";
 const QuestionViewWrap = styled.div`
   width: 100%;
   margin: auto;
-
   .ViewWrap {
     display: flex;
     flex-direction: row;
