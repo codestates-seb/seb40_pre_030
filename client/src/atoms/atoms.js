@@ -18,9 +18,9 @@ export const loginStatus = atom({
 
 export const loginInfo = atom({
   // key: "loginInfo",
-  key: `loginInfo/${uuidv4()}`,
+  key: `loginInfo`,
   default: null,
-  // effects_UNSTABLE: [persistAtom],
+  effects_UNSTABLE: [persistAtom],
 });
 
 export const currentQuestionState = atom({
