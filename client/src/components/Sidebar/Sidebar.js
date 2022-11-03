@@ -3,9 +3,12 @@ import YellowBox from "./YellowBox";
 import Collectives from "./Collectives";
 
 const SideWrap = styled.div`
-  width: 300px;
+  /* width: 300px; */
+  width: 40%;
   float: right;
-  margin: 0 30px;
+  /* margin: 0 60px; */
+  margin-right: 6rem;
+  margin-left: 1rem;
 `;
 const Sidebar = () => {
   return (
