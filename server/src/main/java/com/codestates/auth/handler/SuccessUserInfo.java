@@ -7,5 +7,6 @@ public class SuccessUserInfo {
 
     private int httpStatus;
     private String email;
+    private String nickName;
     private String photoURL;
 }
