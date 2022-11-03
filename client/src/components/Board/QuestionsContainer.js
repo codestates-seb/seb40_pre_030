@@ -10,7 +10,7 @@ import axios from "axios";
 import { BASE_URL } from "../../util/api";
 
 const StyledQuestionsContainer = styled.div`
-  width: 70%;
+  width: 59%;
   min-width: 40rem;
 
   .questions-header {
