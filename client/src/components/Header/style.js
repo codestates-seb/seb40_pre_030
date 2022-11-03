@@ -74,6 +74,7 @@ export const HeaderWrapper = styled.div`
       position: relative;
       border: 1px solid black;
       padding: 7px 9px;
+      min-width: 184px;
       flex-grow: 1;
       margin: 0 8px;
       background-color: white;
