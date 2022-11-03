@@ -112,7 +112,7 @@ const Pagination = ({
                   <LinkButton buttonContent={totalPages} />
                 </>
               )}
-            <LinkButton buttonContent="Next" />
+            {currentPage < totalPages && <LinkButton buttonContent="Next" />}
           </div>
           <div className="page-size">
             {pageSizes.map((v) => (
