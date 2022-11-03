@@ -1,4 +1,3 @@
-import Tag from "../tags/Tag";
 import { ArticleContent, ArticleWrapper } from "./style";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faCaretUp, faCaretDown } from "@fortawesome/free-solid-svg-icons";
@@ -52,36 +51,40 @@ const Article = () => {
   const UpdateArticleValues = ["Share", "Edit", "Delete"];
   const [currentQuestion, setCurrentQuestion] =
     useRecoilState(currentQuestionState);
-
   const { id } = useParams();
-  const navigate = useNavigate();
 
+  window.scrollTo(0, 0);
   useEffect(() => {
-    window.scrollTo(0, 0);
-
     axios.defaults.withCredentials = true;
 
-      axios
-        .get(`${BASE_URL}${id}`, {
-          headers: {
-            "ngrok-skip-browser-warning": "skip",
-          },
-        })
-        .then((res) => {
-          const { data } = res;
-          setArticleData(data);
-          setCurrentQuestion(data);
-        });
-    };
+    axios
+      .get(`${BASE_URL}${id}`, {
+        headers: {
+          "ngrok-skip-browser-warning": "skip",
+        },
+      })
+      .then((res) => {
+        const { data } = res;
+        setArticleData(data);
+        setCurrentQuestion(data);
+      });
   }, [id]);
 
-  const handleUpClick = () => {
-    axios.patch(`${BASE_URL}${id}/voteUp`).then((response) => {});
-    setCount(Count + 1);
-  };
-  const handleDownClick = () => {
-    axios.patch(`${BASE_URL}${id}/voteDown`).then((response) => {
-      setCount(Count - 1);
+  const onVoteClick = (value) => {
+    if (value === "Up")
+      setArticleData({
+        ...ArticleData,
+        voteCount: ArticleData.voteCount + 1,
+      });
+    if (value === "Down")
+      setArticleData({
+        ...ArticleData,
+        voteCount: ArticleData.voteCount - 1,
+      });
+    axios.patch(`${BASE_URL}${id}/vote${value}`, {
+      headers: {
+        "ngrok-skip-browser-warning": "skip",
+      },
     });
   };
 
@@ -111,13 +114,13 @@ const Article = () => {
               <FontAwesomeIcon
                 className="vote-icon"
                 icon={faCaretUp}
-                onClick={handleUpClick}
+                onClick={() => onVoteClick("Up")}
               />
               {ArticleData.voteCount}
               <FontAwesomeIcon
                 className="vote-icon"
                 icon={faCaretDown}
-                onClick={handleDownClick}
+                onClick={() => onVoteClick("Down")}
               />
             </div>
             <div className="body-section">
@@ -145,13 +148,7 @@ const Article = () => {
           </ArticleContent>
           <AnswersContainer />
         </div>
-        <div className="question-sidebar">
-          <Sidebar />
-        </div>
       </div>
-      {/* <div>
-        <Sidebar />
-      </div> */}
     </ArticleWrapper>
   );
 };
