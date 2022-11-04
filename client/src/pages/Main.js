@@ -23,7 +23,6 @@ const Main = () => {
         <QuestionsContainer />
         <Sidebar />
       </div>
-      {/* <Footer /> */}
     </StyledMain>
   );
 };
