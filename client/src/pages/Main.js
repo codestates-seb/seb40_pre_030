@@ -2,7 +2,6 @@ import styled from "styled-components";
 import Sidebar from "../components/Sidebar/Sidebar";
 import QuestionsContainer from "../components/Board/QuestionsContainer";
 import Navbar from "../components/navbar/Navbar";
-import Footer from "../components/Footer";
 import Container from "../components/Container";
 
 const StyledMain = styled.div`
