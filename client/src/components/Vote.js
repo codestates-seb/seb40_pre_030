@@ -3,7 +3,7 @@ import { faCaretDown, faCaretUp } from "@fortawesome/free-solid-svg-icons";
 import styled from "styled-components";
 import axios from "axios";
 import { BASE_URL } from "../util/api";
-import { useNavigate, useParams } from "react-router";
+import { useParams } from "react-router";
 const StyledVote = styled.div`
   font-size: 1.7rem;
   color: gray;

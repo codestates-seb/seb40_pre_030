@@ -1,5 +1,5 @@
 import styled from "styled-components";
-import Answer from "./Answer";
+
 import AnswerCreate from "./AnswerCreate";
 import axios from "axios";
 import { useState, useEffect } from "react";
@@ -8,7 +8,7 @@ import { BASE_URL } from "../../util/api";
 import Markdown from "../Markdown";
 import UserCard from "../UserCard";
 import Vote from "../Vote";
-import Tag from "../tags/Tag";
+
 import { useNavigate, useParams } from "react-router";
 import Bubble from "../Article/Bubble";
 import { useRecoilState } from "recoil";

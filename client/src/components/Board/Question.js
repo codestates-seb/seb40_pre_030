@@ -1,9 +1,9 @@
 import { Link } from "react-router-dom";
 import styled from "styled-components";
 import AnswerBox from "./AnswerBox";
-import Tag from "../tags/Tag";
+
 import { calculateTime } from "./util/calculateTime";
-import { BASE_URL } from "../../util/api";
+
 import { currentQuestionState } from "../../atoms/atoms";
 import { useRecoilState } from "recoil";
 

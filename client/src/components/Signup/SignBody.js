@@ -1,6 +1,4 @@
 import styled from "styled-components";
-import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
-import { faMessage, faTags, faTrophy } from "@fortawesome/free-solid-svg-icons";
 
 const TextBody = styled.div`
   width: 100%;
