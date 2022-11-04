@@ -206,23 +206,27 @@ const Askquetion = () => {
 
   const AskHandler = (e) => {
     e.preventDefault();
-    axios({
-      method: "post",
-      url: `${BASE_URL}ask`,
-      data: { title, body, photoURL: userInformation.photoURL },
-      headers: {
-        "ngrok-skip-browser-warning": "skip",
-        authorization: accessToken,
-      },
-    })
-      .then(function (response) {
-        navigate(`/question/${response.data.boardId}`);
-        console.log(response.data.boardId);
+    if (body.length < 15)
+      alert("Please enter at least 15 characters in your answer");
+    else {
+      axios({
+        method: "post",
+        url: `${BASE_URL}ask`,
+        data: { title, body, photoURL: userInformation.photoURL },
+        headers: {
+          "ngrok-skip-browser-warning": "skip",
+          authorization: accessToken,
+        },
       })
-      .catch((err) => {
-        console.log(err);
-        alert("글 작성에 실패했습니다");
-      });
+        .then(function (response) {
+          navigate(`/question/${response.data.boardId}`);
+          console.log(response.data.boardId);
+        })
+        .catch((err) => {
+          console.log(err);
+          alert("글 작성에 실패했습니다");
+        });
+    }
   };
 
   return (
