@@ -9,7 +9,6 @@ export function setAcceddTokenCookie(accesstoken) {
   cookies.set("accesstoken", accesstoken, { sameSite: "strict" });
 }
 export function logout() {
-  console.log("localStorage set logout!");
   window.localStorage.setItem("logout", Date.now());
   cookies.remove("refresh_token");
   cookies.remove("accesstoken");
