@@ -1,9 +1,9 @@
 ![header](https://capsule-render.vercel.app/api?type=waving&color=2A4C8E&height=150&section=footer&text=SEB40-030%20pre-project:%20Shark%20Overflow%20🦈&fontAlign=50&fontAlignY=75&fontColor=F5F8FF&fontSize=35&descAlign=92&descAlignY=7&descSize=102)
-
+  <br/><br/>
 ## 🦈 Goal
 
 Stack Overflow 클론 코딩<br>
-
+  <br/><br/>
 ## 🦈 White Sharks
 
 <table>
@@ -37,7 +37,8 @@ Stack Overflow 클론 코딩<br>
 </tr>
 
 </table>
-
+  <br/><br/>
+  
 ## 🦈 Skills
 
  <div align=center>FE <div>
@@ -86,6 +87,8 @@ Stack Overflow 클론 코딩<br>
   
   <br/><br/>
   
+  <div align=left>
+  
 ## 🦈 Commit convention
 
 | gitmoji               | type             | instructions                                                  |
@@ -103,3 +106,5 @@ Stack Overflow 클론 코딩<br>
 | 🔥             | remove           | 파일을 삭제하는 작업만 수행                            |
 | 💥             | !BREAKING CHANGE | 커다란 API 변경                                        |
 | 🚑️       | !HOTFIX          | 급하게 치명적인 버그를 고침                       |
+
+</div>
