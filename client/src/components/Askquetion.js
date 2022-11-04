@@ -79,7 +79,7 @@ const Main = styled.main`
         border: none;
         border-radius: 2px;
         color: #fff;
-        margin-top: 15px;
+        margin: 2rem 0;
         padding: 20px;
       }
       .AskSection {
