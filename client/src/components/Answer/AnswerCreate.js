@@ -19,7 +19,17 @@ const Createform = styled.div`
     font-weight: bold;
   }
   .edit-section {
-    width: 90%;
+    width: 100%;
+    .toastui-editor-defaultUI {
+      max-width: 100%;
+      width: 100%;
+      .toastui-editor-defaultUI-toolbar {
+        button {
+          width: 27px;
+          height: 27px;
+        }
+      }
+    }
   }
   .Postwrap {
     width: 90%;

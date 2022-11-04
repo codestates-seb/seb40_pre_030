@@ -101,8 +101,9 @@ const Question = ({ questionItem }) => {
           </h2>
         </Link>
         <div className="question-content-body">
-          {/* 특정 글자수 이상은 말줄임표로 대체 */}
-          {questionItem.body}
+          {questionItem.body.length > 180
+            ? `${questionItem.body.slice(0, 180)}...`
+            : questionItem.body}
         </div>
         <div className="user-card-minimal">
           <img

@@ -1,21 +1,20 @@
 import styled from "styled-components";
 
 export const HeaderWrapper = styled.div`
-  /* position: fixed;
-  top: 0; */
+  width: 100%;
+  height: 50px;
   position: sticky;
   top: 0;
   z-index: 1;
-  width: 100%;
+  background-color: ${(props) => props.theme.headerBg};
+  box-shadow: 0 1px 2px hsla(0, 0%, 0%, 0.05), 0 1px 4px hsla(0, 0%, 0%, 0.05),
+    0 2px 8px hsla(0, 0%, 0%, 0.05);
   display: flex;
   justify-content: center;
   align-items: center;
-  background-color: ${(props) => props.theme.headerBg};
-  height: 50px;
-  box-shadow: 0 1px 2px hsla(0, 0%, 0%, 0.05), 0 1px 4px hsla(0, 0%, 0%, 0.05),
-    0 2px 8px hsla(0, 0%, 0%, 0.05);
   nav {
-    width: 60%;
+    width: 98rem;
+    max-width: 1264px;
     margin: 0 auto;
     display: flex;
     align-items: center;

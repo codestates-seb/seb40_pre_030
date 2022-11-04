@@ -36,7 +36,7 @@ const StyledAnswer = styled.li`
       display: flex;
       flex-direction: row;
       .answer-body {
-        width: 82%;
+        width: 100%;
         .Tag-section {
           position: relative;
           button {

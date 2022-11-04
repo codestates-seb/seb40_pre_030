@@ -32,11 +32,11 @@ const Accordiondata = [
 ];
 
 const Main = styled.main`
-  width: 100vw;
   margin: auto;
   background-color: #f1f2f3;
   .Mainsection {
-    width: 100vw;
+    width: 100%;
+    max-width: 1264px;
     display: flex;
     flex-flow: row nowrap;
     justify-content: center;
