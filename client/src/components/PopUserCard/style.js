@@ -41,7 +41,7 @@ export const SProfileBox = styled.div`
   padding: 15px;
   row-gap: 10px;
   top: 100%;
-  right: 12.5%;
+  right: 22.5%;
   width: 180px;
   height: 220px;
   border-radius: 10px;

@@ -5,18 +5,18 @@ import Sidebar from "../components/Sidebar/Sidebar";
 import Article from "../components/Article/index";
 
 const QuestionViewWrap = styled.div`
-  width: 100%;
-  /* margin: auto; */
-  display: flex;
-  flex-direction: row;
+  width: 70%;
+  margin-left: 21.8rem;
+  display: grid;
+  grid-template-columns: auto 80%;
   .ViewWrap {
     display: flex;
-    flex-direction: row;
-    /* overflow-x: hidden; */
-    /* align-itmes: center;
-    justify-content: center; */
     .ViewWrap2 {
-      width: 60%;
+      display: flex;
+      flex-direction: column;
+    }
+    .ViewWrap3 {
+      margin-top: 1rem;
     }
   }
 `;
@@ -31,8 +31,15 @@ const QuestionView = () => {
             <Article />
             <AnswersContainer />
           </div>
-
-          <Sidebar />
+          <div className="ViewWrap3">
+            <Sidebar
+              width="90"
+              position="relative"
+              left="100"
+              rigth="10"
+              marginleft="0.8"
+            />
+          </div>
         </div>
       </QuestionViewWrap>
     </>

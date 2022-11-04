@@ -42,7 +42,7 @@ const PopUserCard = ({ userOnClick }) => {
   return (
     <SProfileBox ref={ref}>
       <SImg src={userInfo.photoURL} />
-      <SUserNameH3>test name</SUserNameH3>
+      <SUserNameH3>{userInfo.nickName}</SUserNameH3>
       <p>{userInfo.email}</p>
     </SProfileBox>
   );

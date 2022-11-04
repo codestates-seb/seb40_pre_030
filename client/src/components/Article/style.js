@@ -1,12 +1,9 @@
 import styled from "styled-components";
 
 export const ArticleWrapper = styled.div`
-  margin: 0px;
-
+  max-width: 100%;
   padding: 10px;
   border-bottom: 1px solid lightgrey;
-
-  //수정부분
 
   .sub-content-wapper {
     display: flex;
