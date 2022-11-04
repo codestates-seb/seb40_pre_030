@@ -59,6 +59,7 @@ export const ArticleWrapper = styled.div`
 `;
 export const ArticleContent = styled.article`
   display: grid;
+  grid-template-columns: 5.5rem auto;
   .body-section {
     width: 90%;
     grid-column: 2/3;
@@ -108,6 +109,7 @@ export const ArticleContent = styled.article`
       width: 190px;
       display: flex;
       flex-direction: column;
+      border-radius: 3px;
       float: right;
       background-color: #dceaf6;
       padding: 10px;
