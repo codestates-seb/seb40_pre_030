@@ -117,6 +117,8 @@ export const ArticleContent = styled.article`
         font-size: 0.8rem;
       }
       .user-avatar {
+        color: ${(props) => props.theme.blueFont};
+        font-weight: 600;
         display: flex;
         align-items: center;
       }
