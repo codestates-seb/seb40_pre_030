@@ -43,7 +43,7 @@ public class Board {
     @Column
     private String title;
 
-    @Column
+    @Column(columnDefinition = "TEXT")
     private String body;
 
     @Column// 일단 해놓음
