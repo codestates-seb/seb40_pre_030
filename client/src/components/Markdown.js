@@ -9,7 +9,6 @@ const StyledMarkdown = styled.div`
   .ReactMarkdown {
     pre > div {
       border-radius: 0.4rem;
-      /* max-height: 600px; */
       overflow: overlay !important;
       ::-webkit-scrollbar {
         width: 10px;
@@ -26,7 +25,6 @@ const StyledMarkdown = styled.div`
     min-width: 200px;
     max-width: 800px;
     margin: 0 auto;
-    /* padding: 45px; */
   }
 
   @media (max-width: 767px) {
@@ -864,11 +862,10 @@ const StyledMarkdown = styled.div`
 
   .markdown-body .highlight pre,
   .markdown-body pre {
-    /* padding: 16px; */
     overflow: auto;
     font-size: 85%;
     line-height: 1.45;
-    /* background-color: #f6f8fa; */
+    background-color: #f5f2f0;
     border-radius: 6px;
   }
 
