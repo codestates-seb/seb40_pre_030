@@ -1,16 +1,12 @@
 import { useState } from "react";
 import { useNavigate } from "react-router-dom";
 import { useRecoilState } from "recoil";
-
-import Atag from "../Header/Atag";
 import ButtonTag from "../Header/ButtonTag";
 import { loggedUserAtom, loginInfo } from "../../atoms/atoms";
-import { useLogin } from "../../hooks/customServHook";
+
 import { loginStatus } from "../../atoms/atoms";
 import { OutForm, Wrapper, Contents, SiteLi } from "./style";
 import { logout } from "../../util/Cookies";
-// import Header from "../components/Header";
-
 const siteFile = [
   ["askbuntu.com", "https://askubuntu.com/", [0, -360]],
   ["mathoverflow.com", "https://mathoverflow.net/", [0, -4032]],
@@ -26,7 +22,6 @@ const LogOut = () => {
   const [logged, setLogged] = useRecoilState(loginStatus);
   const [user, setUser] = useRecoilState(loggedUserAtom);
   const [userInfo, setUserInfo] = useRecoilState(loginInfo);
-  setUser(useLogin());
 
   const onClickCheck = (e) => setCheckForAll(!checkForAll);
   const onLogoutClick = (e) => {
