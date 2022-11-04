@@ -15,8 +15,6 @@ export const SProfileBox = styled.div`
   border-radius: 10px;
   background-color: white;
   box-shadow: 0px 0px 5px grey;
-  /* overflow-y: scroll; */
-  /* overflow-x: scroll; */
 `;
 
 export const SImg = styled.img`
