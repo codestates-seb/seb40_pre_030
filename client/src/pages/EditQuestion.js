@@ -92,7 +92,7 @@ const StyledEditQuestion = styled.div`
 const EditQuestion = ({ article }) => {
   const [currentQuestion, setCurrentQuestion] =
     useRecoilState(currentQuestionState);
-  const [body, SetBody] = useState(currentQuestion.body);
+  const [body, setBody] = useState(currentQuestion.body);
   const [title, setTitle] = useState(currentQuestion.title);
   const textRef = useRef("");
   const accessToken = window.localStorage.getItem("accessToken");
@@ -100,11 +100,11 @@ const EditQuestion = ({ article }) => {
   const navigate = useNavigate();
 
   useEffect(() => {
-    SetBody(textRef.current.getInstance().getMarkdown());
+    setBody(textRef.current.getInstance().getMarkdown());
   }, []);
 
   const handleChangeInput = () => {
-    SetBody(textRef.current.getInstance().getMarkdown());
+    setBody(textRef.current.getInstance().getMarkdown());
   };
 
   const onTitleChange = (e) => {
