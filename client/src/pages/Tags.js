@@ -133,9 +133,8 @@ const Tags = () => {
       .then((res) => {
         const { data } = res;
         setTagData(data.items);
-        console.log(data);
       })
-      .catch((err) => console.log(err));
+      .catch((err) => console.log(err)); //catch콘솔도삭제?
   }, [currentPage, currentTab, searchText]);
 
   const onTabClick = (tabName) => {
