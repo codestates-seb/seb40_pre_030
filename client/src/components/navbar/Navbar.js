@@ -75,7 +75,6 @@ const NavContainer = styled.div`
   top: 0;
   height: 100vh;
   min-width: 185px;
-  margin-top: 1rem;
   margin-left: 10px;
   padding-top: 24px;
   border-right: lightgray solid 1px;
@@ -101,7 +100,7 @@ const Navbar = ({ seTabtIndex }) => {
   const onTabClick = (id) => {
     setCurrentTab(id);
     if (id === 0) navigate("/");
-    if (id > 0) navigate(`/${publicTab[id].text.toLowerCase()}`);
+    else if (id > 0 && id < 3) navigate(`/${publicTab[id].text.toLowerCase()}`);
   };
 
   return (

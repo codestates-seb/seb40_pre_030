@@ -10,13 +10,14 @@ import axios from "axios";
 import { BASE_URL } from "../../util/api";
 
 const StyledQuestionsContainer = styled.div`
-  width: 59%;
+  /* width: calc(100% - 324px); */
+  width: 100%;
   min-width: 40rem;
 
   .questions-header {
     box-sizing: border-box;
     padding-left: 0.8rem;
-    margin: 1.4rem 0 2rem 1rem;
+    margin: 0.5rem 0 2rem 1rem;
     display: flex;
     justify-content: space-between;
   }
@@ -64,7 +65,6 @@ const StyledQuestionsContainer = styled.div`
     min-height: 820px;
     display: flex;
     flex-direction: column;
-    justify-content: flex-end;
   }
 `;
 
@@ -145,7 +145,6 @@ const QuestionsContainer = () => {
     <StyledQuestionsContainer className="QuestionsContainer">
       <div className="questions-header">
         <h1 className="board-title">All Questions</h1>
-
         {window.localStorage.getItem("accessToken") ? (
           <Link to="/ask">
             <Button
@@ -202,16 +201,16 @@ const QuestionsContainer = () => {
       <ul className="questions-container">
         {listData &&
           listData.map((v) => <Question key={v.boardId} questionItem={v} />)}
-        {currentTab === "newest" && (
-          <Pagination
-            currentPage={currentPage}
-            currentSize={currentSize}
-            setCurrentPage={setCurrentPage}
-            setCurrentSize={setCurrentSize}
-            totalPages={totalPages}
-          />
-        )}
       </ul>
+      {currentTab === "newest" && (
+        <Pagination
+          currentPage={currentPage}
+          currentSize={currentSize}
+          setCurrentPage={setCurrentPage}
+          setCurrentSize={setCurrentSize}
+          totalPages={totalPages}
+        />
+      )}
     </StyledQuestionsContainer>
   );
 };
