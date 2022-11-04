@@ -23,6 +23,7 @@ public class Answer {
 
     private Long boardId;
 
+    @Column(columnDefinition = "TEXT")
     private String answerBody;
 
     @Column(nullable = false)
