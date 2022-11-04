@@ -58,9 +58,11 @@ export const ArticleWrapper = styled.div`
   }
 `;
 export const ArticleContent = styled.article`
-  display: flex;
+  display: grid;
   .body-section {
     width: 90%;
+    grid-column: 2/3;
+    grid-row: 1/2;
 
     padding-top: 30px;
     font-size: 1rem;
@@ -69,6 +71,7 @@ export const ArticleContent = styled.article`
     }
   }
   .vote-section {
+    height: fit-content;
     display: flex;
     margin-left: 15px;
     margin-right: 15px;
@@ -78,6 +81,8 @@ export const ArticleContent = styled.article`
     padding: 1rem;
     font-size: 1.7rem;
     color: gray;
+    grid-column: 1/2;
+    grid-row: 1/2;
     .vote-icon {
       font-size: 3rem;
     }
@@ -86,6 +91,9 @@ export const ArticleContent = styled.article`
     display: flex;
     justify-content: space-between;
     align-items: center;
+    padding-left: 1rem;
+    grid-column: 1/3;
+    grid-row: 2/3;
 
     .Tag-section {
       position: relative;
