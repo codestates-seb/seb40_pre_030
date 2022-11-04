@@ -12,7 +12,8 @@ import Tag from "../tags/Tag";
 import { useNavigate, useParams } from "react-router";
 import Bubble from "../Article/Bubble";
 import { useRecoilState } from "recoil";
-import { currentAnswerState } from "../../atoms/atoms";
+import { currentAnswerState, loginInfo } from "../../atoms/atoms";
+import { calculateTime } from "../Board/util/calculateTime";
 const StyledAnswersContainer = styled.div`
   padding: 10px;
   .answers-container-title {
@@ -20,11 +21,15 @@ const StyledAnswersContainer = styled.div`
     padding: 20px;
     color: #3d4044;
   }
+  .edit-section {
+    min-width: 670px;
+    overflow: hidden;
+  }
 `;
 const StyledAnswer = styled.li`
   display: flex;
   flex-direction: column;
-  width: 900px;
+  width: 99%;
   .answer-main-wrap {
     border-bottom: 1px solid lightgrey;
     .answer-main {
@@ -63,10 +68,13 @@ const AnswersContainer = () => {
   const [openShare, setOpenShare] = useState(false);
   const [selectedComment, setSelectedComment] = useState();
   const [currentAnswer, setCurrentAnswer] = useRecoilState(currentAnswerState);
+  const [userInfo, setUserInfo] = useRecoilState(loginInfo);
   const UpdateAnswerValues = ["Share", "Edit", "Delete"];
   const [Count, setCount] = useState(0);
   const { id } = useParams();
   const navigate = useNavigate();
+  const [currentUser, setCurrentUser] = useRecoilState(loginInfo);
+  const accessToken = window.localStorage.getItem("accessToken");
 
   //답변 조회 기능
   useEffect(() => {
@@ -82,18 +90,31 @@ const AnswersContainer = () => {
         const { data } = res;
         setAnswerData(data.answer);
       });
-  }, [Count]);
+  }, []);
 
-  const onUpdateButtonClick = (ind, value) => {
-    setSelectedComment(ind);
+  const onUpdateButtonClick = (answerId, value) => {
+    setSelectedComment(answerId);
+    setCurrentAnswer(AnswerData.filter((v) => v.answerId === answerId)[0]);
     if (value === "Share") setOpenShare((pre) => !pre);
     if (value === "Edit") {
-      setCurrentAnswer(AnswerData.filter((v) => v.answerId === ind)[0]);
-      navigate(`/answer/${ind}/edit`);
+      if (currentUser.userId === currentAnswer.userId) {
+        navigate(`/answer/${answerId}/edit`);
+      } else alert("You can only edit or delete your own!");
     }
     if (value === "Delete") {
-      axios.delete(`${BASE_URL}answers/${ind}`);
-      setCount(Count + 1);
+      if (currentUser.userId === currentAnswer.userId) {
+        if (window.confirm("Are you sure you want to delete it?")) {
+          axios
+            .delete(`${BASE_URL}answers/${answerId}`, {
+              headers: {
+                authorization: accessToken,
+              },
+            })
+            .then((res) => {
+              window.location.reload();
+            });
+        }
+      } else alert("You can only edit or delete your own!");
     }
   };
 
@@ -102,11 +123,16 @@ const AnswersContainer = () => {
       <h2 className="answers-container-title">{AnswerData.length} Answers</h2>
       <ul className="answers-list">
         <StyledAnswer className="Answer">
-          {AnswerData.map((datas) => {
+          {AnswerData.map((datas, idx) => {
             return (
               <div className="answer-main-wrap" key={datas.answerId}>
                 <div className="answer-main">
-                  <Vote datas={datas} setCount={setCount} Count={Count} />
+                  <Vote
+                    idx={idx}
+                    AnswerData={AnswerData}
+                    setAnswerData={setAnswerData}
+                    datas={datas}
+                  />
                   <div className="answer-body">
                     <div>
                       <Markdown markdown={datas.answerBody} />
@@ -133,7 +159,7 @@ const AnswersContainer = () => {
                       <UserCard
                         answer
                         createdAt={datas.createdAt.slice(0, 19)}
-                        photoURL={datas.photoURL}
+                        photoURL={userInfo.photoURL}
                         displayName={datas.nickName}
                       />
                     </div>
@@ -143,8 +169,9 @@ const AnswersContainer = () => {
             );
           })}
         </StyledAnswer>
-
-        <AnswerCreate setCount={setCount} Count={Count} />
+        <div className="edit-section">
+          <AnswerCreate setCount={setCount} Count={Count} />
+        </div>
       </ul>
     </StyledAnswersContainer>
   );

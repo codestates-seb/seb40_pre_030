@@ -15,17 +15,25 @@ export const HeaderWrapper = styled.div`
   box-shadow: 0 1px 2px hsla(0, 0%, 0%, 0.05), 0 1px 4px hsla(0, 0%, 0%, 0.05),
     0 2px 8px hsla(0, 0%, 0%, 0.05);
   nav {
-    width: 80%;
+    width: 60%;
     margin: 0 auto;
     display: flex;
     align-items: center;
     div {
       color: black;
     }
+    .logo {
+      display: flex;
+      justify-content: center;
+      padding: 0 0 0 15px;
+      margin-left: -20px;
+      :hover {
+        background-color: ${(props) => props.theme.headerhovergray};
+      }
+    }
     .nav_item {
       width: 150px;
       height: 50px;
-      padding: 10px 10px;
       background-image: ${(props) => props.theme.sprites};
       background-position: 0 -493px;
       background-repeat: no-repeat;
@@ -44,6 +52,7 @@ export const HeaderWrapper = styled.div`
     }
     .hovergray_nav {
       font-size: 0.9rem;
+      margin-left: 5px;
       padding: 7px 0.4rem 10px 0.4rem;
       display: flex;
       align-items: center;

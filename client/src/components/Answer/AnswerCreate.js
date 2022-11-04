@@ -6,7 +6,7 @@ import { useState, useRef } from "react";
 import { BASE_URL } from "../../util/api";
 import { loginStatus } from "../../atoms/atoms";
 import { useRecoilState } from "recoil";
-import { useNavigate, useParams } from "react-router";
+import { useParams } from "react-router";
 
 const Createform = styled.div`
   margin: auto;
@@ -17,6 +17,9 @@ const Createform = styled.div`
     margin-bottom: 30px;
     font-size: 25px;
     font-weight: bold;
+  }
+  .edit-section {
+    width: 90%;
   }
   .Postwrap {
     width: 90%;
@@ -32,19 +35,20 @@ const Createform = styled.div`
     }
   }
 `;
-const AnswerCreate = ({ setCount, Count }) => {
+const AnswerCreate = () => {
   const [answerBody, SetanswerBody] = useState();
   const Bodydata = useRef();
   const [logged, SetLogged] = useRecoilState(loginStatus);
   const { id } = useParams();
-  const navigate = useNavigate();
   const accessToken = window.localStorage.getItem("accessToken");
+
   const AnswerChange = () => {
-    SetanswerBody(Bodydata.current.getInstance().getMarkdown());
+    SetanswerBody(Bodydata.current.getInstance().getMarkdown().trim());
   };
+
   const Answerpost = () => {
-    if (answerBody === undefined || "") {
-      window.alert("답변을 입력해주세요!");
+    if (answerBody.length < 15) {
+      alert("Please enter at least 15 characters in your answer");
     } else {
       axios({
         method: "post",
@@ -54,38 +58,37 @@ const AnswerCreate = ({ setCount, Count }) => {
           "ngrok-skip-browser-warning": "skip",
           authorization: accessToken,
         },
-      }).catch((err) => {
-        if (err.response.status === 401) {
+      })
+        .then(window.location.reload())
+        .catch((err) => {
           console.log(err.response.data);
-        }
-      });
-      setCount(Count + 1);
+        });
     }
   };
 
   return (
     <>
-      {logged ? (
+      {logged && (
         <Createform>
           <div className="AnswerCreatetitle">
             <h1>Your answer</h1>
           </div>
-          <Editor
-            onChange={AnswerChange}
-            ref={Bodydata}
-            width="200px"
-            height="350px"
-            initialEditType="markdown"
-            initialValue="　"
-          />
+          <div className="edit-section">
+            <Editor
+              onChange={AnswerChange}
+              ref={Bodydata}
+              width="100px"
+              height="350px"
+              initialEditType="markdown"
+              initialValue="　"
+            />
+          </div>
           <div className="Postwrap">
             <button className="Postbtn" onClick={Answerpost}>
               Post Your Answer
             </button>
           </div>
         </Createform>
-      ) : (
-        ""
       )}
     </>
   );

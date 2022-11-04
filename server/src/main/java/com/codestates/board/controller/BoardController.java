@@ -1,5 +1,6 @@
 package com.codestates.board.controller;
 
+import com.codestates.auth.userdetails.MemberDetailsService;
 import com.codestates.board.dto.BoardDto;
 import com.codestates.board.entity.Board;
 import com.codestates.board.mapper.BoardMapper;
@@ -9,6 +10,7 @@ import com.codestates.user.service.UserService;
 import org.springframework.data.domain.Page;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
+import org.springframework.security.core.annotation.AuthenticationPrincipal;
 import org.springframework.web.bind.annotation.*;
 import com.codestates.dto.MultiResponseDto;
 
@@ -52,11 +54,13 @@ public class BoardController {
     // 질문 수정
     @PatchMapping("/{post_id}/edit")
     public ResponseEntity patchBoard(@PathVariable("post_id") @Positive long postId,
-                                     @Valid @RequestBody BoardDto.Patch requestBody) {
-
+                                     @Valid @RequestBody BoardDto.Patch requestBody,
+                                     Principal principal) {
+        User user = userService.findVerifiedUserEmail(principal.getName());
+        long userId = user.getUserId();
         requestBody.setBoardId(postId);
         Board board = mapper.boardPatchDtoToBoard(requestBody);
-        Board updateBoard = boardService.updateBoard(board);
+        Board updateBoard = boardService.updateBoard(board,userId);
         BoardDto.Response response = mapper.boardToBoardResponse(updateBoard);
 
         return new ResponseEntity<>(response, HttpStatus.OK);
@@ -109,10 +113,11 @@ public class BoardController {
 
     // 질문 삭제
     @DeleteMapping("{post_id}")
-    public ResponseEntity deleteBoard(@PathVariable("post_id") long postId) {
-
-        boardService.deleteBoard(postId);
-
+    public ResponseEntity deleteBoard(@PathVariable("post_id") long postId,
+                                      Principal principal) {
+        User user = userService.findVerifiedUserEmail(principal.getName());
+        long userId = user.getUserId();
+        boardService.deleteBoard(postId,userId);
         return new ResponseEntity<>(HttpStatus.NO_CONTENT);
     }
 }

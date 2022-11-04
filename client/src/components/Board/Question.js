@@ -4,6 +4,8 @@ import AnswerBox from "./AnswerBox";
 import Tag from "../tags/Tag";
 import { calculateTime } from "./util/calculateTime";
 import { BASE_URL } from "../../util/api";
+import { currentQuestionState } from "../../atoms/atoms";
+import { useRecoilState } from "recoil";
 
 const StyledQuestion = styled.li`
   padding: 1.2rem;
@@ -75,6 +77,9 @@ const StyledQuestion = styled.li`
 `;
 
 const Question = ({ questionItem }) => {
+  const [currentQuestion, setCurrentQuestion] =
+    useRecoilState(currentQuestionState);
+
   return (
     <StyledQuestion className="Question">
       <div className="question-summary-stats">
@@ -88,7 +93,12 @@ const Question = ({ questionItem }) => {
       </div>
       <div className="question-content">
         <Link className="toQuestion" to={"/question/" + questionItem.boardId}>
-          <h2 className="question-content-title">{questionItem.title}</h2>
+          <h2
+            className="question-content-title"
+            onClick={() => setCurrentQuestion({ userId: questionItem.userId })}
+          >
+            {questionItem.title}
+          </h2>
         </Link>
         <div className="question-content-body">
           {/* 특정 글자수 이상은 말줄임표로 대체 */}

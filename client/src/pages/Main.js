@@ -5,8 +5,9 @@ import Navbar from "../components/navbar/Navbar";
 import Footer from "../components/Footer";
 
 const StyledMain = styled.div`
+  width: 80%;
   display: grid;
-  margin-top: 0px;
+  margin-left: 15rem;
   grid-template-columns: auto 80%;
   .main-contents-wrapper {
     display: flex;
@@ -16,9 +17,8 @@ const StyledMain = styled.div`
 
 const Main = () => {
   return (
-    <StyledMain>
+    <StyledMain className="here">
       <Navbar />
-
       <div className="main-contents-wrapper">
         <QuestionsContainer />
         <Sidebar />

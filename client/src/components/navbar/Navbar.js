@@ -71,16 +71,15 @@ const NavTitle = styled.div`
 const NavContainer = styled.div`
   /* position: fixed; */
   position: sticky;
+  justify-self: end;
   top: 0;
   height: 100vh;
-  margin-top: 1rem;
   min-width: 185px;
-  color: gray;
+  margin-top: 1rem;
+  margin-left: 10px;
   padding-top: 24px;
   border-right: lightgray solid 1px;
-  margin-left: 30px;
-  margin-top: 0px;
-  justify-self: end;
+  color: gray;
   //위치조정을 위해?
   margin-bottom: 40px;
   .nav-area {
