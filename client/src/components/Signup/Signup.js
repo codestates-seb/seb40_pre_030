@@ -67,6 +67,10 @@ const Signform = styled.form`
     border-radius: 3px;
     border: none;
     color: #fff;
+
+    &:hover {
+      background-color: #0968dc;
+    }
   }
 `;
 
