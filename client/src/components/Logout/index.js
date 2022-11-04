@@ -22,7 +22,6 @@ const LogOut = () => {
   const navigate = useNavigate();
   const [checkForAll, setCheckForAll] = useState(false);
   const [logged, setLogged] = useRecoilState(loginStatus);
-  const [user, setUser] = useRecoilState(loggedUserAtom);
   const [userInfo, setUserInfo] = useRecoilState(loginInfo);
 
   const onClickCheck = (e) => setCheckForAll(!checkForAll);
@@ -45,8 +44,8 @@ const LogOut = () => {
         <OutForm>
           <ul>
             {siteFile.map((el, idx) => (
-              <SiteLi position={el[2][0]} position2={el[2][1]}>
-                <a key={idx} href={el[1]}>
+              <SiteLi position={el[2][0]} position2={el[2][1]} key={idx}>
+                <a href={el[1]}>
                   <div>
                     <div className="siteLogo"></div>
                   </div>
