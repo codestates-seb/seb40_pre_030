@@ -33,21 +33,21 @@ const Accordiondata = [
 
 const Main = styled.main`
   width: 100vw;
-  margin: auto;
   background-color: #f1f2f3;
+  padding-bottom: 20px;
+  button {
+    cursor: pointer;
+  }
   .Mainsection {
-    width: 100vw;
     display: flex;
-    flex-flow: row nowrap;
     justify-content: center;
     margin: auto;
   }
   .Askheader {
     width: 100%;
-    height: 100px;
     font-size: 30px;
     display: flex;
-    justify-content: left;
+    padding: 30px;
     align-items: center;
     background-image: url(https://cdn.sstatic.net/Img/ask/background.svg?v=c56910988bdf);
     background-position: right bottom;
@@ -59,9 +59,7 @@ const Main = styled.main`
   }
   .MainWrap {
     display: flex;
-    flex-flow: row nowrap;
     column-gap: 50px;
-
     .Askform {
       display: flex;
       flex-flow: column;
@@ -120,13 +118,17 @@ const Main = styled.main`
         font-size: 13px;
         border-bottom: 1px solid #e4e6e8;
         padding-bottom: 5px;
+
+        display: flex;
+        align-items: center;
+        padding: 10px;
         .TopicBtn {
           border: none;
           background-color: #fff;
           font-size: 13px;
           margin-top: 5px;
           font-weight: bold;
-          padding: 10px;
+          margin-right: auto;
         }
       }
       .AsideSlide {
@@ -151,12 +153,9 @@ const Main = styled.main`
         box-shadow: grey 0px 0px 3px;
         padding: 15px;
         margin-top: 30px;
-        transition: padding-top 0.5s, padding-bottom 0.5s, height 0.5s,
-          transform 0.5s;
+        text-align: left;
       }
       .TopicContent {
-        transition: padding-top 0.5s, padding-bottom 0.5s, height 0.5s,
-          transform 0.5s;
         padding: 15px;
         font-size: 14px;
         background-color: #fff;
@@ -258,7 +257,7 @@ const Askquetion = () => {
                       Include all the information someone would need to answer
                       your question
                     </p>
-                    {/* <input className='Forminput2' placeholder="Markdown editor"></input> */}
+
                     <div className="EditorWrap">
                       <Editor
                         ref={textRef}
@@ -313,6 +312,19 @@ const Askquetion = () => {
                                 >
                                   {items.title}
                                 </button>
+                                <span>
+                                  {TitleId === items.id ? (
+                                    <FontAwesomeIcon
+                                      clasName="Aside-icon"
+                                      icon={faAngleDown}
+                                    />
+                                  ) : (
+                                    <FontAwesomeIcon
+                                      clasName="Aside-icon"
+                                      icon={faAngleUp}
+                                    />
+                                  )}
+                                </span>
                               </div>
                               <div
                                 className={
