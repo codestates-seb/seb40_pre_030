@@ -53,6 +53,14 @@ const StyledAnswer = styled.li`
       float: right;
     }
   }
+  .answer-markdown-wrapper {
+    margin-top: 2rem;
+  }
+  .answer-footer {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+  }
 `;
 
 const Button = ({ value, onUpdateButtonClick, answerId }) => {
@@ -134,8 +142,10 @@ const AnswersContainer = () => {
                     datas={datas}
                   />
                   <div className="answer-body">
-                    <div>
+                    <div className="answer-markdown-wrapper">
                       <Markdown markdown={datas.answerBody} />
+                    </div>
+                    <div className="answer-footer">
                       <div className="Tag-section">
                         {UpdateAnswerValues.map((v, idx) => (
                           <Button
@@ -154,22 +164,22 @@ const AnswersContainer = () => {
                           />
                         )}
                       </div>
-                    </div>
-                    <div className="UserCard">
-                      <UserCard
-                        answer
-                        createdAt={calculateTime(
-                          new Date(datas.createdAt)
-                        ).toLocaleString("ko-KR", {
-                          timeZone: "UTC",
-                        })}
-                        photoURL={
-                          userInfo && userInfo.photoURL
-                            ? userInfo.photoURL
-                            : "https://www.gravatar.com/avatar/3b37be7c3ac00a1237fe8d4252fd4540.jpg?size=240&d=https%3A%2F%2Fwww.artstation.com%2Fassets%2Fdefault_avatar.jpg"
-                        }
-                        displayName={datas.nickName}
-                      />
+                      <div className="UserCard">
+                        <UserCard
+                          answer
+                          createdAt={calculateTime(
+                            new Date(datas.createdAt)
+                          ).toLocaleString("ko-KR", {
+                            timeZone: "UTC",
+                          })}
+                          photoURL={
+                            userInfo && userInfo.photoURL
+                              ? userInfo.photoURL
+                              : "https://www.gravatar.com/avatar/3b37be7c3ac00a1237fe8d4252fd4540.jpg?size=240&d=https%3A%2F%2Fwww.artstation.com%2Fassets%2Fdefault_avatar.jpg"
+                          }
+                          displayName={datas.nickName}
+                        />
+                      </div>
                     </div>
                   </div>
                 </div>
