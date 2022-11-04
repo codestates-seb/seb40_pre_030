@@ -87,9 +87,6 @@ const Question = ({ questionItem }) => {
           {questionItem.voteCount || 0} votes
         </p>
         <AnswerBox answerCount={questionItem.answer.length || 0} />
-        <div className="question-summary-stats-item">
-          {questionItem.views || 0} views
-        </div>
       </div>
       <div className="question-content">
         <Link className="toQuestion" to={"/question/" + questionItem.boardId}>
