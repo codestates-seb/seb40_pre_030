@@ -73,7 +73,7 @@ export const ArticleContent = styled.article`
     margin-left: 15px;
     margin-right: 15px;
     flex-direction: column;
-    justify-content: center;
+    justify-content: flex-start;
     align-items: center;
     padding: 1rem;
     font-size: 1.7rem;

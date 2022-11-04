@@ -36,7 +36,7 @@ const StyledAnswer = styled.li`
       display: flex;
       flex-direction: row;
       .answer-body {
-        width: 82%;
+        width: 100%;
         .Tag-section {
           position: relative;
           button {
@@ -158,7 +158,11 @@ const AnswersContainer = () => {
                     <div className="UserCard">
                       <UserCard
                         answer
-                        createdAt={datas.createdAt.slice(0, 19)}
+                        createdAt={calculateTime(
+                          new Date(datas.createdAt)
+                        ).toLocaleString("ko-KR", {
+                          timeZone: "UTC",
+                        })}
                         photoURL={userInfo.photoURL}
                         displayName={datas.nickName}
                       />

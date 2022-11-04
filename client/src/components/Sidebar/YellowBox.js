@@ -2,9 +2,12 @@ import styled from "styled-components";
 import { ReactComponent as Pencil } from "../../assets/pencil.svg";
 
 export const StyledYellowBox = styled.div`
+  width: 300px;
   background-color: #fef6df;
   border: 1px solid #f1e1b6;
   margin-bottom: 20px;
+  box-shadow: 0 1px 2px hsla(0, 0%, 0%, 0.05), 0 1px 4px hsla(0, 0%, 0%, 0.05),
+    0 2px 8px hsla(0, 0%, 0%, 0.05);
 
   a {
     color: black;

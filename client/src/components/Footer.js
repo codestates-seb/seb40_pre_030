@@ -56,7 +56,30 @@ const Footerbox = styled.div`
     margin: 2rem;
   }
 `;
-
+const stack = ["Question", "Help"];
+const product = ["Teams", "Advertising", "Collectives", "Talent"];
+const company = [
+  "About",
+  "Press",
+  "Work Here",
+  "Legal",
+  "Privacy Policy",
+  "Terms of Service",
+  "Contact Us",
+  "Cookie Settings",
+  "Cookie Policy",
+];
+const network = [
+  "Technology",
+  "Culture & recreation",
+  "Life & arts",
+  "Science",
+  "Professional",
+  "Business",
+  "",
+  "API",
+  "Data",
+];
 const Footer = () => {
   return (
     <Footerbox>
@@ -65,43 +88,31 @@ const Footer = () => {
       </SprintItme>
       <div className="box-1">
         <span className="footerTitle">STACKOVERFLOW</span>
-        <span className="subname">Question</span>
-        <span className="subname">Help</span>
+        {stack.map((el) => (
+          <span className="subname">{el}</span>
+        ))}
       </div>
       <div className="box-1">
         <span className="footerTitle">PRODUCTS</span>
         <div className="footersub">
-          <span className="subname">Teams</span>
-          <span className="subname">Advertising</span>
-          <span className="subname">Collectives</span>
-          <span className="subname">Talent</span>
+          {product.map((el) => (
+            <span className="subname">{el}</span>
+          ))}
         </div>
       </div>
       <div className="box-1">
         <span className="footerTitle">COMPANY</span>
         <div className="footersub">
-          <span className="subname">About</span>
-          <span className="subname">Press</span>
-          <span className="subname">Work Here </span>
-          <span className="subname">Legal</span>
-          <span className="subname">Privacy Policy</span>
-          <span className="subname">Terms of Service</span>
-          <span className="subname">Contact Us</span>
-          <span className="subname">Cookie Settings</span>
-          <span className="subname">Cookie Policy</span>
+          {company.map((el) => (
+            <span className="subname">{el}</span>
+          ))}
         </div>
       </div>
       <div className="box-1">
         <span className="footerTitle">STACK EXCHANGE NETWORK</span>
-        <span className="subname">Technology</span>
-        <span className="subname">Culture & recreation</span>
-        <span className="subname">Life & arts</span>
-        <span className="subname">Science</span>
-        <span className="subname">Professional</span>
-        <span className="subname">Business</span>
-        <span className="subname"></span>
-        <span className="subname">API</span>
-        <span className="subname">Data</span>
+        {network.map((el) => (
+          <span className="subname">{el}</span>
+        ))}
       </div>
       <div className="box">
         <div>Blog Facebook Twitter LinkedIn Instagram</div>
