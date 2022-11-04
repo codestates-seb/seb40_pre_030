@@ -66,18 +66,17 @@
   <img src="https://img.shields.io/badge/springboot-6DB33F?style=for-the-badge&logo=springboot&logoColor=white">
   <img src="https://img.shields.io/badge/mysql-4479A1?style=for-the-badge&logo=mysql&logoColor=white">
   
- <img src="https://img.shields.io/badge/MapStruct-6DB33F?style=for-the-badge&logoColor=black">
- <img src="https://img.shields.io/badge/H2-6DB33F?style=for-the-badge&logoColor=black"> 
+ <img src="https://img.shields.io/badge/MapStruct-e68417?style=for-the-badge&logoColor=black">
+ <img src="https://img.shields.io/badge/H2-0000bb?style=for-the-badge&logoColor=black"> 
  <img src="https://img.shields.io/badge/Spring Data JPA-6DB33F?style=for-the-badge&logoColor=black">
  <img src="https://img.shields.io/badge/Hibernate-59666C?style=for-the-badge&logoColor=black">
 
 <img src="https://img.shields.io/badge/Spring Security-6DB33F?style=for-the-badge&logoColor=black">
-<img src="https://img.shields.io/badge/JWT-6DB33F?style=for-the-badge&logoColor=black">
-<img src="https://img.shields.io/badge/OAuth 2.0-6DB33F?style=for-the-badge&logoColor=black">
+<img src="https://img.shields.io/badge/JWT-d63aff?style=for-the-badge&logoColor=black">
+<img src="https://img.shields.io/badge/OAuth 2.0-f8f9fa?style=for-the-badge&logoColor=black">
 
-<img src="https://img.shields.io/badge/Junit5-6DB33F?style=for-the-badge&logoColor=black">
+<img src="https://img.shields.io/badge/Junit5-ffd700?style=for-the-badge&logoColor=black">
 <img src="https://img.shields.io/badge/mockito-6DB33F?style=for-the-badge&logoColor=black">
-<img src="https://img.shields.io/badge/OAuth 2.0-6DB33F?style=for-the-badge&logoColor=black">
 <img src="https://img.shields.io/badge/Spring Rest Docs-6DB33F?style=for-the-badge&logoColor=black">
 
 <img src="https://img.shields.io/badge/Gradle-02303A?style=for-the-badge&logoColor=black">
