@@ -46,14 +46,14 @@ const Createform = styled.div`
   }
 `;
 const AnswerCreate = () => {
-  const [answerBody, SetanswerBody] = useState();
+  const [answerBody, setanswerBody] = useState();
   const Bodydata = useRef();
-  const [logged, SetLogged] = useRecoilState(loginStatus);
+  const [logged, setLogged] = useRecoilState(loginStatus);
   const { id } = useParams();
   const accessToken = window.localStorage.getItem("accessToken");
 
   const AnswerChange = () => {
-    SetanswerBody(Bodydata.current.getInstance().getMarkdown().trim());
+    setanswerBody(Bodydata.current.getInstance().getMarkdown().trim());
   };
 
   const Answerpost = () => {
