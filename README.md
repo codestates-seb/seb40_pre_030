@@ -1,10 +1,13 @@
-![header](https://capsule-render.vercel.app/api?type=waving&color=2A4C8E&height=150&section=footer&text=SEB40-030%20pre-project:%20Shark%20Overflow%20🦈&fontAlign=50&fontAlignY=75&fontColor=F5F8FF&fontSize=35&descAlign=92&descAlignY=7&descSize=102)
+![header](https://capsule-render.vercel.app/api?type=waving&color=2A4C8E&height=150&section=footer&text=Shark%20Overflow%20🦈&fontAlign=50&fontAlignY=75&fontColor=F5F8FF&fontSize=35&descAlign=92&descAlignY=7&descSize=102)
   <br/><br/>
 ## 🦈 Goal
 
-Stack Overflow 클론 코딩<br>
+<b>Code States SEB40-030 pre-project: Stack Overflow clone</b>
+<br>
   <br/><br/>
 ## 🦈 White Sharks
+
+<div align=center> 
 
 <table>
   <tr>
@@ -37,11 +40,14 @@ Stack Overflow 클론 코딩<br>
 </tr>
 
 </table>
+
+</div>
+
   <br/><br/>
   
 ## 🦈 Skills
 
- <div align=center>FE <div>
+ <div align=center><b>FE</b> <div>
 <div align=center> 
   <img src="https://img.shields.io/badge/html5-E34F26?style=for-the-badge&logo=html5&logoColor=white">
  <img src="https://img.shields.io/badge/css-1572B6?style=for-the-badge&logo=css3&logoColor=white">
@@ -54,7 +60,7 @@ Stack Overflow 클론 코딩<br>
  </div>
 <br>
  
-  <div align=center>BE</div>
+  <div align=center><b>BE</b></div>
 
   <img src="https://img.shields.io/badge/java-007396?style=for-the-badge&logo=java&logoColor=white">
   <img src="https://img.shields.io/badge/springboot-6DB33F?style=for-the-badge&logo=springboot&logoColor=white">
@@ -79,7 +85,7 @@ Stack Overflow 클론 코딩<br>
    <br/>
    <br/>
    
-  <div align=center>DEV</div>
+  <div align=center><b>DEV</b></div>
 
   <img src="https://img.shields.io/badge/github-181717?style=for-the-badge&logo=github&logoColor=white">
   <img src="https://img.shields.io/badge/git-F05032?style=for-the-badge&logo=git&logoColor=white">
@@ -90,6 +96,11 @@ Stack Overflow 클론 코딩<br>
   <div align=left>
   
 ## 🦈 Commit convention
+
+</div>
+
+
+<div align=center> 
 
 | gitmoji               | type             | instructions                                                  |
 | --------------------- | ---------------- | ------------------------------------------------------------- |
