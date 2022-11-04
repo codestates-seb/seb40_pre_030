@@ -191,7 +191,7 @@ const Navbar = ({ seTabtIndex }) => {
                 Start collaborating and sharing organizational knowledge.
               </div>
               <img
-                class="wmx100 mx-auto my8 h-auto d-block"
+                className="wmx100 mx-auto my8 h-auto d-block"
                 width="139"
                 height="114"
                 src="https://cdn.sstatic.net/Img/teams/teams-illo-free-sidebar-promo.svg?v=47faa659a05e"
