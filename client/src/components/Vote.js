@@ -20,17 +20,31 @@ const StyledVote = styled.div`
   }
 `;
 
-const Vote = ({ datas, setCount, Count }) => {
-  const navigate = useNavigate();
+const Vote = ({ idx, AnswerData, setAnswerData, datas }) => {
   const { id } = useParams();
-  const handleUpClick = () => {
-    axios.patch(`${BASE_URL}answers/${id}/${datas.answerId}/voteUp`);
+  const accessToken = window.localStorage.getItem("accessToken");
 
-    setCount(Count + 1);
-  };
-  const handleDownClick = () => {
-    axios.patch(`${BASE_URL}answers/${id}/${datas.answerId}/voteDown`);
-    setCount(Count - 1);
+  const onVoteClick = (value) => {
+    let answerDataCopy = [...AnswerData];
+    if (!accessToken) alert("Please sign in first💗");
+    else {
+      if (value === "Up") {
+        answerDataCopy[idx] = { ...datas, voteCount: datas.voteCount + 1 };
+        setAnswerData(answerDataCopy);
+      }
+      if (value === "Down") {
+        answerDataCopy[idx] = { ...datas, voteCount: datas.voteCount - 1 };
+        setAnswerData(answerDataCopy);
+      }
+      axios({
+        method: "patch",
+        url: `${BASE_URL}answers/${id}/${datas.answerId}/vote${value}`,
+        headers: {
+          "ngrok-skip-browser-warning": "skip",
+          authorization: accessToken,
+        },
+      });
+    }
   };
 
   return (
@@ -38,13 +52,13 @@ const Vote = ({ datas, setCount, Count }) => {
       <FontAwesomeIcon
         className="vote-icon"
         icon={faCaretUp}
-        onClick={handleUpClick}
+        onClick={() => onVoteClick("Up")}
       />
       <div>{datas.voteCount}</div>
       <FontAwesomeIcon
         className="vote-icon"
         icon={faCaretDown}
-        onClick={handleDownClick}
+        onClick={() => onVoteClick("Down")}
       />
     </StyledVote>
   );
