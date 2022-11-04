@@ -17,7 +17,7 @@ const StyledQuestionsContainer = styled.div`
   .questions-header {
     box-sizing: border-box;
     padding-left: 0.8rem;
-    margin: 1.4rem 0 2rem 1rem;
+    margin: 0.5rem 0 2rem 1rem;
     display: flex;
     justify-content: space-between;
   }
