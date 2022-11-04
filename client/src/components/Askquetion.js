@@ -226,7 +226,7 @@ const Askquetion = () => {
         })
         .catch((err) => {
           console.log(err);
-          alert("글 작성에 실패했습니다");
+          alert("Failed to write. Try again.");
         });
     }
   };

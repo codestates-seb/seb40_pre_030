@@ -126,7 +126,7 @@ const EditAnswer = ({ article }) => {
       })
       .catch((err) => {
         console.log(err);
-        alert("글 수정에 실패했습니다");
+        alert("Failed to edit the text. Please try again");
       });
   };
 
