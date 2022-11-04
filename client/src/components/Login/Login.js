@@ -178,7 +178,7 @@ const Login = () => {
         setAcceddTokenCookie(accessToken);
         navigate("/");
       })
-      .catch((err) => alert("로그인에 실패하셨습니다"));
+      .catch((err) => alert("Login failed"));
   };
   return (
     <BackgroundLogin>
