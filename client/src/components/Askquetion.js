@@ -271,7 +271,7 @@ const Askquetion = () => {
                           ["bold", "italic", "strike"],
                           ["code", "codeblock"],
                           ["hr", "quote"],
-                          ["ul", "ol", "task", "indent", "outdent"],
+                          ["ul", "ol", "task"],
                         ]}
                       />
                     </div>
