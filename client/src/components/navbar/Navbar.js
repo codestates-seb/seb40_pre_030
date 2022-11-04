@@ -79,6 +79,51 @@ const NavContainer = styled.div`
   color: gray;
   //위치조정을 위해?
   margin-bottom: 40px;
+
+  .Teams-Wrap {
+    border: 1px solid lightgrey;
+    border-right: none;
+    font-size: 0.9rem;
+    padding: 1rem;
+    margin-top: 1rem;
+    border-radius: 0.2rem;
+    > img {
+      margin: auto;
+      margin-bottom: 1.5rem;
+    }
+    .Teams-text {
+      width: 150px;
+    }
+    .TeamsBold {
+      font-weight: bold;
+      color: #000;
+    }
+    .Teams-Button {
+      padding: 10px;
+      text-align: center;
+
+      margin-bottom: 0.5rem;
+      border-radius: 0.2rem;
+      .Color-grey {
+        color: grey;
+      }
+      .Color-grey:visited {
+        color: grey;
+      }
+      a {
+        color: #fff;
+        text-decoration: none;
+      }
+      a:visited {
+        color: #fff;
+      }
+    }
+
+    .Button-Orange {
+      color: #fff;
+      background-color: #f48225;
+    }
+  }
   .nav-area {
     margin-bottom: 30px;
   }
@@ -140,6 +185,39 @@ const Navbar = ({ seTabtIndex }) => {
           </div>
           <div className="nav-area">
             <NavTitle>TEAMS</NavTitle>
+            <div className="Teams-Wrap">
+              <div className="Teams-text">
+                <span className="TeamsBold">Stack Overflow for Teams</span>–
+                Start collaborating and sharing organizational knowledge.
+              </div>
+              <img
+                class="wmx100 mx-auto my8 h-auto d-block"
+                width="139"
+                height="114"
+                src="https://cdn.sstatic.net/Img/teams/teams-illo-free-sidebar-promo.svg?v=47faa659a05e"
+                alt=""
+              ></img>
+              <div className="Teams-Button , Button-Orange">
+                <a
+                  href="https://try.stackoverflow.co/why-teams/?utm_source=so-owned&amp;utm_medium=side-bar&amp;utm_campaign=campaign-38&amp;utm_content=cta"
+                  target="_blank"
+                  rel="noopener"
+                >
+                  Create a free Team
+                </a>
+              </div>
+              <div className="Teams-Button">
+                <a
+                  href="https://stackoverflow.co/teams/"
+                  target="_blank"
+                  rel="noopener"
+                  className="Color-grey"
+                >
+                  {" "}
+                  Why Teams?
+                </a>
+              </div>
+            </div>
           </div>
         </ol>
       </nav>

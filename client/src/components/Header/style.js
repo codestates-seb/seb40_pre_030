@@ -68,8 +68,6 @@ export const HeaderWrapper = styled.div`
       padding: 0;
       display: flex;
       box-sizing: border-box;
-      /* align-items: center; */
-      /* justify-content: center; */
       svg {
         background-color: ${(props) => props.theme.headerBg};
         padding: 18px 0.6rem !important;
@@ -77,9 +75,6 @@ export const HeaderWrapper = styled.div`
           background-color: ${(props) => props.theme.headerhovergray};
         }
       }
-      /* :hover {
-        background-color: ${(props) => props.theme.headerhovergray};
-      } */
     }
     form {
       display: flex;

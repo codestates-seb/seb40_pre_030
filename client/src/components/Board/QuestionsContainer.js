@@ -127,7 +127,6 @@ const QuestionsContainer = () => {
         })
         .then((res) => {
           const { data } = res;
-          console.log(data);
           setListData(data.data);
           setOriginData(data.data);
           setTotalPages(data.pageInfo.totalPages);
