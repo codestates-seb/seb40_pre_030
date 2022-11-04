@@ -47,13 +47,6 @@ export const useLogin = () => {
       },
     })
       .then((response) => {
-        // const accessToken = response.headers.authorization;
-        // localStorage.setItem("accessToken", accessToken);
-        // const loginStatus = true;
-        // console.log(response);
-        // localStorage.setItem("loginStatus", loginStatus);
-        // axios.defaults.headers.common["Authorization"] = `${accessToken}`;
-        // navigate("/");
         setData(response);
       })
       .catch((err) => console.log(err.response));
