@@ -77,7 +77,6 @@ const UserListsWrap = styled.div`
   grid-template-columns: repeat(auto-fill, minmax(14rem, auto));
   gap: 1rem;
   margin: 1.4rem 0 1.4rem 1.8rem;
-
   .profile {
     display: flex;
     .userImg {

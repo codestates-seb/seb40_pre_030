@@ -4,7 +4,7 @@ import { useRecoilState } from "recoil";
 
 import ButtonTag from "../Header/ButtonTag";
 import { loggedUserAtom, loginInfo } from "../../atoms/atoms";
-import { useLogin } from "../../hooks/customServHook";
+
 import { loginStatus } from "../../atoms/atoms";
 import { OutForm, Wrapper, Contents, SiteLi } from "./style";
 import { logout } from "../../util/Cookies";
@@ -24,7 +24,6 @@ const LogOut = () => {
   const [logged, setLogged] = useRecoilState(loginStatus);
   const [user, setUser] = useRecoilState(loggedUserAtom);
   const [userInfo, setUserInfo] = useRecoilState(loginInfo);
-  setUser(useLogin());
 
   const onClickCheck = (e) => setCheckForAll(!checkForAll);
   const onLogoutClick = (e) => {
