@@ -11,6 +11,8 @@ const QuestionViewWrap = styled.div`
   grid-template-columns: auto 80%;
   .ViewWrap {
     display: flex;
+    flex-direction: row;
+
     .ViewWrap2 {
       display: flex;
       flex-direction: column;
