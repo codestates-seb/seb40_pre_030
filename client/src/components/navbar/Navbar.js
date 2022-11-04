@@ -1,6 +1,5 @@
 import { useState } from "react";
 import styled from "styled-components";
-// import ReactDOM from 'react-dom'
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import {
   faEarthAmericas,
@@ -8,7 +7,6 @@ import {
   faCircleInfo,
 } from "@fortawesome/free-solid-svg-icons";
 import { useLocation, useNavigate, useParams } from "react-router-dom";
-// import { useNavigate } from "react-router-dom";
 
 const ChangeLi = styled.li`
   box-sizing: border-box;

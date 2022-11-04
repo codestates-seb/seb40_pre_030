@@ -1,9 +1,6 @@
 import styled from "styled-components";
-import { useState, useEffect } from "react";
+import { useState } from "react";
 import SignBody from "./SignBody";
-import Thirdparty from "../Login/Thirdparty";
-import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
-import { faExclamationCircle } from "@fortawesome/free-solid-svg-icons";
 import { useNavigate } from "react-router";
 import axios from "axios";
 import { BASE_URL } from "../../util/api";
@@ -47,7 +44,6 @@ const Backgtoundsign = styled.div`
 const Signform = styled.form`
   border-radius: 10px;
   background-color: white;
-  /* box-shadow: rgba(0, 0, 0, 0.24) 0px 3px 8px; */
   font-size: 18px;
   padding: 25px;
   margin-left: 20px;
@@ -61,7 +57,6 @@ const Signform = styled.form`
   .Signuperrer {
     color: red;
     font-size: 14px;
-    /* font-weight: bold; */
     outline: #0a95ff;
   }
   .SignUpbtn {
@@ -72,6 +67,10 @@ const Signform = styled.form`
     border-radius: 3px;
     border: none;
     color: #fff;
+
+    &:hover {
+      background-color: #0968dc;
+    }
   }
 `;
 
@@ -83,7 +82,6 @@ const Signup = () => {
   const [useremail, setUserEmail] = useState("");
   const [userpassword, setUserPassword] = useState("");
   const [nickName, setNickName] = useState("");
-  // const [ischeck, setIscheck] = useState(false);
   const [passworderr, setPassworderr] = useState("");
   const [emailerr, setEmailerr] = useState("");
   const navigate = useNavigate();
@@ -140,13 +138,11 @@ const Signup = () => {
       },
     })
       .then((res) => {
-        console.log(res);
         alert("가입되셨습니다");
         navigate("/");
       })
       .catch((err) => {
         alert("회원 가입에 실패하였습니다.");
-        console.log(err);
       });
   };
 
@@ -162,7 +158,6 @@ const Signup = () => {
                 active={emailerr}
                 className="SignupInput"
                 id="user-id"
-                name="nickName"
                 type="text"
                 onChange={handleDisplayNameChange}
               />
@@ -175,15 +170,12 @@ const Signup = () => {
                 active={emailerr}
                 className="SignupInput"
                 id="email"
-                name="email"
                 type="text"
                 onChange={handleEmailChange}
               />
             </label>
             {emailerr === "" ? null : (
-              <div className="Signuperrer" color="red">
-                {emailerr}
-              </div>
+              <div className="Signuperrer">{emailerr}</div>
             )}
           </div>
           <div className="UserinfoWrap">
@@ -193,7 +185,6 @@ const Signup = () => {
                 active={passworderr}
                 className="SignupInput"
                 id="password"
-                name="password"
                 type="password"
                 onChange={handlePasswordChange}
               />

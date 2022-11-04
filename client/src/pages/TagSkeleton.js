@@ -1,5 +1,4 @@
 import styled from "styled-components";
-import Tag from "./Tags";
 
 const Tagske = styled.div`
   display: flex;
