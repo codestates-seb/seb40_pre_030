@@ -10,6 +10,9 @@ const TagsBox = styled.div`
   border: 1px solid lightgray;
   border-radius: 3px;
   padding: 12px;
+  :hover {
+    background-color: #f9f9f9;
+  }
 
   .tagsnum {
     color: ${(props) => props.theme.grayFont};

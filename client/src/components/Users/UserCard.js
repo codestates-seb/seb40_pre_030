@@ -6,6 +6,9 @@ const StyledUserCard = styled.div`
   align-items: center;
   font-weight: 500;
   padding: 0.5rem 0.8rem;
+  :hover {
+    background-color: #f9f9f9;
+  }
 
   .user-avatar {
     width: 48px;
