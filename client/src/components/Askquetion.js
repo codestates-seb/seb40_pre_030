@@ -3,6 +3,7 @@ import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faAngleUp, faAngleDown } from "@fortawesome/free-solid-svg-icons";
 import { useState, useRef, useEffect } from "react";
 import "@toast-ui/editor/dist/toastui-editor.css";
+
 import { Editor } from "@toast-ui/react-editor";
 import { BASE_URL } from "../../src/util/api";
 import axios from "axios";
@@ -265,6 +266,13 @@ const Askquetion = () => {
                         initialEditType="markdown"
                         initialValue=" "
                         onChange={handleChangeInput}
+                        toolbarItems={[
+                          // 툴바 옵션 설정
+                          ["bold", "italic", "strike"],
+                          ["code", "codeblock"],
+                          ["hr", "quote"],
+                          ["ul", "ol", "task", "indent", "outdent"],
+                        ]}
                       />
                     </div>
                   </div>
