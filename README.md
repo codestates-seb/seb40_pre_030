@@ -30,7 +30,6 @@ StackOverFlow site clone<br>
      <td align="center"><a href="https://github.com/mingu0429"><img src=https://avatars.githubusercontent.com/u/73528227?v=4 width="100px;" alt=""/><br /><sub><b>@mingu0429</b></sub></a><br /></td>
      <td align="center"><a href="https://github.com/J4mbo9"><img src=https://avatars.githubusercontent.com/u/108328710?v=4 width="100px;" alt=""/><br /><sub><b>@J4mbo9</b></sub></a><br /></td>
 
-
 </tr>
       <td align="center">BE장유정</td>
       <td align="center">BE김민구</td>
