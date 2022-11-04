@@ -22,13 +22,11 @@ const InputButton = styled.input`
 `;
 
 const Backgtoundsign = styled.div`
-  background-color: #e6e6e6;
+  background-color: #f2f2f3;
   height: 100vh;
   display: flex;
   justify-content: center;
   align-items: center;
-
-  overflow-y: scroll;
 
   .signupContent {
     display: flex;

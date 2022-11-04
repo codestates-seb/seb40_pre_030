@@ -85,7 +85,7 @@ const Submitbtn = styled.button`
 `;
 const BackgroundLogin = styled.div`
   height: 100vh;
-  background-color: #e6e6e6;
+  background-color: #f2f2f3;
   display: flex;
   justify-content: center;
   align-items: center;
