@@ -1,4 +1,3 @@
-// navigation | search-bar | contents
 import { useState } from "react";
 
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";

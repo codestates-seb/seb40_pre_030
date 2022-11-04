@@ -222,7 +222,6 @@ const Askquetion = () => {
       })
         .then(function (response) {
           navigate(`/question/${response.data.boardId}`);
-          console.log(response.data.boardId);
         })
         .catch((err) => {
           console.log(err);
