@@ -21,11 +21,15 @@ const StyledAnswersContainer = styled.div`
     padding: 20px;
     color: #3d4044;
   }
+  .edit-section {
+    min-width: 670px;
+    overflow: hidden;
+  }
 `;
 const StyledAnswer = styled.li`
   display: flex;
   flex-direction: column;
-  width: 900px;
+  width: 99%;
   .answer-main-wrap {
     border-bottom: 1px solid lightgrey;
     .answer-main {
@@ -64,6 +68,7 @@ const AnswersContainer = () => {
   const [openShare, setOpenShare] = useState(false);
   const [selectedComment, setSelectedComment] = useState();
   const [currentAnswer, setCurrentAnswer] = useRecoilState(currentAnswerState);
+  const [userInfo, setUserInfo] = useRecoilState(loginInfo);
   const UpdateAnswerValues = ["Share", "Edit", "Delete"];
   const [Count, setCount] = useState(0);
   const { id } = useParams();
@@ -153,12 +158,8 @@ const AnswersContainer = () => {
                     <div className="UserCard">
                       <UserCard
                         answer
-                        createdAt={calculateTime(
-                          new Date(datas.createdAt)
-                        ).toLocaleString("ko-KR", {
-                          timeZone: "UTC",
-                        })}
-                        photoURL={datas.photoURL}
+                        createdAt={datas.createdAt.slice(0, 19)}
+                        photoURL={userInfo.photoURL}
                         displayName={datas.nickName}
                       />
                     </div>
@@ -168,8 +169,9 @@ const AnswersContainer = () => {
             );
           })}
         </StyledAnswer>
-
-        <AnswerCreate setCount={setCount} Count={Count} />
+        <div className="edit-section">
+          <AnswerCreate setCount={setCount} Count={Count} />
+        </div>
       </ul>
     </StyledAnswersContainer>
   );

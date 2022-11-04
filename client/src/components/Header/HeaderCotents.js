@@ -16,15 +16,12 @@ const contents = {
   true: ["faUser", "faInbox", "faTrophy", "faFileCircleQuestion", "faBars"],
 };
 
-// const Headerbutton = styled.button`
-//   border: none;
-//   background: ${(props) => props.background};
-//   color: white;
-//   color: ${(props) => props.color || "#013a60"};
-// `;
-
 export const Logo = () => {
-  return <Link className="nav_item" to="/"></Link>;
+  return (
+    <Link className="logo" to="/">
+      <div className="nav_item"></div>
+    </Link>
+  );
 };
 
 export const HeaderNav = ({ logged }) => {

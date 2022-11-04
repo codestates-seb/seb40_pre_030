@@ -57,7 +57,7 @@ public class SecurityConfiguration {
                         .antMatchers(HttpMethod.GET, "/users/**").hasAnyRole("USER", "ADMIN") // 회원 조회
                         .antMatchers(HttpMethod.DELETE, "/*/users").hasRole("USER") // 회원 삭제
                         .antMatchers(HttpMethod.POST, "/ask").hasRole("USER") // 질문 등록
-                        .antMatchers(HttpMethod.PATCH, "/*/edit").hasRole("USER") // 질문 편집
+                        .antMatchers(HttpMethod.PATCH, "/*/edit", "/*/voteUp", "/*/voteDown").hasRole("USER") // 질문 편집
                         .antMatchers(HttpMethod.POST, "/answers/**").hasRole("USER") // 답변 생성
                         .antMatchers(HttpMethod.PATCH, "/answers/**").hasRole("USER") // 답변 수정
                         .antMatchers(HttpMethod.DELETE).hasRole("USER") // 질문, 답변 삭제

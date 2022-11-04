@@ -18,6 +18,9 @@ const Createform = styled.div`
     font-size: 25px;
     font-weight: bold;
   }
+  .edit-section {
+    width: 90%;
+  }
   .Postwrap {
     width: 90%;
     margin-top: 30px;
@@ -70,14 +73,16 @@ const AnswerCreate = () => {
           <div className="AnswerCreatetitle">
             <h1>Your answer</h1>
           </div>
-          <Editor
-            onChange={AnswerChange}
-            ref={Bodydata}
-            width="200px"
-            height="350px"
-            initialEditType="markdown"
-            initialValue="　"
-          />
+          <div className="edit-section">
+            <Editor
+              onChange={AnswerChange}
+              ref={Bodydata}
+              width="100px"
+              height="350px"
+              initialEditType="markdown"
+              initialValue="　"
+            />
+          </div>
           <div className="Postwrap">
             <button className="Postbtn" onClick={Answerpost}>
               Post Your Answer
