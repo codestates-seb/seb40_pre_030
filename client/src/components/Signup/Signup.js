@@ -47,7 +47,7 @@ const Signform = styled.form`
   padding: 25px;
   margin-left: 20px;
   display: grid;
-  grid-template-rows: 1fr 1fr 1fr 1fr;
+  grid-template-rows: 1fr 1fr 1fr 0.7fr;
 
   .UserinfoWrap {
     width: 100%;
@@ -102,16 +102,11 @@ const Signup = () => {
 
   const handleEmailChange = (e) => {
     setUserEmail(e.target.value);
-    if (!emailRegEx.test(e.target.value)) {
-      setEmailerr(`${useremail} is not a valid email address.`);
-    } else {
-      setEmailerr("");
-    }
   };
 
   useEffect(() => {
     if ((useremail !== "") & !emailRegEx.test(useremail)) {
-      setEmailerr(`${useremail} is not a valid email address.`);
+      setEmailerr(`${useremail} is not valid.`);
     } else {
       setEmailerr("");
     }
@@ -189,6 +184,7 @@ const Signup = () => {
                 type="text"
                 value={useremail}
                 onChange={handleEmailChange}
+                maxLength="27"
               />
             </label>
             <div className="Signuperrer">{emailerr ? emailerr : " "}</div>
@@ -202,6 +198,7 @@ const Signup = () => {
                 id="password"
                 type="password"
                 onChange={handlePasswordChange}
+                maxLength="20"
               />
             </label>
             <div className="Signuperrer">{passworderr ? passworderr : " "}</div>
