@@ -10,6 +10,10 @@ export const ArticleWrapper = styled.div`
     flex-direction: row;
   }
 
+  .body-main {
+    min-height: 200px;
+  }
+
   .question-sidebar {
     margin-top: 3rem;
     display: flex;

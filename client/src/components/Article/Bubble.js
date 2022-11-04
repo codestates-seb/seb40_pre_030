@@ -59,7 +59,7 @@ const Div = styled.div`
     color: ${(props) => props.theme.blueFont};
     cursor: pointer;
   }
-  img {
+  .bubble-icon {
     width: 16px;
     height: 16px;
     cursor: pointer;
@@ -91,14 +91,17 @@ const Bubble = ({ link, answerId, selectedComment, isAnswer }) => {
         </button>
         <div>
           <img
+            className="bubble-icon"
             src="https://velog.velcdn.com/images/2pandi/post/2e185b3a-6a6a-4f31-812e-b0f7fecee82d/image.svg"
             alt=""
           />
           <img
+            className="bubble-icon"
             src="https://velog.velcdn.com/images/2pandi/post/806ae1d6-b9f3-4637-be94-8d35294ae09e/image.svg"
             alt=""
           />
           <img
+            className="bubble-icon"
             src="https://velog.velcdn.com/images/2pandi/post/142b23be-a06a-4275-8b80-6c2d7312051d/image.svg"
             alt=""
           />

@@ -1,6 +1,5 @@
 import styled from "styled-components";
-import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
-import { faStackOverflow } from "@fortawesome/free-brands-svg-icons";
+import { ReactComponent as Logo } from "../assets/stackLogo.svg";
 
 const SprintItme = styled.div`
   font-size: 3rem;
@@ -13,7 +12,7 @@ const SprintItme = styled.div`
 
 const Footerbox = styled.div`
   z-index: 1;
-  background-color: #333333;
+  background-color: #232629;
   /* height: 20vh; */
   display: flex;
   flex-direction: row;
@@ -62,7 +61,7 @@ const Footer = () => {
   return (
     <Footerbox>
       <SprintItme>
-        <FontAwesomeIcon icon={faStackOverflow} />
+        <Logo width="32" height="37" />
       </SprintItme>
       <div className="box-1">
         <span className="footerTitle">STACKOVERFLOW</span>

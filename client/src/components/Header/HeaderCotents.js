@@ -2,14 +2,7 @@
 import { useState } from "react";
 
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
-import {
-  faMagnifyingGlass,
-  faInbox,
-  faTrophy,
-  faFileCircleQuestion,
-  faBars,
-  faUser,
-} from "@fortawesome/free-solid-svg-icons";
+import { faMagnifyingGlass } from "@fortawesome/free-solid-svg-icons";
 import Atag from "./Atag";
 import { Link } from "react-router-dom";
 
@@ -20,7 +13,7 @@ const headerNav = {
 
 const contents = {
   false: ["Log in", "Sign up"],
-  true: [faUser, faInbox, faTrophy, faFileCircleQuestion, faBars],
+  true: ["faUser", "faInbox", "faTrophy", "faFileCircleQuestion", "faBars"],
 };
 
 export const Logo = () => {
@@ -77,7 +70,7 @@ export const HeaderCont = ({ logged }) => {
                 <Atag className="signtxt" name={el} logged={logged} />
               </div>
             </Link>
-          ) : el === faBars ? (
+          ) : el === "faBars" ? (
             <Link className="hovergray_cont" to="users/logout">
               <Atag name={el} logged={logged} />
             </Link>
