@@ -45,6 +45,21 @@ const Createform = styled.div`
     }
   }
 `;
+
+const LoginFirst = styled.div`
+  width: 100%;
+  height: 150px;
+  border-radius: 10px;
+  background-color: #fef6df;
+  margin: 1rem 0;
+  font-size: 1.3rem;
+  font-weight: 600;
+  color: #525960;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+`;
+
 const AnswerCreate = () => {
   const [answerBody, SetanswerBody] = useState();
   const Bodydata = useRef();
@@ -78,7 +93,7 @@ const AnswerCreate = () => {
 
   return (
     <>
-      {logged && (
+      {logged ? (
         <Createform>
           <div className="AnswerCreatetitle">
             <h1>Your answer</h1>
@@ -99,6 +114,8 @@ const AnswerCreate = () => {
             </button>
           </div>
         </Createform>
+      ) : (
+        <LoginFirst>"Log in to write comments."</LoginFirst>
       )}
     </>
   );
