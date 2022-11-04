@@ -22,7 +22,6 @@ public class BoardDto {
         private String title;
 
         @NotBlank(message = "내용을 작성해주세요.")
-        @Pattern(regexp = "^.{15,}", message = "15자 이상 작성하세요.")
         private String body;
 
         private String nickName;
@@ -38,7 +37,7 @@ public class BoardDto {
 
         private String title;
 
-        @Pattern(regexp = "^.{15,}", message = "15자 이상 작성하세요.")
+        @NotBlank(message = "내용을 작성해주세요.")
         private String body;
     }
 
