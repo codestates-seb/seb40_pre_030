@@ -72,6 +72,7 @@ const StyledEditQuestion = styled.div`
   }
   .edit-buttons {
     width: 160px;
+    margin: 1rem 0 2rem 0;
     display: flex;
     justify-content: space-between;
   }
