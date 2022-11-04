@@ -6,7 +6,6 @@ import lombok.Setter;
 import org.hibernate.validator.constraints.URL;
 
 import javax.validation.constraints.Email;
-import javax.validation.constraints.Min;
 import javax.validation.constraints.NotBlank;
 import javax.validation.constraints.Pattern;
 import java.time.LocalDateTime;

@@ -46,7 +46,7 @@ public class Board {
     @Column(columnDefinition = "TEXT")
     private String body;
 
-    @Column// 일단 해놓음
+    @Column
     private int voteCount;
 
     @OneToMany(mappedBy = "board", cascade = CascadeType.ALL)

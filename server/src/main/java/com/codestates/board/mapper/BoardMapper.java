@@ -13,7 +13,6 @@ import java.util.stream.Collectors;
 public interface BoardMapper {
     Board boardPostDtoToBoard(BoardDto.Post requestBody);
     Board boardPatchDtoToBoard(BoardDto.Patch requestBody);
-//    BoardDto.Response boardToBoardResponse(Board board);
     List<BoardDto.Response> boardsToBoardResponse(List<Board> boards);
 
     default BoardDto.Response boardToBoardResponse(Board requestBody) {
