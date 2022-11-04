@@ -1,6 +1,5 @@
 import { useState } from "react";
 import styled from "styled-components";
-// import ReactDOM from 'react-dom'
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import {
   faEarthAmericas,
@@ -8,7 +7,6 @@ import {
   faCircleInfo,
 } from "@fortawesome/free-solid-svg-icons";
 import { useLocation, useNavigate, useParams } from "react-router-dom";
-// import { useNavigate } from "react-router-dom";
 
 const ChangeLi = styled.li`
   box-sizing: border-box;
@@ -75,7 +73,6 @@ const NavContainer = styled.div`
   top: 0;
   height: 100vh;
   min-width: 185px;
-  margin-top: 1rem;
   margin-left: 10px;
   padding-top: 24px;
   border-right: lightgray solid 1px;
@@ -146,7 +143,7 @@ const Navbar = ({ seTabtIndex }) => {
   const onTabClick = (id) => {
     setCurrentTab(id);
     if (id === 0) navigate("/");
-    if (id > 0) navigate(`/${publicTab[id].text.toLowerCase()}`);
+    else if (id > 0 && id < 3) navigate(`/${publicTab[id].text.toLowerCase()}`);
   };
 
   return (

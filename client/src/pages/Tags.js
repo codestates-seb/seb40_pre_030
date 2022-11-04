@@ -8,11 +8,7 @@ import TagPagination from "../components/tags/TagPagination";
 import axios from "axios";
 import { STACK_EXCHANGE_URL } from "../util/api";
 import TagSkeleton from "./TagSkeleton";
-
-const StyledDiv = styled.div`
-  display: grid;
-  grid-template-columns: auto 80%;
-`;
+import Container from "../components/Container";
 
 const Tagcontent = styled.div`
   max-width: 95%;
@@ -115,6 +111,11 @@ const NavTab = styled.button`
   }
 `;
 
+const StyledTags = styled.div`
+  display: flex;
+  justify-content: center;
+`;
+
 const Tags = () => {
   const [inputText, setInputText] = useState("");
   const [searchText, setSearchText] = useState("");
@@ -147,66 +148,71 @@ const Tags = () => {
   };
 
   return (
-    <StyledDiv className="Tags">
-      <Navbar />
-      <Tagcontent>
-        <div className="tags-header">
-          <div className="board-title">Tags</div>
-          <p className="tags-description">
-            A tag is a keyword or label that categorizes your question with
-            other, similar questions.
-            <br />
-            Using the right tags makes it easier for others to find and answer
-            your question.
-          </p>
-        </div>
-        <div className="TagsBody">
-          <a href="https://stackoverflow.com/tags/synonyms" className="taglink">
-            Show all tag synonyms
-          </a>
-          <div className="filtertags">
-            <form className="search-form" onSubmit={onSearch}>
-              <FontAwesomeIcon
-                className="search-icon"
-                icon={faMagnifyingGlass}
-              />
-              <input
-                className="search-bar"
-                placeholder="Filter by tag name"
-                value={inputText}
-                onChange={handleChange}
-              />
-            </form>
-            <nav className="tags-tab-nav">
-              {sortTab.map((v) => (
-                <NavTab
-                  className="tags-tab"
-                  onClick={() => onTabClick(v)}
-                  value={v.toLowerCase()}
-                  currentTab={currentTab}
-                  key={v.toLowerCase()}
-                >
-                  {v}
-                </NavTab>
-              ))}
-            </nav>
+    <StyledTags>
+      <Container>
+        <Navbar />
+        <Tagcontent>
+          <div className="tags-header">
+            <div className="board-title">Tags</div>
+            <p className="tags-description">
+              A tag is a keyword or label that categorizes your question with
+              other, similar questions.
+              <br />
+              Using the right tags makes it easier for others to find and answer
+              your question.
+            </p>
           </div>
-          <div>{tagData.length === 0 && <TagSkeleton />}</div>
-          <div className="Tagscard">
-            {tagData &&
-              tagData.map((el) => {
-                return <Tagsbody data={el} key={el.name} />;
-              })}
+          <div className="TagsBody">
+            <a
+              href="https://stackoverflow.com/tags/synonyms"
+              className="taglink"
+            >
+              Show all tag synonyms
+            </a>
+            <div className="filtertags">
+              <form className="search-form" onSubmit={onSearch}>
+                <FontAwesomeIcon
+                  className="search-icon"
+                  icon={faMagnifyingGlass}
+                />
+                <input
+                  className="search-bar"
+                  placeholder="Filter by tag name"
+                  value={inputText}
+                  onChange={handleChange}
+                />
+              </form>
+              <nav className="tags-tab-nav">
+                {sortTab.map((v) => (
+                  <NavTab
+                    className="tags-tab"
+                    onClick={() => onTabClick(v)}
+                    value={v.toLowerCase()}
+                    currentTab={currentTab}
+                    key={v.toLowerCase()}
+                  >
+                    {v}
+                  </NavTab>
+                ))}
+              </nav>
+            </div>
+            <div>{tagData.length === 0 && <TagSkeleton />}</div>
+            <div className="Tagscard">
+              {tagData &&
+                tagData.map((el) => {
+                  return <Tagsbody data={el} key={el.name} />;
+                })}
+            </div>
           </div>
-        </div>
-        <div className="pagination-wrapper">
-          <TagPagination
-            currentPage={currentPage}
-            setCurrentPage={setCurrentPage}
-          />
-        </div>
-      </Tagcontent>
-    </StyledDiv>
+          <div className="pagination-wrapper">
+            <TagPagination
+              currentPage={currentPage}
+              setCurrentPage={setCurrentPage}
+            />
+          </div>
+        </Tagcontent>
+      </Container>
+    </StyledTags>
   );
 };
 

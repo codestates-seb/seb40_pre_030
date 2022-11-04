@@ -1,5 +1,5 @@
 
-package com.codestates.dto;
+package com.codestates.response;
 
 import com.codestates.response.PageInfo;
 import lombok.Getter;

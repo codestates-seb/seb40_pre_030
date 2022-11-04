@@ -100,7 +100,7 @@ public class BoardService {
     public void verifyWriter(Board board,long userId){
         long writerId = board.getUser().getUserId();
         if (writerId != userId) {
-            throw new BusinessLogicException(ExceptionCode.PERMISSION_DINIED);
+            throw new BusinessLogicException(ExceptionCode.PERMISSION_DENIED);
         }
     }
 }

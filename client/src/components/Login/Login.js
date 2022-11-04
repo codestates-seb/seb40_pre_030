@@ -12,8 +12,6 @@ import {
   setAcceddTokenCookie,
 } from "../../util/Cookies";
 
-//outline->으로 주기
-
 const LoginInputline = styled.input`
   width: 100%;
   height: 2rem;
@@ -175,15 +173,12 @@ const Login = () => {
 
         setLoginInfo(response.data);
         setLoginState(true);
-        // const loginStatus = true;
-        console.log(response.data);
-
         axios.defaults.headers.common["Authorization"] = `${accessToken}`;
         setRefreshTokenToCookie(refreshToken);
         setAcceddTokenCookie(accessToken);
         navigate("/");
       })
-      .catch((err) => console.log(err.response));
+      .catch((err) => alert("로그인에 실패하셨습니다"));
   };
   return (
     <BackgroundLogin>

@@ -3,6 +3,7 @@ import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import axios from "axios";
 import { useEffect, useState } from "react";
 import styled from "styled-components";
+import Container from "../components/Container";
 import Navbar from "../components/navbar/Navbar";
 import UserCard from "../components/Users/UserCard";
 import UserPagination from "../components/Users/UserPagination";
@@ -94,24 +95,9 @@ const UserListsWrap = styled.div`
   }
 `;
 
-const UsersContainer = styled.div`
-  display: grid;
-  grid-template-columns: auto 80%;
-`;
-
-const NavTab = styled.button`
-  background-color: ${(props) =>
-    props.value === props.currentTab ? "#e3e6e8" : "white"};
-  box-sizing: border-box;
-  height: 100%;
-  border: none;
-  border-right: gray solid 1px;
-  align-self: center;
-  text-align: center;
-  padding: 0.4rem 0.5rem;
-  :last-child {
-    border-right: none;
-  }
+const StyledUsers = styled.div`
+  display: flex;
+  justify-content: center;
 `;
 
 export default function Users() {
@@ -142,39 +128,41 @@ export default function Users() {
   };
 
   return (
-    <UsersContainer>
-      <Navbar />
-      <UserMain>
-        <div className="tags-header">
-          <div className="board-title">Users</div>
-          <div className="filtertags">
-            <form className="search-form" onSubmit={onSearch}>
-              <FontAwesomeIcon
-                className="search-icon"
-                icon={faMagnifyingGlass}
-              />
-              <input
-                className="search-bar"
-                placeholder="Filter by tag name"
-                value={inputText}
-                onChange={handleChange}
-              />
-            </form>
+    <StyledUsers>
+      <Container>
+        <Navbar />
+        <UserMain>
+          <div className="tags-header">
+            <div className="board-title">Users</div>
+            <div className="filtertags">
+              <form className="search-form" onSubmit={onSearch}>
+                <FontAwesomeIcon
+                  className="search-icon"
+                  icon={faMagnifyingGlass}
+                />
+                <input
+                  className="search-bar"
+                  placeholder="Filter by tag name"
+                  value={inputText}
+                  onChange={handleChange}
+                />
+              </form>
+            </div>
           </div>
-        </div>
-        <div className="time"></div>
-        {userData.length === 0 && <TagSkeleton />}
-        <UserListsWrap>
-          {userData &&
-            userData.map((v) => <UserCard user={v} key={v.account_id} />)}
-        </UserListsWrap>
-        <div className="pagination-wrapper">
-          <UserPagination
-            currentPage={currentPage}
-            setCurrentPage={setCurrentPage}
-          />
-        </div>
-      </UserMain>
-    </UsersContainer>
+          <div className="time"></div>
+          {userData.length === 0 && <TagSkeleton />}
+          <UserListsWrap>
+            {userData &&
+              userData.map((v) => <UserCard user={v} key={v.account_id} />)}
+          </UserListsWrap>
+          <div className="pagination-wrapper">
+            <UserPagination
+              currentPage={currentPage}
+              setCurrentPage={setCurrentPage}
+            />
+          </div>
+        </UserMain>
+      </Container>
+    </StyledUsers>
   );
 }

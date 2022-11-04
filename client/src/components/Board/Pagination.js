@@ -5,7 +5,7 @@ import styled from "styled-components";
 const StyledPagination = styled.div`
   display: flex;
   justify-content: space-between;
-  margin: 4rem 2rem 7rem 2rem;
+  margin: 4rem 1rem 7rem 1rem;
   .dotdotdot {
     margin-right: 0.3rem;
   }

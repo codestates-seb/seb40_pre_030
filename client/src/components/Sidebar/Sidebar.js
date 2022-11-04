@@ -3,22 +3,15 @@ import YellowBox from "./YellowBox";
 import Collectives from "./Collectives";
 
 const SideWrap = styled.div`
-  width: ${(props) => props.width | 20}%;
-  float: right;
-  position: ${(props) => (props.position ? "relative" : null)};
-  left: ${(props) => props.left | null}px;
-  margin-right: 6rem;
-  margin-left: ${(props) => props.marginleft | 1}rem;
+  width: 300px;
+  min-width: 300px;
+  max-width: 300px;
+  margin-left: 24px;
 `;
-const Sidebar = ({ width, position, left, marginleft }) => {
+const Sidebar = ({ position, left }) => {
   return (
     <>
-      <SideWrap
-        width={width}
-        position={position}
-        left={left}
-        margin-left={marginleft}
-      >
+      <SideWrap>
         <YellowBox />
         <Collectives />
       </SideWrap>
