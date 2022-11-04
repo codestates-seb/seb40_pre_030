@@ -93,7 +93,7 @@ const StyledEditAnswer = styled.div`
 `;
 
 const EditAnswer = ({ article }) => {
-  const [answerBody, SetAnswerBody] = useState("");
+  const [answerBody, setAnswerBody] = useState("");
   const textRef = useRef("");
   const [currentAnswer, setCurrentAnswer] = useRecoilState(currentAnswerState);
   const [currentQuestion, setCurrentQuestion] =
@@ -104,11 +104,11 @@ const EditAnswer = ({ article }) => {
   const navigate = useNavigate();
 
   useEffect(() => {
-    SetAnswerBody(textRef.current.getInstance().getMarkdown());
+    setAnswerBody(textRef.current.getInstance().getMarkdown());
   }, []);
 
   const handleChangeInput = () => {
-    SetAnswerBody(textRef.current.getInstance().getMarkdown());
+    setAnswerBody(textRef.current.getInstance().getMarkdown());
   };
 
   const onSaveClick = (e) => {

@@ -8,11 +8,9 @@ import { ReactComponent as Trophy } from "../../assets/trophy.svg";
 import { ReactComponent as Question } from "../../assets/questionMark.svg";
 import { ReactComponent as Bubble } from "../../assets/bubble.svg";
 
-// 상위를 a tag에서 div로 변경
 const ATagWrap = styled.div`
   color: hsl(206, 85%, 57.5%);
   border: none;
-  /* padding: 0.4rem; */
   .icon {
     color: #525960;
     fill: #525960;
@@ -30,7 +28,7 @@ const Atag = ({ name, link, logged, isContent, isHover, className }) => {
       <ATagWrap>
         {logged === true ? (
           name === "Products" ? (
-            <div>{name}</div> // 다른 테그로 변경 필요
+            <div>{name}</div>
           ) : name === "faUser" ? (
             <div onClick={userOnClick}>
               <FontAwesomeIcon

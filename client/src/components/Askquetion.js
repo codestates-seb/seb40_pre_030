@@ -1,7 +1,7 @@
 import styled from "styled-components";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faAngleUp, faAngleDown } from "@fortawesome/free-solid-svg-icons";
-import { useState, useRef, useEffect } from "react";
+import { useState, useRef } from "react";
 import "@toast-ui/editor/dist/toastui-editor.css";
 
 import { Editor } from "@toast-ui/react-editor";
@@ -172,38 +172,38 @@ const Main = styled.main`
   }
 `;
 const Askquetion = () => {
-  const [title, Settitle] = useState("");
-  const [body, Setbody] = useState("");
+  const [title, settitle] = useState("");
+  const [body, setbody] = useState("");
   const textRef = useRef("");
-  const [TitleId, SetTitleId] = useState(0);
-  const [TitleOn, SetTitleOn] = useState(false);
-  const [TitleOn2, SetTitleOn2] = useState(false);
+  const [TitleId, setTitleId] = useState(0);
+  const [TitleOn, setTitleOn] = useState(false);
+  const [TitleOn2, setTitleOn2] = useState(false);
   const [userInformation, setUserInformation] = useRecoilState(loginInfo);
   const navigate = useNavigate();
   const accessToken = window.localStorage.getItem("accessToken");
 
   const AskTitleChange = (event) => {
-    Settitle(event.target.value);
+    settitle(event.target.value);
   };
 
   const handleChangeInput = () => {
-    Setbody(textRef.current.getInstance().getMarkdown().trim());
+    setbody(textRef.current.getInstance().getMarkdown().trim());
   };
 
   const TitleClick = (id) => {
     if (id === TitleId) {
-      SetTitleId(0);
+      setTitleId(0);
     } else {
-      SetTitleId(id);
+      setTitleId(id);
     }
   };
 
   const TitleOnClick = () => {
-    SetTitleOn(!TitleOn);
+    setTitleOn(!TitleOn);
   };
 
   const TitleOnClick2 = () => {
-    SetTitleOn2(!TitleOn2);
+    setTitleOn2(!TitleOn2);
   };
 
   const AskHandler = (e) => {
@@ -222,7 +222,6 @@ const Askquetion = () => {
       })
         .then(function (response) {
           navigate(`/question/${response.data.boardId}`);
-          console.log(response.data.boardId);
         })
         .catch((err) => {
           console.log(err);

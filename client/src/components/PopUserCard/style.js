@@ -1,36 +1,4 @@
-import styled, { css } from "styled-components";
-
-export const UserProfileBox = styled.div`
-  display: flex;
-  justify-content: center;
-  align-items: center;
-  width: 65px;
-  height: 100%;
-  font-size: 0.8rem;
-`;
-
-export const UserIconBox = styled.div`
-  width: 25px;
-  height: 25px;
-  border-radius: 10px;
-  overflow: hidden;
-`;
-
-export const UserIconButton = styled.button`
-  background-color: rgba(0, 0, 0, 0);
-  border: 0px;
-  padding: 0px;
-  width: 100%;
-  height: 100%;
-
-  ${({ userImg }) => css`
-    background-image: url(${userImg});
-    background-size: contain;
-  `}
-`;
-export const UserRepSpan = styled.span`
-  padding: 3px;
-`;
+import styled from "styled-components";
 
 export const SProfileBox = styled.div`
   position: absolute;
@@ -41,7 +9,7 @@ export const SProfileBox = styled.div`
   padding: 15px;
   row-gap: 10px;
   top: 100%;
-  right: 22.5%;
+  right: 18%;
   width: 180px;
   height: 220px;
   border-radius: 10px;
