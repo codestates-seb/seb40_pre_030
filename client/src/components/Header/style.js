@@ -52,7 +52,7 @@ export const HeaderWrapper = styled.div`
     .hovergray_nav {
       font-size: 0.9rem;
       margin-left: 5px;
-      padding: 7px 0.4rem 10px 0.4rem;
+      padding: 7px 0.6rem 10px 0.6rem;
       display: flex;
       align-items: center;
       justify-content: center;
@@ -82,7 +82,8 @@ export const HeaderWrapper = styled.div`
       align-items: center;
       justify-content: center;
       position: relative;
-      border: 1px solid black;
+      border: 1px solid lightgray;
+      border-radius: 3px;
       padding: 7px 9px;
       min-width: 184px;
       flex-grow: 1;

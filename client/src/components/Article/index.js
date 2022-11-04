@@ -142,28 +142,28 @@ const Article = () => {
             <div className="body-main">
               <Markdown markdown={ArticleData.body} />
             </div>
-            <div className="body-tag"></div>
-            <div className="body-footer">
-              <div className="Tag-section">
-                {UpdateArticleValues.map((v) => (
-                  <Button key={v} value={v} setOpenShare={setOpenShare} />
-                ))}
-                {/* 배포 후 글 주소 기재하기 */}
-                {openShare && <Bubble link="글 주소 기재" />}
-              </div>
-              <div className="post-owner">
-                <div className="user-action-item">
-                  asked{" "}
-                  {calculateTime(
-                    new Date(ArticleData.createdAt)
-                  ).toLocaleString("ko-KR", {
+          </div>
+          <div className="body-footer">
+            <div className="Tag-section">
+              {UpdateArticleValues.map((v) => (
+                <Button key={v} value={v} setOpenShare={setOpenShare} />
+              ))}
+              {/* 배포 후 글 주소 기재하기 */}
+              {openShare && <Bubble link="글 주소 기재" />}
+            </div>
+            <div className="post-owner">
+              <div className="user-action-item">
+                asked{" "}
+                {calculateTime(new Date(ArticleData.createdAt)).toLocaleString(
+                  "ko-KR",
+                  {
                     timeZone: "UTC",
-                  })}
-                </div>
-                <div className="user-avatar">
-                  <img src={ArticleData.photoURL} alt="" />
-                  {ArticleData.nickName}
-                </div>
+                  }
+                )}
+              </div>
+              <div className="user-avatar">
+                <img src={ArticleData.photoURL} alt="" />
+                {ArticleData.nickName}
               </div>
             </div>
           </div>

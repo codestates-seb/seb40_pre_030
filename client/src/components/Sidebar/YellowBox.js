@@ -29,6 +29,7 @@ export const StyledYellowBox = styled.div`
   }
 
   .Sideheader {
+    color: #525960;
     border-top: 1px solid hsl(47, 65%, 84%);
     border-bottom: 1px solid hsl(47, 65%, 84%);
     background-color: #fcf1d1;

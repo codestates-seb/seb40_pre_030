@@ -75,6 +75,7 @@ const StyledEditAnswer = styled.div`
   }
   .edit-buttons {
     width: 160px;
+    margin: 1rem 0 2rem 0;
     display: flex;
     justify-content: space-between;
   }
@@ -126,7 +127,7 @@ const EditAnswer = ({ article }) => {
       })
       .catch((err) => {
         console.log(err);
-        alert("글 수정에 실패했습니다");
+        alert("Failed to edit the text. Please try again");
       });
   };
 

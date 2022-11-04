@@ -88,30 +88,38 @@ const Footer = () => {
       </SprintItme>
       <div className="box-1">
         <span className="footerTitle">STACKOVERFLOW</span>
-        {stack.map((el) => (
-          <span className="subname">{el}</span>
+        {stack.map((el, idx) => (
+          <span className="subname" key={idx}>
+            {el}
+          </span>
         ))}
       </div>
       <div className="box-1">
         <span className="footerTitle">PRODUCTS</span>
         <div className="footersub">
-          {product.map((el) => (
-            <span className="subname">{el}</span>
+          {product.map((el, idx) => (
+            <span className="subname" key={idx}>
+              {el}
+            </span>
           ))}
         </div>
       </div>
       <div className="box-1">
         <span className="footerTitle">COMPANY</span>
         <div className="footersub">
-          {company.map((el) => (
-            <span className="subname">{el}</span>
+          {company.map((el, idx) => (
+            <span className="subname" key={idx}>
+              {el}
+            </span>
           ))}
         </div>
       </div>
       <div className="box-1">
         <span className="footerTitle">STACK EXCHANGE NETWORK</span>
-        {network.map((el) => (
-          <span className="subname">{el}</span>
+        {network.map((el, idx) => (
+          <span className="subname" key={idx}>
+            {el}
+          </span>
         ))}
       </div>
       <div className="box">

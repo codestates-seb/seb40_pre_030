@@ -22,13 +22,11 @@ const InputButton = styled.input`
 `;
 
 const Backgtoundsign = styled.div`
-  background-color: #e6e6e6;
+  background-color: #f2f2f3;
   height: 100vh;
   display: flex;
   justify-content: center;
   align-items: center;
-
-  overflow-y: scroll;
 
   .signupContent {
     display: flex;
@@ -138,11 +136,11 @@ const Signup = () => {
       },
     })
       .then((res) => {
-        alert("가입되셨습니다");
+        alert("Welcome to Shark Overflow");
         navigate("/");
       })
       .catch((err) => {
-        alert("회원 가입에 실패하였습니다.");
+        alert("Your membership has failed. Please try again.");
       });
   };
 

@@ -58,9 +58,12 @@ export const ArticleWrapper = styled.div`
   }
 `;
 export const ArticleContent = styled.article`
-  display: flex;
+  display: grid;
+  grid-template-columns: 5.5rem auto;
   .body-section {
     width: 90%;
+    grid-column: 2/3;
+    grid-row: 1/2;
 
     padding-top: 30px;
     font-size: 1rem;
@@ -69,15 +72,18 @@ export const ArticleContent = styled.article`
     }
   }
   .vote-section {
+    height: fit-content;
     display: flex;
     margin-left: 15px;
     margin-right: 15px;
     flex-direction: column;
     justify-content: flex-start;
     align-items: center;
-    padding: 1rem;
+    padding: 2.5rem 1rem 1rem 1rem;
     font-size: 1.7rem;
     color: gray;
+    grid-column: 1/2;
+    grid-row: 1/2;
     .vote-icon {
       font-size: 3rem;
     }
@@ -86,6 +92,9 @@ export const ArticleContent = styled.article`
     display: flex;
     justify-content: space-between;
     align-items: center;
+    padding-left: 1rem;
+    grid-column: 1/3;
+    grid-row: 2/3;
 
     .Tag-section {
       position: relative;
@@ -100,6 +109,7 @@ export const ArticleContent = styled.article`
       width: 190px;
       display: flex;
       flex-direction: column;
+      border-radius: 3px;
       float: right;
       background-color: #dceaf6;
       padding: 10px;
@@ -107,6 +117,8 @@ export const ArticleContent = styled.article`
         font-size: 0.8rem;
       }
       .user-avatar {
+        color: ${(props) => props.theme.blueFont};
+        font-weight: 600;
         display: flex;
         align-items: center;
       }

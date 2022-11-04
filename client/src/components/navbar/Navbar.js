@@ -78,7 +78,7 @@ const NavContainer = styled.div`
   border-right: lightgray solid 1px;
   color: gray;
   //위치조정을 위해?
-  margin-bottom: 40px;
+  padding-bottom: 40px;
 
   .Teams-Wrap {
     border: 1px solid lightgrey;

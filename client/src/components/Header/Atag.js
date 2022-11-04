@@ -11,6 +11,10 @@ import { ReactComponent as Bubble } from "../../assets/bubble.svg";
 const ATagWrap = styled.div`
   color: hsl(206, 85%, 57.5%);
   border: none;
+  .icon {
+    color: #525960;
+    fill: #525960;
+  }
 `;
 
 const Atag = ({ name, link, logged, isContent, isHover, className }) => {
@@ -27,25 +31,29 @@ const Atag = ({ name, link, logged, isContent, isHover, className }) => {
             <div>{name}</div>
           ) : name === "faUser" ? (
             <div onClick={userOnClick}>
-              <FontAwesomeIcon icon={faUser} onClick={userOnClick} />
+              <FontAwesomeIcon
+                className="icon"
+                icon={faUser}
+                onClick={userOnClick}
+              />
 
               {!open && <PopUserCard onClick={userOnClick} />}
             </div>
           ) : name === "faInbox" ? (
             <div>
-              <Inbox width="20" height="18" />
+              <Inbox className="icon" width="20" height="18" />
             </div>
           ) : name === "faTrophy" ? (
             <div>
-              <Trophy width="18" height="18" />
+              <Trophy className="icon" width="18" height="18" />
             </div>
           ) : name === "faFileCircleQuestion" ? (
             <div>
-              <Question width="18" height="18" />
+              <Question className="icon" width="18" height="18" />
             </div>
           ) : (
             <div>
-              <Bubble width="18" height="18" />
+              <Bubble className="icon" width="18" height="18" />
             </div>
           )
         ) : (

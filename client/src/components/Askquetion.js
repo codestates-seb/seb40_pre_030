@@ -15,8 +15,7 @@ const Accordiondata = [
   {
     id: 1,
     title: "Summarize the problem",
-    content:
-      "1. Include details about your goal　　　　  2. Describe expected and actual　　　　　 3. results Include any error messages",
+    content: `Include details about your goal. Describe expected and actual. Results Include any error messages`,
   },
   {
     id: 2,
@@ -57,7 +56,8 @@ const Main = styled.main`
     background-repeat: no-repeat;
 
     .AskheadTitle {
-      margin-left: 25px;
+      font-weight: 700;
+      margin: 2rem 0;
     }
   }
   .MainWrap {
@@ -80,7 +80,7 @@ const Main = styled.main`
         border: none;
         border-radius: 2px;
         color: #fff;
-        margin-top: 15px;
+        margin: 2rem 0;
         padding: 20px;
       }
       .AskSection {
@@ -225,7 +225,7 @@ const Askquetion = () => {
         })
         .catch((err) => {
           console.log(err);
-          alert("글 작성에 실패했습니다");
+          alert("Failed to write. Try again.");
         });
     }
   };

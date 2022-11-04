@@ -10,6 +10,8 @@ const StyledUserCard = styled.div`
   flex-direction: column;
   font-size: 0.8rem;
   .user-info {
+    color: ${(props) => props.theme.blueFont};
+    font-weight: 600;
     display: flex;
     align-items: center;
     font-size: 1rem;
