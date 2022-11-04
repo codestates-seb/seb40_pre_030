@@ -52,7 +52,7 @@ export const HeaderWrapper = styled.div`
     .hovergray_nav {
       font-size: 0.9rem;
       margin-left: 5px;
-      padding: 7px 0.4rem 10px 0.4rem;
+      padding: 7px 0.6rem 10px 0.6rem;
       display: flex;
       align-items: center;
       justify-content: center;
