@@ -1,10 +1,10 @@
 ![header](https://capsule-render.vercel.app/api?type=waving&color=2A4C8E&height=150&section=footer&text=SEB40-030%20pre-project:%20Shark%20Overflow%20🦈&fontAlign=50&fontAlignY=75&fontColor=F5F8FF&fontSize=35&descAlign=92&descAlignY=7&descSize=102)
 
-## 목표
+## 🦈 Goal
 
 Stack Overflow 클론 코딩<br>
 
-## 팀원 소개
+## 🦈 White Sharks
 
 <table>
   <tr>
@@ -38,7 +38,7 @@ Stack Overflow 클론 코딩<br>
 
 </table>
 
-<h2>기술 스택<h2>
+## 🦈 Skills
 
  <div align=center>FE <div>
 <div align=center> 
@@ -85,6 +85,8 @@ Stack Overflow 클론 코딩<br>
   <img src="https://img.shields.io/badge/fontawesome-339AF0?style=for-the-badge&logo=fontawesome&logoColor=white">
   
   <br/><br/>
+  
+## 🦈 Commit convention
 
 | gitmoji               | type             | instructions                                                  |
 | --------------------- | ---------------- | ------------------------------------------------------------- |
