@@ -79,7 +79,7 @@ export const ArticleContent = styled.article`
     flex-direction: column;
     justify-content: flex-start;
     align-items: center;
-    padding: 1rem;
+    padding: 2.5rem 1rem 1rem 1rem;
     font-size: 1.7rem;
     color: gray;
     grid-column: 1/2;
