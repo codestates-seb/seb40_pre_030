@@ -10,7 +10,7 @@ import Button from "../components/Button";
 import Container from "../components/Container";
 import Markdown from "../components/Markdown";
 import Navbar from "../components/navbar/Navbar";
-import { ListContent, StyledYellowBox } from "../components/Sidebar/YellowBox";
+import { StyledYellowBox } from "../components/Sidebar/YellowBox";
 import { BASE_URL } from "../util/api";
 
 const StyledEditQuestion = styled.div`
