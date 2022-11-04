@@ -1,7 +1,7 @@
 import styled from "styled-components";
 
 const TextBody = styled.div`
-  width: 100%;
+  width: 440px;
 `;
 
 const SubTitle = styled.div`

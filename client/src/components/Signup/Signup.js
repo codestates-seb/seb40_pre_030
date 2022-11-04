@@ -1,5 +1,5 @@
 import styled from "styled-components";
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import SignBody from "./SignBody";
 import { useNavigate } from "react-router";
 import axios from "axios";
@@ -40,24 +40,31 @@ const Backgtoundsign = styled.div`
 `;
 
 const Signform = styled.form`
+  height: 350px;
   border-radius: 10px;
   background-color: white;
   font-size: 18px;
   padding: 25px;
   margin-left: 20px;
+  display: grid;
+  grid-template-rows: 1fr 1fr 1fr 1fr;
 
   .UserinfoWrap {
     width: 100%;
-    padding: 5px;
-    margin-top: 15px;
+    /* padding: 5px; */
   }
 
   .Signuperrer {
+    max-width: 250px;
+    height: 20px;
     color: red;
     font-size: 14px;
     outline: #0a95ff;
+    word-break: break-all;
+    margin-top: 10px;
   }
   .SignUpbtn {
+    height: 50px;
     width: 100%;
     padding: 15px;
     font-size: 18px;
@@ -65,6 +72,7 @@ const Signform = styled.form`
     border-radius: 3px;
     border: none;
     color: #fff;
+    align-self: flex-end;
 
     &:hover {
       background-color: #0968dc;
@@ -93,17 +101,27 @@ const Signup = () => {
   };
 
   const handleEmailChange = (e) => {
+    setUserEmail(e.target.value);
     if (!emailRegEx.test(e.target.value)) {
       setEmailerr(`${useremail} is not a valid email address.`);
     } else {
       setEmailerr("");
     }
-    setUserEmail(e.target.value);
   };
+
+  useEffect(() => {
+    if ((useremail !== "") & !emailRegEx.test(useremail)) {
+      setEmailerr(`${useremail} is not a valid email address.`);
+    } else {
+      setEmailerr("");
+    }
+  }, [useremail]);
 
   const handlePasswordChange = (e) => {
     if (!passwordRegEx.test(e.target.value)) {
-      setPassworderr("Please add one of the following things");
+      setPassworderr(
+        "8 to 20 including alphabet, numbers, and special characters"
+      );
     } else {
       setPassworderr("");
     }
@@ -137,7 +155,7 @@ const Signup = () => {
     })
       .then((res) => {
         alert("Welcome to Shark Overflow");
-        navigate("/");
+        navigate("/users/login");
       })
       .catch((err) => {
         alert("Your membership has failed. Please try again.");
@@ -169,12 +187,11 @@ const Signup = () => {
                 className="SignupInput"
                 id="email"
                 type="text"
+                value={useremail}
                 onChange={handleEmailChange}
               />
             </label>
-            {emailerr === "" ? null : (
-              <div className="Signuperrer">{emailerr}</div>
-            )}
+            <div className="Signuperrer">{emailerr ? emailerr : " "}</div>
           </div>
           <div className="UserinfoWrap">
             <label htmlFor="password">
@@ -187,11 +204,9 @@ const Signup = () => {
                 onChange={handlePasswordChange}
               />
             </label>
-            {passworderr ? (
-              <div className="Signuperrer">{passworderr}</div>
-            ) : null}
+            <div className="Signuperrer">{passworderr ? passworderr : " "}</div>
           </div>
-          <br />
+
           <button className="SignUpbtn" type="submit" onChange={SignupHandler}>
             Sign Up
           </button>
