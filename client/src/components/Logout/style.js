@@ -37,7 +37,6 @@ export const Contents = styled.div`
 `;
 
 export const OutForm = styled.form`
-  /* border: 1px solid gray; */
   background-color: white;
   width: 300px;
   box-shadow: 0 10px 24px hsla(0, 0%, 0%, 0.05),
@@ -52,7 +51,6 @@ export const OutForm = styled.form`
   }
   .decider {
     display: flex;
-    /* justify-content: space-evenly; */
     align-items: center;
     padding: 0.8rem;
     line-height: 1rem;
@@ -106,5 +104,3 @@ export const SiteLi = styled.li`
     align-items: center;
   }
 `;
-
-// ${(props) => props.position | (0 - 360)}px;
