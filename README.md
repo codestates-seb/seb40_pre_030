@@ -55,7 +55,7 @@
  <img src="https://img.shields.io/badge/react-61DAFB?style=for-the-badge&logo=react&logoColor=black">
  <br>
   <img src="https://img.shields.io/badge/styledcomponents-DB7093?style=for-the-badge&logoColor=black">
- <img src="https://img.shields.io/badge/recoil-0075EB?style=for-the-badge&logoColor=black">
+ <img src="https://img.shields.io/badge/recoil-0075EB?style=for-the-badge&logoColor=black"> <img src="https://img.shields.io/badge/Axios-181717?style=for-the-badge&logo=Axios&logoColor=white">
 
  </div>
 <br>
