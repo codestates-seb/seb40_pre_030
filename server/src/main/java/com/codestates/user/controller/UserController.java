@@ -46,18 +46,6 @@ public class UserController {
         return new ResponseEntity<>(response ,HttpStatus.OK);
     }
 
-//    사이드바 Users 구현시
-//    @GetMapping
-//    public ResponseEntity getUsers(@Positive @RequestParam int page,
-//                                   @Positive @RequestParam int size){
-//
-//        Page<User> pageUsers = userService.findUsers(page -1,size);
-//        List<User> users = pageUsers.get();
-//
-//        return new ResponseEntity<>(
-//                new MultiResponseDto<>(mapper.useToUserResponseDto(user)),HttpStatus.OK);
-//    }
-
     @DeleteMapping("/{user-id}")
     public ResponseEntity deleteUser(@PathVariable("user-id") @Positive long userId){
 
