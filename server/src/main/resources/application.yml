@@ -1,0 +1,24 @@
+spring:
+  datasource:
+    driver-class-name: com.mysql.cj.jdbc.Driver
+    url: jdbc:mysql://codestates-db.cvpvjd0qf4pp.ap-northeast-2.rds.amazonaws.com:3306/stackoverflow?serverTimezone=Asia/Seoul
+    username: admin
+    password: codestates
+
+  jpa:
+    hibernate:
+      ddl-auto: update
+    show-sql: true
+    properties:
+      hibernate:
+        format_sql: true
+
+mail:
+  address:
+    admin: admin@gmail.com
+
+jwt:
+  key:
+    secret: ${JWT_SECRET_KEY}
+  access-token-expiration-minutes: 1440
+  refresh-token-expiration-minutes: 20160
