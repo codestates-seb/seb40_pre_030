@@ -1,4 +1,5 @@
 import styled from "styled-components";
+import { DEPLOY_URL } from "../../util/api";
 
 const Div = styled.div`
   display: flex;
@@ -84,7 +85,7 @@ const Bubble = ({ link, answerId, selectedComment, isAnswer }) => {
       <div className="bubble-text">
         Share a link to this {isAnswer ? "answer" : "question"}
       </div>
-      <input value={link} disabled />
+      <input value={`${DEPLOY_URL}question/${link}`} disabled />
       <div className="bubble-interaction">
         <button id="copy-button" onClick={onCopy}>
           Copy link

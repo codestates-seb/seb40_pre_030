@@ -149,7 +149,7 @@ const Article = () => {
                 <Button key={v} value={v} setOpenShare={setOpenShare} />
               ))}
               {/* 배포 후 글 주소 기재하기 */}
-              {openShare && <Bubble link="글 주소 기재" />}
+              {openShare && <Bubble link={id} />}
             </div>
             <div className="post-owner">
               <div className="user-action-item">
