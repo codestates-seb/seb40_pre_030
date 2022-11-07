@@ -73,7 +73,7 @@ const Div = styled.div`
 
 const Bubble = ({ link, answerId, selectedComment, isAnswer }) => {
   const onCopy = async () => {
-    await navigator.clipboard.writeText(link);
+    await navigator.clipboard.writeText(`${DEPLOY_URL}question/${link}`);
     alert("Copy complete!");
   };
   return (
