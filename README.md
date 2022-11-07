@@ -2,7 +2,8 @@
   <br/><br/>
 ## 🦈 Goal
 
-<b>Code States SEB40-030 pre-project: Stack Overflow clone</b>
+<b>Code States SEB40-030 pre-project: Stack Overflow clone</b><br>
+<b>배포링크:"http://shark-overflow-bucket.s3-website.ap-northeast-2.amazonaws.com/"</b>
 <br>
   <br/><br/>
 ## 🦈 White Sharks
