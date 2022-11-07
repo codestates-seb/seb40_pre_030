@@ -114,7 +114,6 @@ export default function Users() {
       .then((res) => {
         const { data } = res;
         setUserData(data.items);
-        console.log(data);
       })
       .catch(() => alert("Failed to load user list"));
   }, [currentPage, searchText]);
