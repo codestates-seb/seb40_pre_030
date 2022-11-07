@@ -1,20 +1,14 @@
 package com.codestates.user.mapper;
 
-import com.codestates.answer.entity.Answer;
-import com.codestates.board.dto.BoardDto;
-import com.codestates.board.entity.Board;
 import com.codestates.user.dto.UserDto;
 import com.codestates.user.entity.User;
 import org.mapstruct.Mapper;
-
-import java.util.List;
 
 @Mapper(componentModel = "spring")
 public interface UserMapper {
 
     User userPostDtoToUser(UserDto.Post requestBody);
     UserDto.Response userToUserResponse(User user);
-//    List<UserDto.Response> usersToUserResponse(List<User> users);
 
     default UserDto.Response userToUserResponseGet(User requestBody) {
 

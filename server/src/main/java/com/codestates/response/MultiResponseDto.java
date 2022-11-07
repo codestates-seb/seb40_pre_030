@@ -1,7 +1,6 @@
 
 package com.codestates.response;
 
-import com.codestates.response.PageInfo;
 import lombok.Getter;
 import org.springframework.data.domain.Page;
 

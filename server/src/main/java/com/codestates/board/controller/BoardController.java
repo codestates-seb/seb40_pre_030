@@ -1,6 +1,5 @@
 package com.codestates.board.controller;
 
-import com.codestates.auth.userdetails.MemberDetailsService;
 import com.codestates.board.dto.BoardDto;
 import com.codestates.board.entity.Board;
 import com.codestates.board.mapper.BoardMapper;
@@ -10,7 +9,6 @@ import com.codestates.user.service.UserService;
 import org.springframework.data.domain.Page;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
-import org.springframework.security.core.annotation.AuthenticationPrincipal;
 import org.springframework.web.bind.annotation.*;
 import com.codestates.response.MultiResponseDto;
 

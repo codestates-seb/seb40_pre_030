@@ -49,11 +49,6 @@ public class UserService {
 
         return findUser;
     }
-//    사이드 바 유저 버튼 활성시
-//    public Page<User> findUsers(int page, int size) {
-//        return userRepository.findAll(PageRequest.of(page, size,
-//                Sort.by("userId").descending()));
-//    }
 
     // 회원 삭제
     public void deleteUser(long userId){
