@@ -24,7 +24,6 @@ const StyledAnswer = styled.li`
 `;
 
 const Answer = ({ AnswerData }) => {
-  console.log(AnswerData);
   return (
     <StyledAnswer className="Answer">
       <div className="answer-body">

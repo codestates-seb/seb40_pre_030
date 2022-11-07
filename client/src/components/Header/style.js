@@ -6,6 +6,7 @@ export const HeaderWrapper = styled.div`
   position: sticky;
   top: 0;
   z-index: 1;
+  border-top: ${(props) => props.theme.highlightOrange + " solid 2px"};
   background-color: ${(props) => props.theme.headerBg};
   box-shadow: 0 1px 2px hsla(0, 0%, 0%, 0.05), 0 1px 4px hsla(0, 0%, 0%, 0.05),
     0 2px 8px hsla(0, 0%, 0%, 0.05);
@@ -70,7 +71,7 @@ export const HeaderWrapper = styled.div`
       box-sizing: border-box;
       svg {
         background-color: ${(props) => props.theme.headerBg};
-        padding: 18px 0.6rem !important;
+        padding: 14px 0.6rem !important;
         :hover {
           background-color: ${(props) => props.theme.headerhovergray};
         }
